@@ -1,0 +1,26 @@
+.banner-container {
+  height: 20%;
+  width: 100%;
+  background-color: #d2f9f4;
+}
+.icon-container {
+  padding: 10px;
+  margin-left: 2.5rem; /* equivalent to ml-10 */
+  display: flex;
+  align-items: center;
+  background-color: black;
+  width: 30%; /* equivalent to w-1/3 */
+  height: 33%; /* equivalent to h-1/3 */
+  border-radius: 45px;
+}
+
+.icon-image {
+  margin-left: 1.25rem; /* equivalent to ml-5 */
+}
+
+.icon-text {
+  color: white;
+  margin-left: 2.5rem; /* equivalent to ml-10 */
+  font-weight: bold;
+  font-size: 35px; /* equivalent to text-3xl */
+}

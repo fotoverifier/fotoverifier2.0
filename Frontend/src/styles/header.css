@@ -1,0 +1,17 @@
+.header-container {
+  height: 8.5%;
+  width: 100%;
+  background: linear-gradient(to left, #01584b, #016a5b, #54bbab);
+  display: flex;
+  align-items: center;
+}
+.menu-header-icon {
+  height: 70%;
+  width: 5%;
+}
+.header-main-icon-container {
+  height: 80%;
+  width: 25%;
+  background-color: black;
+  border-radius: 45px;
+}

@@ -1,0 +1,10 @@
+.push-effect {
+  transition: transform 0.3s ease-in-out;
+}
+
+.push-effect:hover {
+  transform: scale(1.05);
+  font-size: large; /* Scale down to create the push effect */
+}
+.font-item {
+}
