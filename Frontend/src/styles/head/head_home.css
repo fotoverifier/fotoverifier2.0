@@ -1,0 +1,65 @@
+.header-container {
+    height: 8.5%;
+    width: 100%;
+    background: #03564A;
+    display: flex;
+  }
+  .header-icon {
+    display: flex;
+    width: 20%;
+    height: 100%; /* Adjust the height to fit your needs */
+}
+
+.image-wrapper {
+   display: flex;
+   justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%; /* Set height as needed */
+
+}
+.vertical-line{
+  display: flex;
+  align-self: center;
+  height: 80%;
+  width: 1px;
+}
+
+.header-icon img {
+  object-fit: cover;
+}
+.header-shortcuts{
+  display: flex;
+  width: 30%;
+  height: 100%; /* Adjust the height to fit your needs */
+}
+.header-shortcuts button{
+  width: 30%;
+  height: 100%; 
+  color:  white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-go{
+  width: 20%;
+  height: 100%;
+  display: flex;
+  margin-left: auto;
+  justify-content: center;
+  align-items: center;
+}
+.header-button{
+  width: 80%;
+  height: 60%;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-text{
+  color: white;
+  
+}

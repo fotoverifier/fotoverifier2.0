@@ -1,5 +1,5 @@
 import React from "react";
-import "@/app/(main layout)/home/home.css";
+import "@/app/(main layout)/dashboard/home.css";
 
 const home = () => {
   const categories = [
