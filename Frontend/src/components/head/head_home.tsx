@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import FotoverifierWhite from "@/assets/Fotoverifier_white.svg";
 import IconWhite from "@/assets/icon_main_white.svg"
-import { FaAngleDown } from "react-icons/fa6";
 import HH_Button from "../button/head_home_button";
 const inter = Inter({ subsets: ["latin"] });
 const Home_Header = () => {
@@ -25,11 +24,12 @@ const Home_Header = () => {
             <button> News   </button>
             <button> Team   </button>
         </div>
-        <div className="header-go"> 
+
+        <Link className="header-go"  href="/dashboard"> 
             <div className="header-button"> 
                 <div className="header-text"> GO TO DASHBOARD </div>
             </div>
-        </div>
+        </Link>
     </div>
   );
 };

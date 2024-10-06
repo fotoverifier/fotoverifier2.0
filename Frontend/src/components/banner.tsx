@@ -10,25 +10,7 @@ import iconSrc from "@/assets/icon_main_white.svg";
 const Banner = () => {
   return (
     <div className="banner-container">
-      <div className={`icon-container ${inter.className} `}>
-        <Link href="/home">
-          <Image
-            src={iconSrc}
-            width={38}
-            height={38}
-            alt="Icon description"
-            className="icon-image"
-          />
-        </Link>
-        <div className="icon-text"> FotoVerifier </div>
-      </div>
-      <div className={`ml-10 mt-5 ${montserrat.className} `}>
-        This is a tool for detecting image tampering using Digital Image
-        Forensics techniques, along with the techniques are some other
-        functionalities which further enhance the user&apos;s engagement. With
-        the goals of creating an actual environment for interacting with
-        different DIF methods, FotoVerifier was created.
-      </div>
+      <div className="primary-container">This is a tool for detecting image tampering using Digital Image Forensics techniques, aiming to provide both professional as well as casual users with reliable tools to verify images  </div>
     </div>
   );
 };
