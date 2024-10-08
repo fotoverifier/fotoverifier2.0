@@ -1,7 +1,8 @@
 .main-up-container {
   width: 100%;
-  height: 90%;
+  height:75%;
   display: flex;
+  background-color: white;
 }
 .half-up-container {
   width: 50%;

@@ -1,15 +1,18 @@
 .banner-container {
   height: 25%;
   width: 100%;
-  background-color: #d2f9f4;
+  background-color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .primary-container{
+  padding: 20px;
   width: 90%;
-  height: 80%;
-  background-color: black;
+  height: 70%;
+  background: linear-gradient(to right, #01584B, #02BEA2);
   border-radius: 5px;
   border-width: 1px;
-  color: bisque;
+  color: white;
+
 }

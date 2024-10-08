@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import "@/app/(single layout)/Upload/upload.css";
+import "@/app/(main layout)/Upload/upload.css";
 import { TbExchange } from "react-icons/tb";
 import { PiLineVertical } from "react-icons/pi";
 import Image from "next/image";
@@ -41,8 +41,21 @@ const Upload = () => {
     <div className="main-up-container">
       <div className="seven-up-container">
         <div className="w-full h-full ml-10"> 
-        <div className="helper-title">
-          <div className={inter.className}> Photo Input</div>
+          <div className="helper-title">
+          <div className={inter.className}> 1.  Photo Input</div>
+          </div>
+        <div className="input-link">
+          <input
+            type="text"
+            placeholder="Input link"
+            className={`ml-2 ${inter.className}`}
+          />
+          <button className="mr-2">
+            {" "}
+            <div className={inter.className}> Analyse </div>{" "}
+          </button>
+        </div>
+         <div className="helper-title">
           <div className="spec-helper">
             <div className={inter.className}>
               Suitable Size: <span style={{ color: "red" }}>25MB</span>
@@ -72,7 +85,7 @@ const Upload = () => {
                 htmlFor="file-upload"
                 className={`custom-file-upload  ${inter.className}`}
               >
-                Choose your files |
+                Choose your files 
               </label>
             </div>
           )}
@@ -103,20 +116,7 @@ const Upload = () => {
             </>
           )}
         </div>
-        <div className="input-link-title">
-          <div className={inter.className}> Search by link</div>{" "}
-        </div>
-        <div className="input-link">
-          <input
-            type="text"
-            placeholder="Input link"
-            className={`ml-2 ${inter.className}`}
-          />
-          <button className="mr-2">
-            {" "}
-            <div className={inter.className}> Analyse </div>{" "}
-          </button>
-        </div>
+        
         </div>
       </div>
       <div className="vertical-separator -translate-x-16"> </div>

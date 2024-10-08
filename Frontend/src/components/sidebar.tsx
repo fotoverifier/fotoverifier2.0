@@ -13,7 +13,7 @@ import { FaGithub } from "react-icons/fa";
 import { SiLibrariesdotio } from "react-icons/si";
 
 const items = [
-  { text: "Home", icon: <GoHome />, href: "/home" },
+  { text: "Dashboard", icon: <GoHome />, href: "/dashboard" },
   { text: "Libraries", icon: <SiLibrariesdotio />, href: "/libraries" },
   { text: "Privacy", icon: <PiShieldCheckeredFill />, href: "/privacy" },
   { text: "GitHub", icon: <FaGithub />, href: "/github" },

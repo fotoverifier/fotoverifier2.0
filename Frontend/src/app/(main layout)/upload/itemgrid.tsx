@@ -4,7 +4,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import { IoIosPhotos } from "react-icons/io";
 import { TbEyeSearch } from "react-icons/tb";
 import { PiCheckerboard } from "react-icons/pi";
-import "@/app/(single layout)/upload/gridcss.css";
+import "@/app/(main layout)/upload/gridcss.css";
 import { FaAnglesDown, FaAngleUp } from "react-icons/fa6";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
