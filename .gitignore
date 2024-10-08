@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+.pnpm/
+.vscode/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js build output
+.next/
+out/
+
+# Next.js cache
+.cache/
+
+# IDE/Editor-specific files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Mac system files
+*.DS_Store
+
+# Prettier related
+*.prettiercache
+
+# Optional linting files
+.eslintcache
+
+# Package lock files
+package-lock.json
+yarn.lock
+.pnpm-lock.yaml
