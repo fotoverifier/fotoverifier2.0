@@ -1,5 +1,5 @@
 import React from "react";
-import "@/styles/header.css";
+import "@/styles/head/header.css";
 import iconSrc from "@/assets/icon_main_white.svg";
 import Image from "next/image";
 import { CiMenuBurger } from "react-icons/ci";

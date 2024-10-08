@@ -1,47 +1,58 @@
 .header-container {
-    height: 8.5%;
-    width: 100%;
-    background: #03564A;
-    display: flex;
-  }
-  .header-icon {
-    display: flex;
-    width: 20%;
-    height: 100%; /* Adjust the height to fit your needs */
+  height: 8.5%;
+  width: 100%;
+  background: #03564a;
+  display: flex;
+  font-weight: 700;
+  color: white;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.header-icon {
+  display: flex;
+  width: 20%;
+  height: 100%;
 }
 
 .image-wrapper {
-   display: flex;
-   justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%; /* Set height as needed */
-
-}
-.vertical-line{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+.vertical-line-header {
   align-self: center;
-  height: 80%;
   width: 1px;
+  height: 70%;
+  margin: 0 1rem;
+  background-color: white;
 }
 
 .header-icon img {
   object-fit: cover;
 }
-.header-shortcuts{
+
+.header-shortcuts {
   display: flex;
   width: 30%;
-  height: 100%; /* Adjust the height to fit your needs */
+  height: 100%;
+  justify-content: space-around;
 }
-.header-shortcuts button{
-  width: 30%;
-  height: 100%; 
-  color:  white;
+
+.header-shortcuts button {
+  width: auto;
+  height: 100%;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 1rem;
 }
-.header-go{
+
+.header-go {
   width: 20%;
   height: 100%;
   display: flex;
@@ -49,7 +60,8 @@
   justify-content: center;
   align-items: center;
 }
-.header-button{
+
+.header-dashboard-button {
   width: 80%;
   height: 60%;
   border-color: white;
@@ -58,12 +70,99 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.2s ease-in-out;
 }
-.header-go :hover{
-  background-color: #02BEA2;
+
+.header-dashboard-button:hover {
+  background-color: #02bea2;
   cursor: pointer;
 }
-.header-text{
-  color: white;
-  
+
+.header-go:hover {
+  cursor: default;
+}
+
+.header-button {
+  transition: transform 0.2s ease-in-out;
+  border: 0;
+}
+
+.header-button:hover {
+  background-color: transparent;
+  transform: scale(1.2);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+  .header-container {
+    height: 10%;
+  }
+  .header-shortcuts {
+    width: 40%;
+  }
+  .header-go {
+    width: 25%;
+  }
+}
+
+@media (max-width: 992px) {
+  .header-container {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-icon {
+    width: 100%;
+    justify-content: center;
+  }
+  .vertical-line-header {
+    display: none;
+  }
+  .header-shortcuts {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .header-go {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    height: auto;
+    padding: 1rem 0;
+  }
+  .header-shortcuts button {
+    padding: 0.5rem 1rem;
+  }
+  .header-dashboard-button {
+    width: 100%;
+    height: auto;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-container {
+    height: auto;
+    padding: 1rem 0;
+  }
+  .header-shortcuts {
+    flex-direction: column;
+    width: 100%;
+  }
+  .header-shortcuts button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .header-go {
+    width: 100%;
+    justify-content: center;
+  }
+  .header-dashboard-button {
+    width: 100%;
+    height: auto;
+    padding: 0.5rem 1rem;
+  }
 }

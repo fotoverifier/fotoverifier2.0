@@ -4,32 +4,33 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import FotoverifierWhite from "@/assets/Fotoverifier_white.svg";
-import IconWhite from "@/assets/icon_main_white.svg"
+import IconWhite from "@/assets/icon_main_white.svg";
 import HH_Button from "../button/head_home_button";
+
 const inter = Inter({ subsets: ["latin"] });
+
 const Home_Header = () => {
   return (
     <div className="header-container">
-        <div className="header-icon"> 
+      <div className="header-icon">
         <div className="image-wrapper">
-            <Image src={IconWhite} alt="Image 1"  objectFit="cover" />
+          <Image src={IconWhite} alt="Image 1" objectFit="cover" />
         </div>
         <div className="image-wrapper">
-            <Image src={FotoverifierWhite} alt="Image 2"  objectFit="cover" />
+          <Image src={FotoverifierWhite} alt="Image 2" objectFit="cover" />
         </div>
+      </div>
+      <div className="vertical-line-header"></div>
+      <div className="header-shortcuts">
+        <HH_Button />
+        <button className="header-button">News</button>
+        <button className="header-button">Team</button>
+      </div>
+      <Link className="header-go" href="/dashboard">
+        <div className="header-dashboard-button">
+          <div>GO TO DASHBOARD</div>
         </div>
-        <div className="vertical-line"></div>
-        <div className="header-shortcuts">
-           <HH_Button></HH_Button>
-            <button> News   </button>
-            <button> Team   </button>
-        </div>
-
-        <Link className="header-go"  href="/dashboard"> 
-            <div className="header-button"> 
-                <div className="header-text"> GO TO DASHBOARD </div>
-            </div>
-        </Link>
+      </Link>
     </div>
   );
 };

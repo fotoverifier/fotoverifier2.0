@@ -12,12 +12,11 @@
     justify-content: center;
 }
 .home-fh-container{
-    padding: 10px;
     width: 90%;
     height: 80%;
 }
 .home-fh-container-title{
-    font-size: 64px;
+    font-size: 4rem;
     color: black;
 }
 .home-fh-container-description{
@@ -139,4 +138,44 @@
     border-radius: 5px;
     border-width: 1px;
     border-color: black;
+    color: black;
+}
+.detail-button:hover{
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .home-fh-container-title {
+        font-size: 2.5rem;
+    }
+    .home-fh-container-description {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-fh-container-title {
+        font-size: 2rem;
+    }
+    .home-fh-container-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-fh-container-title {
+        font-size: 1.5rem;
+    }
+    .home-fh-container-description {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .home-fh-container-title {
+        font-size: 1.25rem;
+    }
+    .home-fh-container-description {
+        font-size: 0.75rem;
+    }
 }
