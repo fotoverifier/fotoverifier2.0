@@ -11,12 +11,15 @@ import { useRouter, usePathname } from "next/navigation";
 import { PiShieldCheckeredFill } from "react-icons/pi";
 import { FaGithub } from "react-icons/fa";
 import { SiLibrariesdotio } from "react-icons/si";
+import { CiImageOff } from "react-icons/ci";
 
 const items = [
   { text: "Dashboard", icon: <GoHome />, href: "/dashboard" },
+  { text: "Upload", icon: <CiImageOff />, href: "/upload" },
   { text: "Libraries", icon: <SiLibrariesdotio />, href: "/libraries" },
   { text: "Privacy", icon: <PiShieldCheckeredFill />, href: "/privacy" },
   { text: "GitHub", icon: <FaGithub />, href: "/github" },
+
 ];
 const Sidebar = () => {
   const router = useRouter();
@@ -40,8 +43,8 @@ const Sidebar = () => {
         <Image
           src={iconSrc}
           alt="Icon2"
-          width={300}
-          height={300}
+          width={400}
+          height={400}
           className="icon-img icon2"
         />
       </div>

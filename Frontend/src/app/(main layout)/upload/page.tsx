@@ -5,8 +5,7 @@ import { TbExchange } from "react-icons/tb";
 import { PiLineVertical } from "react-icons/pi";
 import Image from "next/image";
 import { Montserrat, Inter } from "next/font/google";
-import ItemGrid from "./itemgrid";
-
+import Method_Box from "./itemgrid";
 const montserrat = Montserrat({
   subsets: ["latin"],
 });
@@ -36,13 +35,21 @@ const Upload = () => {
   const removeImg = () => {
     setImageSrc("");
   };
+  const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 
+  const handleMethodSelect = (id: string) => {
+    setSelectedMethod(id); 
+  };
+
+  
   return (
     <div className="main-up-container">
       <div className="seven-up-container">
         <div className="w-full h-full ml-10"> 
-          <div className="helper-title">
-          <div className={inter.className}> 1.  Photo Input</div>
+         <div className="helper-title">
+          <div className={`${inter.className} flex items-center`}> 
+            <div className="circle mr-4 "> 1. </div>
+            Photo Input</div>
           </div>
         <div className="input-link">
           <input
@@ -119,24 +126,47 @@ const Upload = () => {
         
         </div>
       </div>
-      <div className="vertical-separator -translate-x-16"> </div>
       <div className="three-up-container">
-        <div className="description-title">
-          <div className={inter.className}> What to expect?</div>{" "}
-        </div>
-        <div className="result-image"> abc</div>
-        <div className="description">
-          <div className={`${inter.className}`}>
-            Our in-depth image assessment provides a comprehensive analysis to
-            determine the authenticity and integrity of digital images.{" "}
-            <span className="text-red-600 hover:text-red-800 cursor-pointer">
-              Get familiar with these terms here{" "}
-            </span>
+        <div className="helper-title">
+          <div className={`${inter.className} flex items-center`}> 
+            <div className="circle mr-4 "> 2. </div>
+            Scanning mode</div>
           </div>
-        </div>
-        <div>
-          <ItemGrid />
-        </div>
+              <div className="choice-container">
+               <Method_Box 
+        id="normal" 
+        label="Normal Scan" 
+        isSelected={selectedMethod === "normal"}
+        onSelect={handleMethodSelect}
+      />
+                 <Method_Box 
+        id="deep" 
+        label="Deep Scan" 
+        isSelected={selectedMethod === "deep"}
+        onSelect={handleMethodSelect}
+      />
+              </div>
+              <div className="space"></div>
+              <div className="choice-container">
+              <Method_Box 
+        id="specialized" 
+        label="Specialized Scan" 
+        isSelected={selectedMethod === "specialized"}
+        onSelect={handleMethodSelect}
+      />
+              </div>
+              <div className="space">  </div>
+              <div className="word-container">
+                   <div className="word-container2"> For specialized mode, please consider checking our comprehensive tutorials and terminologies. </div>
+                    </div>
+               <div className="verify-agree-container">
+                <div className="button"> Verify </div>
+                <div className="w-1/12"> </div>
+                <div className="agree-section">
+                  {" "}
+                  I agree to the terms and conditions.{" "}
+                </div>
+              </div>    
       </div>
     </div>
   );
