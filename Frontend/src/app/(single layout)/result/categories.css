@@ -1,0 +1,9 @@
+.image-title-container{
+    width: 100%;
+    height: 10%;
+}
+.image-container{
+    width: 100%;
+    height: 90%;
+    background-color: rgb(85, 53, 53);
+}

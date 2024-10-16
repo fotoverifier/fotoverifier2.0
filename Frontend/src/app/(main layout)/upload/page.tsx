@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "@/app/(main layout)/Upload/upload.css";
 import { TbExchange } from "react-icons/tb";
-import { PiLineVertical } from "react-icons/pi";
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import { Montserrat, Inter } from "next/font/google";
 import Method_Box from "./itemgrid";
@@ -12,8 +12,10 @@ const montserrat = Montserrat({
 const inter = Inter({ subsets: ["latin"] });
 
 const Upload = () => {
+  const router = useRouter();
   const [link, setLink] = useState("");
   const [imageSrc, setImageSrc] = useState("");
+  
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -40,6 +42,20 @@ const Upload = () => {
   const handleMethodSelect = (id: string) => {
     setSelectedMethod(id); 
   };
+  const handleSubmit = () => {
+  if (!imageSrc) {
+    alert("Please select an image before submitting.");
+    return;
+  }
+
+  if (!selectedMethod) {
+    alert("Please select a scan method before submitting.");
+    return;
+  }
+
+  console.log("Submitting with image:", imageSrc, "and method:", selectedMethod);
+  router.push(`/result?imageSrc=${encodeURIComponent(imageSrc)}&selectedMethod=${selectedMethod}`);
+};
 
   
   return (
@@ -108,17 +124,14 @@ const Upload = () => {
                 </button>
               </div>
               <hr className="separator" />
-              <div className="viewer flex align-middle justify-between items-center p-2">
+              <div className="viewer flex items-center justify-center p-2">
                 <Image
                   src={imageSrc}
                   alt="Preview"
-                  className="image-preview ml-auto "
-                  width="500"
-                  height="500"
+                  className="image-preview "
+                  width="450"
+                  height="450"
                 />
-                <button className="ml-auto ">
-                  <div className={inter.className}>Analyse</div>
-                </button>
               </div>
             </>
           )}
@@ -160,7 +173,7 @@ const Upload = () => {
                    <div className="word-container2"> For specialized mode, please consider checking our comprehensive tutorials and terminologies. </div>
                     </div>
                <div className="verify-agree-container">
-                <div className="button"> Verify </div>
+                <div className="button" onClick={handleSubmit}> Verify </div>
                 <div className="w-1/12"> </div>
                 <div className="agree-section">
                   {" "}
