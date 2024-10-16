@@ -1,10 +1,61 @@
-.push-effect {
-  transition: transform 0.3s ease-in-out;
+.normal-deep-scan-container{
+  width: 45%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  border-color: gray;
+  border-width: 1px;
+}
+.specialized-scan-container{
+  width: 95%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  border-color: gray;
+  border-width: 1px;
+}
+.circle-checkbox-container {
+  display: flex;
+  align-items: center;
 }
 
-.push-effect:hover {
-  transform: scale(1.05);
-  font-size: large; /* Scale down to create the push effect */
+.circle-checkbox {
+  display: none; /* Hide default checkbox */
 }
-.font-item {
+
+.circle-checkbox-label {
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  background-color: white;
+}
+
+.circle-checkbox-label::after {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0; /* Hidden initially */
+  transition: opacity 0.2s ease;
+}
+
+.circle-checkbox:checked + .circle-checkbox-label::after {
+  opacity: 1; /* Visible when checked */
+}
+.button-title{
+  padding: 10px;
+  height: 30%;
+  width: 100%;  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
