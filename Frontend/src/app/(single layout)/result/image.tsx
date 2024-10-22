@@ -1,10 +1,10 @@
 import React from 'react'
-
+import "@/app/(single layout)/result/categories.css";
 const Image_Result = () => {
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full items-center flex-col flex'>
         <div className='image-title-container'> Image</div>
-        <div className="h-3/4 w-3/4 bg-black"> abc</div>
+        <div className="image-container"> </div>
     </div>
   )
 }

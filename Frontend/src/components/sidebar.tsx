@@ -12,7 +12,8 @@ import { PiShieldCheckeredFill } from "react-icons/pi";
 import { FaGithub } from "react-icons/fa";
 import { SiLibrariesdotio } from "react-icons/si";
 import { CiImageOff } from "react-icons/ci";
-
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 const items = [
   { text: "Dashboard", icon: <GoHome />, href: "/dashboard" },
   { text: "Upload", icon: <CiImageOff />, href: "/upload" },
@@ -30,7 +31,7 @@ const Sidebar = () => {
     setIsShrunk(!isShrunk);
   };
   return (
-    <div className={`sidebar ${isShrunk ? "shrink" : ""}`}>
+    <div className={`sidebar ${isShrunk ? "shrink" : ""} ${inter.className}`}>
       <div className="icon">
         <Image
           src={iconSrc2}

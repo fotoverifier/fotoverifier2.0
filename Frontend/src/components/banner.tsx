@@ -10,7 +10,7 @@ import Pattern from "@/assets/Group 52.svg";
 import iconSrc from "@/assets/icon_main_white.svg";
 const Banner = () => {
   return (
-    <div className="banner-container flex-col">
+    <div className={`banner-container flex-col ${inter.className}`}>
       <div className="flex ml-auto">
       <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-sm"> Feedback</div>
       <div className="mr-20  w-fit h-fit border-gray-800 border p-2 rounded-sm"> Homepage</div>

@@ -1,9 +1,10 @@
 .image-title-container{
     width: 100%;
     height: 10%;
+    padding: 5px;
 }
 .image-container{
-    width: 100%;
-    height: 90%;
+    width: 90%;
+    height: 85%;
     background-color: rgb(85, 53, 53);
 }

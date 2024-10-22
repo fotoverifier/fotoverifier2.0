@@ -145,7 +145,7 @@ const Upload = () => {
             <div className="circle mr-4 "> 2. </div>
             Scanning mode</div>
           </div>
-              <div className="choice-container">
+              <div className={`${inter.className} choice-container font-semibold`}>
                <Method_Box 
         id="normal" 
         label="Normal Scan" 
@@ -160,7 +160,7 @@ const Upload = () => {
       />
               </div>
               <div className="space"></div>
-              <div className="choice-container">
+              <div className={`${inter.className} choice-container font-semibold`}>
               <Method_Box 
         id="specialized" 
         label="Specialized Scan" 
@@ -170,12 +170,12 @@ const Upload = () => {
               </div>
               <div className="space">  </div>
               <div className="word-container">
-                   <div className="word-container2"> For specialized mode, please consider checking our comprehensive tutorials and terminologies. </div>
+                   <div className={`${inter.className} word-container2`}> For specialized mode, please consider checking our comprehensive tutorials and terminologies. </div>
                     </div>
                <div className="verify-agree-container">
                 <div className="button" onClick={handleSubmit}> Verify </div>
                 <div className="w-1/12"> </div>
-                <div className="agree-section">
+                <div className={`${inter.className} agree-section`}>
                   {" "}
                   I agree to the terms and conditions.{" "}
                 </div>

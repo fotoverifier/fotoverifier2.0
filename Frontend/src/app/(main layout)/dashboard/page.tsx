@@ -1,6 +1,7 @@
 import React from "react";
 import "@/app/(main layout)/dashboard/home.css";
-
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 const home = () => {
   const categories = [
     "Image Assesment",
@@ -8,7 +9,7 @@ const home = () => {
   ];
   const links = ["upload", "link2"];
   return (
-    <div className="home-container">
+     <div className={`home-container ${inter.className}`}>
       <div className="content-fcontainer"> 
          <div className="space"></div>
         <div className="fcontainer-title">

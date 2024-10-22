@@ -1,32 +1,33 @@
 .Top-container{
     width: 100%;
-    height: 15%;
-    background-color: aquamarine;
+    height: 12.5%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 .Content-container{
     width: 100%;
-    height: 70%;
-    background-color: black;
+    height: 85%;
 }
 .Half-content-container{
     width: 100%;
     height: 50%;
-    background-color: antiquewhite;
     display: flex;
     justify-content: space-evenly;
 }
-.Result-container{
+.Result-container {
     width: 31%;
     height: 95%;
-    background-color: aqua;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.Result-container:hover {
+    border-color: black;
 }
 .Confident-score-container{
     width: 30%;
     height: 60%;
-    background-color: aliceblue;
     border-radius: 10px;
     border-width: 1px;
     display: flex;
@@ -38,5 +39,7 @@
 .General-report-container{
     width: 65%;
     height: 60%;
-    background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
