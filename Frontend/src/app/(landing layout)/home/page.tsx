@@ -3,7 +3,7 @@ import "@/app/(landing layout)/home/home.css";
 import LandingBanner from "@/components/landing_banner";
 import { FaChevronDown } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
-
+import Link from "next/link";
 import Image from "next/image";
 import Detail from "@/assets/Group_29.svg";
 import { Inter, Montserrat, Inconsolata, Poppins } from "next/font/google";
@@ -68,7 +68,9 @@ const home = () => {
                 <div> or drag your file here</div>
               </div>
               <div className="verify-agree-container">
-                <div className="button"> Verify </div>
+              
+                <Link href= "/assesment" className="button"> Verify 
+                </Link>
                 <div className="agree-section">
                   {" "}
                   I agree to the terms and conditions.{" "}

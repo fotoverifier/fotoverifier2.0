@@ -12,8 +12,10 @@ const Banner = () => {
   return (
     <div className={`banner-container flex-col ${inter.className}`}>
       <div className="flex ml-auto">
-      <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-sm"> Feedback</div>
-      <div className="mr-20  w-fit h-fit border-gray-800 border p-2 rounded-sm"> Homepage</div>
+      <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-md"> Feedback</div>
+        <Link href="/home">
+      <div className="mr-20  w-fit h-fit border-gray-800 border p-2 rounded-md"> Homepage</div>
+      </Link>
       </div>
       <div className="primary-container flex">This is a tool for detecting image tampering using Digital Image Forensics techniques,
          aiming to provide both professional as well as casual users with reliable tools to verify images  

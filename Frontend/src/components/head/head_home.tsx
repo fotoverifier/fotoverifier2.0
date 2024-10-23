@@ -23,7 +23,7 @@ const Home_Header = () => {
       <div className="vertical-line-header"></div>
       <div className="header-shortcuts">
         <HH_Button />
-        <button className="header-button">News</button>
+        <button className={`header-button ${inter.className}`}>News</button>
         <button className="header-button">Team</button>
       </div>
       <Link className="header-go" href="/dashboard">
