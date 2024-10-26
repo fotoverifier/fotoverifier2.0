@@ -8,11 +8,10 @@
 }
 .primary-container{
   padding: 20px;
-  width: 90%;
-  height: 70%;
+  width: 95%;
+  height: 75%;
   background: linear-gradient(to right, #01584B, #02BEA2);
   border-radius: 5px;
   border-width: 1px;
   color: white;
-
 }

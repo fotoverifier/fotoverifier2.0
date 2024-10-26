@@ -14,12 +14,12 @@ const Banner = () => {
       <div className="flex ml-auto">
       <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-md"> Feedback</div>
         <Link href="/home">
-      <div className="mr-20  w-fit h-fit border-gray-800 border p-2 rounded-md"> Homepage</div>
+      <div className="mr-10  w-fit h-fit border-gray-800 border p-2 rounded-md"> Homepage</div>
       </Link>
       </div>
       <div className="primary-container flex">This is a tool for detecting image tampering using Digital Image Forensics techniques,
          aiming to provide both professional as well as casual users with reliable tools to verify images  
-          <Image src={Pattern} width={700} height={700} alt = ""></Image>
+          <Image src={Pattern} width={800} height={800} alt = ""></Image>
          </div>
     </div>
   );

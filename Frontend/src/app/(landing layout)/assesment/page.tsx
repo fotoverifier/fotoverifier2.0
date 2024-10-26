@@ -9,7 +9,7 @@ const Assesment = () => {
 
   
   return (
-    <div className='home-container'>
+    <div className='assess-container'>
       <div className='home-first-half'>
         <div className='image-container'> 
             <div className='change-image-section'>  </div>

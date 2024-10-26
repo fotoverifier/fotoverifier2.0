@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import { Montserrat, Inter } from "next/font/google";
 import Method_Box from "./itemgrid";
+import { FaAngleDown } from "react-icons/fa6";
+
 const montserrat = Montserrat({
   subsets: ["latin"],
 });
@@ -148,31 +150,38 @@ const Upload = () => {
               <div className={`${inter.className} choice-container font-semibold`}>
                <Method_Box 
         id="normal" 
-        label="Normal Scan" 
+        label="Quick Scan" 
         isSelected={selectedMethod === "normal"}
         onSelect={handleMethodSelect}
+        duration="< 1 minute"
       />
                  <Method_Box 
         id="deep" 
         label="Deep Scan" 
         isSelected={selectedMethod === "deep"}
         onSelect={handleMethodSelect}
+        duration="> 1 minute"
       />
               </div>
               <div className="space"></div>
               <div className={`${inter.className} choice-container font-semibold`}>
               <Method_Box 
         id="specialized" 
-        label="Specialized Scan" 
+        label="Scan the image by yourself" 
         isSelected={selectedMethod === "specialized"}
         onSelect={handleMethodSelect}
+        duration="Specialized moed"
       />
               </div>
               <div className="space">  </div>
               <div className="word-container">
-                   <div className={`${inter.className} word-container2`}> For specialized mode, please consider checking our comprehensive tutorials and terminologies. </div>
+                
+                   <div className={`${montserrat.className} word-container2`}> 
+                    <FaAngleDown className="mr-5"></FaAngleDown>
+                    For specialized mode, please consider checking our comprehensive tutorials and terminologies. 
                     </div>
-               <div className="verify-agree-container">
+                    </div>
+               <div className="verify-agree-container ml-5">
                 <div className="button" onClick={handleSubmit}> Verify </div>
                 <div className="w-1/12"> </div>
                 <div className={`${inter.className} agree-section`}>
