@@ -16,7 +16,8 @@ const inter = Inter({ subsets: ["latin"] });
 const Upload = () => {
   const router = useRouter();
   const [link, setLink] = useState("");
-  const [imageSrc, setImageSrc] = useState("");
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
   
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -44,7 +45,7 @@ const Upload = () => {
   const handleMethodSelect = (id: string) => {
     setSelectedMethod(id); 
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
   if (!imageSrc) {
     alert("Please select an image before submitting.");
     return;
@@ -55,8 +56,28 @@ const Upload = () => {
     return;
   }
 
-  console.log("Submitting with image:", imageSrc, "and method:", selectedMethod);
-  router.push(`/result?imageSrc=${encodeURIComponent(imageSrc)}&selectedMethod=${selectedMethod}`);
+   try {
+    const formData = new FormData();
+    formData.append("image", imageSrc); 
+    const response = await fetch("https://fotoverifier-backend-chuong-les-projects.vercel.app/api/image/", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "Accept": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upload failed: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Image uploaded successfully:", data);
+    router.push(`/result?imageUrl=${encodeURIComponent(data.imageUrl)}&selectedMethod=${selectedMethod}`);
+  } catch (error) {
+    console.error("Error submitting image:", error);
+    alert("There was an error submitting the image. Please try again.");
+  }
 };
 
   
