@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Montserrat, Inter } from "next/font/google";
 import Method_Box from "./itemgrid";
 import { FaAngleDown } from "react-icons/fa6";
+import LoadingModal from "@/components/loading_modal";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Upload = () => {
   const router = useRouter();
-  const [link, setLink] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -50,6 +51,7 @@ const Upload = () => {
     setSelectedMethod(id); 
   };
   const handleSubmit = async () => {
+    setLoading(true);
   if (!imageFile) {
     alert("Please select an image before submitting.");
     return;
@@ -81,6 +83,8 @@ const Upload = () => {
   } catch (error) {
     console.log("Error submitting image:", error);
     alert("There was an error submitting the image. Please try again.");
+  } finally {
+      setLoading(false);
   }
 };
 
@@ -208,6 +212,7 @@ const Upload = () => {
                     </div>
                <div className="verify-agree-container ml-5">
                 <div className="button" onClick={handleSubmit}> Verify </div>
+                {loading && <LoadingModal message="Uploading image..." />}
                 <div className="w-1/12"> </div>
                 <div className={`${inter.className} agree-section`}>
                   {" "}
