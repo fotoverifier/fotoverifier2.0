@@ -17,20 +17,23 @@ const Upload = () => {
   const router = useRouter();
   const [link, setLink] = useState("");
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const fileURL = URL.createObjectURL(file);
-      setImageSrc(fileURL);
+      setImageSrc(URL.createObjectURL(file));
+      setImageFile(file);
     }
   };
   const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      setImageSrc(URL.createObjectURL(e.dataTransfer.files[0]));
+      const file = e.dataTransfer.files[0];
+      setImageSrc(URL.createObjectURL(file));
+      setImageFile(file);
     }
   };
 
@@ -38,7 +41,8 @@ const Upload = () => {
     e.preventDefault();
   };
   const removeImg = () => {
-    setImageSrc("");
+    setImageSrc(null);
+    setImageFile(null);
   };
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 
@@ -46,7 +50,7 @@ const Upload = () => {
     setSelectedMethod(id); 
   };
   const handleSubmit = async () => {
-  if (!imageSrc) {
+  if (!imageFile) {
     alert("Please select an image before submitting.");
     return;
   }
@@ -58,7 +62,7 @@ const Upload = () => {
 
    try {
     const formData = new FormData();
-    formData.append("image", imageSrc); 
+    formData.append("image", imageFile); 
     const response = await fetch("https://fotoverifier-backend-chuong-les-projects.vercel.app/api/image/", {
       method: "POST",
       body: formData,
@@ -73,9 +77,9 @@ const Upload = () => {
 
     const data = await response.json();
     console.log("Image uploaded successfully:", data);
-    router.push(`/result?imageUrl=${encodeURIComponent(data.imageUrl)}&selectedMethod=${selectedMethod}`);
+    router.push(`/result?imageUrl=${encodeURIComponent(data.upload_data.url)}&selectedMethod=${selectedMethod}`);
   } catch (error) {
-    console.error("Error submitting image:", error);
+    console.log("Error submitting image:", error);
     alert("There was an error submitting the image. Please try again.");
   }
 };
