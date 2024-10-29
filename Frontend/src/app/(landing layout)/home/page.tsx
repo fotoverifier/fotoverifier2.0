@@ -17,8 +17,8 @@ const inter = Inter({subsets: ["latin"]});
 const montserrat = Montserrat({subsets:["latin"]});
 const incon = Inconsolata({subsets:["latin"]});
 const Home = () => {
-  const categories = ["Image Assesment", "Relevant Image Finding"];
-  const links = ["upload", "link2", "link3", "link4", "link5", "link6"];
+  const [loading, setLoading] = useState<boolean>(false);
+
 
 
    const [imageSrc, setImageSrc] = React.useState("");
@@ -44,6 +44,7 @@ const Home = () => {
   const removeImg = () => {
     setImageSrc("");
   };
+  
   return (
     <div className="w-full h-full">
       <div className="home-container">
@@ -97,7 +98,7 @@ const Home = () => {
               />
               <label
                 htmlFor="file-upload"
-                className={`custom-file-upload  ${inter.className}`}
+                className={`custom-file-upload  ${montserrat.className}`}
               >
                 Choose your files 
               </label>
