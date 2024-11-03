@@ -3,7 +3,6 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     flex-direction: column;
 }
 .image_container{
@@ -38,8 +37,8 @@
     height: 45%;
 }
 .result_container{
-    width: 80%;
-    height: 80%;
+    width: 90%;
+    height: 70%;
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;
@@ -51,10 +50,20 @@
 }
 .helper_title {
   width: 87.5%;
+  height: 15%;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   font-size: x-large;
+  font-weight: bold;
+}
+.helper_title_2 {
+  width: 87.5%;
+  height: 7.5%;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  font-size: large;
   font-weight: bold;
 }
 .circle {
@@ -68,4 +77,44 @@
   justify-content: center; 
   align-items: center;    
   text-align: center;      
+}
+.tab_area {
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.tab {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab.active {
+  color: black; /* Adjust color if needed */
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: black; /* Color of the bar */
+}
+
+.content_area {
+  height: 90%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title_container{
+    padding: 10px;
+    width: 80%;
+    cursor: pointer;
 }

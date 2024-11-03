@@ -23,7 +23,7 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ text, icon, active, href }) =
      </div>
      </div>
       )}
-      <div className="text">{text}</div>
+      <div className="text font-semibold">{text}</div>
     </div>
     </Link>
   );

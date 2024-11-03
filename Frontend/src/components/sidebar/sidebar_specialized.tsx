@@ -26,7 +26,7 @@ const Sidebar_Specialized: React.FC<SidebarProps> = ({  children, logo, title = 
         <div className="p-4 pb-2 flex justify-between items-center">
            {logo ? (
             <Image
-              src={logo as string}  // Type assertion to ensure TypeScript knows it's a string
+              src={logo as string}  
               className={`overflow-hidden transition-all ${expanded ? "w-16" : "w-0"}`}
               alt="Logo"
             />
