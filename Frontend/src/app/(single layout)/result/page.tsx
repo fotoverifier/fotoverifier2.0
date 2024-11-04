@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import "@/app/(single layout)/result/result.css"
 import Image from 'next/image'
 import Image_Result from './image'
@@ -10,6 +10,10 @@ import { useSearchParams } from 'next/navigation'
 import { Buffer } from 'buffer';
 import Modification from './modification';
 import Map_Res from './map';
+
+interface Object{
+  task_id: any;
+}
 interface ExifData {
   exif_data: any;
   software_modify?: string;
@@ -39,8 +43,62 @@ const Result = () => {
   const searchParams = useSearchParams();
     const data = searchParams.get('data');
     const img = searchParams.get('image');
+
+    
+    const [taskData, setTaskData] =  useState<Object | null>(null);
     const [exifData, setExifData] = useState<ExifData | null>(null);
+
+    const [methodData, setmethodData] = useState(null);
     const [retrieve_img, setRetrieveImg] =  useState<string | null>(null);
+
+
+  useEffect(() => {
+    if (data) {
+      // Decode the data here
+      const decodedData = JSON.parse(Buffer.from(data, 'base64').toString('utf-8'));
+      setTaskData(decodedData);
+      console.log("Decoded Data:", decodedData);
+    }
+  }, [data]);
+
+
+
+useEffect(() => {
+  if (taskData && taskData.task_id) {
+    const taskId = taskData.task_id;
+    console.log("Task ID:", taskId);
+    console.log("Task Data:", taskData);
+
+    const fetchTaskStatus = async () => {
+      console.log("Fetching task status..."); 
+      console.log(taskData?.task_id);
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/task-status/${taskData?.task_id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json', 
+          },
+        });
+        console.log("Response:", response); // Log the response object
+        
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const fetchedData = await response.json();
+        console.log("Fetched Data:", fetchedData); // Log the fetched data
+        setmethodData(fetchedData);  // Store the response data in the state
+      } catch (error) {
+        console.error("Failed to fetch task status:", error);
+      }
+    };
+
+    fetchTaskStatus();
+  }
+}, [taskData]);
+
+
+
     useEffect(() => {
     if (img) {
       // Set the retrieved image as base64
@@ -87,6 +145,8 @@ const Result = () => {
     <div className='Result-container'> Keyframe</div>
     <div className='Result-container'> OSM Tags</div>
     </div>
+    </div>
+     <div className="flex flex-col items-center">
     </div>
     </>
   )
