@@ -1,18 +1,18 @@
-.home-container2{
+.home_container2{
     width: 100%;
     height: 75%;
     background-color: white;
     display: flex;
     align-items: center;
 }
-.content-fcontainer{
+.content_fcontainer{
     width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;    
 }
-.fcontainer-title{
+.fcontainer_title{
     width: fit-content;
     padding: 15px;
     height: fit-content;
@@ -25,7 +25,7 @@
     justify-content: center;
 
 }
-.fcontainer-category{
+.fcontainer_category{
     width: 100%;
     display: flex;
     height: 60%;
@@ -34,16 +34,17 @@
 .space{
     height: 5%;
 }
-.dashboard-categories {
+.dashboard_categories {
     height: 50%;
     width: 100%;
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
     align-items: center;
+    justify-content: space-evenly;
 }
 
-.category-container {
+.category_container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,7 +55,7 @@
     flex: 0 0 auto;
 }
 
-.dashboard-category-item {
+.dashboard_category_item {
     width: 100%;
     height: 100%;
     background: white;
@@ -65,29 +66,29 @@
     color: black;
     border-width: 1px;
 }
-.horizontal-bar{
+.horizontal_bar{
     width: 100%;
     height: 1px;
     background-color: black;
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.vertical-bar{
+.vertical_bar{
     width: 0.5px;
     height:  80%;
     background-color: gray;
 }
 
-.category-title {
+.category_title {
     margin-top: 10px; /* Space between category item and title */
     font-size: 14px;
     color: black; /* Adjust the color as needed */
 }
-.dashboard-category-item:hover{
+.dashboard_category_item:hover{
     background: gray;
     color: white
 }
-.image-container{
+.image_container{
     height: 80%;
     width: 100%;
     border-radius: 10px;

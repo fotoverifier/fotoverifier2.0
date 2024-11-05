@@ -1,5 +1,5 @@
 import React from "react";
-import "@/app/(main layout)/dashboard/home.css";
+import styles from "@/app/(main layout)/dashboard/home.module.css";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 const home = () => {
@@ -13,42 +13,44 @@ const home = () => {
     "How to reverse image",
   ]
   return (
-     <div className={`home-container2 ${inter.className}`}>
-      <div className="content-fcontainer"> 
-         <div className="space"></div>
-        <div className="fcontainer-title">
-           Our services </div>
-        <div className="space"></div>
-         <div className="dashboard-categories">
+     <div className={`${styles.home_container2} ${inter.className}`}>
+      <div className={styles.content_fcontainer}> 
+         <div className={styles.space}></div>
+        <div className={styles.fcontainer_title}>
+           Our services
+        </div>
+        <div className={styles.space}></div>
+         <div className={styles.dashboard_categories}>
         {categories.map((category, index) => (
-          <div key={index} className="category-container ml-10">
-            <a href={links[index]} className="dashboard-category-item">
-              <div className="image-container"></div>
-               <div className='horizontal-bar'> </div>
+          <div key={index} className={`${styles.category_container} ${styles.ml_10}`}>
+            <a href={links[index]} className={styles.dashboard_category_item}>
+              <div className={styles.image_container}></div>
+               <div className={styles.horizontal_bar}></div>
               {category}
             </a>
           </div>
         ))}
       </div>
       </div>
-      <div className="vertical-bar"></div>
-      <div className="content-fcontainer"> 
-           <div className="space"></div>
-        <div className="fcontainer-title">
-          Tutorial </div>
-        <div className="space"></div>
-          <div className="dashboard-categories">
+      <div className={styles.vertical_bar}></div>
+      <div className={styles.content_fcontainer}> 
+           <div className={styles.space}></div>
+        <div className={styles.fcontainer_title}>
+          Tutorial
+        </div>
+        <div className={styles.space}></div>
+          <div className={styles.dashboard_categories}>
         {tutorials.map((tutorial, index) => (
-          <div key={index} className="category-container ml-10">
-            <a href={links[index]} className="dashboard-category-item">
-              <div className="image-container"></div>
-               <div className='horizontal-bar'> </div>
+          <div key={index} className={`${styles.category_container} ${styles.ml_10}`}>
+            <a href={links[index]} className={styles.dashboard_category_item}>
+              <div className={styles.image_container}></div>
+               <div className={styles.horizontal_bar}></div>
               {tutorial}
             </a>
           </div>
         ))}
       </div>
-        </div>
+      </div>
     </div>
   );
 };

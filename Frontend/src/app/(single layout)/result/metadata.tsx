@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "@/app/(single layout)/result/result.css"
 // Define the props type for the MetaData_Result component
 interface CameraInformation {
   make: string;
@@ -17,19 +17,20 @@ interface MetaDataProps {
 
 const MetaData_Result: React.FC<MetaDataProps> = ({ cameraInformation }) => {
   return (
-    <div className='w-full h-full'>
-      <div className='image-title-container'>Metadata</div>
-      {cameraInformation && (
-        <div>
-          <p><strong>Make:</strong> {cameraInformation.make}</p>
-          <p><strong>Model:</strong> {cameraInformation.model}</p>
-          <p><strong>Exposure:</strong> {cameraInformation.exposure}</p>
-          <p><strong>Aperture:</strong> {cameraInformation.aperture}</p>
-          <p><strong>Focal Length:</strong> {cameraInformation.focal_length}</p>
-          <p><strong>ISO Speed:</strong> {cameraInformation.iso_speed}</p>
-          <p><strong>Flash:</strong> {cameraInformation.flash}</p>
-        </div>
-      )}
+    <div className='w-full h-full p-5'>
+      <div className='flex align-middle'>
+      <div className='circle_2'> 2. </div>
+      <div className=' font-bold text-lg ml-2 mb-5'>Metadata</div>
+      </div>
+     <div>
+  <p><strong>Make:</strong> {cameraInformation?.make || 'N/A'}</p>
+  <p><strong>Model:</strong> {cameraInformation?.model || 'N/A'}</p>
+  <p><strong>Exposure:</strong> {cameraInformation?.exposure || 'N/A'}</p>
+  <p><strong>Aperture:</strong> {cameraInformation?.aperture || 'N/A'}</p>
+  <p><strong>Focal Length:</strong> {cameraInformation?.focal_length || 'N/A'}</p>
+  <p><strong>ISO Speed:</strong> {cameraInformation?.iso_speed || 'N/A'}</p>
+  <p><strong>Flash:</strong> {cameraInformation?.flash || 'N/A'}</p>
+</div>
     </div>
   );
 }

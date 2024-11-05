@@ -12,7 +12,7 @@ export default function RootLayout({
   const pathname = usePathname();
    const sidebarItems = [
     { path: "/specialized/information", icon: <FaInfoCircle />, text: "Information" },
-    { path: "/specialized/shadow", icon: <FaRegLightbulb />, text: "Shadow" },
+    { path: "/specialized/image_ss", icon: <FaRegLightbulb />, text: "Image enhancement" },
     { path: "/specialized/reflection", icon: <FaRegSun />, text: "Reflection" },
     { path: "/specialized/dif-methods", icon: <FaTools />, text: "DIF Methods", alert: true },
   ];

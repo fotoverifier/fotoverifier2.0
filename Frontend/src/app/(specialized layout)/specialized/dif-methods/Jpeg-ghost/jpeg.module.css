@@ -1,0 +1,76 @@
+.tutorial_container{
+    height: 32.5%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.tutorial_area{
+    height: 80%;
+    width: 80%;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: gray;
+    border-style: groove;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tutorial_image{
+    height: 95%;
+    width: auto;
+    margin-left: 7px;
+    position: relative;
+}
+.tutorial_image img{
+    height: 100%;
+    width: 100%;
+    margin-left: 7px;
+}
+.jpeghost_container{
+    height: 67.5%;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.note{
+     width: 25%;
+     height: 90%;
+}
+.image_container{
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: gray;
+    border-style: dotted;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.change_image_section{
+    width: 95%;
+    height: 10%;
+    padding: 5px;
+    margin-right: auto;
+}
+.horizontal_line{
+    width: 99%;
+    height: 1px;
+    background-color: black;
+}
+.vertical_line{
+    width: 1px;
+    height: 80%;
+    background-color: black;
+}
+.show_container{
+    width: 95%;
+    height: 45%;
+}

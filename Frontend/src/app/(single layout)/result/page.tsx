@@ -138,7 +138,7 @@ const Result = () => {
         <div className="vertical-space"></div>
         <div className="General-report-container">
           <Image src={pattern} width={200} height={200} alt={""}></Image>
-          GENERAL REPORT
+          <div className="font-bold text-4xl">GENERAL REPORT </div>
           <Image src={pattern} width={200} height={200} alt={""}></Image>
         </div>
       </div>

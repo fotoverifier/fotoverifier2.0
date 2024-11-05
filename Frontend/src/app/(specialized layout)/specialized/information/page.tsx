@@ -71,16 +71,19 @@ const Specialized_Information = () => {
         <div className={styles.result_container}>
       <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className={styles.content_area}>
+      <div className={`${styles.content_area} ${inter.className}`}>
               {activeTab === 'Exif Data' && (
         <div className="h-full w-full p-2 flex flex-col justify-evenly">
           {exifDataSections.map((section, index) => (
             <div key={index} className="h-1/2 w-full p-2">
-              <div className="font-bold text-lg text">{section.title}</div>
+              <div className='flex'>
+              <div className={styles.circle_2}>{index + 1}</div>
+              <div className="font-bold text-lg text ml-2 mb-2">{section.title}</div>
+              </div>
               {section.fields.map((field, idx) => (
-                <p key={idx}>
+                <div key={idx}>
                   <div className='font-semibold'>{field.label}:</div>
-                </p>
+                </div>
               ))}
             </div>
           ))}

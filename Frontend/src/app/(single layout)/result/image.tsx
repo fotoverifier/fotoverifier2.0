@@ -6,8 +6,11 @@ interface ImageResultProps {
 
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
   return (
-    <div className='image-result-container'>
-      <div> Image </div>
+<div className='w-full h-full p-5'>
+    <div className='flex'>
+       <div className='circle_2'> 1. </div>
+    <div className='font-bold text-lg ml-2 mb-5'>Image</div>
+    </div>
       {img ? (
         <img src={img} alt="Result" className='h-5/6 w-5/6'/>// Display the image if it exists
       ) : (

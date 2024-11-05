@@ -1,5 +1,5 @@
 import React from 'react';
-import "@/app/(single layout)/result/categories.css";
+import "@/app/(single layout)/result/result.css";
 
 interface OriginalDate {
   original_date?: string;
@@ -26,16 +26,22 @@ const Modification: React.FC<ModificationProps> = ({
   author_copyright // Add this line
 }) => {
   return (
-    <div className='w-full h-full items-center flex-col flex'>
-      <p><strong>Software Modified:</strong> {software_modify}</p>
-      <p><strong>Modification Date:</strong> {modify_date}</p>
-      <p><strong>Original Date:</strong> {original_date?.original_date}</p>
-      <p><strong>Create Date:</strong> {original_date?.create_date}</p>
-      
-      {/* Author Copyright Information */}
-      <p><strong>Author:</strong> {author_copyright?.author}</p>
-      <p><strong>Copyright Tag:</strong> {author_copyright?.copyright_tag}</p>
-      <p><strong>Profile Copyright:</strong> {author_copyright?.profile_copyright}</p>
+    <div className='w-full h-full p-5'>
+    <div className='flex'>
+       <div className='circle_2'> 3. </div>
+    <div className='font-bold text-lg ml-2 mb-5'>Software Information</div>
+    </div>
+    <div>
+    <p><strong>Software Modified:</strong> {software_modify || 'N/A'}</p>
+    <p><strong>Modification Date:</strong> {modify_date || 'N/A'}</p>
+    <p><strong>Original Date:</strong> {original_date?.original_date || 'N/A'}</p>
+    <p><strong>Create Date:</strong> {original_date?.create_date || 'N/A'}</p>
+    
+    {/* Author Copyright Information */}
+    <p><strong>Author:</strong> {author_copyright?.author || 'N/A'}</p>
+    <p><strong>Copyright Tag:</strong> {author_copyright?.copyright_tag || 'N/A'}</p>
+    <p><strong>Profile Copyright:</strong> {author_copyright?.profile_copyright || 'N/A'}</p>
+  </div>
     </div>
   );
 }

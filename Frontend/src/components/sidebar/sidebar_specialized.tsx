@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, ReactNode, Dispatch, SetSta
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { CiMenuBurger } from "react-icons/ci";
 import Logo from "@/assets/icon_main_white.svg"
+import "@/components/sidebar/sidebar_specialized.css"
 import Image from "next/image";
 interface SidebarContextProps {
   expanded: boolean;
@@ -83,7 +84,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, active = f
 
   return (
     <li
-      className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+      className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group h-10-percent ${
         active ? "bg-gradient-to-tr from-green-200 to-green-100 text-green-800" : "hover:bg-indigo-50 text-gray-600"
       }`}
     >

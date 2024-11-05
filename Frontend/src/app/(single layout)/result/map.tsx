@@ -7,8 +7,11 @@ interface MapResProps {
 
 const Map_Res: React.FC<MapResProps> = ({ gps_location }) => {
   return (
-    <div className='w-full h-full items-center flex-col flex'>
-      <div className='image-title-container'> GPS Location</div>
+    <div className='w-full h-full p-5'>
+    <div className='flex'>
+       <div className='circle_2'> 4. </div>
+    <div className='font-bold text-lg ml-2 mb-5'>GPS Location</div>
+    </div>
       {gps_location ? (
         <div className="gps-location-container">
           <p>{gps_location}</p>
