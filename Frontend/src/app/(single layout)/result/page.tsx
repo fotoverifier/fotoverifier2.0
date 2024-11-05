@@ -17,11 +17,11 @@ interface Object {
 }
 interface ExifData {
   exif_data: any;
-  software_modify?: string;
-  modify_date?: string;
-  original_date?: {
-    original_date?: string;
-    create_date?: string;
+  software_modify: string | undefined;
+  modify_date: string | undefined;
+  original_date: {
+    original_date: string | undefined;
+    create_date: string | undefined;
   };
   camera_information: {
     make: string | undefined;
@@ -32,11 +32,11 @@ interface ExifData {
     iso_speed: string | undefined;
     flash: string | undefined;
   };
-  gps_location?: string | null;
-  author_copyright?: {
-    author?: string | null;
-    copyright_tag?: string | null;
-    profile_copyright?: string | null;
+  gps_location: string | undefined;
+  author_copyright: {
+    author: string | undefined;
+    copyright_tag: string | undefined;
+    profile_copyright: string | undefined;
   };
 }
 
@@ -160,10 +160,10 @@ const Result = () => {
           <div className="Result-container">
             {" "}
             <Modification
-              original_date={exifData?.original_date || null}
-              modify_date={exifData?.modify_date || null}
-              software_modify={exifData?.software_modify || null}
-              author_copyright={exifData?.author_copyright || null}
+              original_date={exifData?.original_date || undefined}
+              modify_date={exifData?.modify_date || undefined}
+              software_modify={exifData?.software_modify || undefined}
+              author_copyright={exifData?.author_copyright || undefined}
             />{" "}
           </div>
         </div>

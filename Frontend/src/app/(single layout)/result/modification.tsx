@@ -2,8 +2,8 @@ import React from 'react';
 import "@/app/(single layout)/result/result.css";
 
 interface OriginalDate {
-  original_date?: string;
-  create_date?: string;
+  original_date: string | undefined;
+  create_date: string | undefined;
 }
 
 interface AuthorCopyright {
