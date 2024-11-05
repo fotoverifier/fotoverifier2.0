@@ -23,14 +23,14 @@ interface ExifData {
     original_date?: string;
     create_date?: string;
   };
-  camera_information?: {
-    make?: string;
-    model?: string;
-    exposure?: string;
-    aperture?: string;
-    focal_length?: string;
-    iso_speed?: string;
-    flash?: string;
+  camera_information: {
+    make: string | undefined;
+    model: string | undefined;
+    exposure: string | undefined;
+    aperture: string | undefined;
+    focal_length: string | undefined;
+    iso_speed: string | undefined;
+    flash: string | undefined;
   };
   gps_location?: string | null;
   author_copyright?: {
@@ -38,6 +38,11 @@ interface ExifData {
     copyright_tag?: string | null;
     profile_copyright?: string | null;
   };
+}
+
+interface Result {
+  exif_data: any;
+  jpeg_ghost_result: string;
 }
 const inter = Inter({ subsets: ["latin"] });
 const Result = () => {
@@ -50,7 +55,7 @@ const Result = () => {
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const [isFetching, setIsFetching] = useState<Boolean>(false);
 
-  const [methodData, setmethodData] = useState(null);
+  const [methodData, setmethodData] = useState<Result | null>(null);
   const [retrieve_img, setRetrieveImg] = useState<string | null>(null);
 
   useEffect(() => {
@@ -62,12 +67,14 @@ const Result = () => {
       setTaskData(decodedData);
       console.log("Decoded Data:", decodedData);
       setIsFetching(true);
+      console.log("Fetching true");
     }
   }, [data]);
 
   useEffect(() => {
     if (taskData && taskData.task_id && isFetching) {
       const fetchTaskStatus = async () => {
+        console.log("start");
         try {
           const response = await fetch(
             `http://127.0.0.1:8000/api/task-status/${taskData?.task_id}/`,
@@ -78,7 +85,7 @@ const Result = () => {
               },
             }
           );
-
+          console.log("Response:", response);
           if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
           }
@@ -86,7 +93,7 @@ const Result = () => {
           const fetchedData = await response.json();
 
           if (fetchedData.status === "SUCCESS") {
-            setmethodData(fetchedData); // Store the response data in the state
+            setmethodData(fetchedData.result); // Store the response data in the state
             setIsFetching(false);
             console.log("Fetching false");
             window.clearInterval(intervalIdRef.current!);
@@ -111,10 +118,10 @@ const Result = () => {
   }, [taskData, isFetching]);
 
   useEffect(() => {
-  if (methodData) {
-    console.log("Updated methodData:", methodData);
-  }
-}, [methodData]);
+    if (methodData) {
+      console.log("Updated methodData:", methodData);
+    }
+  }, [methodData]);
 
   useEffect(() => {
     if (img) {
@@ -122,15 +129,13 @@ const Result = () => {
       setRetrieveImg(img);
     }
   }, [img]);
-  
+
   useEffect(() => {
-    if (data) {
-      const decodedData = JSON.parse(
-        Buffer.from(data, "base64").toString("utf-8")
-      );
-      setExifData(decodedData);
+    if (methodData) {
+      console.log(methodData.exif_data);
+      setExifData(methodData.exif_data);
     }
-  }, [data]);
+  }, [methodData]);
   return (
     <>
       <div className={`Top-container ${inter.className}`}>
@@ -149,39 +154,41 @@ const Result = () => {
           </div>
           <div className="Result-container">
             <MetaData_Result
-              cameraInformation={
-                exifData?.exif_data?.camera_information || null
-              } // Pass camera information as prop
+              cameraInformation={exifData?.camera_information || undefined} // Pass camera information as prop
             />
           </div>
           <div className="Result-container">
             {" "}
             <Modification
-              original_date={exifData?.exif_data?.original_date || null}
-              modify_date={exifData?.exif_data?.modify_date || null}
-              software_modify={exifData?.exif_data?.software_modify || null}
-              author_copyright={exifData?.exif_data?.author_copyright || null}
+              original_date={exifData?.original_date || null}
+              modify_date={exifData?.modify_date || null}
+              software_modify={exifData?.software_modify || null}
+              author_copyright={exifData?.author_copyright || null}
             />{" "}
           </div>
         </div>
         <div className="Half-content-container">
           <div className="Result-container">
             {" "}
-            <Map_Res gps_location={exifData?.exif_data?.gps_location} />
+            <Map_Res gps_location={exifData?.gps_location} />
           </div>
-          <div className="Result-container"> Keyframe</div>
+          <div className="Result-container">
+            {methodData?.jpeg_ghost_result && (
+              <Image src={`data:image/jpeg;base64,${methodData.jpeg_ghost_result}`} alt="" width={500} height={500}/>
+            )}
+          </div>
           <div className="Result-container"> OSM Tags</div>
         </div>
       </div>
       <div className="flex flex-col items-center"></div>
-       <div>
-      <h2>Task Status</h2>
-      {methodData ? (
-        <pre>{JSON.stringify(methodData, null, 2)}</pre>
-      ) : (
-        <p>Loading task status...</p>
-      )}
-    </div>
+      <div>
+        <h2>Task Status</h2>
+        {methodData ? (
+          <pre>{JSON.stringify(methodData, null, 2)}</pre>
+        ) : (
+          <p>Loading task status...</p>
+        )}
+      </div>
     </>
   );
 };

@@ -2,17 +2,17 @@ import React from 'react';
 import "@/app/(single layout)/result/result.css"
 // Define the props type for the MetaData_Result component
 interface CameraInformation {
-  make: string;
-  model: string;
-  exposure: string;
-  aperture: string;
-  focal_length: string;
-  iso_speed: string;
-  flash: string;
+  make: string | undefined;
+  model: string | undefined;
+  exposure: string | undefined;
+  aperture: string | undefined;
+  focal_length: string | undefined;
+  iso_speed: string | undefined;
+  flash: string | undefined;
 }
 
 interface MetaDataProps {
-  cameraInformation: CameraInformation | null; // Accept camera information as a prop
+  cameraInformation: CameraInformation | undefined; // Accept camera information as a prop
 }
 
 const MetaData_Result: React.FC<MetaDataProps> = ({ cameraInformation }) => {
