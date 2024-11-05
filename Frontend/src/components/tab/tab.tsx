@@ -9,17 +9,17 @@ const TabArea: React.FC<TabAreaProps> = ({ activeTab, onTabChange }) => {
   return (
     <div className={styles.tab_area}>
       <button
-        className={`${styles.tab} ${activeTab === 'General' ? styles.active : ''}`}
-        onClick={() => onTabChange('General')}
+        className={`${styles.tab} ${activeTab === 'Exif Data' ? styles.active : ''}`}
+        onClick={() => onTabChange('Exif Data')}
       >
-        General Result
+        Exif Data
       </button>
       <div className={styles.vertical_line}></div>
       <button
-        className={`${styles.tab} ${activeTab === 'Reversed' ? styles.active : ''}`}
-        onClick={() => onTabChange('Reversed')}
+        className={`${styles.tab} ${activeTab === 'Geo Tags' ? styles.active : ''}`}
+        onClick={() => onTabChange('Geo Tags')}
       >
-        Reversed Image
+        Geo Tags
       </button>
     </div>
   );

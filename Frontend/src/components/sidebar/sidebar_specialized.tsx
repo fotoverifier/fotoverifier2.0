@@ -54,8 +54,8 @@ const Sidebar_Specialized: React.FC<SidebarProps> = ({  children, logo, title = 
             }`}
           >
             <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+              <h4 className="font-semibold">Specialized mode</h4>
+              
             </div>
             <CiMenuBurger size={20} />
           </div>
@@ -92,7 +92,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, active = f
       {alert && <div className={`absolute right-2 w-2 h-2 rounded bg-green-400 ${expanded ? "" : "top-2"}`} />}
       {!expanded && (
         <div
-          className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-green-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
+          className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-green-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 `}
         >
           {text}
         </div>

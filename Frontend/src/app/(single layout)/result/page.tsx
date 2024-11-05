@@ -111,11 +111,18 @@ const Result = () => {
   }, [taskData, isFetching]);
 
   useEffect(() => {
+  if (methodData) {
+    console.log("Updated methodData:", methodData);
+  }
+}, [methodData]);
+
+  useEffect(() => {
     if (img) {
       // Set the retrieved image as base64
       setRetrieveImg(img);
     }
   }, [img]);
+  
   useEffect(() => {
     if (data) {
       const decodedData = JSON.parse(
@@ -167,6 +174,14 @@ const Result = () => {
         </div>
       </div>
       <div className="flex flex-col items-center"></div>
+       <div>
+      <h2>Task Status</h2>
+      {methodData ? (
+        <pre>{JSON.stringify(methodData, null, 2)}</pre>
+      ) : (
+        <p>Loading task status...</p>
+      )}
+    </div>
     </>
   );
 };

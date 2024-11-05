@@ -9,8 +9,37 @@ const helperData = [
   { title: '1. EXIF Data', description: ' Details of camera settings and photo conditions.' },
   { title: '2. Geo tags', description: ' Location coordinates where the photo was taken.' },
 ];
+
+const exifDataSections = [
+  {
+    title: 'Information of the device',
+    fields: [
+      { label: 'Make' },
+      { label: 'Model' },
+      { label: 'Exposure' },
+      { label: 'Aperture' },
+      { label: 'Focal Length' },
+      { label: 'ISO Speed' },
+      { label: 'Flash' },
+    ],
+  },
+  {
+    title: 'Modification and Author',
+    fields: [
+      { label: 'Software Modified' },
+      { label: 'Modification Date' },
+      { label: 'Original Date' },
+      { label: 'Create Date' },
+      { label: 'Author' },
+      { label: 'Copyright Tag' },
+      { label: 'Profile Copyright' },
+    ],
+  },
+];
+
+
 const Specialized_Information = () => {
-   const [activeTab, setActiveTab] = useState('General');
+   const [activeTab, setActiveTab] = useState('Exif Data');
   return (
     <div className='h-full w-full bg-white flex'>
      <div className={styles.home_first_half}>
@@ -43,15 +72,20 @@ const Specialized_Information = () => {
       <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
 
       <div className={styles.content_area}>
-        {activeTab === 'General' ? (
-          <div className={styles.content}>
-            <div className={styles.show_container}>Classification</div>
-            <div className={styles.horizontal_line}></div>
-            <div className={styles.show_container}>Probability Breakdown</div>
-          </div>
-        ) : (
-          <div>Reversed Image Content</div>
-        )}
+              {activeTab === 'Exif Data' && (
+        <div className="h-full w-full p-2 flex flex-col justify-evenly">
+          {exifDataSections.map((section, index) => (
+            <div key={index} className="h-1/2 w-full p-2">
+              <div className="font-bold text-lg text">{section.title}</div>
+              {section.fields.map((field, idx) => (
+                <p key={idx}>
+                  <div className='font-semibold'>{field.label}:</div>
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
       </div>
     </div>
 
