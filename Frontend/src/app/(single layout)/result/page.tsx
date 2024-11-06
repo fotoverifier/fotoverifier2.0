@@ -139,7 +139,7 @@ const Result = () => {
   return (
     <>
       <div className={`Top-container ${inter.className}`}>
-        <div className="Confident-score-container"> The confident score: </div>
+        <div className={`Confident-score-container ${inter.className} font-bold`}> The confident score: </div>
         <div className="vertical-space"></div>
         <div className="General-report-container">
           <Image src={pattern} width={200} height={200} alt={""}></Image>
@@ -173,22 +173,26 @@ const Result = () => {
             <Map_Res gps_location={exifData?.gps_location} />
           </div>
           <div className="Result-container">
-            {methodData?.jpeg_ghost_result && (
-              <Image src={`data:image/jpeg;base64,${methodData.jpeg_ghost_result}`} alt="" width={500} height={500}/>
-            )}
+              <div className='w-full h-full p-5'>
+          <div className='flex'>
+            <div className='circle_2'> 5. </div>
+          <div className='font-bold text-lg ml-2 mb-5'>JPEG Ghost</div>
           </div>
-          <div className="Result-container"> OSM Tags</div>
+                  {methodData?.jpeg_ghost_result && (
+                    <Image src={`data:image/jpeg;base64,${methodData.jpeg_ghost_result}`} alt="" width={500} height={500}/>
+                  )}
+          </div>
+          </div>
+          <div className="Result-container">  <div className='w-full h-full p-5'>
+    <div className='flex'>
+       <div className='circle_2'> 6. </div>
+    <div className='font-bold text-lg ml-2 mb-5'>Reversed Image Search</div>
+    </div>
+    </div>
+    </div>
         </div>
       </div>
       <div className="flex flex-col items-center"></div>
-      <div>
-        <h2>Task Status</h2>
-        {methodData ? (
-          <pre>{JSON.stringify(methodData, null, 2)}</pre>
-        ) : (
-          <p>Loading task status...</p>
-        )}
-      </div>
     </>
   );
 };
