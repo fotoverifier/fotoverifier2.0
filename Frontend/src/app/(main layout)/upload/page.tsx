@@ -120,10 +120,6 @@ const Upload = () => {
             placeholder="Input link"
             className={`ml-2 ${inter.className}`}
           />
-          <button className="mr-2">
-            {" "}
-            <div className={inter.className}> Analyse </div>{" "}
-          </button>
         </div>
          <div className="helper-title">
           <div className="spec-helper">
@@ -176,8 +172,8 @@ const Upload = () => {
                   src={imageSrc}
                   alt="Preview"
                   className="image-preview "
-                  width="450"
-                  height="450"
+                  width={300}
+                  height={300}
                 />
               </div>
             </>

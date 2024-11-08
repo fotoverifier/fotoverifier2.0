@@ -10,6 +10,8 @@ import { useSearchParams } from "next/navigation";
 import { Buffer } from "buffer";
 import Modification from "./modification";
 import Map_Res from "./map";
+import JPEG_Result from "./object_detection";
+import ImgTagging_Result from "./osm_tags";
 
 interface Object {
   task_id: any;
@@ -210,40 +212,24 @@ const Result = () => {
             <Image_Result img={img} />
           </div>
           <div className="Result-container">
-            <MetaData_Result
-              cameraInformation={exifData?.camera_information || undefined} // Pass camera information as prop
-            />
+            <JPEG_Result img ={`data:image/jpeg;base64,${methodData?.jpeg_ghost_result}`}/>
           </div>
           <div className="Result-container">
-            {" "}
-            <Modification
+          <ImgTagging_Result img ={`data:image/jpeg;base64,${methodData?.jpeg_ghost_result}`}/>
+          </div>
+        </div>
+        <div className="Half-content-container">
+          <div className="Result-container-2">
+             <MetaData_Result
+              cameraInformation={exifData?.camera_information || undefined} 
               original_date={exifData?.original_date || undefined}
               modify_date={exifData?.modify_date || undefined}
               software_modify={exifData?.software_modify || undefined}
               author_copyright={exifData?.author_copyright || undefined}
-            />{" "}
-          </div>
-        </div>
-        <div className="Half-content-container">
-          <div className="Result-container">
-            {" "}
-            <Map_Res gps_location={exifData?.gps_location} />
-          </div>
-          <div className="Result-container">
-            <div className="w-full h-full p-5">
-              <div className="flex">
-                <div className="circle_2"> 5. </div>
-                <div className="font-bold text-lg ml-2 mb-5">JPEG Ghost</div>
-              </div>
-              {methodData?.jpeg_ghost_result && (
-                <Image
-                  src={`data:image/jpeg;base64,${methodData.jpeg_ghost_result}`}
-                  alt=""
-                  width={500}
-                  height={500}
-                />
-              )}
-            </div>
+              gps_location={exifData?.gps_location}
+              // Pass camera information as prop
+            />
+            
           </div>
           <div className="Result-container">
             {" "}
