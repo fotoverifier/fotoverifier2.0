@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "@/app/(main layout)/dashboard/home.module.css";
 import { Inter } from "next/font/google";
+import AppIcon from "@/assets/icon.png"
+import Image from "next/image";
 const inter = Inter({ subsets: ["latin"] });
 const home = () => {
   const categories = [
@@ -24,7 +26,9 @@ const home = () => {
         {categories.map((category, index) => (
           <div key={index} className={`${styles.category_container} ${styles.ml_10}`}>
             <a href={links[index]} className={styles.dashboard_category_item}>
-              <div className={styles.image_container}></div>
+              <div className={styles.image_container}>
+                <Image src={AppIcon} alt=''></Image>
+              </div>
                <div className={styles.horizontal_bar}></div>
               {category}
             </a>

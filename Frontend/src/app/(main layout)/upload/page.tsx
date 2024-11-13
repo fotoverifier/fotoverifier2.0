@@ -9,6 +9,7 @@ import Method_Box from "./itemgrid";
 import { FaAngleDown } from "react-icons/fa6";
 import LoadingModal from "@/components/loading_modal";
 import CompletionModal from "@/components/modal/complete_modal";
+import { IoMdMenu } from "react-icons/io";
 import Link from "next/link";
 import { Buffer } from 'buffer';
 
@@ -49,7 +50,7 @@ const Upload = () => {
     setImageSrc(null);
     setImageFile(null);
   };
-  const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
+  const [selectedMethod, setSelectedMethod] = useState("normal");
 
   const handleGoToResult = () => {
     // Logic to navigate to the result page
@@ -167,7 +168,7 @@ const Upload = () => {
                 </button>
               </div>
               <hr className="separator" />
-              <div className="viewer flex items-center justify-center p-2">
+              <div className="viewer_2 flex items-center justify-center p-2">
                 <Image
                   src={imageSrc}
                   alt="Preview"
@@ -211,7 +212,7 @@ const Upload = () => {
         label="Scan the image by yourself" 
         isSelected={selectedMethod === "specialized"}
         onSelect={handleMethodSelect}
-        duration="Specialized moed"
+        duration="Specialized mode"
       />
               </div>
               <div className="space">  </div>
@@ -221,8 +222,9 @@ const Upload = () => {
                     <FaAngleDown className="mr-5"></FaAngleDown>
                     For specialized mode, please consider checking our comprehensive tutorials and terminologies. 
                     </div>
+                    <IoMdMenu></IoMdMenu>
                     </div>
-               <div className="verify-agree-container ml-5">
+               <div className={`verify-agree-container ml-5 ${montserrat.className} font-bold`}>
                 <div className="button" onClick={handleSubmit}> Verify </div>
                {loading && (
         <LoadingModal 
@@ -243,7 +245,7 @@ const Upload = () => {
           </Link>
       )}
                 <div className="w-1/12"> </div>
-                <div className={`${inter.className} agree-section`}>
+                <div className={`${montserrat.className} agree-section`}>
                   {" "}
                   I agree to the terms and conditions.{" "}
                 </div>

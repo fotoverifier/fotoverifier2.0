@@ -128,7 +128,7 @@ const Home = () => {
             </>
           )}
         </div>
-              <div className="verify-agree-container">
+              <div className={`verify-agree-container ${montserrat.className}`}>
               
                 <Link href= "/assesment" className="button"> Verify 
                 </Link>

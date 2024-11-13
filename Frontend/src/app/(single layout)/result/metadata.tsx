@@ -47,16 +47,22 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
 
   return (
     <div className='w-full h-full p-5'>
-      <div className='flex items-center justify-between'>
+      <div className='flex-col items-center justify-between'>
         <div className='flex items-center'>
           <div className='circle_2'> 4. </div>
           <div className='font-bold text-lg ml-2'>Metadata</div>
-        </div>
-        <button onClick={openModal} className='focus:outline-none'>
-          <div className='flex justify-center'>
-          <FaChevronDown /> Show Details
+
+          <button onClick={openModal} className='focus:outline-none ml-auto'>
+          <div className='flex justify-center rounded-md border-black border-2 p-2 hover:bg-black hover:text-white'>
+          Show Detail
           </div>
         </button>
+        </div>
+    <div className='flex items-center'>
+          <div className='circle_2'> 5. </div>
+          <div className='font-bold text-lg ml-2'> The Geo Map</div>
+      </div>
+    
       </div>
 
       {/* Modal for displaying all metadata information */}

@@ -3,15 +3,16 @@
   height: 100%;
   background-color: white;
   border-radius: 10px;
-  border-color: gray;
   border-width: 1px;
+}
+.normal-deep-scan-container:hover{
+  border-color: gray;
 }
 .specialized-scan-container{
   width: 95%;
   height: 100%;
   background-color: white;
   border-radius: 10px;
-  border-color: gray;
   border-width: 1px;
 }
 .circle-checkbox-container {

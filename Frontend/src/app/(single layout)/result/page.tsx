@@ -219,7 +219,7 @@ const Result = () => {
           </div>
         </div>
         <div className="Half-content-container">
-          <div className="Result-container-2">
+          <div className="Result-container">
              <MetaData_Result
               cameraInformation={exifData?.camera_information || undefined} 
               original_date={exifData?.original_date || undefined}
