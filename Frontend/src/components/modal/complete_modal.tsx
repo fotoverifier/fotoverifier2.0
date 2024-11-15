@@ -4,17 +4,15 @@ import styles from "@/styles/completion_modal.module.css";
 
 interface CompletionModalProps {
   message?: string;
-  onGoToResult: () => void;
 }
 
 const CompletionModal: React.FC<CompletionModalProps> = ({ 
-  message = "Upload Complete!", 
-  onGoToResult 
+  message = "Upload Complete!"
 }) => {
   return (
     <div className={styles.modal}>
       <p>{message}</p>
-      <button onClick={onGoToResult} className={styles.resultButton}>
+      <button className={styles.resultButton}>
         Go to result page
       </button>
     </div>
