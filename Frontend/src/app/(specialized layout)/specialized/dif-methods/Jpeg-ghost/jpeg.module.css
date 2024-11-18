@@ -4,8 +4,6 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
 }
 .tutorial_area{
     height: 80%;
@@ -13,17 +11,29 @@
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;
-    border-style: groove;
+    border-style: dashed;
     padding: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+}
+.definition_area{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: white;
+    border-style: groove;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .tutorial_image{
-    height: 95%;
-    width: auto;
+    height: auto;
+    width: fit-content;
     margin-left: 7px;
     position: relative;
+    display: flex;
 }
 .tutorial_image img{
     height: 100%;
@@ -33,7 +43,6 @@
 .jpeghost_container{
     height: 67.5%;
     width: 100%;
-    padding: 10px;
     background-color: white;
     display: flex;
     justify-content: space-evenly;
@@ -41,7 +50,9 @@
 }
 .note{
      width: 25%;
-     height: 90%;
+     height: 100%;
+     display: flex;
+     align-items: center;
 }
 .image_container{
     width: 90%;
@@ -49,7 +60,7 @@
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;
-    border-style: dotted;
+    border-style: groove;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,6 +69,8 @@
     width: 95%;
     height: 10%;
     padding: 5px;
+    display: flex;
+    align-items: center;
     margin-right: auto;
 }
 .horizontal_line{
@@ -73,4 +86,57 @@
 .show_container{
     width: 95%;
     height: 45%;
+}
+.helper_title {
+  width: 87.5%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  font-size: x-large;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.circle {
+  width: 50px; 
+  height: 50px;
+  border: 2px solid;
+  border-radius: 50%;
+  background-color: #01584B;
+  color: white;
+  display: flex;         
+  justify-content: center; 
+  align-items: center;    
+  text-align: center;      
+}
+.custom_button{
+    padding: 5px;
+    width: fit-content;
+    height: fit-content;
+     border-radius: 10px;
+    border-width: 2px;
+    background-color: #01584B;
+    color: white;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.reference_list {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.reference_item {
+  margin-bottom: 5px;
+}
+
+.reference_item a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.reference_item a:hover {
+  text-decoration: underline;
 }

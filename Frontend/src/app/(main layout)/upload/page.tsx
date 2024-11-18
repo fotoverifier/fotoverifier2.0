@@ -222,7 +222,6 @@ const Upload = () => {
             For specialized mode, please consider checking our comprehensive
             tutorials and terminologies.
           </div>
-          <IoMdMenu></IoMdMenu>
         </div>
         <div
           className={`verify-agree-container ml-5 ${montserrat.className} font-bold`}

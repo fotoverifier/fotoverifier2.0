@@ -4,6 +4,7 @@ import Sidebar_Specialized, { SidebarItem } from "@/components/sidebar/sidebar_s
 import { FaChevronRight, FaInfoCircle, FaRegLightbulb, FaRegSun, FaTools } from "react-icons/fa";
 import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
+import { SiJpeg } from "react-icons/si";
 
 export default function RootLayout({
   children,
@@ -12,7 +13,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
    const sidebarItems = [
-    { path: "/specialized/dif-methods/Jpeg-ghost", icon: <FaChevronRight />, text: "Jpeg ghost" },
+    { path: "/specialized/dif-methods/Jpeg-ghost", icon: <SiJpeg />, text: "Jpeg ghost" },
     { path: "/specialized/DLA", icon: <FaChevronRight />, text: "DLA" },
     { path: "/specialized/CLA", icon: <FaChevronRight />, text: "CLA" },
     { path: "/specialized/Jpeg_mis-alignment", icon: <FaChevronRight />, text: "Jpeg mis-alignment", alert: false },
