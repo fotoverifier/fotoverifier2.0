@@ -4,10 +4,14 @@ import styles from '@/app/(specialized layout)/specialized/information/informati
 import { Inter } from 'next/font/google'
 import ResultTabs from '@/components/tab/tab';
 import TabArea from '@/components/tab/tab';
+import { FaInfoCircle, FaMap } from 'react-icons/fa';
+import Exif from "@/assets/exif.png"
+import { BsFillGeoAltFill } from 'react-icons/bs';
+import Image from 'next/image';
 const inter = Inter({subsets: ["latin"]})
 const helperData = [
-  { title: '1. EXIF Data', description: ' Details of camera settings and photo conditions.' },
-  { title: '2. Geo tags', description: ' Location coordinates where the photo was taken.' },
+  { title: 'EXIF Data', description: ' Details of camera settings and photo conditions.', icon: Exif},
+  { title: 'Geo tags', description: ' Location coordinates where the photo was taken.' },
 ];
 
 const exifDataSections = [
@@ -37,7 +41,16 @@ const exifDataSections = [
   },
 ];
 
-
+const GeoTag = [
+  {
+    title: 'Geographical Information',
+    fields: [
+      { label: 'Longtitude' },
+      { label: 'Model' },
+      { label: 'Exposure' },
+    ],
+  },
+];
 const Specialized_Information = () => {
    const [activeTab, setActiveTab] = useState('Exif Data');
   return (
@@ -45,7 +58,7 @@ const Specialized_Information = () => {
      <div className={styles.home_first_half}>
                <div className={styles.helper_title}>
           <div className={`${inter.className} flex items-center`}> 
-            <div className={`${styles.circle} mr-4 `}> 1. </div>
+            <div className={`${styles.circle} mr-4 `}> <FaInfoCircle/> </div>
             General Information</div>
           </div>
       <div className={styles.image_container}>
@@ -60,7 +73,7 @@ const Specialized_Information = () => {
            {helperData.map((item, index) => (
                 <div className={styles.helper_title_2} key={index}>
                 <div className={`${inter.className} flex items-center`}>
-                    {item.title}
+                    <Image src={Exif} alt=''width={30} height ={30}/> {item.title}
                 </div>
                 {item.description && (
                     <div className='font-thin text-base ml-4'>  {item.description}</div>
@@ -87,6 +100,30 @@ const Specialized_Information = () => {
               ))}
             </div>
           ))}
+        </div>
+      )}
+
+      {activeTab === 'Geo Tags' && (
+        <div className="h-full w-full p-2 flex flex-col justify-evenly">
+          {GeoTag.map((section, index) => (
+            <div key={index} className="h-1/3 w-full p-2">
+              <div className='flex'>
+              <div className={styles.circle_2}><BsFillGeoAltFill /></div>
+              <div className="font-bold text-lg text ml-2 mb-2">{section.title}</div>
+              </div>
+              {section.fields.map((field, idx) => (
+                <div key={idx}>
+                  <div className='font-semibold'>{field.label}:</div>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div className='h-2/3 w-full p-2'>
+           <div className='flex'>
+              <div className={styles.circle_2}><FaMap /></div>
+              <div className="font-bold text-lg text ml-2 mb-2"> Map</div>
+              </div>
+           </div>
         </div>
       )}
       </div>

@@ -73,6 +73,8 @@ const Home = () => {
           </div>
         </div>
         <Image src={pattern} className="relative" width={200} height={200} alt=" "></Image>
+
+
         <div className="home-second-half">
           <div className="upload-fcontainer">
             <div className="upload-scontainer">
@@ -128,6 +130,10 @@ const Home = () => {
             </>
           )}
         </div>
+
+
+
+        
               <div className={`verify-agree-container ${montserrat.className}`}>
               
                 <Link href= "/assesment" className="button"> Verify 

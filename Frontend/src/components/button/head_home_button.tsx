@@ -32,7 +32,6 @@ const HH_Button = () => {
       onClick={handleButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="transform transition-transform duration-200 hover:scale-[1.20]"
     >
       Resources
       <span onClick={handleIconClick} className="ml-5">

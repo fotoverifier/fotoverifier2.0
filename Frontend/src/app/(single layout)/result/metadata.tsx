@@ -63,7 +63,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="font-bold text-lg ml-2"> The Geo Map</div>
         </div>
       </div>
-      {/* Modal for displaying all metadata information */}
       {isModalOpen &&
         (!cameraInformation &&
         !software_modify &&

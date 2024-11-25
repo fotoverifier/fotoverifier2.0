@@ -32,8 +32,8 @@
     flex-direction: column;
 }
 .upload-fcontainer{
-    width: 80%;
-    height: 80%;
+    width: 85%;
+    height: 90%;
     background-color: #61A49A;
     display: flex;
     align-items: center;

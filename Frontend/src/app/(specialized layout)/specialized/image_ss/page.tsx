@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import metadata from "@/assets/metadata.png"
 import Image from 'next/image'
 import ImageMagnifier from '@/components/image_mag'
+import { ImEnlarge } from 'react-icons/im'
 
 const inter = Inter({subsets: ["latin"]});
 const Specialized_SS = () => {
@@ -12,7 +13,7 @@ const Specialized_SS = () => {
      <div className={styles.home_first_half}>
         <div className={styles.helper_title}>
           <div className={`${inter.className} flex items-center`}> 
-            <div className={`${styles.circle} mr-4 `}> 2. </div>
+            <div className={`${styles.circle} mr-4 `}> <ImEnlarge /></div>
             Image Enhancement</div>
           </div>
       <div className={styles.image_container}>

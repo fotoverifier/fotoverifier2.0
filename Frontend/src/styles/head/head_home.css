@@ -45,7 +45,6 @@
 .header-shortcuts button {
   width: auto;
   height: 100%;
-  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,6 +101,7 @@
   }
   .header-go {
     width: 25%;
+    
   }
 }
 
