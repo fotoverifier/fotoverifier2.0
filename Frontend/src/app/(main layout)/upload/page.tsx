@@ -10,25 +10,22 @@ import LoadingModal from '@/components/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
 import { IoMdMenu } from 'react-icons/io';
 import Link from 'next/link';
-import { Buffer } from 'buffer';
-import { UrlObject } from 'url';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
 });
 const inter = Inter({ subsets: ['latin'] });
-interface RetrievedData {
-  websocket_url: string;
-}
+
 
 const Upload = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [retrievedData, setRetrievedData] = useState<RetrievedData | null>(
+  const [retrievedData, setRetrievedData] = useState<string | null>(
     null
   );
+  const [selectedMethod, setSelectedMethod] = useState<string>('normal');
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -54,16 +51,10 @@ const Upload = () => {
     setImageSrc(null);
     setImageFile(null);
   };
-  const [selectedMethod, setSelectedMethod] = useState('normal');
 
   const handleMethodSelect = (id: string) => {
     setSelectedMethod(id);
   };
-  useEffect(() => {
-    if (retrievedData) {
-      console.log('Updated retrievedData:', retrievedData);
-    }
-  }, [retrievedData]);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -72,36 +63,68 @@ const Upload = () => {
       return;
     }
 
-    if (!selectedMethod) {
-      alert('Please select a scan method before submitting.');
-      return;
-    }
+    if (selectedMethod === 'normal') {
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const urls = [
+          'http://127.0.0.1:8000/api/exif-check/',
+          'http://127.0.0.1:8000/api/jpeg-ghost/',
+        ];
 
-    try {
-      const formData = new FormData();
-      formData.append('image', imageFile);
-      const response = await fetch('http://127.0.0.1:8000/api/image/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+        const fetchPromises = urls.map((url) =>
+          fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
+          })
+        );
 
-      if (!response.ok) {
-        throw new Error(`Upload failed: ${response.statusText}`);
+        const responses = await Promise.all(fetchPromises);
+
+        const results = await Promise.all(
+          responses.map((response) => response.json())
+        );
+
+        console.log('Results:', results);
+        setRetrievedData(JSON.stringify(results));
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
       }
+    } else if (selectedMethod === 'deep') {
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const response = await fetch('http://127.0.0.1:8000/api/image/', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        });
 
-      const data = await response.json();
-      console.log('Image uploaded successfully:', data);
-      setRetrievedData(data);
-    } catch (error) {
-      console.log('Error submitting image:', error);
-      alert('There was an error submitting the image. Please try again.');
-    } finally {
-      console.log('Upload complete');
-      setUploadComplete(true);
-      setLoading(false);
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Image uploaded successfully:', data);
+        setRetrievedData(data);
+      } catch (error) {
+        console.log('Error submitting image:', error);
+        alert('There was an error submitting the image. Please try again.');
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
+      }
     }
   };
 
@@ -237,7 +260,7 @@ const Upload = () => {
                 pathname: '/result',
                 query: {
                   image: imageSrc,
-                  wsUrl: retrievedData?.websocket_url,
+                  wsUrls: retrievedData,
                 },
               }}
             >

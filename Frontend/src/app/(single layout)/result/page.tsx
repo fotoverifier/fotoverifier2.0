@@ -1,5 +1,5 @@
 'use client';
-import React, { use, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import '@/app/(single layout)/result/result.css';
 import Image from 'next/image';
 import Image_Result from './image';
@@ -7,15 +7,12 @@ import MetaData_Result from './metadata';
 import pattern from '@/assets/Frame 15.svg';
 import { Inter } from 'next/font/google';
 import { useSearchParams } from 'next/navigation';
-import { Buffer } from 'buffer';
-import Modification from './modification';
-import Map_Res from './map';
 import JPEG_Result from './object_detection';
 import ImgTagging_Result from './osm_tags';
 
-interface Object {
-  task_id: any;
-}
+type WebSocketUrl = {
+  websocket_url: string;
+};
 interface ExifData {
   exif_data: any;
   software_modify: string | undefined;
@@ -50,65 +47,61 @@ interface Result {
   exif_data: any;
   jpeg_ghost_result: string;
   reverse_image_search_results: any;
-  super_resolution_result: string;
 }
 const inter = Inter({ subsets: ['latin'] });
 const Result = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
-  const wsUrl = searchParams.get('wsUrl');
+  const wsUrls = searchParams.get('wsUrls');
 
-  const [taskData, setTaskData] = useState<Object | null>(null);
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
-  const [superResResult, setSuperResResult] = useState<string | null>(null);
-  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
-  const [isFetching, setIsFetching] = useState<Boolean>(false);
-
-  const [methodData, setmethodData] = useState<Result | null>(null);
-  const [retrieve_img, setRetrieveImg] = useState<string | null>(null);
 
   useEffect(() => {
-    if (wsUrl) {
-      const ws = new WebSocket(wsUrl);
+    const websockets: any[] = [];
+    if (wsUrls) {
+      try {
+        const parsedUrls = JSON.parse(wsUrls);
+        parsedUrls.forEach((wsUrlObj: WebSocketUrl) => {
+          const ws = new WebSocket(wsUrlObj.websocket_url);
+          websockets.push(ws);
 
-      ws.onopen = () => {
-        console.log('WebSocket connection opened');
-      };
-
-      ws.onmessage = (event) => {
-        console.log('Message from server ', event.data);
-        // Handle the incoming message and update state as needed
-        try {
-          const message = JSON.parse(event.data);
-          if (message.task === 'exif_check') {
-            setExifResult(message.result);
-          } else if (message.task === 'jpeg_ghost') {
-            setJpegResult(message.result);
-          } else if (message.task === 'reverse_image_search') {
-            setSearchResult(message.result.image_results);
-          } else if (message.task === 'super_resolution') {
-            setSuperResResult(message.result);
-          }
-        } catch (error) {
-          console.error('Failed to parse message:', error);
-        }
-      };
-
-      ws.onclose = () => {
-        console.log('WebSocket connection closed');
-      };
-
-      ws.onerror = (error) => {
-        console.error('WebSocket error: ', error);
-      };
-
-      return () => {
-        ws.close();
-      };
+          ws.onopen = () => {
+            console.log('Websocket connected at ', wsUrlObj.websocket_url);
+          };
+          ws.onclose = () => {
+            console.log('Websocket closed at ', wsUrlObj.websocket_url);
+          };
+          ws.onmessage = (event) => {
+            try {
+              const message = JSON.parse(event.data);
+              console.log('Message:', message);
+              if (message.task === 'exif_check') {
+                setExifResult(message.result);
+              }
+              if (message.task === 'reverse_image_search') {
+                setSearchResult(message.result);
+              }
+              if (message.task === 'jpeg_ghost') {
+                setJpegResult(message.result);
+              }
+            } catch (error) {
+              console.error('Failed to parse wsUrls:', error);
+            }
+          };
+          ws.onerror = (error) => {
+            console.error(
+              `WebSocket error at ${wsUrlObj.websocket_url}:`,
+              error
+            );
+          };
+        });
+      } catch (error) {
+        console.error('Failed to parse wsUrls:', error);
+      }
     }
-  }, [wsUrl]);
+  }, [wsUrls]);
 
   // useEffect(() => {
   //   if (data) {
