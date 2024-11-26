@@ -4,7 +4,7 @@ import styles from '@/app/(specialized layout)/specialized/information/informati
 import { Inter } from 'next/font/google'
 import ResultTabs from '@/components/tab/tab';
 import TabArea from '@/components/tab/tab';
-import { FaInfoCircle, FaMap } from 'react-icons/fa';
+import { FaInfoCircle, FaMap, FaTags } from 'react-icons/fa';
 import Exif from "@/assets/exif.png"
 import { BsFillGeoAltFill } from 'react-icons/bs';
 import Image from 'next/image';
@@ -51,7 +51,10 @@ const GeoTag = [
     ],
   },
 ];
+const result = 'bat | catch | fly | girl | hang | stand | tree | woman | wood';
 const Specialized_Information = () => {
+    const splitResult = result.split(' | ');
+
    const [activeTab, setActiveTab] = useState('Exif Data');
   return (
     <div className='h-full w-full bg-white flex'>
@@ -67,9 +70,25 @@ const Specialized_Information = () => {
         <div className={styles.horizontal_line}></div>
         <div className={styles.show_container}>
         </div>
+        <div className={styles.horizontal_line}></div>
+        <div className={styles.tagging_container}> 
+           <div className='flex mr-auto'>
+              <div className={styles.circle_2}><FaTags /></div>
+              <div className="font-bold text-lg text ml-2 mb-2">Tagging </div>
+              </div>
+
+           <div className="flex flex-wrap">
+              {splitResult.map((item, index) => (
+                <span key={index} className="mr-2 mb-2 p-2 border rounded">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          
       </div>
     </div>
-      <div className={styles.home_first_half}>
+      <div className={styles.home_second_half}>
            {helperData.map((item, index) => (
                 <div className={styles.helper_title_2} key={index}>
                 <div className={`${inter.className} flex items-center`}>

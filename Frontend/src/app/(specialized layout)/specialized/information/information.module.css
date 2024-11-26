@@ -1,5 +1,12 @@
 .home_first_half{
-    width: 50%;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.home_second_half{
+    width: 60%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -34,7 +41,13 @@
 }
 .show_container{
     width: 95%;
-    height: 45%;
+    height: 70%;
+    background-color: aliceblue;
+}
+.tagging_container{
+  padding: 10px;
+    width: 95%;
+    height: 30%;
 }
 .result_container{
     width: 90%;

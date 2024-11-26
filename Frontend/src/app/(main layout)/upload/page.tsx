@@ -71,6 +71,7 @@ const Upload = () => {
           'http://127.0.0.1:8000/api/exif-check/',
           'http://127.0.0.1:8000/api/jpeg-ghost/',
           'http://127.0.0.1:8000/api/reverse-image-search/',
+          'http://127.0.0.1:8000/api/recognize-objects/',
         ];
 
         const fetchPromises = urls.map((url) =>

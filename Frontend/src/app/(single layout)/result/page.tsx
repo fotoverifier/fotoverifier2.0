@@ -48,6 +48,9 @@ interface Result {
   jpeg_ghost_result: string;
   reverse_image_search_results: any;
 }
+interface Tagging{
+  tag: string;
+}
 const inter = Inter({ subsets: ['latin'] });
 const Result = () => {
   const searchParams = useSearchParams();
@@ -57,6 +60,7 @@ const Result = () => {
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
+  const [tagResult, settagResult] = useState<string | null>(null);
 
   useEffect(() => {
     const websockets: any[] = [];
@@ -85,6 +89,11 @@ const Result = () => {
               }
               if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
+              }
+              else{
+                if (message.task === 'recognize_image'){
+                  settagResult(message.result);
+                }
               }
             } catch (error) {
               console.error('Failed to parse wsUrls:', error);
@@ -207,7 +216,7 @@ const Result = () => {
             <JPEG_Result img={`data:image/jpeg;base64,${jpegResult}`} />
           </div>
           <div className="Result-container">
-            <ImgTagging_Result img={`data:image/jpeg;base64,${jpegResult}`} />
+            <ImgTagging_Result Tag={tagResult} />
           </div>
         </div>
         <div className="Half-content-container">
