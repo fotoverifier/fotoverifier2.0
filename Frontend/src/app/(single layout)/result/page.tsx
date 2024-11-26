@@ -81,7 +81,7 @@ const Result = () => {
                 setExifResult(message.result);
               }
               if (message.task === 'reverse_image_search') {
-                setSearchResult(message.result);
+                setSearchResult(message.result.image_results);
               }
               if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
