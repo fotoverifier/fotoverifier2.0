@@ -4,14 +4,15 @@ import styles from '@/app/(specialized layout)/specialized/information/informati
 import { Inter } from 'next/font/google'
 import ResultTabs from '@/components/tab/tab';
 import TabArea from '@/components/tab/tab';
-import { FaInfoCircle, FaMap, FaTags } from 'react-icons/fa';
+import { FaExchangeAlt, FaImage, FaInfoCircle, FaMap, FaTags } from 'react-icons/fa';
 import Exif from "@/assets/exif.png"
 import { BsFillGeoAltFill } from 'react-icons/bs';
 import Image from 'next/image';
+import { MdDescription } from 'react-icons/md';
 const inter = Inter({subsets: ["latin"]})
 const helperData = [
   { title: 'EXIF Data', description: ' Details of camera settings and photo conditions.', icon: Exif},
-  { title: 'Geo tags', description: ' Location coordinates where the photo was taken.' },
+  { title: 'Can EXIF Data be restored?', description: ' Once stripped, EXIF Data are no longer available.', icon: null},
 ];
 
 const exifDataSections = [
@@ -26,6 +27,7 @@ const exifDataSections = [
       { label: 'ISO Speed' },
       { label: 'Flash' },
     ],
+    description: 'Displays camera settings and specifications',
   },
   {
     title: 'Modification and Author',
@@ -38,6 +40,7 @@ const exifDataSections = [
       { label: 'Copyright Tag' },
       { label: 'Profile Copyright' },
     ],
+    description: 'Timestamp and Noticable Modifications',
   },
 ];
 
@@ -66,9 +69,15 @@ const Specialized_Information = () => {
           </div>
       <div className={styles.image_container}>
         <div className={styles.change_image_section}>
+          <div className = {`mr-5 ${inter.className} font-bold`}> Change your image</div>
+          <FaExchangeAlt className={styles.title_button}/>
         </div>
         <div className={styles.horizontal_line}></div>
         <div className={styles.show_container}>
+            <div className='flex mr-auto'>
+              <div className={styles.circle_2}><FaImage /></div>
+              <div className="font-bold text-lg text ml-2 mb-2"> Image </div>
+              </div>
         </div>
         <div className={styles.horizontal_line}></div>
         <div className={styles.tagging_container}> 
@@ -92,10 +101,10 @@ const Specialized_Information = () => {
            {helperData.map((item, index) => (
                 <div className={styles.helper_title_2} key={index}>
                 <div className={`${inter.className} flex items-center`}>
-                    <Image src={Exif} alt=''width={30} height ={30}/> {item.title}
+                     {item.title} 
                 </div>
                 {item.description && (
-                    <div className='font-thin text-base ml-4'>  {item.description}</div>
+                    <div className={`font-normal text-base ml-4 ${inter.className}`}>  {item.description}</div>
                 )}
                 </div>
             ))}
@@ -110,15 +119,18 @@ const Specialized_Information = () => {
             <div key={index} className="h-1/2 w-full p-2">
               <div className='flex'>
               <div className={styles.circle_2}>{index + 1}</div>
-              <div className="font-bold text-lg text ml-2 mb-2">{section.title}</div>
+              <div className="font-bold text-lg ml-2 mb-2 border-b-2 border-black">{section.title}</div>
+              <div className="font-base text-base ml-2 mb-2 self-center"> {section.description} </div>
               </div>
               {section.fields.map((field, idx) => (
                 <div key={idx}>
                   <div className='font-semibold'>{field.label}:</div>
                 </div>
               ))}
+              
             </div>
           ))}
+          
         </div>
       )}
 

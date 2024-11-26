@@ -2,8 +2,6 @@
 import React, { useState } from 'react'
 import styles from "@/app/(specialized layout)/specialized/dif-methods/Jpeg-ghost/jpeg.module.css"
 import Image from 'next/image'
-import metadata from "@/assets/metadata.png"
-import ImageMagnifier from '@/components/image_mag'
 import jpg1 from "@/assets/jpg1.jpg"
 import jpg2 from "@/assets/jpg2.jpg"
 import { Inter } from 'next/font/google';
@@ -18,7 +16,7 @@ interface Reference {
 
 
 const inter =Inter({subsets:[ "latin"]});
-const Specialized_dif_ghost = () => {
+const Specialized_NP= () => {
   const [showExample, setShowExample] = useState(false);
 
   const toggleContent = () => {
@@ -37,7 +35,7 @@ const Specialized_dif_ghost = () => {
                <div className={styles.helper_title}>
           <div className={`${inter.className} flex items-center`}> 
             <div className={`${styles.circle} mr-4 `}> <VscSymbolMethod></VscSymbolMethod> </div>
-            JPEG Ghost</div>
+            Noise Print</div>
           </div>
         <div className={`flex w-full h-full p-3 ${inter.className}`}>
      <button onClick={toggleContent} className={styles.custom_button}>
@@ -64,7 +62,7 @@ const Specialized_dif_ghost = () => {
         </div>
       ) : (
         <div className={styles.definition_area}>
-          <div className='p-2 flex'> <div className='font-bold mr-1 '>JPEG Ghost:</div> Detect spliced images based on the differences between several areas of the Color Filter Array </div>
+          <div className='p-2 flex'> <div className='font-bold mr-1 '>Noise print</div> Detect spliced images based on the differences between several areas of the Color Filter Array </div>
           <div className={styles.horizontal_line}>  </div>
           <div className='p-2 flex'> <div className='font-bold '> Reference</div> </div>
          <ul className={styles.reference_list}>
@@ -110,4 +108,4 @@ const Specialized_dif_ghost = () => {
   )
 }
 
-export default Specialized_dif_ghost
+export default Specialized_NP

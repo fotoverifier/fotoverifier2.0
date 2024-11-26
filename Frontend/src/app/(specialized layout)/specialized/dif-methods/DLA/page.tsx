@@ -2,8 +2,6 @@
 import React, { useState } from 'react'
 import styles from "@/app/(specialized layout)/specialized/dif-methods/Jpeg-ghost/jpeg.module.css"
 import Image from 'next/image'
-import metadata from "@/assets/metadata.png"
-import ImageMagnifier from '@/components/image_mag'
 import jpg1 from "@/assets/jpg1.jpg"
 import jpg2 from "@/assets/jpg2.jpg"
 import { Inter } from 'next/font/google';
@@ -18,7 +16,7 @@ interface Reference {
 
 
 const inter =Inter({subsets:[ "latin"]});
-const Specialized_dif_ghost = () => {
+const Specialized_DLA = () => {
   const [showExample, setShowExample] = useState(false);
 
   const toggleContent = () => {
@@ -110,4 +108,4 @@ const Specialized_dif_ghost = () => {
   )
 }
 
-export default Specialized_dif_ghost
+export default Specialized_DLA

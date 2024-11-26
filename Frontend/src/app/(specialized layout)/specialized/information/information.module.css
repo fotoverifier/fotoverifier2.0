@@ -1,20 +1,20 @@
 .home_first_half{
-    width: 40%;
+    width: 45%;
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 .home_second_half{
-    width: 60%;
+    width: 65%;
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 .image_container{
-    width: 90%;
-    height: 70%;
+    width: 92.5%;
+    height: 80%;
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;
@@ -26,8 +26,24 @@
 .change_image_section{
     width: 95%;
     height: 10%;
-    padding: 5px;
-    margin-right: auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.title_button{
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: gray;
+  border-width: 1px;
+  cursor: pointer;
+}
+.title_button:hover{
+  background-color: rgb(35, 100, 35);
+  color: white;
+  border-color: rgb(35, 100, 35);
 }
 .horizontal_line{
     width: 99%;
@@ -42,7 +58,7 @@
 .show_container{
     width: 95%;
     height: 70%;
-    background-color: aliceblue;
+    padding: 10px;
 }
 .tagging_container{
   padding: 10px;
@@ -50,8 +66,8 @@
     height: 30%;
 }
 .result_container{
-    width: 90%;
-    height: 70%;
+    width: 92.5%;
+    height: 80%;
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;

@@ -46,9 +46,7 @@ const Sidebar_Specialized: React.FC<SidebarProps> = ({  children, logo, title = 
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
-        <div className="border-t flex p-3">
-         
+        <div className=" flex p-3">
           <div
             className={`flex justify-between items-center overflow-hidden transition-all ${
               expanded ? "w-52 ml-3" : "w-0"
@@ -60,7 +58,7 @@ const Sidebar_Specialized: React.FC<SidebarProps> = ({  children, logo, title = 
             </div>
             <CiMenuBurger size={20} />
           </div>
-        </div>
+            </div>
       </nav>
     </aside>
   );
