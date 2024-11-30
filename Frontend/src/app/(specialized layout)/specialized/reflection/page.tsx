@@ -23,7 +23,7 @@ const Specialized_Reflect = () => {
         </div>
       </div>
     </div>
-    <div className={styles.home_first_half}>
+    <div className={styles.home_second_half}>
       </div>
       </div>
   )

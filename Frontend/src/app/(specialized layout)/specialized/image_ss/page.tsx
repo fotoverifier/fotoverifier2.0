@@ -26,7 +26,7 @@ const Specialized_SS = () => {
         </div>
       </div>
     </div>
-    <div className={styles.home_first_half}>
+    <div className={styles.home_second_half}>
         <div className={`${styles.helper_title} p-2 flex flex-col`}>
           <div className={`${inter.className}`}> Image Upscaling</div>
           <div className={`${inter.className} text-sm font-semibold`}>

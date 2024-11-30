@@ -1,9 +1,16 @@
 .home_first_half{
-    width: 50%;
+    width: 45%;
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+.home_second_half{
+  width: 65%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .image_container{
     width: 90%;

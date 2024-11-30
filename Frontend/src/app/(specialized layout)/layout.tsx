@@ -39,7 +39,7 @@ export default function RootLayout({
           </Link>
         ))}
       </Sidebar_Specialized>
-      <div className="w-full h-full">
+      <div className="w-full h-full bg-[#01584b]">
         <div className={`${styles.height_94}`}>  {children}</div>
          <div className={`border-t flex ${styles.height_6} text-gray `}>   
           <div

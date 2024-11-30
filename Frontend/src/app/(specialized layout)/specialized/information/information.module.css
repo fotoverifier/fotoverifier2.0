@@ -14,14 +14,18 @@
 }
 .image_container{
     width: 92.5%;
-    height: 80%;
+    height: 90%;
     border-radius: 10px;
     border-width: 2px;
     border-color: gray;
     border-style: dotted;
-    display: flex;
-    flex-direction: column;
+    position: relative;
     align-items: center;
+    justify-content: center;
+}
+.image_container img {
+  object-fit: cover;
+  border-radius: 10px;
 }
 .change_image_section{
     width: 95%;
@@ -57,7 +61,7 @@
 }
 .show_container{
     width: 95%;
-    height: 70%;
+    height: 60%;
     padding: 10px;
 }
 .tagging_container{

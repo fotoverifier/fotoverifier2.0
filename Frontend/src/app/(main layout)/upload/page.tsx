@@ -8,7 +8,7 @@ import Method_Box from './itemgrid';
 import { FaAngleDown } from 'react-icons/fa6';
 import LoadingModal from '@/components/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
-import { IoMdMenu } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const montserrat = Montserrat({
@@ -20,12 +20,13 @@ const inter = Inter({ subsets: ['latin'] });
 const Upload = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [retrievedData, setRetrievedData] = useState<string | null>(
     null
   );
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
+  const router = useRouter();
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -127,6 +128,8 @@ const Upload = () => {
         setUploadComplete(true);
         setLoading(false);
       }
+    } else if (selectedMethod === 'specialized') {
+      router.push(`/specialized/information?image=${encodeURIComponent(imageSrc)}`);
     }
   };
 

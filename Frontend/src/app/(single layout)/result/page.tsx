@@ -81,21 +81,23 @@ const Result = () => {
             try {
               const message = JSON.parse(event.data);
               console.log('Message:', message);
-              if (message.task === 'exif_check') {
+              if (message.result === 'completed') {
+                ws.close();
+              }
+              else if (message.task === 'exif_check') {
                 setExifResult(message.result);
               }
-              if (message.task === 'reverse_image_search') {
+              else if (message.task === 'reverse_image_search') {
                 setSearchResult(message.result.image_results);
               }
-              if (message.task === 'jpeg_ghost') {
+              else if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
               }
-              else{
-                if (message.task === 'recognize_image'){
+              else if (message.task === 'recognize_image'){
                   settagResult(message.result);
                 }
               }
-            } catch (error) {
+              catch (error) {
               console.error('Failed to parse wsUrls:', error);
             }
           };
