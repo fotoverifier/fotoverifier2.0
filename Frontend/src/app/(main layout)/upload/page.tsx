@@ -25,6 +25,10 @@ const Upload = () => {
   const [retrievedData, setRetrievedData] = useState<string | null>(
     null
   );
+  const notify = (message: string) => {
+    // Example of a simple alert notification
+    alert(message);
+  };
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
   const router = useRouter();
 
@@ -49,7 +53,7 @@ const Upload = () => {
     e.preventDefault();
   };
   const removeImg = () => {
-    setImageSrc(null);
+    setImageSrc("");
     setImageFile(null);
   };
 
@@ -130,6 +134,40 @@ const Upload = () => {
       }
     } else if (selectedMethod === 'specialized') {
       router.push(`/specialized/information?image=${encodeURIComponent(imageSrc)}`);
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const urls = [
+          'http://127.0.0.1:8000/api/exif-check/',
+          'http://127.0.0.1:8000/api/recognize-objects/',
+        ];
+
+        const fetchPromises = urls.map((url) =>
+          fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
+          })
+        );
+
+        const responses = await Promise.all(fetchPromises);
+
+        const results = await Promise.all(
+          responses.map((response) => response.json())
+        );
+
+        console.log('Results:', results);
+        setRetrievedData(JSON.stringify(results));
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
+      }
     }
   };
 
@@ -254,10 +292,18 @@ const Upload = () => {
         <div
           className={`verify-agree-container ml-5 ${montserrat.className} font-bold`}
         >
-          <div className="button" onClick={handleSubmit}>
-            {' '}
-            Verify{' '}
-          </div>
+           <div
+        className="button"
+        onClick={() => {
+          if (!imageSrc) {
+            notify('Please upload an image before verifying.');
+            return;
+          }
+          handleSubmit();
+        }}
+      >
+        Verify
+      </div>
           {loading && <LoadingModal message="Uploading image..." />}
           {!loading && uploadComplete && (
             <Link

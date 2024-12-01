@@ -9,48 +9,12 @@ import { Inter } from 'next/font/google';
 import { useSearchParams } from 'next/navigation';
 import JPEG_Result from './object_detection';
 import ImgTagging_Result from './osm_tags';
+import { ExifData, SearchResult, Tagging } from '@/interface/interface';
 
 type WebSocketUrl = {
   websocket_url: string;
 };
-interface ExifData {
-  exif_data: any;
-  software_modify: string | undefined;
-  modify_date: string | undefined;
-  original_date: {
-    original_date: string | undefined;
-    create_date: string | undefined;
-  };
-  camera_information: {
-    make: string | undefined;
-    model: string | undefined;
-    exposure: string | undefined;
-    aperture: string | undefined;
-    focal_length: string | undefined;
-    iso_speed: string | undefined;
-    flash: string | undefined;
-  };
-  gps_location: string | undefined;
-  author_copyright: {
-    author: string | undefined;
-    copyright_tag: string | undefined;
-    profile_copyright: string | undefined;
-  };
-}
 
-interface SearchResult {
-  title: string | undefined;
-  redirect_link: string | undefined;
-}
-
-interface Result {
-  exif_data: any;
-  jpeg_ghost_result: string;
-  reverse_image_search_results: any;
-}
-interface Tagging{
-  tag: string;
-}
 const inter = Inter({ subsets: ['latin'] });
 const Result = () => {
   const searchParams = useSearchParams();
