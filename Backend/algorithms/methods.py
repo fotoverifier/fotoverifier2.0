@@ -18,6 +18,10 @@ import argparse
 from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 seed = 42
 torch.manual_seed(seed)
@@ -197,7 +201,7 @@ def reverse_image_search(image_path):
     params = {
         "engine": "google_reverse_image",
         "image_url": image_url,
-        "api_key": "b945106cd612c06211da4507b158c6861c6e1059c0de67d92f0aedcd889f29ab"  # Replace with your actual SerpApi API key
+        "api_key": os.environ.get('SERPAPI_SECRET_KEY')
     }
 
 
