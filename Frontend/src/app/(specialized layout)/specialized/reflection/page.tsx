@@ -8,11 +8,15 @@ const Specialized_Reflect = () => {
   return (
      <div className='h-full w-full bg-white flex'>
      <div className={styles.home_first_half}>
-        <div className={styles.helper_title}>
-          <div className={`${inter.className} flex items-center`}> 
-            <div className={`${styles.circle} mr-4 `}> <CiLight /></div>
-            Image Enhancement</div>
+         <div className={styles.helper_title}>
+          <div className={`${inter.className} flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800 font-bold text-xl`}>
+            <div className={`${styles.circle} mr-4 `}>
+              {' '}
+              <CiLight />{' '}
+            </div>
+            Reflection Method
           </div>
+        </div>
       <div className={styles.image_container}>
         <div className={styles.change_image_section}>
           Input image
