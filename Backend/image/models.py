@@ -1,9 +1,13 @@
 from django.db import models
 from django.utils.text import slugify
-from cloudinary.models import CloudinaryField
+import uuid
+
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+
 
 class Image(models.Model):
-    image = CloudinaryField('Image', overwrite=True, format="jpg")
+    image = models.ImageField(upload_to=upload_to, blank=False, null=False)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, default='Untitled')
     slug = models.SlugField(max_length=255, unique=True, blank=True)
@@ -12,8 +16,13 @@ class Image(models.Model):
         ordering = ['-uploaded_at']
 
     def save(self, *args, **kwargs):
-        to_assign = slugify(self.title)
-        if Image.objects.filter(slug=to_assign).exists():
-            to_assign = to_assign + str(Image.objects.all().count())
-        self.slug = to_assign
+        if not self.slug:
+            self.slug = self.generate_unique_slug()
         super().save(*args, **kwargs)
+
+    def generate_unique_slug(self):
+        base_slug = slugify(self.title)
+        unique_slug = base_slug
+        while Image.objects.filter(slug=unique_slug).exists():
+            unique_slug = f'{base_slug}-{uuid.uuid4().hex[:8]}'
+        return unique_slug

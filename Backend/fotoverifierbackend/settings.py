@@ -33,9 +33,10 @@ cloudinary.config(
 SECRET_KEY = 'django-insecure-5_%=sr2^ecs@g%o_)tin7=rplj(ye4k47gr#%x)rg=w1m_(c(#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+
 
 
 # Application definition
@@ -50,6 +51,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'cloudinary',
     'image',
+    'channels',
+    'fotoverifierbackend',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'fotoverifierbackend.urls'
@@ -81,7 +86,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fotoverifierbackend.wsgi.application'
+ASGI_APPLICATION = 'fotoverifierbackend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [os.getenv('REDIS_URL')],
+        },
+    },
+}
 
 
 # Database
@@ -89,8 +103,12 @@ WSGI_APPLICATION = 'fotoverifierbackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'iVlOuXdFMeJoYWobgnrHyLMEmWBaGbSR',
+        'HOST': 'junction.proxy.rlwy.net',
+        'PORT': '26504',
     }
 }
 
@@ -114,6 +132,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -133,7 +156,17 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = os.getenv('REDIS_URL')
+CELERY_RESULT_BACKEND = os.getenv('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'

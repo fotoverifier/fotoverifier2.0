@@ -1,60 +1,59 @@
+
 import exifread
-from PIL import Image
+from PIL import Image, ImageChops, ImageEnhance
 from PIL.ExifTags import TAGS
 import argparse
 import os
-import requests
-from tempfile import NamedTemporaryFile
-import cv2 as cv
+import cv2
 from serpapi import GoogleSearch
 from matplotlib import pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 from os.path import basename
 import base64
 from io import BytesIO
 import numpy as np
 import torch
-from . import RRDBNet_arch as arch
+import RRDBNet_arch as arch
+import argparse
+from ram.models import ram_plus
+from ram import inference_ram as inference
+from ram import get_transform
 
 seed = 42
 torch.manual_seed(seed)
 np.random.seed(seed)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-model_path = 'algorithms/RRDB_ESRGAN_x4.pth'
 
-model = arch.RRDBNet(3, 3, 64, 23, gc=32)
-model.load_state_dict(torch.load(model_path, weights_only=True), strict=True)
-model.eval()
 
 def image_process(image_path):
-    response = requests.get(image_path)
-    if response.status_code != 200:
-        print("Failed to download image")
+    # response = requests.get(image_path)
+    # if response.status_code != 200:
+    #     print("Failed to download image")
+    #     return None
+    
+    # with NamedTemporaryFile(delete=False) as temp_file:
+    #     temp_file.write(response.content)
+    #     temp_file_path = temp_file.name
+
+
+    args = argparse.Namespace(datafile=image_path)
+    print(args)
+
+    if not check_file(image_path):
+        print("Invalid file. Please make sure the file exists and the type is JPEG")
         return None
     
-    with NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
-        temp_file.write(response.content)
-        temp_file_path = temp_file.name
-
-    try:
-        args = argparse.Namespace(datafile=temp_file_path)
-        print(args)
-
-        if not check_file(temp_file_path):
-            print("Invalid file. Please make sure the file exists and the type is JPEG")
-            return None
-        
-        #exif_data = exif_check(args.datafile)
-        #reverse_result = reverse_image_search(image_path)
-        #jpeg_ghost_result = jpeg_ghost(temp_file_path, 60)
-        super_resolution_result = super_resolution(temp_file_path)
-        return {
-            #"exif_data": exif_data,
-            #"reverse_image_search_results": reverse_result,
-            #"jpeg_ghost_result": jpeg_ghost_result,
-            "super_resolution_result": super_resolution_result,
-        }
-    finally:
-        os.remove(temp_file_path)
+    exif_data = exif_check(args.datafile)
+    reverse_result = reverse_image_search(image_path)
+    jpeg_ghost_result = jpeg_ghost(image_path, 60)
+    super_resolution_result = super_resolution(image_path)
+    return {
+        "exif_data": exif_data,
+        "reverse_image_search_results": reverse_result,
+        "jpeg_ghost_result": jpeg_ghost_result,
+        "super_resolution_result": super_resolution_result,
+    }
 
 def check_file(data_path):
     if not os.path.isfile(data_path):
@@ -124,7 +123,7 @@ def check_software_modify(info):
 def check_modify_date(info):
     modify_date = get_if_exist(info, "DateTime")
     if modify_date:
-        return f"Photo has been modified since it was created. Modified: {modify_date}"
+        return f"Photo has been modified since it was created."
     return None
 
 def check_original_date(info):
@@ -192,14 +191,15 @@ def check_author_copyright(info):
     }
 
 
-def reverse_image_search(image_url):
+def reverse_image_search(image_path):
+    import cloudinary.uploader
+    image_url = cloudinary.uploader.upload(image_path)["secure_url"]
     params = {
         "engine": "google_reverse_image",
         "image_url": image_url,
         "api_key": "b945106cd612c06211da4507b158c6861c6e1059c0de67d92f0aedcd889f29ab"  # Replace with your actual SerpApi API key
     }
 
-    print(params)
 
     search = GoogleSearch(params)
     results = search.get_dict()
@@ -208,7 +208,6 @@ def reverse_image_search(image_url):
 
     result = {
         "image_results": results.get("image_results", []),
-        "inline_images": results.get("inline_images", []),
         "search_metadata": results.get("search_metadata", {}),
         "search_information": results.get("search_information", {}),
     }
@@ -217,56 +216,72 @@ def reverse_image_search(image_url):
 
 
 def jpeg_ghost(file_path, quality=60):
-
-    # print("Analyzing...")
-    # bar = progressbar.ProgressBar(maxval=20,
-    #                               widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
-    # bar.start()
     print(f"Processing file: {file_path}")
 
-    img = cv.imread(file_path)
+    # Read the original image
+    img = cv2.imread(file_path)
     if img is None:
         print("Failed to read image")
         return None
-    img_rgb = img[:, :, ::-1]
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # # Quality of the reasaved images
-    # if quality == None:
-    #     quality = 60
-
-    # Size of the block
-    smoothing_b = 17
-
-
-    # Get the name of the image
-    base = basename(file_path)
+    # Resave the image with the new quality
+    base = os.path.basename(file_path)
     file_name = os.path.splitext(base)[0]
-    save_file_name = file_name+"_temp.jpg"
+    save_file_name = file_name + "_temp.jpg"
+    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
+    cv2.imwrite(save_file_name, img, encode_param)
 
-    # Resaved the image with the new quality
-    encode_param = [int(cv.IMWRITE_JPEG_QUALITY), quality]
-    cv.imwrite(save_file_name, img, encode_param)
-
-        # Load resaved image
-    img_low = cv.imread(save_file_name)
+    # Load the recompressed image
+    img_low = cv2.imread(save_file_name)
     if img_low is None:
         print("Failed to read resaved image")
         return None
+    img_low_gray = cv2.cvtColor(img_low, cv2.COLOR_BGR2GRAY)
 
-    # Compute the difference
-    diff = cv.absdiff(img, img_low)
-    diff = cv.cvtColor(diff, cv.COLOR_BGR2GRAY)
+    # Block-wise DCT comparison
+    block_size = 8  # Typical JPEG block size
+    height, width = img_gray.shape
+    dct_diff = np.zeros_like(img_gray, dtype=np.float32)
 
-    # Apply Gaussian smoothing
-    diff = cv.GaussianBlur(diff, (smoothing_b, smoothing_b), 0)
+    for i in range(0, height, block_size):
+        for j in range(0, width, block_size):
+            # Extract 8x8 blocks from both images
+            block_original = img_gray[i:i+block_size, j:j+block_size]
+            block_low = img_low_gray[i:i+block_size, j:j+block_size]
 
-    # Plot the original and difference images
-    fig, ax = plt.subplots(1, 1)
-    ax.imshow(diff, cmap='gray')
-    ax.axis('off')
+            # Compute DCT of the blocks
+            dct_original = cv2.dct(np.float32(block_original))
+            dct_low = cv2.dct(np.float32(block_low))
+
+            # Compute the difference in DCT coefficients
+            dct_diff[i:i+block_size, j:j+block_size] = np.abs(dct_original - dct_low)
+
+    # Normalize the DCT difference map
+    dct_diff_normalized = cv2.normalize(dct_diff, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+    _, thresholded_diff = cv2.threshold(dct_diff_normalized, 100, 255, cv2.THRESH_BINARY)
+    
+    # Apply Gaussian smoothing to reduce blockiness
+    smoothed_diff = cv2.GaussianBlur(thresholded_diff, (15, 15), 0)
+    
+    # Optional: Upscale the smoothed difference map for better visualization
+    upscale_size = (width, height)  # Match original image size
+    heatmap = cv2.resize(smoothed_diff, upscale_size, interpolation=cv2.INTER_LINEAR)
+    
+    # Create a custom colormap with red for high values
+    colors = [(0, 0, 1), (1, 0, 0)]  # Blue to Red
+    n_bins = 100  # Number of bins in the colormap
+    custom_cmap = LinearSegmentedColormap.from_list("blue_red", colors, N=n_bins)
+
+    # Visualization
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), alpha=0.8)  # Overlay original image
+    plt.imshow(heatmap, cmap=custom_cmap, alpha=0.8)  # Heatmap overlay
+    plt.axis("off")
+    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
     # Save the figure to a buffer
     buf = BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
     buf.seek(0)
 
     # Encode the buffer to base64
@@ -277,56 +292,70 @@ def jpeg_ghost(file_path, quality=60):
 
     return img_base64
 
-    # # Load resaved image
-    # img_low = cv.imread(save_file_name)
-    # img_low_rgb = img_low[:, :, ::-1]
-    # # Compute the square different between original image and the resaved image
-    # tmp = (img_rgb-img_low_rgb)**2
-
-    # # Take the average by kernel size b
-    # kernel = np.ones((smoothing_b, smoothing_b), np.float32)/(smoothing_b**2)
-    # tmp = cv.filter2D(tmp, -1, kernel)
-    # # Take the average of 3 channels
-    # tmp = np.average(tmp, axis=-1)
-
-    # # Shift the pixel from the center of the block to the left-top
-    # tmp = tmp[int(offset):int(height-offset), int(offset):int(width-offset)]
-
-    # # Compute the nomalized component
-    # nomalized = tmp.min()/(tmp.max() - tmp.min())
-    # # Nomalization
-    # dst = tmp - nomalized
-
-    # # print(dst)
-    # # Plot the diffrent images
-    # plt.subplot(1, 2, 2), plt.imshow(dst), plt.title(
-    #     "Analysis. Quality = " + str(quality))
-    # plt.xticks([]), plt.yticks([])
-
-    # print("Done")
-    # plt.suptitle('Exposing digital forgeries by JPEG Ghost')
-    # plt.show()
-    # os.remove(save_file_name)
-
 def super_resolution(file_path):
-    img = cv.imread(file_path, cv.IMREAD_COLOR)
-    img = img * 1.0 / 255  # This is necessary for model input
+    model_path = 'algorithms/RRDB_ESRGAN_x4.pth'
+
+    model = arch.RRDBNet(3, 3, 64, 23, gc=32)
+    model.load_state_dict(torch.load(model_path, weights_only=True), strict=True)
+    model.eval()
+    
+    img = cv2.imread(file_path, cv2.IMREAD_COLOR)
+    img = img * 1.0 / 255
     img = torch.from_numpy(np.transpose(img[:, :, [2, 1, 0]], (2, 0, 1))).float()
     img_LR = img.unsqueeze(0)
-    print(img_LR.device)
 
     with torch.no_grad():
         output = model(img_LR).data.squeeze().float().cpu().clamp_(0, 1).numpy()
     output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))
-    print(output.shape)
-
     
     # Encode the super-resolved image to base64
-    _, buffer = cv.imencode('.jpg', output)
+    _, buffer = cv2.imencode('.jpg', output)
     img_base64 = base64.b64encode(buffer).decode('utf-8')
 
-    cv.imshow('Output', output)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
-
     return img_base64
+
+def recognize_objects(file_path):
+    model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
+    model.eval()
+    transform = get_transform(image_size=384)
+    image = transform(Image.open(file_path)).unsqueeze(0).to(device)
+    with torch.no_grad():
+        res = inference(image, model)
+    print("Image Tags: ", res[0])
+    return res[0]
+
+def fake_image_detect(file_path):
+    resaved_filename = file_path.split('.')[0] + '.resaved.jpg'
+    ELA_filename = file_path.split('.')[0] + '.ela.png'
+    
+    im = Image.open(file_path).convert('RGB')
+    im.save(resaved_filename, 'JPEG', quality=90)
+    resaved_im = Image.open(resaved_filename)
+    
+    ela_im = ImageChops.difference(im, resaved_im)
+    
+    extrema = ela_im.getextrema()
+    max_diff = max([ex[1] for ex in extrema])
+    if max_diff == 0:
+        max_diff = 1
+    scale = 255.0 / max_diff
+    
+    ela_im = ImageEnhance.Brightness(ela_im).enhance(scale)
+    
+    buffered = BytesIO()
+    img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    
+    os.remove(resaved_filename)
+    
+    plt.imshow(ela_im)
+    plt.title('Error Level Analysis (ELA)')
+    plt.axis('off')
+    plt.show()
+    
+    return img_base64
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Image processing")
+    parser.add_argument("datafile", help="Path to the image file")
+    args = parser.parse_args()
+    fake_image_detect(args.datafile)

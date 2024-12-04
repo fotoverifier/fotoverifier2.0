@@ -111,3 +111,10 @@ coverage.xml
 # Windows
 Thumbs.db
 ehthumbs.db
+
+# Sample images
+Backend/algorithms/sample
+Backend/media
+
+# Large models
+Backend/algorithms/*.pth
