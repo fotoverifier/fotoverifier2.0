@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@/app/(specialized layout)/specialized/information/information.module.css';
-import { Inter } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 import ResultTabs from '@/components/tab/tab';
 import TabArea from '@/components/tab/tab';
 import { ExifData, SearchResult, Tagging } from '@/interface/interface';
-
+import default_img from "@/assets/icon.png"
 type WebSocketUrl = {
   websocket_url: string;
 };
@@ -22,7 +22,10 @@ import { BsFillGeoAltFill } from 'react-icons/bs';
 import { useSearchParams } from 'next/navigation';
 import { MdDescription } from 'react-icons/md';
 import Image from 'next/image';
+import { IoInformation } from 'react-icons/io5';
+import { IoMdPerson } from 'react-icons/io';
 const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({subsets: ['latin']});
 const helperData = [
   {
     title: 'EXIF Data',
@@ -49,6 +52,7 @@ const exifDataSections = [
       { label: 'Flash' },
     ],
     description: 'Displays camera settings and specifications',
+    icon: <IoInformation />
   },
   {
     title: 'Modification and Author',
@@ -62,6 +66,7 @@ const exifDataSections = [
       { label: 'Profile Copyright' },
     ],
     description: 'Timestamp and Noticable Modifications',
+    icon: <IoMdPerson />
   },
 ];
 
@@ -191,7 +196,7 @@ const Specialized_Information = () => {
     <div className="h-full w-full bg-white flex">
       <div className={styles.home_first_half}>
         <div className={styles.helper_title}>
-          <div className={`${inter.className} flex items-center`}>
+          <div className={`${inter.className} flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800 font-bold text-xl`}>
             <div className={`${styles.circle} mr-4 `}>
               {' '}
               <FaInfoCircle />{' '}
@@ -213,12 +218,12 @@ const Specialized_Information = () => {
               <div className={styles.circle_2}>
                 <FaImage />
               </div>
-              <div className="font-bold text-lg text ml-3 mb-3"> Image </div>
+              <div className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}> Image </div>
             </div>
             <div className='flex justify-center items-center h-full w-full'> 
-            <div className={styles.image_container}>
+            <div className={styles.image_container2}>
             <Image 
-              src={imgSrc || '/default-image.png'} 
+              src={imgSrc || default_img} 
               alt="Selected image" 
               layout="responsive" 
               width={100} 
@@ -234,7 +239,7 @@ const Specialized_Information = () => {
               <div className={styles.circle_2}>
                 <FaTags />
               </div>
-              <div className="font-bold text-lg text ml-2 mb-2">Tagging </div>
+              <div className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}>Tagging </div>
             </div>
 
             <div className="flex flex-wrap">
@@ -250,7 +255,7 @@ const Specialized_Information = () => {
       <div className={styles.home_second_half}>
         {helperData.map((item, index) => (
           <div className={styles.helper_title_2} key={index}>
-            <div className={`${inter.className} flex items-center`}>
+            <div className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}>
               {item.title}
             </div>
             {item.description && (
@@ -271,11 +276,11 @@ const Specialized_Information = () => {
               {exifDataSections.map((section, index) => (
                 <div key={index} className="h-1/2 w-full p-2">
                   <div className="flex">
-                    <div className={styles.circle_2}>{index + 1}</div>
-                    <div className="font-bold text-lg ml-2 mb-2 border-b-2 border-black">
+                    <div className={styles.circle_2}>{section.icon}</div>
+                    <div className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}>
                       {section.title}
                     </div>
-                    <div className="font-base text-base ml-2 mb-2 self-center">
+                    <div className={`font-base text-base ml-2 mb-2 self-center ${inter.className}`}>
                       {section.description}
                     </div>
                   </div>

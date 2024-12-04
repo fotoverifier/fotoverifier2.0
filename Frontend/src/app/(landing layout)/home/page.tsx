@@ -63,16 +63,9 @@ const Home = () => {
               For detail Assesment
               <FaArrowRightLong className="ml-5" />
             </div>
-            <Image
-              src={Detail}
-              height={200}
-              width={200}
-              alt={""}
-              className=""
-            ></Image>
+           
           </div>
         </div>
-        <Image src={pattern} className="relative" width={200} height={200} alt=" "></Image>
 
 
         <div className="home-second-half">

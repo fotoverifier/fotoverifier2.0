@@ -283,14 +283,14 @@ const Upload = () => {
         </div>
         <div className="space"> </div>
         <div className="word-container">
-          <div className={`${montserrat.className} word-container2`}>
+          <div className={`${inter.className} word-container2`}>
             <FaAngleDown className="mr-5"></FaAngleDown>
             For specialized mode, please consider checking our comprehensive
             tutorials and terminologies.
           </div>
         </div>
         <div
-          className={`verify-agree-container ml-5 ${montserrat.className} font-bold`}
+          className={`verify-agree-container ml-5 ${montserrat.className} font-bold mt-5`}
         >
            <div
         className="button"
@@ -318,11 +318,6 @@ const Upload = () => {
               <CompletionModal message="Upload Complete!" />
             </Link>
           )}
-          <div className="w-1/12"> </div>
-          <div className={`${montserrat.className} agree-section`}>
-            {' '}
-            I agree to the terms and conditions.{' '}
-          </div>
         </div>
       </div>
     </div>

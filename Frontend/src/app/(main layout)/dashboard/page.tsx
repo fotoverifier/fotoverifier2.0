@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "@/app/(main layout)/dashboard/home.module.css";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import AppIcon from "@/assets/icon.png"
 import Image from "next/image";
+import { Montserrat } from 'next/font/google';
+
 const inter = Inter({ subsets: ["latin"] });
+
+const montserrat = Montserrat({subsets: ["latin"]});
 const home = () => {
   const categories = [
     "Image Assesment",
@@ -15,10 +19,10 @@ const home = () => {
     "How to reverse image",
   ]
   return (
-     <div className={`${styles.home_container2} ${inter.className}`}>
+     <div className={`${styles.home_container2} ${montserrat.className}`}>
       <div className={styles.content_fcontainer}> 
          <div className={styles.space}></div>
-        <div className={styles.fcontainer_title}>
+        <div className={`font-bold ${styles.fcontainer_title}`}>
            Our services
         </div>
         <div className={styles.space}></div>
@@ -30,7 +34,7 @@ const home = () => {
                 <Image src={AppIcon} alt=''></Image>
               </div>
                <div className={styles.horizontal_bar}></div>
-              {category}
+              <span className={` ${inter.className}`}> {category}</span>
             </a>
           </div>
         ))}
@@ -39,7 +43,7 @@ const home = () => {
       <div className={styles.vertical_bar}></div>
       <div className={styles.content_fcontainer}> 
            <div className={styles.space}></div>
-        <div className={styles.fcontainer_title}>
+           <div className={`font-bold ${styles.fcontainer_title}`}>
           Tutorial
         </div>
         <div className={styles.space}></div>
@@ -49,7 +53,7 @@ const home = () => {
             <a href={links[index]} className={styles.dashboard_category_item}>
               <div className={styles.image_container}></div>
                <div className={styles.horizontal_bar}></div>
-              {tutorial}
+                    <span className="font-semibold"> {tutorial}</span>
             </a>
           </div>
         ))}
