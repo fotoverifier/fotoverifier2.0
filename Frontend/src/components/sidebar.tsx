@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import "@/styles/stylesidebar.css";
 import iconSrc from "@/assets/icon.svg"; // Adjust path based on your project structure
-import iconSrc2 from "@/assets/icon_main.svg";
+import iconSrc2 from "@/assets/icon_main_white.svg";
 import SideBarItem from "@/components/menuoption";
 import { GoHome } from "react-icons/go";
 import { useRouter, usePathname } from "next/navigation";
@@ -12,8 +12,9 @@ import { PiShieldCheckeredFill } from "react-icons/pi";
 import { FaGithub } from "react-icons/fa";
 import { SiLibrariesdotio } from "react-icons/si";
 import { CiImageOff } from "react-icons/ci";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({subsets:["latin"]});
 const items = [
   { text: "Dashboard", icon: <GoHome />, href: "/dashboard" },
   { text: "Upload", icon: <CiImageOff />, href: "/upload" },
@@ -32,7 +33,7 @@ const Sidebar = () => {
   };
   return (
     <div className={`sidebar ${isShrunk ? "shrink" : ""} ${inter.className}`}>
-      <div className="icon">
+      <div className="icon flex items-center">
         <Image
           src={iconSrc2}
           alt="Fotoverfier"
@@ -41,14 +42,15 @@ const Sidebar = () => {
           className="icon-img"
           onClick={handleShrink}
         />
-        <Image
-          src={iconSrc}
-          alt="Icon2"
-          width={400}
-          height={400}
-          className="icon-img icon2"
-        />
+          <div
+          className={`${montserrat.className} ml-2 font-bold ${
+            isShrunk ? "hidden" : ""
+          }`}
+        >
+          Fotoverifier
+        </div>
       </div>
+      <div className="w-full bg-gray-800 h-0.5"> </div>
       <div className="menu">
         {items.map((item, index) => (
           <SideBarItem

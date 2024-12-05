@@ -14,7 +14,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
       {img ? (
         <img src={img} alt="Result" className='h-5/6 w-5/6'/>// Display the image if it exists
       ) : (
-        <p>No image available</p> // Fallback message
+        <div>No image available</div> // Fallback message
       )}
     </div>
   );

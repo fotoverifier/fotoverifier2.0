@@ -15,9 +15,9 @@ interface SideBarItemProps {
 const SideBarItem: React.FC<SideBarItemProps> = ({ text, icon, active, href }) => {
   return (
     <Link href={href} passHref>
-    <div className={`sidebar-item ${active ? 'active' : 'inactive'} ${inter.className}`}>
+    <div className={`sidebar-item ${active ? 'active' : 'inactive'} ${inter.className} mt-2`}>
       {icon && (
-        <div className={`box-icon ${active ? 'active' : ''}`}>
+        <div className={`box-icon ${active ? 'active' : ''} p-2`}>
        <div className='icon-item'>
        {icon}
      </div>

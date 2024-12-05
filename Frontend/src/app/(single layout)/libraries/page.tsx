@@ -25,13 +25,13 @@ const Libraries = () => {
       </div>
       <div className={`${styles.tab_area} font-bold flex items-center ${montserrat.className}`}>
         {categories.map((category) => (
-          <button
+          <div
             key={category}
             className={activeTab === category ? `${styles.tab} ${styles.active}` : styles.tab}
             onClick={() => setActiveTab(category)}
           >
             {category}
-          </button>
+          </div>
         ))}
       </div>
 

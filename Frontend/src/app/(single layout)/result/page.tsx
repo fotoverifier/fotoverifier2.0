@@ -10,7 +10,6 @@ import { useSearchParams } from 'next/navigation';
 import JPEG_Result from './object_detection';
 import ImgTagging_Result from './osm_tags';
 import { ExifData, SearchResult, Tagging } from '@/interface/interface';
-
 type WebSocketUrl = {
   websocket_url: string;
 };
