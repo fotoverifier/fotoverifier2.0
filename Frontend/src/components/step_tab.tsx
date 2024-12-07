@@ -22,7 +22,7 @@ const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
           </React.Fragment>
         ))}
       </div>
-      <div className="tab-content">
+      <div className="tab-content stripe-1">
         {renderContent(activeTab)}
       </div>
     </div>

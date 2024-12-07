@@ -33,6 +33,7 @@
     height: 95%;
     border-radius: 5px;
     border-width: 1px;
+    background-color: white;
 }
 .res_header_container{
     width: 100%;
@@ -40,4 +41,16 @@
     justify-content: space-evenly;
     padding: 10px;
     align-items: center;
+}
+
+.Seven_content_container{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: space-evenly;
+}.Third_content_container{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-evenly;
 }

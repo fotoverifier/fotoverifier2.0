@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import '@/app/(single layout)/result/result.css';
+import { BsFillInfoCircleFill } from 'react-icons/bs';
 
 interface CameraInformation {
   make: string | undefined;
@@ -51,11 +52,11 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
     <div className="w-full h-full p-5">
       <div className="flex-col items-center justify-between">
         <div className="flex items-center">
-          <div className="circle_2"> 4. </div>
+          <div className="circle_2"> <BsFillInfoCircleFill /></div>
           <div className="font-bold text-lg ml-2">Metadata</div>
 
           <button onClick={openModal} className="focus:outline-none ml-auto">
-            <div className="flex justify-center rounded-md border-black border-2 p-2 hover:bg-black hover:text-white">
+            <div className="flex justify-center rounded-md border-black border-2 p-1 hover:bg-black hover:text-white">
               Show Detail
             </div>
           </button>
@@ -71,14 +72,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
             <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
             {loading ? (
               <p>Loading...</p>
-            ) : !cameraInformation &&
-              !software_modify &&
-              !modify_date &&
-              !original_date &&
-              !author_copyright &&
-              !gps_location ? (
-              <p>No metadata information available.</p>
-            ) : (
+            ) :  (
               <>
                 {/* Metadata Section */}
                 <div className="mb-4">
@@ -172,7 +166,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           </div>
         </div>
       )}
-      ;
     </div>
   );
 };

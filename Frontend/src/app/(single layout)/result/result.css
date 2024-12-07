@@ -60,7 +60,7 @@
   background-color: #01584B;
   color: white;
   display: flex;         
+  font-weight: bold;
   justify-content: center; 
   align-items: center;    
-  text-align: center; 
 }

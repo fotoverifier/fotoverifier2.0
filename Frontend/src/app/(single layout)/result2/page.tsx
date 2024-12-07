@@ -13,6 +13,8 @@ import JPEG_Result from '../result/jpegGhost';
 import ImgTagging_Result from '../result/osm_tags';
 import MetaData_Result from '../result/metadata';
 import JpegGhostResult from '../result/jpegGhost';
+import ElaResult from '../result/ela';
+import ReverseImgResult from '../result/reverse_img';
 
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -94,8 +96,8 @@ const Res2 = () => {
   const renderContent = (activeTab: string) => {
     const content = {
       Overview: (
-        <div className="h-full w-full">
-          <div className={styles.Half_content_container}>
+        <div className={`h-full w-full ${styles.striped_background }`}>
+          <div className={styles.Seven_content_container}>
             <div className={styles.Result_container}>
               <Image_Result img={img} />
             </div>
@@ -106,10 +108,11 @@ const Res2 = () => {
               />
             </div>
             <div className={styles.Result_container}>
-              <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+              <ElaResult img={`data:image/jpeg;base64,${jpegResult}`} loading={loadingJpegGhost} />
             </div>
+
           </div>
-          <div className={styles.Half_content_container}>
+          <div className={styles.Third_content_container}>
             <div className={styles.Result_container}>
               <MetaData_Result
                 cameraInformation={exifResult?.camera_information || undefined}
@@ -123,32 +126,16 @@ const Res2 = () => {
               />
             </div>
 
-            <div className="Result-container">
-              <div className="w-full h-full p-5">
-                <div className="flex">
-                  <div className="circle_2"> 6. </div>
-                  <div className="font-bold text-lg ml-2 mb-5">
-                    Reversed Image Search
-                  </div>
-                </div>
-                {loadingReverseImageSearch ? (
-                  <p>Loading...</p>
-                ) : (
-                  <div>
-                    {SearchResult?.map((result, index) => (
-                      <div key={index}>
-                        <a
-                          href={result.redirect_link}
-                          className="hover: underline"
-                        >
-                          {index + 1}. {result.title}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <div className={styles.Result_container}>
+            <ReverseImgResult searchResult={SearchResult} loading={loadingReverseImageSearch}></ReverseImgResult>
             </div>
+
+
+            
+              <div className={styles.Result_container}>
+              <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+            </div>
+
           </div>
         </div>
       ),
