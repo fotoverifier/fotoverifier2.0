@@ -96,11 +96,12 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: contain;
 }
 .image-preview {
   max-width: 80%;
-  max-height: 70%;
+  max-height: 80%;
+  position: relative;
 }
 .custom-file-upload {
   display: inline-block;

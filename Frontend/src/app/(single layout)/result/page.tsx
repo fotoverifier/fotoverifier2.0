@@ -23,7 +23,11 @@ const Result = () => {
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
-  const [tagResult, settagResult] = useState<string | null>(null);
+  const [tagResult, setTagResult] = useState<string | null>(null);
+  const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
+  const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
+  const [loadingReverseImageSearch, setLoadingReverseImageSearch] = useState<boolean>(true);
+  const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
 
   useEffect(() => {
     const websockets: any[] = [];
@@ -49,15 +53,19 @@ const Result = () => {
               }
               else if (message.task === 'exif_check') {
                 setExifResult(message.result);
+                setLoadingExifCheck(false);
               }
               else if (message.task === 'reverse_image_search') {
                 setSearchResult(message.result.image_results);
+                setLoadingReverseImageSearch(false);
               }
               else if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
+                setLoadingJpegGhost(false);
               }
               else if (message.task === 'recognize_image'){
-                  settagResult(message.result);
+                  setTagResult(message.result);
+                  setLoadingTagResult(false);
                 }
               }
               catch (error) {

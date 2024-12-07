@@ -225,9 +225,8 @@ const Specialized_Information = () => {
             <Image 
               src={imgSrc || default_img} 
               alt="Selected image" 
-              layout="responsive" 
-              width={100} 
-              height={100} 
+              layout="fill" 
+              style={{ objectFit: 'cover' }}
               className={styles.image}
             />
           </div>

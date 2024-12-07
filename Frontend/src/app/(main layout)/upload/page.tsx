@@ -16,15 +16,12 @@ const montserrat = Montserrat({
 });
 const inter = Inter({ subsets: ['latin'] });
 
-
 const Upload = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string>("");
+  const [imageSrc, setImageSrc] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [retrievedData, setRetrievedData] = useState<string | null>(
-    null
-  );
+  const [retrievedData, setRetrievedData] = useState<string | null>(null);
   const notify = (message: string) => {
     // Example of a simple alert notification
     alert(message);
@@ -53,7 +50,7 @@ const Upload = () => {
     e.preventDefault();
   };
   const removeImg = () => {
-    setImageSrc("");
+    setImageSrc('');
     setImageFile(null);
   };
 
@@ -97,7 +94,6 @@ const Upload = () => {
 
         console.log('Results:', results);
         setRetrievedData(JSON.stringify(results));
-
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -133,7 +129,9 @@ const Upload = () => {
         setLoading(false);
       }
     } else if (selectedMethod === 'specialized') {
-      router.push(`/specialized/information?image=${encodeURIComponent(imageSrc)}`);
+      router.push(
+        `/specialized/information?image=${encodeURIComponent(imageSrc)}`
+      );
       try {
         const formData = new FormData();
         formData.append('image', imageFile);
@@ -160,7 +158,6 @@ const Upload = () => {
 
         console.log('Results:', results);
         setRetrievedData(JSON.stringify(results));
-
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -226,22 +223,25 @@ const Upload = () => {
               <>
                 <div className="flex items-center align-middle p-2 justify-center ml-auto">
                   <div className={`mr-2 ${inter.className} font-bold`}>
-                    {' '}
-                    Change your image{' '}
+                    Change your image
                   </div>
                   <button>
                     <TbExchange size={20} onClick={removeImg}></TbExchange>
                   </button>
                 </div>
                 <hr className="separator" />
-                <div className="viewer_2 flex items-center justify-center p-2">
-                  <Image
-                    src={imageSrc}
-                    alt="Preview"
-                    className="image-preview "
-                    width={300}
-                    height={300}
-                  />
+                <div className="flex items-center justify-center relative p-2 w-full h-full">
+                  <div className="relative w-fit h-fit flex items-center justify-center">
+                    <Image
+                      src={imageSrc}
+                      alt="Preview"
+                      className="image-preview"
+                      width={300}
+                      height={300}
+                      objectFit='contain'
+                      style={{position: 'relative'}}
+                    />
+                  </div>
                 </div>
               </>
             )}
@@ -292,18 +292,18 @@ const Upload = () => {
         <div
           className={`verify-agree-container ml-5 ${montserrat.className} font-bold mt-5`}
         >
-           <div
-        className="button"
-        onClick={() => {
-          if (!imageSrc) {
-            notify('Please upload an image before verifying.');
-            return;
-          }
-          handleSubmit();
-        }}
-      >
-        Verify
-      </div>
+          <div
+            className="button"
+            onClick={() => {
+              if (!imageSrc) {
+                notify('Please upload an image before verifying.');
+                return;
+              }
+              handleSubmit();
+            }}
+          >
+            Verify
+          </div>
           {loading && <LoadingModal message="Uploading image..." />}
           {!loading && uploadComplete && (
             <Link
