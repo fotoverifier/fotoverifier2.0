@@ -2,10 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 interface ImageResultProps {
   img: string | null; // Accept the image as a prop
-  loading: boolean;
 }
 
-const Image_Result: React.FC<ImageResultProps> = ({ img, loading }) => {
+const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
   return (
 <div className='w-full h-full p-5'>
     <div className='flex'>

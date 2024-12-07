@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import '@/app/(main layout)/Upload/upload.css';
+import '@/app/(main layout)/upload/upload.css';
 import { TbExchange } from 'react-icons/tb';
 import Image from 'next/image';
 import { Montserrat, Inter } from 'next/font/google';
@@ -221,7 +221,10 @@ const Upload = () => {
             )}
             {imageSrc && (
               <>
-                <div className="flex items-center align-middle p-2 justify-center ml-auto">
+                <div
+                  className="flex items-center align-middle p-2 justify-center ml-auto"
+                  style={{ height: '10%' }}
+                >
                   <div className={`mr-2 ${inter.className} font-bold`}>
                     Change your image
                   </div>
@@ -230,18 +233,25 @@ const Upload = () => {
                   </button>
                 </div>
                 <hr className="separator" />
-                <div className="flex items-center justify-center relative p-2 w-full h-full">
-                  <div className="relative w-fit h-fit flex items-center justify-center">
-                    <Image
-                      src={imageSrc}
-                      alt="Preview"
-                      className="image-preview"
-                      width={300}
-                      height={300}
-                      objectFit='contain'
-                      style={{position: 'relative'}}
-                    />
-                  </div>
+                <div
+                  className="flex items-center justify-center relative p-2 w-full"
+                  style={{ height: '90%' }}
+                >
+                  <Image
+                    src={imageSrc}
+                    alt="Preview"
+                    className="image-preview"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{
+                      width: 'auto',
+                      maxWidth: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      position: 'relative',
+                    }}
+                  />
                 </div>
               </>
             )}
