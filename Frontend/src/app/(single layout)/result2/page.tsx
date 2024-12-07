@@ -1,7 +1,7 @@
-"use client"
-import React, { useEffect, useState } from 'react'
+'use client';
+import React, { useEffect, useState } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
-import styles from "@/app/(single layout)/result2/res.module.css"
+import styles from '@/app/(single layout)/result2/res.module.css';
 import { IoLibrary } from 'react-icons/io5';
 import Tabs from '@/components/step_tab';
 import Image from 'next/image';
@@ -9,31 +9,37 @@ import pattern from '@/assets/Frame 15.svg';
 import { ExifData, SearchResult } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
 import Image_Result from '../result/image';
-import JPEG_Result from '../result/object_detection';
+import JPEG_Result from '../result/jpegGhost';
 import ImgTagging_Result from '../result/osm_tags';
 import MetaData_Result from '../result/metadata';
+import JpegGhostResult from '../result/jpegGhost';
 
-const inter = Inter({subsets: ["latin"]});
-const montserrat = Montserrat({subsets: ["latin"]});
+const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 type WebSocketUrl = {
   websocket_url: string;
 };
 const Res2 = () => {
+  {
+    /* SERVER AREA */
+  }
 
-    {/* SERVER AREA */}
+  const searchParams = useSearchParams();
+  const img = searchParams.get('image');
+  const wsUrls = searchParams.get('wsUrls');
 
-    const searchParams = useSearchParams();
-    const img = searchParams.get('image');
-    const wsUrls = searchParams.get('wsUrls');
+  const [exifResult, setExifResult] = useState<ExifData | null>(null);
+  const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
+  const [jpegResult, setJpegResult] = useState<string | null>(null);
+  const [tagResult, settagResult] = useState<string | null>(null);
+  const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
+  const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
+  const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
+    useState<boolean>(true);
+  const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
 
-    const [exifResult, setExifResult] = useState<ExifData | null>(null);
-    const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
-    const [jpegResult, setJpegResult] = useState<string | null>(null);
-    const [tagResult, settagResult] = useState<string | null>(null);
-
-
-    useEffect(() => {
+  useEffect(() => {
     const websockets: any[] = [];
     if (wsUrls) {
       try {
@@ -54,21 +60,16 @@ const Res2 = () => {
               console.log('Message:', message);
               if (message.result === 'completed') {
                 ws.close();
-              }
-              else if (message.task === 'exif_check') {
+              } else if (message.task === 'exif_check') {
                 setExifResult(message.result);
-              }
-              else if (message.task === 'reverse_image_search') {
+              } else if (message.task === 'reverse_image_search') {
                 setSearchResult(message.result.image_results);
-              }
-              else if (message.task === 'jpeg_ghost') {
+              } else if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
+              } else if (message.task === 'recognize_image') {
+                settagResult(message.result);
               }
-              else if (message.task === 'recognize_image'){
-                  settagResult(message.result);
-                }
-              }
-              catch (error) {
+            } catch (error) {
               console.error('Failed to parse wsUrls:', error);
             }
           };
@@ -85,98 +86,107 @@ const Res2 = () => {
     }
   }, [wsUrls]);
 
+  {
+    /* TAB AREA */
+  }
+  const tabs = ['Overview', 'Originality', 'Who', 'Where', 'When', 'Why'];
 
+  const renderContent = (activeTab: string) => {
+    const content = {
+      Overview: (
+        <div className="h-full w-full">
+          <div className={styles.Half_content_container}>
+            <div className={styles.Result_container}>
+              <Image_Result img={img} />
+            </div>
+            <div className={styles.Result_container}>
+              <JpegGhostResult
+                img={`data:image/jpeg;base64,${jpegResult}`}
+                loading={loadingJpegGhost}
+              />
+            </div>
+            <div className={styles.Result_container}>
+              <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+            </div>
+          </div>
+          <div className={styles.Half_content_container}>
+            <div className={styles.Result_container}>
+              <MetaData_Result
+                cameraInformation={exifResult?.camera_information || undefined}
+                original_date={exifResult?.original_date || undefined}
+                modify_date={exifResult?.modify_date || undefined}
+                software_modify={exifResult?.software_modify || undefined}
+                author_copyright={exifResult?.author_copyright || undefined}
+                gps_location={exifResult?.gps_location}
+                loading={loadingExifCheck}
+                // Pass camera information as prop
+              />
+            </div>
 
-
-     {/* TAB AREA */}
-    const tabs = ["Overview","Originality", "Who", "Where", "When", "Why"];
-
-     const renderContent = (activeTab: string) => {
-        const content = {
-             Overview:
-               <div className='h-full w-full'>
-                <div className={styles.Half_content_container}>
-                <div className={styles.Result_container}>
-                    <Image_Result img={img} />
+            <div className="Result-container">
+              <div className="w-full h-full p-5">
+                <div className="flex">
+                  <div className="circle_2"> 6. </div>
+                  <div className="font-bold text-lg ml-2 mb-5">
+                    Reversed Image Search
+                  </div>
                 </div>
-                <div className={styles.Result_container}>
-                    <JPEG_Result img={`data:image/jpeg;base64,${jpegResult}`} />
-                </div>
-                <div className={styles.Result_container}>
-                    <JPEG_Result img={`data:image/jpeg;base64,${jpegResult}`} />
-                </div>
-                </div>
-                  <div className={styles.Half_content_container}>
-                    <div className={styles.Result_container}>
-                        <MetaData_Result
-                        cameraInformation={exifResult?.camera_information || undefined}
-                        original_date={exifResult?.original_date || undefined}
-                        modify_date={exifResult?.modify_date || undefined}
-                        software_modify={exifResult?.software_modify || undefined}
-                        author_copyright={exifResult?.author_copyright || undefined}
-                        gps_location={exifResult?.gps_location}
-                        // Pass camera information as prop
-                        />
-                    </div>
-
-                      <div className={styles.Result_container}>
-                        <MetaData_Result
-                        cameraInformation={exifResult?.camera_information || undefined}
-                        original_date={exifResult?.original_date || undefined}
-                        modify_date={exifResult?.modify_date || undefined}
-                        software_modify={exifResult?.software_modify || undefined}
-                        author_copyright={exifResult?.author_copyright || undefined}
-                        gps_location={exifResult?.gps_location}
-                        // Pass camera information as prop
-                        />
-                    </div>
-
-                      <div className={styles.Result_container}>
-                        <MetaData_Result
-                        cameraInformation={exifResult?.camera_information || undefined}
-                        original_date={exifResult?.original_date || undefined}
-                        modify_date={exifResult?.modify_date || undefined}
-                        software_modify={exifResult?.software_modify || undefined}
-                        author_copyright={exifResult?.author_copyright || undefined}
-                        gps_location={exifResult?.gps_location}
-                        // Pass camera information as prop
-                        />
-                    </div>
-                    </div>
-                    </div>
-                , 
-                Originality:<div className='h-full w-full'>
-                  Or
-                </div>
-                , 
-                Who: "Details about who.",
-                Where: "Information on where.",
-                When: "Timing details.",
-                Why: "Explanation of why."
-        };
-        return <div className='h-full w-full'>{
-            
-            content[activeTab as keyof typeof content] || "No content available."}</div>;
+                {loadingReverseImageSearch ? (
+                  <p>Loading...</p>
+                ) : (
+                  <div>
+                    {SearchResult?.map((result, index) => (
+                      <div key={index}>
+                        <a
+                          href={result.redirect_link}
+                          className="hover: underline"
+                        >
+                          {index + 1}. {result.title}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      Originality: <div className="h-full w-full">Originality</div>,
+      Who: 'Details about who.',
+      Where: 'Information on where.',
+      When: 'Timing details.',
+      Why: 'Explanation of why.',
     };
-
+    return (
+      <div className="h-full w-full">
+        {content[activeTab as keyof typeof content] || 'No content available.'}
+      </div>
+    );
+  };
 
   return (
-
     <div className={styles.libraries_container}>
-        <div className={styles.res_header_container}> 
-      <div className='flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800'>
-        <div className={styles.circle}> <IoLibrary/> </div>
-        <div className={`ml-2 font-bold text-xl ${inter.className}`}> The confident score </div>
-      </div>
-        <Image src={pattern} width={250} height={200} alt={''}></Image>
-          <div className={`font-bold text-4xl ${montserrat.className}`}>GENERAL REPORT </div>
-        <Image src={pattern} width={250} height={200} alt={''}></Image>
-      </div>
-      <div className='w-full h-full'>
-        <Tabs tabs={tabs} renderContent={renderContent}  />
+      <div className={styles.res_header_container}>
+        <div className="flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800">
+          <div className={styles.circle}>
+            <IoLibrary />
+          </div>
+          <div className={`ml-2 font-bold text-xl ${inter.className}`}>
+            The confident score
+          </div>
         </div>
+        <Image src={pattern} width={250} height={200} alt={''}></Image>
+        <div className={`font-bold text-4xl ${montserrat.className}`}>
+          GENERAL REPORT
+        </div>
+        <Image src={pattern} width={250} height={200} alt={''}></Image>
       </div>
+      <div className="w-full h-full">
+        <Tabs tabs={tabs} renderContent={renderContent} />
+      </div>
+    </div>
   );
 };
 
-export default Res2
+export default Res2;

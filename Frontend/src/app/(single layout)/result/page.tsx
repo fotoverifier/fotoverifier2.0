@@ -7,7 +7,7 @@ import MetaData_Result from './metadata';
 import pattern from '@/assets/Frame 15.svg';
 import { Inter } from 'next/font/google';
 import { useSearchParams } from 'next/navigation';
-import JPEG_Result from './object_detection';
+import JpegGhostResult from './jpegGhost';
 import ImgTagging_Result from './osm_tags';
 import { ExifData, SearchResult, Tagging } from '@/interface/interface';
 type WebSocketUrl = {
@@ -26,7 +26,8 @@ const Result = () => {
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
-  const [loadingReverseImageSearch, setLoadingReverseImageSearch] = useState<boolean>(true);
+  const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
+    useState<boolean>(true);
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
 
   useEffect(() => {
@@ -50,25 +51,20 @@ const Result = () => {
               console.log('Message:', message);
               if (message.result === 'completed') {
                 ws.close();
-              }
-              else if (message.task === 'exif_check') {
+              } else if (message.task === 'exif_check') {
                 setExifResult(message.result);
                 setLoadingExifCheck(false);
-              }
-              else if (message.task === 'reverse_image_search') {
+              } else if (message.task === 'reverse_image_search') {
                 setSearchResult(message.result.image_results);
                 setLoadingReverseImageSearch(false);
-              }
-              else if (message.task === 'jpeg_ghost') {
+              } else if (message.task === 'jpeg_ghost') {
                 setJpegResult(message.result);
                 setLoadingJpegGhost(false);
+              } else if (message.task === 'recognize_image') {
+                setTagResult(message.result);
+                setLoadingTagResult(false);
               }
-              else if (message.task === 'recognize_image'){
-                  setTagResult(message.result);
-                  setLoadingTagResult(false);
-                }
-              }
-              catch (error) {
+            } catch (error) {
               console.error('Failed to parse wsUrls:', error);
             }
           };
@@ -186,10 +182,13 @@ const Result = () => {
             <Image_Result img={img} />
           </div>
           <div className="Result-container">
-            <JPEG_Result img={`data:image/jpeg;base64,${jpegResult}`} />
+            <JpegGhostResult
+              img={`data:image/jpeg;base64,${jpegResult}`}
+              loading={loadingJpegGhost}
+            />
           </div>
           <div className="Result-container">
-            <ImgTagging_Result Tag={tagResult} />
+            <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
           </div>
         </div>
         <div className="Half-content-container">
@@ -201,11 +200,11 @@ const Result = () => {
               software_modify={exifResult?.software_modify || undefined}
               author_copyright={exifResult?.author_copyright || undefined}
               gps_location={exifResult?.gps_location}
+              loading={loadingExifCheck}
               // Pass camera information as prop
             />
           </div>
           <div className="Result-container">
-            {' '}
             <div className="w-full h-full p-5">
               <div className="flex">
                 <div className="circle_2"> 6. </div>
@@ -213,13 +212,22 @@ const Result = () => {
                   Reversed Image Search
                 </div>
               </div>
-              {SearchResult?.map((result, index) => (
-                <div key={index}>
-                  <a href={result.redirect_link} className="hover: underline">
-                    {index + 1}. {result.title}
-                  </a>
+              {loadingReverseImageSearch ? (
+                <p>Loading...</p>
+              ) : (
+                <div>
+                  {SearchResult?.map((result, index) => (
+                    <div key={index}>
+                      <a
+                        href={result.redirect_link}
+                        className="hover: underline"
+                      >
+                        {index + 1}. {result.title}
+                      </a>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
