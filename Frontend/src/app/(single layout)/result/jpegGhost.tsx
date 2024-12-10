@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import Result from "@/assets/Group 79.svg"
 import { SiJpeg } from 'react-icons/si';
+import styles from "@/app/(single layout)/result/categories.module.css"
 interface ImageResultProps {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
@@ -9,17 +11,23 @@ interface ImageResultProps {
 const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading }) => {
   return (
     <div className="w-full h-full p-5">
+      <div className={styles.title_container}>
       <div className="flex">
         <div className="circle_2"> <SiJpeg /></div>
-        <div className="font-bold text-lg ml-2 mb-5  border-black border-b-2">JPEG Ghost</div>
+        <div className={styles.title}>JPEG Ghost</div>
       </div>
+      </div>
+      <div className={styles.image_container}>
       {loading ? (
-        <p>Loading...</p>
+        <div>Loading...</div>
       ) : img ? (
-        <img src={img} alt="Result" className="h-5/6 w-5/6" /> // Display the image if it exists
+        <img src={img} alt={Result} className="h-5/6 w-5/6" /> // Display the image if it exists
       ) : (
         <p>No image available</p> // Fallback message
       )}
+      </div>
+      <div className={styles.horizontal_line}> </div>
+      <div> Commentary</div>
     </div>
   );
 };

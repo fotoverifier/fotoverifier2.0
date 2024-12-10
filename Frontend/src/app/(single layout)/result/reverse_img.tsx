@@ -38,7 +38,7 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({ searchResult, loading }) =
       <div className="w-full h-full p-5">
                 <div className="flex items-center justify-center">
                   <div className="circle_2"> <IoIosReverseCamera /></div>
-                    <div className="font-bold text-lg ml-2 border-black border-b-2">Reversed Image Search</div>
+                    <div className="font-bold text-lg ml-2 border-black border-b-2">Reversed Search</div>
                     <button onClick={openModal} className="focus:outline-none ml-auto">
             <div className={`flex justify-center rounded-md border-black border-2 p-1 hover:bg-black hover:text-white ${inter.className}`}>
               Show Detail

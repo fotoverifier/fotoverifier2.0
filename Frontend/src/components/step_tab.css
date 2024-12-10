@@ -9,19 +9,18 @@
     }
 
     .tabs {
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     justify-content: space-evenly;
     width: 70%;
     align-self: center;
     gap: 10px;
-    margin-bottom: 20px;
-    height: 10%;
+    margin-bottom: 10px;
+    height: 7%;
     }
 
     .tab {
     padding: 10px 20px;
-    background-color: whitesmoke;
+    background-color: whitesmoke ;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -45,7 +44,6 @@
 
     .tab-content {
     padding: 20px;
-    border: 1px solid #e0e0e0;
     height: 90%;
     border-radius: 5px;
     }
@@ -57,5 +55,4 @@
     }
 
     .stripe-1{
-    background:linear-gradient(to right, #01584B, #01aa91);
     }

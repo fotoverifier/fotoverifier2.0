@@ -15,13 +15,15 @@ import MetaData_Result from '../result/metadata';
 import JpegGhostResult from '../result/jpegGhost';
 import ElaResult from '../result/ela';
 import ReverseImgResult from '../result/reverse_img';
-
+import pattern2 from "@/assets/Group 97.svg";
+import { TbReportSearch } from 'react-icons/tb';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 type WebSocketUrl = {
   websocket_url: string;
 };
+
 const Res2 = () => {
   {
     /* SERVER AREA */
@@ -91,87 +93,157 @@ const Res2 = () => {
   {
     /* TAB AREA */
   }
-  const tabs = ['Overview', 'Originality', 'Who', 'Where', 'When', 'Why'];
+  const tabs = ['Overview', 'Originality', 'Where', 'When', 'Why'];
 
   const renderContent = (activeTab: string) => {
-    const content = {
-      Overview: (
-        <div className={`h-full w-full ${styles.striped_background }`}>
-          <div className={styles.Seven_content_container}>
-            <div className={styles.Result_container}>
-              <Image_Result img={img} />
-            </div>
-            <div className={styles.Result_container}>
-              <JpegGhostResult
-                img={`data:image/jpeg;base64,${jpegResult}`}
-                loading={loadingJpegGhost}
-              />
-            </div>
-            <div className={styles.Result_container}>
-              <ElaResult img={`data:image/jpeg;base64,${jpegResult}`} loading={loadingJpegGhost} />
-            </div>
-
+  const tabData = {
+    Overview: (
+      <div className={`h-full w-full ${styles.striped_background}`}>
+        <div className={styles.Seven_content_container}>
+          <div className={styles.Result_container}>
+            <Image_Result img={img} />
           </div>
-          <div className={styles.Third_content_container}>
-            <div className={styles.Result_container}>
-              <MetaData_Result
-                cameraInformation={exifResult?.camera_information || undefined}
-                original_date={exifResult?.original_date || undefined}
-                modify_date={exifResult?.modify_date || undefined}
-                software_modify={exifResult?.software_modify || undefined}
-                author_copyright={exifResult?.author_copyright || undefined}
-                gps_location={exifResult?.gps_location}
-                loading={loadingExifCheck}
-                // Pass camera information as prop
-              />
-            </div>
-
-            <div className={styles.Result_container}>
-            <ReverseImgResult searchResult={SearchResult} loading={loadingReverseImageSearch}></ReverseImgResult>
-            </div>
-
-
-            
-              <div className={styles.Result_container}>
-              <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
-            </div>
-
+          <div className={styles.Result_container}>
+            <JpegGhostResult
+              img={`data:image/jpeg;base64,${jpegResult}`}
+              loading={loadingJpegGhost}
+            />
+          </div>
+          <div className={styles.Result_container}>
+            <ElaResult
+              img={`data:image/jpeg;base64,${jpegResult}`}
+              loading={loadingJpegGhost}
+            />
           </div>
         </div>
-      ),
-      Originality: <div className="h-full w-full">Originality</div>,
-      Who: 'Details about who.',
-      Where: 'Information on where.',
-      When: 'Timing details.',
-      Why: 'Explanation of why.',
-    };
-    return (
-      <div className="h-full w-full">
-        {content[activeTab as keyof typeof content] || 'No content available.'}
+        <div className={styles.Third_content_container}>
+          <div className={styles.Result_container}>
+            <MetaData_Result
+              cameraInformation={exifResult?.camera_information || undefined}
+              original_date={exifResult?.original_date || undefined}
+              modify_date={exifResult?.modify_date || undefined}
+              software_modify={exifResult?.software_modify || undefined}
+              author_copyright={exifResult?.author_copyright || undefined}
+              gps_location={exifResult?.gps_location}
+              loading={loadingExifCheck}
+            />
+          </div>
+          <div className={styles.Result_container}>
+            <ReverseImgResult
+              searchResult={SearchResult}
+              loading={loadingReverseImageSearch}
+            />
+          </div>
+          <div className={styles.Result_container}>
+            <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+          </div>
+        </div>
       </div>
-    );
+    ),
+    OtherTabs: [
+      {
+        key: 'Originality',
+        title: 'Originality',
+        description: 'Related to information of the camera or who takes the picture',
+        content: (
+          <div>
+            <p>Details about camera settings, photographer info, and originality checks.</p>
+          </div>
+        ),
+      },
+      {
+        key: 'Where',
+        title: 'Where',
+        description: 'Location',
+        content: (
+          <div>
+            <p>Maps and GPS coordinates of the photos location.</p>
+          </div>
+        ),
+      },
+      {
+        key: 'When',
+        title: 'When',
+        description: 'When this picture is taken',
+        content: (
+          <div>
+            <p>Date and time extracted from photo metadata.</p>
+          </div>
+        ),
+      },
+      {
+        key: 'Why',
+        title: 'Why',
+        description: 'What is the point of the image?',
+        content: (
+          <div>
+            <p>Analysis of the photos intent or subject matter.</p>
+          </div>
+        ),
+      },
+    ],
   };
 
+  if (activeTab === 'Overview') {
+    return tabData.Overview;
+  } else {
+    const selectedTab = tabData.OtherTabs.find(tab => tab.key === activeTab);
+    if (selectedTab) {
+      return (
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <div className={styles.circleWrapper}>
+              <div className={styles.circle}>
+                <IoLibrary />
+              </div>
+              <div className={`${styles.title} ${inter.className}`}>
+                {selectedTab.title}
+              </div>
+            </div>
+            <div className={styles.description}>{selectedTab.description}</div>
+          </div>
+          <div className={styles.content}>{selectedTab.content}</div>
+        </div>
+      );
+    }
+  }
+
   return (
-    <div className={styles.libraries_container}>
+    <div className="h-full w-full">
+      No content available.
+    </div>
+  );
+};
+
+  return (
+    <div className={styles.res_container}>
       <div className={styles.res_header_container}>
-        <div className="flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800">
+        {/*<div className="flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800">
           <div className={styles.circle}>
             <IoLibrary />
           </div>
           <div className={`ml-2 font-bold text-xl ${inter.className}`}>
             The confident score
           </div>
+        </div>*/}
+        <div className={`text-4xl ${montserrat.className} flex h-full items-center`}>
+           <div className={`${styles.circle} mx-3`}> <TbReportSearch/>  </div>
+          <div className='font-bold'> General Report  </div>
+          <div className='h-full w-1 bg-white mx-5'> </div>
+          <div className='text-3xl'> Basic Method </div>
         </div>
-        <Image src={pattern} width={250} height={200} alt={''}></Image>
-        <div className={`font-bold text-4xl ${montserrat.className}`}>
-          GENERAL REPORT
-        </div>
-        <Image src={pattern} width={250} height={200} alt={''}></Image>
+        <Image 
+          src={pattern2} 
+          alt="" 
+          height={300}
+          width={300}
+          className={styles.res_header_image}
+        />
       </div>
       <div className="w-full h-full">
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>
+      
     </div>
   );
 };

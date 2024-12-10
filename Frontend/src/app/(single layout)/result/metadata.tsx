@@ -61,10 +61,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
             </div>
           </button>
         </div>
-        <div className="flex items-center">
-          <div className="circle_2"> 5. </div>
-          <div className="font-bold text-lg ml-2"> The Geo Map</div>
-        </div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
