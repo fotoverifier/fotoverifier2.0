@@ -11,7 +11,7 @@ const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
     const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   return (
     <div className="tabs-container">
-      <div className={`tabs ${monstserrat.className} font-semibold`}>
+      <div className={`tabs ${monstserrat.className} font-semibold my-5`}>
         {tabs.map((tab, index) => (
           <React.Fragment key={tab}>
             <button

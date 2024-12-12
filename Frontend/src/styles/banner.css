@@ -7,11 +7,15 @@
   justify-content: space-evenly;
 }
 .primary-container{
-  padding: 20px;
   width: 95%;
   height: 75%;
   background: linear-gradient(to right, #01584B, #02BEA2);
   border-radius: 5px;
   border-width: 1px;
   color: white;
+}
+.header-img {
+    object-fit: contain; /* Ensure the image fits nicely */
+    margin-left: auto;
+    position: relative;
 }

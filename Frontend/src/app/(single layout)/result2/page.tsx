@@ -17,6 +17,11 @@ import ElaResult from '../result/ela';
 import ReverseImgResult from '../result/reverse_img';
 import pattern2 from "@/assets/Group 97.svg";
 import { TbReportSearch } from 'react-icons/tb';
+import { CiCamera } from 'react-icons/ci';
+import { FaCamera, FaUser } from 'react-icons/fa';
+import { PiAppWindowFill } from 'react-icons/pi';
+import { BiSolidCategory } from 'react-icons/bi';
+import MapComponent from '@/components/map/map';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -25,6 +30,8 @@ type WebSocketUrl = {
 };
 
 const Res2 = () => {
+
+  const location: [number, number] = [51.505, -0.09];
   {
     /* SERVER AREA */
   }
@@ -32,6 +39,7 @@ const Res2 = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
   const wsUrls = searchParams.get('wsUrls');
+
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
@@ -146,8 +154,58 @@ const Res2 = () => {
         title: 'Originality',
         description: 'Related to information of the camera or who takes the picture',
         content: (
-          <div>
-            <p>Details about camera settings, photographer info, and originality checks.</p>
+          <div className='h-full w-full flex'>
+            <div className='w-1/3 h-full'> 
+            <div className='h-1/6 w-full'>
+             <MetaData_Result
+              cameraInformation={exifResult?.camera_information || undefined}
+              original_date={exifResult?.original_date || undefined}
+              modify_date={exifResult?.modify_date || undefined}
+              software_modify={exifResult?.software_modify || undefined}
+              author_copyright={exifResult?.author_copyright || undefined}
+              gps_location={exifResult?.gps_location}
+              loading={loadingExifCheck}
+            />
+            </div>
+            <div className='h-5/6 w-fulll'>
+             <div className='flex p-5 h-1/6'>
+              <div className= {styles.circle_2}><FaCamera /></div>
+            <div className="font-bold text-lg ml-2 border-black"> Camera information</div>
+            </div>
+
+              <div className='h-5/6 border-2 rounded-xl  w-full'></div>
+            </div>
+            </div>
+
+
+              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
+            <div className='w-1/3 h-full'> 
+            <div className='h-5/6 w-fulll'>
+             <div className='flex p-5 h-1/6'>
+              <div className= {styles.circle_2}><FaUser /></div>
+            <div className="font-bold text-lg ml-2 border-black"> Author Information</div>
+            </div>
+              <div className='h-5/6 border-2 rounded-xl  w-full'></div>
+
+               <div className='h-1/6 w-full py-2'>
+                <div className='flex p-5 border-2 rounded-xl'>
+              <div className= {styles.circle_2}><PiAppWindowFill /></div>
+            <div className="font-bold text-lg ml-2 border-black"> Software Modification</div>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+
+              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
+
+            <div className='w-1/3 h-full'> 
+             <ReverseImgResult
+              searchResult={SearchResult}
+              loading={loadingReverseImageSearch}
+            />
+            </div>
+
           </div>
         ),
       },
@@ -156,8 +214,13 @@ const Res2 = () => {
         title: 'Where',
         description: 'Location',
         content: (
-          <div>
+          <div className='h-full w-full'>
             <p>Maps and GPS coordinates of the photos location.</p>
+
+                  <div className='h-full w-2/3 py-5'>
+
+              <MapComponent coordinate={location} />
+              </div>
           </div>
         ),
       },
@@ -190,11 +253,11 @@ const Res2 = () => {
     const selectedTab = tabData.OtherTabs.find(tab => tab.key === activeTab);
     if (selectedTab) {
       return (
-        <div className={styles.container}>
+        <div className ={styles.container}>
           <div className={styles.header}>
             <div className={styles.circleWrapper}>
               <div className={styles.circle}>
-                <IoLibrary />
+                <BiSolidCategory />
               </div>
               <div className={`${styles.title} ${inter.className}`}>
                 {selectedTab.title}
@@ -226,11 +289,11 @@ const Res2 = () => {
             The confident score
           </div>
         </div>*/}
-        <div className={`text-4xl ${montserrat.className} flex h-full items-center`}>
+        <div className={`text-2xl ${montserrat.className} flex h-full items-center`}>
            <div className={`${styles.circle} mx-3`}> <TbReportSearch/>  </div>
           <div className='font-bold'> General Report  </div>
           <div className='h-full w-1 bg-white mx-5'> </div>
-          <div className='text-3xl'> Basic Method </div>
+          <div className='text-xl'> Basic Method </div>
         </div>
         <Image 
           src={pattern2} 

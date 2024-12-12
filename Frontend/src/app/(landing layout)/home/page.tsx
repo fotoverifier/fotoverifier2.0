@@ -2,13 +2,15 @@
 import React, { useState } from 'react';
 import './home.css';
 import LandingBanner from '@/components/landing_banner';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import { FaArrowRightLong, FaFileSignature, FaMagnifyingGlass } from 'react-icons/fa6';
 import Link from 'next/link';
 import Image from 'next/image';
 import Detail from '@/assets/Group_29.svg';
 import { Inter, Montserrat, Inconsolata, Poppins } from 'next/font/google';
 import pattern from '@/assets/Group 12.svg';
 import { TbExchange } from 'react-icons/tb';
+import Card from '@/components/card/card';
+import { BiMessageAltError } from 'react-icons/bi';
 const poppins = Poppins({
   subsets: ['latin'],
   weight: '700',
@@ -60,10 +62,18 @@ const Home = () => {
               of advanced algorithms and 5 steps approach
             </div>
             <div
-              className={`detail-button flex items-center mb-4 ${incon.className}`}
+              className={`detail-button flex items-center mb-4 ${incon.className} p-2`}
             >
               For detail Assesment
               <FaArrowRightLong className="ml-5" />
+            </div>
+            <div className={`flex w-full h-auto justify-between mt-16 ${incon.className}`}>
+              <Card icon={FaMagnifyingGlass
+} description='Finding the potential source'></Card>
+              <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
+                            <Card icon={BiMessageAltError
+} description='Is this image forgery? '></Card>
+
             </div>
           </div>
         </div>
