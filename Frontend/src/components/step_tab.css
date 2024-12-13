@@ -21,9 +21,9 @@
     .tab {
     padding: 10px 20px;
     background-color: whitesmoke ;
-    border: none;
     cursor: pointer;
-    border-radius: 30%px;
+    border-radius: 30px;
+    border-width: 1px;
     transition: background-color 0.3s;
     }
 

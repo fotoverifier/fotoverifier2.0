@@ -1,12 +1,12 @@
 import React from 'react'
-import Image from 'next/image';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
+import "@/styles/stylesidebar.css"
 const inter = Inter({ subsets: ["latin"] });
 // Define the type for props
 interface SideBarItemProps {
-    text: string;       // The text to display
-    icon: React.ReactNode;       // Path to the icon image
+    text: string;       
+    icon: React.ReactNode;  
     active?: boolean;   
     href: string;  
   }
