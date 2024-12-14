@@ -118,3 +118,4 @@ Backend/media
 
 # Large models
 Backend/algorithms/*.pth
+Backend/algorithms/test.py
