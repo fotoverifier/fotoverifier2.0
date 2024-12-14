@@ -1,4 +1,3 @@
-
 import exifread
 from PIL import Image, ImageChops, ImageEnhance
 from PIL.ExifTags import TAGS
@@ -6,6 +5,8 @@ import argparse
 import os
 import cv2
 from serpapi import GoogleSearch
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from os.path import basename
@@ -13,7 +14,7 @@ import base64
 from io import BytesIO
 import numpy as np
 import torch
-import RRDBNet_arch as arch
+from . import RRDBNet_arch as arch
 import argparse
 from ram.models import ram_plus
 from ram import inference_ram as inference
@@ -26,7 +27,8 @@ load_dotenv()
 seed = 42
 torch.manual_seed(seed)
 np.random.seed(seed)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
+#device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 
@@ -42,10 +44,9 @@ def image_process(image_path):
 
 
     args = argparse.Namespace(datafile=image_path)
-    print(args)
 
     if not check_file(image_path):
-        print("Invalid file. Please make sure the file exists and the type is JPEG")
+        print("Invalid file. Please make sure the file exists and the type is JPEG or PNG")
         return None
     
     exif_data = exif_check(args.datafile)
@@ -82,7 +83,6 @@ def exif_check(file_path):
         "camera_information": check_camera_information(tags),
         "gps_location": check_gps_location(exif_code_form),
         "author_copyright": check_author_copyright(exif_code_form),
-        # Ensure all metadata values are strings
         "raw_metadata": {str(TAGS.get(tag, tag)): str(tags[tag]) for tag in tags if tag not in 
                          ('JPEGThumbnail', 'TIFFThumbnail', 'Filename', 'EXIF MakerNote')}
     }
@@ -208,7 +208,7 @@ def reverse_image_search(image_path):
     search = GoogleSearch(params)
     results = search.get_dict()
 
-    print(results)
+
 
     result = {
         "image_results": results.get("image_results", []),
@@ -329,8 +329,8 @@ def recognize_objects(file_path):
     return res[0]
 
 def fake_image_detect(file_path):
+    print(f"ELA: {file_path}")
     resaved_filename = file_path.split('.')[0] + '.resaved.jpg'
-    ELA_filename = file_path.split('.')[0] + '.ela.png'
     
     im = Image.open(file_path).convert('RGB')
     im.save(resaved_filename, 'JPEG', quality=90)
@@ -347,14 +347,12 @@ def fake_image_detect(file_path):
     ela_im = ImageEnhance.Brightness(ela_im).enhance(scale)
     
     buffered = BytesIO()
+    ela_im.save(buffered, format='png')
+    buffered.seek(0)
     img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
     
     os.remove(resaved_filename)
-    
-    plt.imshow(ela_im)
-    plt.title('Error Level Analysis (ELA)')
-    plt.axis('off')
-    plt.show()
+    print(f"ELA: {img_base64}")
     
     return img_base64
 

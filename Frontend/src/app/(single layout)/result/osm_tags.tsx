@@ -11,7 +11,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
     <div className="striped-background w-full h-full p-5">
       <div className="flex">
         <div className="circle_2"> <IoIosPricetag /> </div>
-        <div className="font-bold text-lg ml-2 mb-5  border-black border-b-2">Image Tagging</div>
+        <div className="font-bold text-lg ml-2 mb-5">Image Tagging</div>
       </div>
       {loading ? <p>Loading...</p> : Tag }
     </div>

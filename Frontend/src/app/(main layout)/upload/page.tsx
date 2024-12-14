@@ -69,33 +69,27 @@ const Upload = () => {
       try {
         const formData = new FormData();
         formData.append('image', imageFile);
-        const urls = [
-          'http://127.0.0.1:8000/api/exif-check/',
-          'http://127.0.0.1:8000/api/jpeg-ghost/',
-          'http://127.0.0.1:8000/api/reverse-image-search/',
-          'http://127.0.0.1:8000/api/recognize-objects/',
-        ];
+        // Single API call wrapped in a Promise
+        const response = await fetch('http://127.0.0.1:8000/api/quick-scan/', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        });
 
-        const fetchPromises = urls.map((url) =>
-          fetch(url, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          })
-        );
+        // Handle response
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-        const responses = await Promise.all(fetchPromises);
+        const result = await response.json();
 
-        const results = await Promise.all(
-          responses.map((response) => response.json())
-        );
-
-        console.log('Results:', results);
-        setRetrievedData(JSON.stringify(results));
-      } catch (error) {
+        console.log('Result:', result);
+        setRetrievedData(JSON.stringify(result));
+      } catch (error: any) {
         console.error('Error fetching data:', error);
+        alert(`Error: ${error.message}`);
       } finally {
         console.log('Upload complete');
         setUploadComplete(true);
@@ -318,7 +312,7 @@ const Upload = () => {
           {!loading && uploadComplete && (
             <Link
               href={{
-                pathname: '/result',
+                pathname: '/result2',
                 query: {
                   image: imageSrc,
                   wsUrls: retrievedData,

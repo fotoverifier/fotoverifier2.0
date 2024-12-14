@@ -1,17 +1,16 @@
-import React from "react";
-import "@/styles/head/head_home.css";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-import FotoverifierWhite from "@/assets/Fotoverifier_white.svg";
-import IconWhite from "@/assets/icon_main_white.svg";
-import HH_Button from "../button/head_home_button";
-import { Poppins } from "next/font/google";
-import DropdownButton from "../button/dropdown_button";
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["500"]
-});
-const test = ["test1", "test2"]
+import React from 'react';
+import '@/styles/head/head_home.css';
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import FotoverifierWhite from '@/assets/Fotoverifier_white.svg';
+import IconWhite from '@/assets/icon_main_white.svg';
+import HH_Button from '../button/head_home_button';
+import { Poppins } from 'next/font/google';
+import DropdownButton from '../button/dropdown_button';
+const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({ subsets: ['latin'], weight: ['500'] });
+const test = ['test1', 'test2'];
 const Home_Header = () => {
   return (
     <div className="header-container">
@@ -30,9 +29,9 @@ const Home_Header = () => {
         <button className={`header-button ${poppins.className}`}>News</button>
         <button className={`header-button ${poppins.className}`}>Team</button>
       */}
-      <DropdownButton title="Resource" array={test}></DropdownButton>
-          <DropdownButton title="News" array={test}></DropdownButton>
-              <DropdownButton title="Contact" array={test}></DropdownButton>
+        <DropdownButton title="Resource" array={test}></DropdownButton>
+        <DropdownButton title="News" array={test}></DropdownButton>
+        <DropdownButton title="Contact" array={test}></DropdownButton>
       </div>
       <Link className="header-go" href="/dashboard">
         <div className={`header-dashboard-button ${poppins.className}`}>

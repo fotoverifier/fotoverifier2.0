@@ -11,7 +11,7 @@ class TaskConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.task_id = self.scope['url_route']['kwargs']['task_id']
         self.task_group_name = f'task_{self.task_id}'
-
+        
 
         await self.channel_layer.group_add(
             self.task_group_name,
@@ -23,16 +23,22 @@ class TaskConsumer(AsyncWebsocketConsumer):
         self.redis_client = redis.from_url(os.environ.get('REDIS_URL'))
         self.pubsub = self.redis_client.pubsub()
         await self.pubsub.subscribe(f'message_channel_{self.task_id}')
-        
-        asyncio.create_task(self.listen_to_channel())
+        self.listen_task = asyncio.create_task(self.listen_to_channel())
         
     async def listen_to_channel(self):
         async for message in self.pubsub.listen():
             if message['type'] == 'message':
                 data = json.loads(message['data'])
+                print(f"Received message: {data}")  # Debugging
                 await self.send(text_data=json.dumps(data))
+                print(f"Sent message: {data}")  # Debugging
 
     async def disconnect(self, close_code):
+        self.listen_task.cancel()
+        try:
+            await self.listen_task
+        except asyncio.CancelledError:
+            pass
         await self.channel_layer.group_discard(
             self.task_group_name,
             self.channel_name

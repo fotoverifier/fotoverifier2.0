@@ -8,7 +8,7 @@ load_dotenv()
 redis_instance = redis.from_url(os.environ.get('REDIS_URL'))
 
 async def buffer_message(image_id, message):
-    await redis_instance.publish(f'message_queue_{image_id}', json.dumps(message))
+    await redis_instance.publish(f'message_channel_{image_id}', json.dumps(message))
     await redis_instance.close()
         
     
