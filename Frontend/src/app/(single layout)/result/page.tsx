@@ -31,135 +31,54 @@ const Result = () => {
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
 
   useEffect(() => {
-    const websockets: any[] = [];
     if (wsUrls) {
       try {
         const parsedUrls = JSON.parse(wsUrls);
-        parsedUrls.forEach((wsUrlObj: WebSocketUrl) => {
-          const ws = new WebSocket(wsUrlObj.websocket_url);
-          websockets.push(ws);
+        const wsUrlObj = parsedUrls;
 
-          ws.onopen = () => {
-            console.log('Websocket connected at ', wsUrlObj.websocket_url);
-          };
-          ws.onclose = () => {
-            console.log('Websocket closed at ', wsUrlObj.websocket_url);
-          };
-          ws.onmessage = (event) => {
-            try {
-              const message = JSON.parse(event.data);
-              console.log('Message:', message);
-              if (message.result === 'completed') {
-                ws.close();
-              } else if (message.task === 'exif_check') {
-                setExifResult(message.result);
-                setLoadingExifCheck(false);
-              } else if (message.task === 'reverse_image_search') {
-                setSearchResult(message.result.image_results);
-                setLoadingReverseImageSearch(false);
-              } else if (message.task === 'jpeg_ghost') {
-                setJpegResult(message.result);
-                setLoadingJpegGhost(false);
-              } else if (message.task === 'recognize_image') {
-                setTagResult(message.result);
-                setLoadingTagResult(false);
-              }
-            } catch (error) {
-              console.error('Failed to parse wsUrls:', error);
+        const ws = new WebSocket(wsUrlObj.websocket_url);
+
+        ws.onopen = () => {
+          console.log('Websocket connected at ', wsUrlObj.websocket_url);
+        };
+        ws.onclose = () => {
+          console.log('Websocket closed at ', wsUrlObj.websocket_url);
+        };
+        ws.onmessage = (event) => {
+          try {
+            const message = JSON.parse(event.data);
+            console.log('Message:', message);
+            if (message.result === 'completed') {
+              ws.close();
+            } else if (message.task === 'exif_check') {
+              setExifResult(message.result);
+              setLoadingExifCheck(false);
+            } else if (message.task === 'reverse_image_search') {
+              setSearchResult(message.result.image_results);
+              setLoadingReverseImageSearch(false);
+            } else if (message.task === 'jpeg_ghost') {
+              setJpegResult(message.result);
+              setLoadingJpegGhost(false);
+            } else if (message.task === 'recognize_image') {
+              setTagResult(message.result);
+              setLoadingTagResult(false);
             }
-          };
-          ws.onerror = (error) => {
-            console.error(
-              `WebSocket error at ${wsUrlObj.websocket_url}:`,
-              error
-            );
-          };
-        });
+          } catch (error) {
+            console.error('Failed to parse wsUrls:', error);
+          }
+        };
+        ws.onerror = (error) => {
+          console.error(`WebSocket error at ${wsUrlObj.websocket_url}:`, error);
+        };
+        return () => {
+          ws.close();
+        }
       } catch (error) {
         console.error('Failed to parse wsUrls:', error);
       }
     }
   }, [wsUrls]);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     // Decode the data here
-  //     const decodedData = JSON.parse(
-  //       Buffer.from(data, "base64").toString("utf-8")
-  //     );
-  //     setTaskData(decodedData);
-  //     console.log("Decoded Data:", decodedData);
-  //     setIsFetching(true);
-  //     console.log("Fetching true");
-  //   }
-  // }, [data]);
-
-  // useEffect(() => {
-  //   if (taskData && taskData.task_id && isFetching) {
-  //     const fetchTaskStatus = async () => {
-  //       console.log("start");
-  //       try {
-  //         const response = await fetch(
-  //           `http://127.0.0.1:8000/api/task-status/${taskData?.task_id}/`,
-  //           {
-  //             method: "GET",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //           }
-  //         );
-  //         console.log("Response:", response);
-  //         if (!response.ok) {
-  //           throw new Error(`Error: ${response.statusText}`);
-  //         }
-
-  //         const fetchedData = await response.json();
-
-  //         if (fetchedData.status === "SUCCESS") {
-  //           setmethodData(fetchedData.result); // Store the response data in the state
-  //           setIsFetching(false);
-  //           console.log("Fetching false");
-  //           window.clearInterval(intervalIdRef.current!);
-  //           intervalIdRef.current = null;
-  //         }
-  //       } catch (error) {
-  //         console.error("Failed to fetch task status:", error);
-  //       }
-  //     };
-
-  //     intervalIdRef.current = setInterval(fetchTaskStatus, 5000);
-
-  //     return () => {
-  //       if (intervalIdRef.current) {
-  //         setIsFetching(false);
-  //         console.log("Fetching false");
-  //         window.clearInterval(intervalIdRef.current);
-  //         intervalIdRef.current = null;
-  //       }
-  //     };
-  //   }
-  // }, [taskData, isFetching]);
-
-  // useEffect(() => {
-  //   if (methodData) {
-  //     console.log("Updated methodData:", methodData);
-  //   }
-  // }, [methodData]);
-
-  // useEffect(() => {
-  //   if (img) {
-  //     // Set the retrieved image as base64
-  //     setRetrieveImg(img);
-  //   }
-  // }, [img]);
-
-  // useEffect(() => {
-  //   if (methodData) {
-  //     console.log(methodData.exif_data);
-  //     setExifData(methodData.exif_data);
-  //     setSearchData(methodData.reverse_image_search_results.image_results);
-  //   }
-  // }, [methodData]);
   return (
     <>
       <div className={`Top-container ${inter.className}`}>
