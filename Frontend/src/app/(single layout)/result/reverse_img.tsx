@@ -45,13 +45,13 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
           <IoIosReverseCamera />
         </div>
         <div className="font-bold text-lg ml-2">Reversed Search</div>
-        <button onClick={openModal} className="focus:outline-none ml-auto">
+        <div onClick={openModal} className="focus:outline-none ml-auto">
           <div
             className={`flex justify-center rounded-md border-black border-2 p-1 hover:bg-black hover:text-white ${inter.className}`}
           >
             Show Detail
           </div>
-        </button>
+        </div>
       </div>
       {loading ? (
         <p>Loading...</p>

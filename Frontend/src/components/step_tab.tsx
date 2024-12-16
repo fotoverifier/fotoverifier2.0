@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '@/components/step_tab.css';
+import styles from "@/components/step_tab.module.css";
 import { Montserrat } from 'next/font/google';
 interface TabProps {
   tabs: string[];
@@ -10,24 +10,24 @@ const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
 
     const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   return (
-    <div className="tabs-container">
-      <div className={`tabs ${monstserrat.className} font-semibold my-5`}>
-        {tabs.map((tab, index) => (
-          <React.Fragment key={tab}>
-            <button
-              className={`tab ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-            {index < tabs.length - 1 && <div className="tab-connector"></div>}
-          </React.Fragment>
-        ))}
-      </div>
-      <div className="tab-content stripe-1">
-        {renderContent(activeTab)}
-      </div>
+      <div className={styles.tabs_container}>
+    <div className={`${styles.tabs} ${monstserrat.className} font-semibold my-5`}>
+      {tabs.map((tab, index) => (
+        <React.Fragment key={tab}>
+          <button
+            className={`${styles.tab} ${activeTab === tab ? styles.active : ''}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+          {index < tabs.length - 1 && <div className={styles.tab_connector}></div>}
+        </React.Fragment>
+      ))}
     </div>
+    <div className={`${styles.tab_content} ${styles.stripe_1}`}>
+      {renderContent(activeTab)}
+    </div>
+  </div>
   );
 };
 

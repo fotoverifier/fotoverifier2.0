@@ -1,14 +1,13 @@
-
-    .tabs-container {
+.tabs_container {
     padding: 15px;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    }
+}
 
-    .tabs {
+.tabs {
     display: flex;
     justify-content: space-evenly;
     width: 70%;
@@ -16,43 +15,45 @@
     gap: 10px;
     margin-bottom: 10px;
     height: 7%;
-    }
+}
 
-    .tab {
+.tab {
     padding: 10px 20px;
-    background-color: whitesmoke ;
+    background-color: whitesmoke;
     cursor: pointer;
     border-radius: 30px;
     border-width: 1px;
     transition: background-color 0.3s;
-    }
+}
 
-    .tab.active {
+.tab.active {
     background-color: #01584B;
     color: white;
-    }
-    
-    .tab:hover:not(.active) {
+}
+
+.tab:hover:not(.active) {
     background-color: #e0e0e0;
     transition: transform 0.2s, box-shadow 0.2s;
     transform: translateY(-2px);
-    }
-     .tab.active:hover {
+}
+
+.tab.active:hover {
     transition: transform 0.2s, box-shadow 0.2s;
     transform: translateY(-2px);
-    }
+}
 
-    .tab-content {
+.tab_content {
     padding: 20px;
     height: 90%;
     border-radius: 5px;
-    }
-    .tab-connector {
-        align-self: center;
+}
+
+.tab_connector {
+    align-self: center;
     width: 100%;
     height: 2px;
     background-color: #007b7f;
-    }
+}
 
-    .stripe-1{
-    }
+.stripe_1 {
+}

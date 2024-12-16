@@ -55,11 +55,11 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="circle_2"> <BsFillInfoCircleFill /></div>
           <div className="font-bold text-lg ml-2">Metadata</div>
 
-          <button onClick={openModal} className="focus:outline-none ml-auto">
+          <div onClick={openModal} className="focus:outline-none ml-auto">
             <div className="flex justify-center rounded-md border-black border-2 p-1 hover:bg-black hover:text-white">
               Show Detail
             </div>
-          </button>
+          </div>
         </div>
       </div>
       {isModalOpen && (
