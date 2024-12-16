@@ -331,7 +331,7 @@ const Res2 = () => {
           className={styles.res_header_image}
         />
       </div>
-      <div className="w-full h-full">
+      <div className= {styles.res_body_container}>
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>
     </div>
