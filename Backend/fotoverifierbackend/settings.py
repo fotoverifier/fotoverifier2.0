@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-5_%=sr2^ecs@g%o_)tin7=rplj(ye4k47gr#%x)rg=w1m_(c(#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'daphne', 'localhost']
 
 
 
@@ -134,6 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://frontend:3000",
 ]
 
 

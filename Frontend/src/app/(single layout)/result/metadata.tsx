@@ -27,13 +27,18 @@ interface AuthorCopyright {
   profile_copyright?: string | null;
 }
 
+interface GPSLocation {
+  latitude?: string;
+  longitude?: string;
+}
+
 interface MetaDataProps {
   cameraInformation?: CameraInformation;
   software_modify?: string;
   modify_date?: string;
   original_date?: OriginalDate;
   author_copyright?: AuthorCopyright;
-  gps_location?: string;
+  gps_location?: GPSLocation;
   loading: boolean;
 }
 
@@ -51,11 +56,16 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  console.log(gps_location);
+
   return (
     <div className={`w-full h-full p-5 ${inter.className}`}>
       <div className="flex-col items-center justify-between">
         <div className="flex items-center">
-          <div className="circle_2"> <BsFillInfoCircleFill /></div>
+          <div className="circle_2">
+            {' '}
+            <BsFillInfoCircleFill />
+          </div>
           <div className="font-bold text-lg ml-2">Metadata</div>
 
           <div onClick={openModal} className="focus:outline-none ml-auto">
@@ -79,7 +89,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
             <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
             {loading ? (
               <p>Loading...</p>
-            ) :  (
+            ) : (
               <>
                 {/* Metadata Section */}
                 <div className="mb-4">
@@ -156,7 +166,12 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
                   </div>
                   {gps_location ? (
                     <div className="gps-location-container">
-                      <p>{gps_location}</p>
+                      <p>
+                        <strong>Lattitude:</strong> {gps_location.latitude}
+                      </p>
+                      <p>
+                        <strong>Longitude:</strong> {gps_location.longitude}
+                      </p>
                     </div>
                   ) : (
                     <p>No GPS location available.</p>

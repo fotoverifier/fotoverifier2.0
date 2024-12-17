@@ -15,7 +15,10 @@ export interface ExifData {
     iso_speed: string | undefined;
     flash: string | undefined;
   };
-  gps_location: string | undefined;
+  gps_location: {
+    latitude: string | undefined;
+    longitude: string | undefined;
+  };
   author_copyright: {
     author: string | undefined;
     copyright_tag: string | undefined;

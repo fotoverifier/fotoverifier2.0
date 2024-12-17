@@ -138,8 +138,8 @@ async def run_tasks(image_instance, image_id):
     result2 = await asyncio.to_thread(exif_check, file_path=image_instance.image.path)
     await buffer_message(image_id, {'task': 'exif_check', 'result': result2})
 
-    result3 = await asyncio.to_thread(reverse_image_search, image_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'reverse_image_search', 'result': result3})
+    # result3 = await asyncio.to_thread(reverse_image_search, image_path=image_instance.image.path)
+    # await buffer_message(image_id, {'task': 'reverse_image_search', 'result': result3})
 
     result4 = await asyncio.to_thread(recognize_objects, file_path=image_instance.image.path)
     await buffer_message(image_id, {'task': 'recognize_image', 'result': result4})
@@ -165,13 +165,13 @@ async def run_tasks(image_instance, image_id):
             'message': {'task': 'exif_check', 'result': result2}
         }
     )
-    await channel_layer.group_send(
-        f'task_{image_id}',
-        {
-            'type': 'task_update',
-            'message': {'task': 'reverse_image_search', 'result': result3}
-        }
-    )
+    # await channel_layer.group_send(
+    #     f'task_{image_id}',
+    #     {
+    #         'type': 'task_update',
+    #         'message': {'task': 'reverse_image_search', 'result': result3}
+    #     }
+    # )
     await channel_layer.group_send(
         f'task_{image_id}',
         {

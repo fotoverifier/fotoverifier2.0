@@ -27,8 +27,8 @@ load_dotenv()
 seed = 42
 torch.manual_seed(seed)
 np.random.seed(seed)
-device = torch.device('cpu')
-#device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# device = torch.device('cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 
@@ -75,17 +75,20 @@ def exif_check(file_path):
     if exif_code_form is None:
         print("The EXIF data has been stripped. Photo may be taken from Facebook, Twitter, Imgur")
         return None
+    
+    raw_metadata = {str(TAGS.get(tag, tag)): str(tags[tag]) for tag in tags if tag not in 
+                         ('JPEGThumbnail', 'TIFFThumbnail', 'Filename', 'EXIF MakerNote')}
 
     exif_data = {
         "software_modify": check_software_modify(exif_code_form),
         "modify_date": check_modify_date(exif_code_form),
         "original_date": check_original_date(exif_code_form),
         "camera_information": check_camera_information(tags),
-        "gps_location": check_gps_location(exif_code_form),
+        "gps_location": check_gps_location(raw_metadata),
         "author_copyright": check_author_copyright(exif_code_form),
-        "raw_metadata": {str(TAGS.get(tag, tag)): str(tags[tag]) for tag in tags if tag not in 
-                         ('JPEGThumbnail', 'TIFFThumbnail', 'Filename', 'EXIF MakerNote')}
+        "raw_metadata": raw_metadata
     }
+    
 
     return exif_data
 
@@ -152,24 +155,25 @@ def check_camera_information(tags):
         "flash": str(get_if_exist(tags, 'EXIF Flash'))
     }
 
-def check_gps_location(info):
-    gps_info = get_if_exist(info, "GPSInfo")
-    if not gps_info:
-        return "GPS coordinates not found"
+def check_gps_location(raw_metadata):
+    gps_latitude = raw_metadata.get("GPS GPSLatitude")
+    gps_latitude_ref = raw_metadata.get("GPS GPSLatitudeRef")
+    gps_longitude = raw_metadata.get("GPS GPSLongitude")
+    gps_longitude_ref = raw_metadata.get("GPS GPSLongitudeRef")
 
-    gps_latitude = get_if_exist(gps_info, 2)
-    gps_latitude_ref = get_if_exist(gps_info, 1)
-    gps_longitude = get_if_exist(gps_info, 4)
-    gps_longitude_ref = get_if_exist(gps_info, 3)
     if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
-        lat = convert_to_degrees(gps_latitude)
+        # Convert the GPS latitude and longitude to degrees
+        lat = convert_to_degrees(eval(gps_latitude))  # Safely evaluate the string as a list
         if gps_latitude_ref.upper() != "N":
             lat = -lat
-        lng = convert_to_degrees(gps_longitude)
+        lng = convert_to_degrees(eval(gps_longitude))  # Safely evaluate the string as a list
         if gps_longitude_ref.upper() != "E":
             lng = -lng
+
         return {"latitude": lat, "longitude": lng}
+
     return None
+
 
 def convert_to_degrees(value):
     """
@@ -319,14 +323,25 @@ def super_resolution(file_path):
     return img_base64
 
 def recognize_objects(file_path):
-    model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
-    model.eval()
-    transform = get_transform(image_size=384)
-    image = transform(Image.open(file_path)).unsqueeze(0).to(device)
-    with torch.no_grad():
-        res = inference(image, model)
-    print("Image Tags: ", res[0])
-    return res[0]
+    try:
+        model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
+        model.eval()
+        model.to(device)
+
+        # Transform the image
+        transform = get_transform(image_size=384)
+        image = transform(Image.open(file_path)).unsqueeze(0).to(device)
+
+        # Perform inference
+        with torch.no_grad():
+            res = inference(image, model)
+
+        print("Image Tags: ", res[0])
+        return res[0]
+
+    except Exception as e:
+        print(f"Error in recognize_objects: {e}")
+        return None
 
 def fake_image_detect(file_path):
     print(f"ELA: {file_path}")
@@ -360,4 +375,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Image processing")
     parser.add_argument("datafile", help="Path to the image file")
     args = parser.parse_args()
-    fake_image_detect(args.datafile)
+    exif_check(args.datafile)

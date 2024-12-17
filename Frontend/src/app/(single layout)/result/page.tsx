@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import '@/app/(single layout)/result/result.css';
 import Image from 'next/image';
 import Image_Result from './image';
@@ -10,9 +10,6 @@ import { useSearchParams } from 'next/navigation';
 import JpegGhostResult from './jpegGhost';
 import ImgTagging_Result from './osm_tags';
 import { ExifData, SearchResult, Tagging } from '@/interface/interface';
-type WebSocketUrl = {
-  websocket_url: string;
-};
 
 const inter = Inter({ subsets: ['latin'] });
 const Result = () => {
@@ -72,7 +69,7 @@ const Result = () => {
         };
         return () => {
           ws.close();
-        }
+        };
       } catch (error) {
         console.error('Failed to parse wsUrls:', error);
       }
@@ -156,4 +153,10 @@ const Result = () => {
   );
 };
 
-export default Result;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Result />
+    </Suspense>
+  );
+}
