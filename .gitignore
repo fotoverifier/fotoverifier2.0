@@ -114,8 +114,14 @@ ehthumbs.db
 
 # Sample images
 Backend/algorithms/sample
-Backend/media
+Backend/media/*/*.jpg
+media/*/*.jpg
 
 # Large models
 Backend/algorithms/*.pth
 Backend/algorithms/test.py
+
+# Docker
+Dockerfile
+docker-compose.yaml
+.dockerignore
