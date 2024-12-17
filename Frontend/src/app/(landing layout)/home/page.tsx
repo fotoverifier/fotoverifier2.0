@@ -11,6 +11,7 @@ import pattern from '@/assets/Group 12.svg';
 import { TbExchange } from 'react-icons/tb';
 import Card from '@/components/card/card';
 import { BiMessageAltError } from 'react-icons/bi';
+import ShinyButton from '@/components/button/shiny_button/shiny_button';
 const poppins = Poppins({
   subsets: ['latin'],
   weight: '700',
@@ -62,15 +63,15 @@ const Home = () => {
               of advanced algorithms and 5 steps approach
             </div>
             <div
-              className={`detail-button flex items-center mb-4 ${incon.className} p-2`}
+              className={`${incon.className}`}
             >
-              For detail Assesment
-              <FaArrowRightLong className="ml-5" />
+                  <ShinyButton title='For detail Assesment'></ShinyButton>
             </div>
+        
             <div className={`flex w-full h-auto justify-between mt-16 ${incon.className}`}>
               <Card icon={FaMagnifyingGlass
               } description='Finding the potential source'></Card>
-                            <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
+                        <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
                                           <Card icon={BiMessageAltError
               } description='Is this image forgery? '></Card>
 

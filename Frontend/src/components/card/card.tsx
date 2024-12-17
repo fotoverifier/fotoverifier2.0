@@ -1,18 +1,18 @@
-import React from 'react';
-import "@/components/card/card.css"
-import { IconType } from 'react-icons';
+import React from "react";
+import styles from "./card.module.css";
+import { IconType } from "react-icons";
+
 interface CardProps {
   icon: IconType;
   description: string;
 }
+
 const Card: React.FC<CardProps> = ({ icon: Icon, description }) => {
   return (
-    <div className="card">
-      <div className="content">
+    <div className={styles.card}>
+      <div className={styles.content}>
         <Icon />
-        <p className="para">
-          {description}
-        </p>
+        <p className={styles.para}>{description}</p>
       </div>
     </div>
   );

@@ -5,9 +5,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-screen h-screen">
+    <div className="h-screen w-screen">
       <Home_Header/>
-      <div className="w-full h-full">
+      <div className="w-full h-[91.5%]">
         {children}
       </div>
     </div>
