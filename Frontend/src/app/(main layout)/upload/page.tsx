@@ -70,7 +70,7 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         // Single API call wrapped in a Promise
-        const response = await fetch('http://localhost:8000/api/quick-scan/', {
+        const response = await fetch('http://127.0.0.1:8000/api/quick-scan/', {
           method: 'POST',
           body: formData,
           headers: {
@@ -99,7 +99,7 @@ const Upload = () => {
       try {
         const formData = new FormData();
         formData.append('image', imageFile);
-        const response = await fetch('http://localhost:8000/api/image/', {
+        const response = await fetch('http://127.0.0.1:8000/api/image/', {
           method: 'POST',
           body: formData,
           headers: {
@@ -130,8 +130,8 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         const urls = [
-          'http://localhost:8000/api/exif-check/',
-          'http://localhost:8000/api/recognize-objects/',
+          'http://127.0.0.1:8000/api/exif-check/',
+          'http://127.0.0.1:8000/api/recognize-objects/',
         ];
 
         const fetchPromises = urls.map((url) =>
