@@ -69,10 +69,10 @@ const Home = () => {
             </div>
             <div className={`flex w-full h-auto justify-between mt-16 ${incon.className}`}>
               <Card icon={FaMagnifyingGlass
-} description='Finding the potential source'></Card>
-              <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
-                            <Card icon={BiMessageAltError
-} description='Is this image forgery? '></Card>
+              } description='Finding the potential source'></Card>
+                            <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
+                                          <Card icon={BiMessageAltError
+              } description='Is this image forgery? '></Card>
 
             </div>
           </div>
@@ -156,7 +156,7 @@ const Home = () => {
               </div>
 
               <div className={`verify-agree-container ${montserrat.className}`}>
-                <Link href="/assesment" className="button">
+                <Link href="/result2" className="button">
                   {' '}
                   Verify
                 </Link>

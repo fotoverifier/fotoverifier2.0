@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import styles from "@/app/(single layout)/libraries/libraries.module.css"
+import styles from "@/app/(main layout)/libraries/libraries.module.css"
 import { IoLibrary } from "react-icons/io5";
 import { Inter, Montserrat } from 'next/font/google';
 import DropdownButton from '@/components/button/dropdown_button';

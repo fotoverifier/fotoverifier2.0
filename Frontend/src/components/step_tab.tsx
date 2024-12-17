@@ -14,12 +14,12 @@ const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
     <div className={`${styles.tabs} ${monstserrat.className} font-semibold my-5`}>
       {tabs.map((tab, index) => (
         <React.Fragment key={tab}>
-          <button
+          <div
             className={`${styles.tab} ${activeTab === tab ? styles.active : ''}`}
             onClick={() => setActiveTab(tab)}
           >
             {tab}
-          </button>
+          </div>
           {index < tabs.length - 1 && <div className={styles.tab_connector}></div>}
         </React.Fragment>
       ))}
