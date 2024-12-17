@@ -70,7 +70,7 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         // Single API call wrapped in a Promise
-        const response = await fetch('http://127.0.0.1:8000/api/quick-scan/', {
+        const response = await fetch('http://127.0.0.1:9017/api/quick-scan/', {
           method: 'POST',
           body: formData,
           headers: {
