@@ -230,12 +230,29 @@ const Res2 = () => {
           title: 'Where',
           description: 'Location',
           content: (
-            <div className="h-full w-full">
-              <p>Maps and GPS coordinates of the photos location.</p>
-
-              <div className="h-full w-2/3 py-5">
+            <div className={`h-full w-full flex`}>
+              <div className="h-[90%] w-2/3">
+                  <p className='mb-3'>Maps and GPS coordinates of the photos location.</p>
                 <MapComponent coordinate={location} />
               </div>
+              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
+              <div className='h-full w-1/3'>
+               <div className='font-bold'>Common techniques to detect the location </div>
+                <ul className="list-decimal pl-6 mx-3">
+                  <li className="p-2">
+                    One of the rather feasible approaches to extract such information is via the location from the EXIF Data.
+                  </li>
+                  <li className="p-2">
+                    Another method is to find a second image and compare them via prevalent matching points algorithms like SIFT.
+                  </li>
+                  <li className="p-2">
+                    Geolocation can also be inferred by analyzing the image visual features (e.g., landmarks, terrain, or architecture) using machine learning models trained on geotagged datasets.
+                  </li>
+                </ul>
+
+                Another task is to reverse geolocation into readable address for human.
+               </div>
+               
             </div>
           ),
         },
@@ -322,7 +339,7 @@ const Res2 = () => {
           className={styles.res_header_image}
         />
       </div>
-      <div className={styles.res_body_container}>
+      <div className={ ` ${styles.res_body_container} ${inter.className}`}>
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>
     </div>
