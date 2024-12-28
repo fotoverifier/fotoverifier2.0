@@ -172,7 +172,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <LandingBanner />
     </div>
   );
 };
