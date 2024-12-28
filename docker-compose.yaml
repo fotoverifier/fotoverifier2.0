@@ -1,0 +1,56 @@
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - fotoverifier
+  daphne:
+    build:
+      context: ./Backend
+    container_name: daphne
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8000", "fotoverifierbackend.asgi:application"]
+    environment:
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_API_SECRET=${CLOUD_API_SECRET}
+      - REDIS_URL=${REDIS_URL}
+      - TF_ENABLE_ONEDNN_OPTS=${TF_ENABLE_ONEDNN_OPTS}
+      - SERPAPI_SECRET_KEY=${SERPAPI_SECRET_KEY}
+    volumes:
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    networks:
+      - fotoverifier
+  celery:
+    build:
+      context: ./Backend
+    container_name: celery
+    command: ["celery", "-A", "fotoverifierbackend", "worker", "--loglevel=info"]
+    environment:
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_API_SECRET=${CLOUD_API_SECRET}
+      - REDIS_URL=${REDIS_URL}
+      - TF_ENABLE_ONEDNN_OPTS=${TF_ENABLE_ONEDNN_OPTS}
+      - SERPAPI_SECRET_KEY=${SERPAPI_SECRET_KEY}
+    volumes:
+      - ./media:/app/media
+    depends_on:
+      - redis
+    networks:
+      - fotoverifier
+  redis:
+    image: "redis:latest"
+    container_name: redis
+    networks:
+      - fotoverifier
+networks:
+  fotoverifier:
+    driver: bridge
