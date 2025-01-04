@@ -36,6 +36,7 @@ class TaskConsumer(AsyncWebsocketConsumer):
                 data = json.loads(message['data'])
                 await buffer_message(self.task_id, data)
                 await self.send(text_data=json.dumps(data))
+                print(f"Sent message: {data}")
 
     async def disconnect(self, close_code):
         self.listen_task.cancel()
@@ -55,4 +56,3 @@ class TaskConsumer(AsyncWebsocketConsumer):
     
     async def task_complete(self, event):
         await self.send(text_data=json.dumps(event['message']))
-        await self.close()
