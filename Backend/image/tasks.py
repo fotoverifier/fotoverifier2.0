@@ -13,7 +13,6 @@ def process_exif_check(image_id):
     
     message = {'task': 'exif_check', 'result': result}
     buffer_message(image_id, message)
-
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
@@ -22,13 +21,17 @@ def process_exif_check(image_id):
             'message': {'task': 'exif_check', 'result': result}
         }
     )
+    
+    completion_message = {'task': 'exif_check', 'result': 'completed'}
+    buffer_message(image_id, completion_message)
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
         {
             'type': 'task_complete',
-            'message': {'task': 'exif_check', 'result': 'completed'}
+            'message': completion_message
         }
     )
+    
     return result
 
 @shared_task
@@ -38,7 +41,6 @@ def process_reverse_image_search(image_id):
     
     message = {'task': 'reverse_image_search', 'result': result}
     buffer_message(image_id, message)
-
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
@@ -47,13 +49,17 @@ def process_reverse_image_search(image_id):
             'message': {'task': 'reverse_image_search', 'result': result}
         }
     )
+    
+    completion_message = {'task': 'reverse_image_search', 'result': 'completed'}
+    buffer_message(image_id, completion_message)
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
         {
             'type': 'task_complete',
-            'message': {'task': 'reverse_image_search', 'result': 'completed'}
+            'message': completion_message
         }
     )
+    
     return result
 
 @shared_task
@@ -63,7 +69,6 @@ def process_jpeg_ghost(image_id):
     
     message = {'task': 'jpeg_ghost', 'result': result}
     buffer_message(image_id, message)
-
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
@@ -72,11 +77,14 @@ def process_jpeg_ghost(image_id):
             'message': {'task': 'jpeg_ghost', 'result': result}
         }
     )
+    
+    completion_message = {'task': 'jpeg_ghost', 'result': 'completed'}
+    buffer_message(image_id, completion_message)
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
         {
             'type': 'task_complete',
-            'message': {'task': 'jpeg_ghost', 'result': 'completed'}
+            'message': completion_message
         }
     )
     return result
@@ -88,7 +96,6 @@ def process_super_resolution(image_id):
     
     message = {'task': 'super_resolution', 'result': result}
     buffer_message(image_id, message)
-
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
@@ -97,11 +104,14 @@ def process_super_resolution(image_id):
             'message': {'task': 'super_resolution', 'result': result}
         }
     )
+    
+    completion_message = {'task': 'super_resolution', 'result': 'completed'}
+    buffer_message(image_id, completion_message)
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
         {
             'type': 'task_complete',
-            'message': {'task': 'super_resolution', 'result': 'completed'}
+            'message': completion_message
         }
     )
     return result
@@ -113,7 +123,6 @@ def process_recognize_objects(image_id):
     
     message = {'task': 'recognize_image', 'result': result}
     buffer_message(image_id, message)
-
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
@@ -122,6 +131,9 @@ def process_recognize_objects(image_id):
             'message': {'task': 'recognize_image', 'result': result}
         }
     )
+    
+    completion_message = {'task': 'recognize_image', 'result': 'completed'}
+    buffer_message(image_id, completion_message)
     async_to_sync(channel_layer.group_send)(
         f'task_{image_id}',
         {
@@ -129,6 +141,7 @@ def process_recognize_objects(image_id):
             'message': {'task': 'recognize_image', 'result': 'completed'}
         }
     )
+    
     return result
 
 async def run_tasks(image_instance, image_id):
@@ -138,8 +151,8 @@ async def run_tasks(image_instance, image_id):
     result2 = await asyncio.to_thread(exif_check, file_path=image_instance.image.path)
     await buffer_message(image_id, {'task': 'exif_check', 'result': result2})
 
-    # result3 = await asyncio.to_thread(reverse_image_search, image_path=image_instance.image.path)
-    # await buffer_message(image_id, {'task': 'reverse_image_search', 'result': result3})
+    result3 = await asyncio.to_thread(reverse_image_search, image_path=image_instance.image.path)
+    await buffer_message(image_id, {'task': 'reverse_image_search', 'result': result3})
 
     result4 = await asyncio.to_thread(recognize_objects, file_path=image_instance.image.path)
     await buffer_message(image_id, {'task': 'recognize_image', 'result': result4})
@@ -165,18 +178,25 @@ async def run_tasks(image_instance, image_id):
             'message': {'task': 'exif_check', 'result': result2}
         }
     )
-    # await channel_layer.group_send(
-    #     f'task_{image_id}',
-    #     {
-    #         'type': 'task_update',
-    #         'message': {'task': 'reverse_image_search', 'result': result3}
-    #     }
-    # )
+    await channel_layer.group_send(
+        f'task_{image_id}',
+        {
+            'type': 'task_update',
+            'message': {'task': 'reverse_image_search', 'result': result3}
+        }
+    )  
     await channel_layer.group_send(
         f'task_{image_id}',
         {
             'type': 'task_update',
             'message': {'task': 'recognize_image', 'result': result4}
+        }
+    )
+    await channel_layer.group_send(
+        f'task_{image_id}',
+        {
+            'type': 'task_update',
+            'message': {'task': 'ela', 'result': result5}
         }
     )
     await channel_layer.group_send(
