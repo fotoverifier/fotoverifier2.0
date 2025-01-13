@@ -1,0 +1,96 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001; /* Ensure it's above the backdrop */
+  min-width: 300px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultButton {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.resultButton:hover {
+  background-color: #0056b3;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(17, 24, 39, 0.8); /* gray-900 with 80% opacity */
+  z-index: 1000; /* Ensure it's behind the modal */
+}
+.textInput {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none; /* Prevents resizing */
+  height: 200px;
+}
+
+.textInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.dash{
+    height: 1px;
+    width: 100%;
+    border-bottom: black;
+    border-width: 1px;
+    border-style: dashed;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.modalHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.title {
+  margin-left: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 1.875rem; /* 3xl */
+  color: black;
+}
+
+.closeIcon {
+  margin-left: auto;
+  color: #ff0000; /* red-500 */
+  cursor: pointer;
+}
+.subHeader {
+  margin-right: auto;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  margin-top: 10px;
+  color: black;
+}
+.buttonContainer {
+  width: 100%;
+  margin-top: 20px;
+}
