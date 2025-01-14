@@ -10,6 +10,7 @@ import LoadingModal from '@/components/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -22,18 +23,22 @@ const Upload = () => {
   const [imageSrc, setImageSrc] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [retrievedData, setRetrievedData] = useState<string | null>(null);
-  const notify = (message: string) => {
-    // Example of a simple alert notification
-    alert(message);
-  };
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
   const router = useRouter();
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setImageSrc(URL.createObjectURL(file));
-      setImageFile(file);
+      if (
+        file.type === 'image/png' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/jpg'
+      ) {
+        setImageSrc(URL.createObjectURL(file));
+        setImageFile(file);
+      } else {
+        toast.error('Please upload a valid image file (PNG, JPEG).', {theme: 'colored'});
+      }
     }
   };
   const handleDrop = (e: any) => {
@@ -41,8 +46,13 @@ const Upload = () => {
     e.stopPropagation();
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      setImageSrc(URL.createObjectURL(file));
-      setImageFile(file);
+      const fileType = file.type;
+      if (fileType === 'image/png' || fileType === 'image/jpeg') {
+        setImageSrc(URL.createObjectURL(file));
+        setImageFile(file);
+      } else {
+        toast.error('Please upload a valid image file (PNG, JPEG).', {theme: 'colored'});
+      }
     }
   };
 
@@ -70,13 +80,17 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         // Single API call wrapped in a Promise
-        const response = await fetch('http://fotoverifier.eu:9001/api/quick-scan/', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Accept: 'application/json',
-          },
-        });
+
+        const response = await fetch(
+          'http://fotoverifier.eu:9001/api/quick-scan/',
+          {
+            method: 'POST',
+            body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        );
 
         // Handle response
         if (!response.ok) {
@@ -187,7 +201,7 @@ const Upload = () => {
             </div>
             <div className="spec-helper">
               <div className={inter.className}>
-                Type: <span style={{ color: 'red' }}>PNG, SVG, JPEG</span>
+                Type: <span style={{ color: 'red' }}>PNG, JPEG</span>
               </div>
             </div>
           </div>
@@ -300,7 +314,7 @@ const Upload = () => {
             className="button"
             onClick={() => {
               if (!imageSrc) {
-                notify('Please upload an image before verifying.');
+                toast.error('Please upload an image before verifying.', {theme: 'colored'});
                 return;
               }
               handleSubmit();
@@ -324,6 +338,7 @@ const Upload = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

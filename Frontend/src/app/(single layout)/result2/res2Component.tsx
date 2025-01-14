@@ -34,6 +34,7 @@ const Res2 = () => {
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
+  const [jpegCommentary, setJpegCommentary] = useState<string>("");
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
@@ -70,7 +71,8 @@ const Res2 = () => {
               setSearchResult(message.result.image_results);
               setLoadingReverseImageSearch(false);
             } else if (message.task === 'jpeg_ghost') {
-              setJpegResult(message.result);
+              setJpegResult(message.result.img_base64);
+              setJpegCommentary(message.result.fraction_modified);
               setLoadingJpegGhost(false);
             } else if (message.task === 'recognize_image') {
               setTagResult(message.result);
@@ -99,9 +101,6 @@ const Res2 = () => {
     }
   }, [wsUrls]);
 
-  {
-    /* TAB AREA */
-  }
   const tabs = ['Overview', 'Originality', 'Where', 'When', 'Why'];
 
   const renderContent = (activeTab: string) => {
@@ -115,6 +114,7 @@ const Res2 = () => {
             <div className={styles.Result_container}>
               <JpegGhostResult
                 img={`data:image/jpeg;base64,${jpegResult}`}
+                commentary={jpegCommentary}
                 loading={loadingJpegGhost}
               />
             </div>
@@ -232,27 +232,39 @@ const Res2 = () => {
           content: (
             <div className={`h-full w-full flex`}>
               <div className="h-[90%] w-2/3">
-                  <p className='mb-3'>Maps and GPS coordinates of the photos location.</p>
-                <MapComponent coordinate={location} />
+                <p className="mb-3">
+                  Maps and GPS coordinates of the photos location.
+                </p>
+                <MapComponent
+                  coordinate={[
+                    Number(exifResult?.gps_location.latitude || 0),
+                    Number(exifResult?.gps_location.longitude || 0),
+                  ]}
+                />
               </div>
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
-              <div className='h-full w-1/3'>
-               <div className='font-bold'>Common techniques to detect the location </div>
+              <div className="h-full w-1/3">
+                <div className="font-bold">
+                  Common techniques to detect the location{' '}
+                </div>
                 <ul className="list-decimal pl-6 mx-3">
                   <li className="p-2">
-                    One of the rather feasible approaches to extract such information is via the location from the EXIF Data.
+                    One of the rather feasible approaches to extract such
+                    information is via the location from the EXIF Data.
                   </li>
                   <li className="p-2">
-                    Another method is to find a second image and compare them via prevalent matching points algorithms like SIFT.
+                    Another method is to find a second image and compare them
+                    via prevalent matching points algorithms like SIFT.
                   </li>
                   <li className="p-2">
-                    Geolocation can also be inferred by analyzing the image visual features (e.g., landmarks, terrain, or architecture) using machine learning models trained on geotagged datasets.
+                    Geolocation can also be inferred by analyzing the image
+                    visual features (e.g., landmarks, terrain, or architecture)
+                    using machine learning models trained on geotagged datasets.
                   </li>
                 </ul>
-
-                Another task is to reverse geolocation into readable address for human.
-               </div>
-               
+                Another task is to reverse geolocation into readable address for
+                human.
+              </div>
             </div>
           ),
         },
@@ -339,7 +351,7 @@ const Res2 = () => {
           className={styles.res_header_image}
         />
       </div>
-      <div className={ ` ${styles.res_body_container} ${inter.className}`}>
+      <div className={` ${styles.res_body_container} ${inter.className}`}>
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>
     </div>

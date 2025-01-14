@@ -269,6 +269,12 @@ def jpeg_ghost(file_path, quality=60):
     dct_diff_normalized = cv2.normalize(dct_diff, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
     _, thresholded_diff = cv2.threshold(dct_diff_normalized, 100, 255, cv2.THRESH_BINARY)
     
+    # Calculate the fraction of modified area
+    modified_area = np.count_nonzero(thresholded_diff)
+    total_area = height * width
+    fraction_modified = modified_area / total_area
+    print(f"Fraction of modified area: {fraction_modified:.4f}")
+    
     # Apply Gaussian smoothing to reduce blockiness
     smoothed_diff = cv2.GaussianBlur(thresholded_diff, (15, 15), 0)
     
@@ -298,7 +304,7 @@ def jpeg_ghost(file_path, quality=60):
     # Clean up the temporary file
     os.remove(save_file_name)
 
-    return img_base64
+    return img_base64, fraction_modified
 
 def super_resolution(file_path):
     model_path = 'algorithms/RRDB_ESRGAN_x4.pth'

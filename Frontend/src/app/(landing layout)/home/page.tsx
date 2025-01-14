@@ -12,6 +12,7 @@ import { TbExchange } from 'react-icons/tb';
 import Card from '@/components/card/card';
 import { BiMessageAltError } from 'react-icons/bi';
 import ShinyButton from '@/components/button/shiny_button/shiny_button';
+import FeedBackModal from '@/components/modal/feedback_modal/feedback_modal';
 const poppins = Poppins({
   subsets: ['latin'],
   weight: '700',
@@ -23,6 +24,7 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [imageSrc, setImageSrc] = React.useState('');
+  const [openModal, setModalOpen] = React.useState(false);
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -51,24 +53,26 @@ const Home = () => {
       <div className="home-container">
         <div className="home-first-half flex-col">
           <div className="home-fh-container justify-between">
+            <div className='w-full h-fit rounded-lg border-2 p-5 bg-white mb-10'>
             <div
-              className={`home-fh-container-title mb-4 ${montserrat.className} font-bold`}
+              className={`home-fh-container-title ${montserrat.className} font-bold`}
             >
               A reliable multimedia verification tool{' '}
             </div>
             <div
-              className={`home-fh-container-description mb-4  ${montserrat.className}`}
+              className={`home-fh-container-description  ${montserrat.className}`}
             >
               Quickly verify the integrity of photos or videos with a vast array
               of advanced algorithms and 5 steps approach
             </div>
+             </div>
             <div
               className={`${incon.className}`}
             >
                   <ShinyButton title='For detail Assesment'></ShinyButton>
             </div>
         
-            <div className={`flex w-full h-auto justify-between mt-16 ${incon.className}`}>
+            <div className={`flex w-full h-auto justify-between mt-14 ${incon.className}`}>
               <Card icon={FaMagnifyingGlass
               } description='Finding the potential source'></Card>
                         <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
@@ -76,6 +80,9 @@ const Home = () => {
               } description='Is this image forgery? '></Card>
 
             </div>
+
+           
+              
           </div>
         </div>
 

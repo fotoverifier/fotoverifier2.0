@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import '@/styles/head/head_home.css';
 import Image from 'next/image';
@@ -8,10 +9,12 @@ import IconWhite from '@/assets/icon_main_white.svg';
 import HH_Button from '../button/head_home_button';
 import { Poppins } from 'next/font/google';
 import DropdownButton from '../button/dropdown_button';
+import FeedBackModal from '../modal/feedback_modal/feedback_modal';
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ subsets: ['latin'], weight: ['500'] });
 const test = ['test1', 'test2'];
 const Home_Header = () => {
+  const [openModal, setModalOpen] = React.useState(false);
   return (
     <div className="header-container">
       <div className="header-icon">
@@ -32,7 +35,18 @@ const Home_Header = () => {
         <DropdownButton title="Resource" array={test}></DropdownButton>
         <DropdownButton title="News" array={test}></DropdownButton>
         <DropdownButton title="Contact" array={test}></DropdownButton>
+
       </div>
+               <div
+                className="h-fit w-fit p-5  cursor-pointer"
+                onClick={() => setModalOpen(true)}
+              >
+                Feedback
+              </div>
+
+               {openModal && (
+               <FeedBackModal closeModal={() => setModalOpen(false)} />
+      )}
       <Link className="header-go" href="/dashboard">
         <div className={`header-dashboard-button ${poppins.className}`}>
           <div>GO TO DASHBOARD</div>
