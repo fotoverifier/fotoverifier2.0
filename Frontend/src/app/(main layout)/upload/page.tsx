@@ -80,6 +80,7 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         // Single API call wrapped in a Promise
+
         const response = await fetch(
           'http://fotoverifier.eu:9001/api/quick-scan/',
           {
@@ -112,7 +113,7 @@ const Upload = () => {
       try {
         const formData = new FormData();
         formData.append('image', imageFile);
-        const response = await fetch('http://localhost:8000/api/image/', {
+        const response = await fetch('http://fotoverifier.eu:9001/api/image/', {
           method: 'POST',
           body: formData,
           headers: {

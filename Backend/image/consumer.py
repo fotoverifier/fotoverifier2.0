@@ -4,6 +4,7 @@ import asyncio
 import redis.asyncio as redis
 from dotenv import load_dotenv
 import os
+from .buffer import buffer_message, pop_messages
 
 load_dotenv()
 
@@ -11,7 +12,6 @@ class TaskConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.task_id = self.scope['url_route']['kwargs']['task_id']
         self.task_group_name = f'task_{self.task_id}'
-        
 
         await self.channel_layer.group_add(
             self.task_group_name,
@@ -19,6 +19,11 @@ class TaskConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
+        
+        messages = await pop_messages(self.task_id)
+        
+        for message in messages:
+            await self.send(text_data=json.dumps(message))
         
         self.redis_client = redis.from_url(os.environ.get('REDIS_URL'))
         self.pubsub = self.redis_client.pubsub()
@@ -29,9 +34,9 @@ class TaskConsumer(AsyncWebsocketConsumer):
         async for message in self.pubsub.listen():
             if message['type'] == 'message':
                 data = json.loads(message['data'])
-                print(f"Received message: {data}")  # Debugging
+                await buffer_message(self.task_id, data)
                 await self.send(text_data=json.dumps(data))
-                print(f"Sent message: {data}")  # Debugging
+                print(f"Sent message: {data}")
 
     async def disconnect(self, close_code):
         self.listen_task.cancel()
@@ -51,4 +56,3 @@ class TaskConsumer(AsyncWebsocketConsumer):
     
     async def task_complete(self, event):
         await self.send(text_data=json.dumps(event['message']))
-        await self.close()
