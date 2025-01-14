@@ -71,8 +71,8 @@ const Res2 = () => {
               setSearchResult(message.result.image_results);
               setLoadingReverseImageSearch(false);
             } else if (message.task === 'jpeg_ghost') {
-              setJpegResult(message.result.img_base64);
-              setJpegCommentary(message.result.fraction_modified);
+              setJpegResult(message.result[0]);
+              setJpegCommentary(message.result[1]);
               setLoadingJpegGhost(false);
             } else if (message.task === 'recognize_image') {
               setTagResult(message.result);
