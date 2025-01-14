@@ -5,8 +5,8 @@ import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { Inter, Montserrat } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
 
-const inter = Inter({subsets: ["latin"]});
-const monstserrat = Montserrat({subsets: ["latin"]});
+const inter = Inter({ subsets: ['latin'] });
+const monstserrat = Montserrat({ subsets: ['latin'] });
 interface CameraInformation {
   make: string | undefined;
   model: string | undefined;
@@ -64,7 +64,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
       <div className="flex-col items-center justify-between">
         <div className="flex items-center">
           <div className="circle_2">
-            {' '}
             <BsFillInfoCircleFill />
           </div>
           <div className="font-bold text-lg ml-2">Metadata</div>
@@ -82,37 +81,45 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
               <p>Loading...</p>
             ) : (
               <>
-                {/* Metadata Section */}
                 <div className="mb-4">
                   <div className="flex">
                     <div className="circle_2"> 1. </div>
                     <h3 className="font-bold text-lg">Camera Information</h3>
                   </div>
-                  <p>
-                    <strong>Make:</strong> {cameraInformation?.make || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Model:</strong> {cameraInformation?.model || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Exposure:</strong>{' '}
-                    {cameraInformation?.exposure || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Aperture:</strong>{' '}
-                    {cameraInformation?.aperture || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Focal Length:</strong>{' '}
-                    {cameraInformation?.focal_length || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>ISO Speed:</strong>{' '}
-                    {cameraInformation?.iso_speed || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Flash:</strong> {cameraInformation?.flash || 'N/A'}
-                  </p>
+                  {cameraInformation ? (
+                    <>
+                      <p>
+                        <strong>Make:</strong>{' '}
+                        {cameraInformation?.make || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Model:</strong>{' '}
+                        {cameraInformation?.model || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Exposure:</strong>{' '}
+                        {cameraInformation?.exposure || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Aperture:</strong>{' '}
+                        {cameraInformation?.aperture || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Focal Length:</strong>{' '}
+                        {cameraInformation?.focal_length || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>ISO Speed:</strong>{' '}
+                        {cameraInformation?.iso_speed || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Flash:</strong>{' '}
+                        {cameraInformation?.flash || 'N/A'}
+                      </p>
+                    </>
+                  ) : (
+                    <p>No camera information available.</p>
+                  )}
                 </div>
 
                 {/* Software Information Section */}
@@ -121,35 +128,41 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
                     <div className="circle_2"> 2. </div>
                     <h3 className="font-bold text-lg">Software Information</h3>
                   </div>
-                  <p>
-                    <strong>Software Modified:</strong>{' '}
-                    {software_modify || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Modification Date:</strong> {modify_date || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Original Date:</strong>{' '}
-                    {original_date?.original_date || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Create Date:</strong>{' '}
-                    {original_date?.create_date || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Author:</strong> {author_copyright?.author || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Copyright Tag:</strong>{' '}
-                    {author_copyright?.copyright_tag || 'N/A'}
-                  </p>
-                  <p>
-                    <strong>Profile Copyright:</strong>{' '}
-                    {author_copyright?.profile_copyright || 'N/A'}
-                  </p>
+                  {software_modify ? (
+                    <>
+                      <p>
+                        <strong>Software Modified:</strong>{' '}
+                        {software_modify || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Modification Date:</strong>{' '}
+                        {modify_date || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Original Date:</strong>{' '}
+                        {original_date?.original_date || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Create Date:</strong>{' '}
+                        {original_date?.create_date || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Author:</strong>{' '}
+                        {author_copyright?.author || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Copyright Tag:</strong>{' '}
+                        {author_copyright?.copyright_tag || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Profile Copyright:</strong>{' '}
+                        {author_copyright?.profile_copyright || 'N/A'}
+                      </p>
+                    </>
+                  ) : (
+                    <p>No software information available.</p>
+                  )}
                 </div>
-
-                {/* Geo Tag Section */}
                 <div className="mb-4">
                   <div className="flex">
                     <div className="circle_2"> 3. </div>
