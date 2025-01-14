@@ -6,15 +6,15 @@ import styles from '@/app/(single layout)/result/categories.module.css';
 interface ImageResultProps {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
+  commentary: string;
 }
 
-const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading }) => {
+const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading, commentary }) => {
   return (
     <div className="w-full h-full p-5">
       <div className={styles.title_container}>
         <div className="flex">
           <div className="circle_2">
-            {' '}
             <SiJpeg />
           </div>
           <div className={styles.title}>JPEG Ghost</div>
@@ -50,6 +50,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading }) => {
       </div>
       <div className={styles.horizontal_line}> </div>
       <div> Commentary</div>
+      <div>{commentary}</div>
     </div>
   );
 };

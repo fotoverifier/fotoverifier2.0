@@ -100,6 +100,7 @@ const Result = () => {
           <div className="Result-container">
             <JpegGhostResult
               img={`data:image/jpeg;base64,${jpegResult}`}
+              commentary="This is a commentary"
               loading={loadingJpegGhost}
             />
           </div>
