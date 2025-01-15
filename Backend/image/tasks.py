@@ -210,16 +210,4 @@ async def run_tasks(image_instance, image_id):
 @shared_task
 def process_quick_scan(image_id):
     image_instance = Image.objects.get(id=image_id)
-
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = None
-
-    # If there is an existing loop running, use it to create the task.
-    if loop and loop.is_running():
-        asyncio.create_task(run_tasks(image_instance, image_id))  # Use create_task() directly
-    else:
-        # If there's no loop running, this is still problematic in Celery
-        # but `asyncio.run()` should not be used in Celery worker
-        raise RuntimeError("No event loop found or Celery is blocking. Consider using a different approach.")
+    async_to_sync(run_tasks)(image_instance, image_id)
