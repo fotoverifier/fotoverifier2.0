@@ -13,6 +13,7 @@ import { FaChevronLeft, FaGithub } from "react-icons/fa";
 import { SiLibrariesdotio } from "react-icons/si";
 import { CiImageOff } from "react-icons/ci";
 import { Inter, Montserrat } from "next/font/google";
+import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({subsets:["latin"]});
 const items = [
@@ -28,7 +29,9 @@ const Sidebar = () => {
   const pathname = usePathname();
   return (
     <div className={`sidebar shrink ${inter.className}`}>
+      <Link href ='/home'>
       <Image src={iconSrc} width={500} height={500} alt="" className="my-2"></Image>
+      </Link>
       <div className="w-full bg-gray-800 h-0.5"> </div>
       <div className="menu">
         {items.map((item, index) => (

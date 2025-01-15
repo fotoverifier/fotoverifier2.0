@@ -38,7 +38,7 @@ const Home_Header = () => {
 
       </div>
                <div
-                className="h-fit w-fit p-5  cursor-pointer"
+                className={`h-fit w-fit p-5  cursor-pointer ${poppins.className}`}
                 onClick={() => setModalOpen(true)}
               >
                 Feedback
