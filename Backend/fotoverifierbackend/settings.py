@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:9000",
     "http://fotoverifier.eu:9000",
     "http://fotoverifier.eu:9001",
 ]

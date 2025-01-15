@@ -82,7 +82,7 @@ const Res2 = () => {
               setLoadingEla(false);
             }
           } catch (error) {
-            console.error('Failed to parse wsUrls:', error);
+            console.error('Failed to parse wsUrls:', error); 
           }
         };
         ws.onerror = (error) => {

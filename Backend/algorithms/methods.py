@@ -350,7 +350,6 @@ def recognize_objects(file_path):
         return None
 
 def fake_image_detect(file_path):
-    print(f"ELA: {file_path}")
     resaved_filename = file_path.split('.')[0] + '.resaved.jpg'
     
     im = Image.open(file_path).convert('RGB')
@@ -373,7 +372,7 @@ def fake_image_detect(file_path):
     img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
     
     os.remove(resaved_filename)
-    print(f"ELA: {img_base64}")
+
     
     return img_base64
 

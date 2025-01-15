@@ -210,4 +210,12 @@ async def run_tasks(image_instance, image_id):
 @shared_task
 def process_quick_scan(image_id):
     image_instance = Image.objects.get(id=image_id)
-    asyncio.run(run_tasks(image_instance, image_id))
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+        
+    if loop and loop.is_running():
+        loop.create_task(run_tasks(image_instance, image_id))
+    else:
+        asyncio.run(run_tasks(image_instance, image_id))
