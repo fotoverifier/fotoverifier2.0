@@ -20,7 +20,7 @@ class TaskConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
         
-        messages = await pop_messages(self.task_id)
+        messages = pop_messages(self.task_id)
         for message in messages:
             await self.send(text_data=json.dumps(message))
         
@@ -34,7 +34,7 @@ class TaskConsumer(AsyncWebsocketConsumer):
             if message['type'] == 'message':
                 try:
                     data = json.loads(message['data'])
-                    await buffer_message(self.task_id, data)
+                    buffer_message(self.task_id, data)
                     await self.send(text_data=json.dumps(data))
                 except json.JSONDecodeError:
                     # Handle any malformed messages
