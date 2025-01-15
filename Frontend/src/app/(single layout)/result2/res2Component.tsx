@@ -37,6 +37,7 @@ const Res2 = () => {
   const [jpegCommentary, setJpegCommentary] = useState<string>("");
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
+  const [elaCommentary, setElaCommentary] = useState<string>("");
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
   const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
@@ -78,7 +79,8 @@ const Res2 = () => {
               setTagResult(message.result);
               setLoadingTagResult(false);
             } else if (message.task === 'ela') {
-              setElaResult(message.result);
+              setElaResult(message.result[0]);
+              setElaCommentary(message.result[1]);
               setLoadingEla(false);
             }
           } catch (error) {
@@ -121,6 +123,7 @@ const Res2 = () => {
             <div className={styles.Result_container}>
               <ElaResult
                 img={`data:image/jpeg;base64,${elaResult}`}
+                commentary={Number(elaCommentary)}
                 loading={loadingEla}
               />
             </div>
