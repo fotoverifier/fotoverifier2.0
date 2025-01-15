@@ -7,6 +7,3 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fotoverifierbackend.settings')
 app = Celery('fotoverifierbackend')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
-
-# Set the pool to 'solo' for Windows
-app.conf.worker_pool = 'solo'
