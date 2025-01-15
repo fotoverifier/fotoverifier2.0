@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Result from '@/assets/Group 79.svg';
 import { SiJpeg } from 'react-icons/si';
 import styles from '@/app/(single layout)/result/categories.module.css';
-import { round } from 'lodash';
+import round from 'lodash/round';
 interface ImageResultProps {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
