@@ -24,25 +24,34 @@ import os
 
 load_dotenv()
 
-seed = 42
-torch.manual_seed(seed)
-np.random.seed(seed)
-# device = torch.device('cpu')
+# Global variables for model caches
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+super_res_model = None  # Cache for the super-resolution model
+object_recognition_model = None  # Cache for the object recognition model
+
+# Initialize the Super-Resolution Model
+def initialize_super_res_model():
+    """Initialize and cache the super-resolution model"""
+    global super_res_model
+    if super_res_model is None:
+        super_res_model = arch.RRDBNet(3, 3, 64, 23, gc=32)
+        model_path = 'algorithms/RRDB_ESRGAN_x4.pth'
+        super_res_model.load_state_dict(torch.load(model_path, weights_only=True), strict=True)
+        super_res_model.eval().to(device)
+    return super_res_model
+
+# Initialize the Object Recognition Model
+def initialize_object_recognition_model():
+    """Initialize and cache the object recognition model"""
+    global object_recognition_model
+    if object_recognition_model is None:
+        object_recognition_model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
+        object_recognition_model.eval().to(device)
+    return object_recognition_model
 
 
 
 def image_process(image_path):
-    # response = requests.get(image_path)
-    # if response.status_code != 200:
-    #     print("Failed to download image")
-    #     return None
-    
-    # with NamedTemporaryFile(delete=False) as temp_file:
-    #     temp_file.write(response.content)
-    #     temp_file_path = temp_file.name
-
-
     args = argparse.Namespace(datafile=image_path)
 
     if not check_file(image_path):
@@ -61,11 +70,8 @@ def image_process(image_path):
     }
 
 def check_file(data_path):
-    if not os.path.isfile(data_path):
-        return False
-    if not data_path.lower().endswith(('.jpg', '.jpeg', 'png')):
-        return False
-    return True
+    """Check if the file exists and is a valid image type"""
+    return os.path.isfile(data_path) and data_path.lower().endswith(('.jpg', '.jpeg', 'png'))
 
 def exif_check(file_path):
     with open(file_path, 'rb') as f:
@@ -231,9 +237,9 @@ def jpeg_ghost(file_path, quality=60):
     if img is None:
         print("Failed to read image")
         return None
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
+    
     # Resave the image with the new quality
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     base = os.path.basename(file_path)
     file_name = os.path.splitext(base)[0]
     save_file_name = file_name + "_temp.jpg"
@@ -307,44 +313,31 @@ def jpeg_ghost(file_path, quality=60):
     return img_base64, fraction_modified
 
 def super_resolution(file_path):
-    model_path = 'algorithms/RRDB_ESRGAN_x4.pth'
-
-    model = arch.RRDBNet(3, 3, 64, 23, gc=32)
-    model.load_state_dict(torch.load(model_path, weights_only=True), strict=True)
-    model.eval()
-    
-    img = cv2.imread(file_path, cv2.IMREAD_COLOR)
+    """Apply super resolution to an image using a pre-trained model"""
+    model = initialize_super_res_model()
+    img = cv2.imread(file_path)
     img = img * 1.0 / 255
     img = torch.from_numpy(np.transpose(img[:, :, [2, 1, 0]], (2, 0, 1))).float()
     img_LR = img.unsqueeze(0)
 
     with torch.no_grad():
         output = model(img_LR).data.squeeze().float().cpu().clamp_(0, 1).numpy()
-    output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))
-    
-    # Encode the super-resolved image to base64
-    _, buffer = cv2.imencode('.jpg', output)
-    img_base64 = base64.b64encode(buffer).decode('utf-8')
 
-    return img_base64
+    output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))
+    _, buffer = cv2.imencode('.jpg', output)
+    return base64.b64encode(buffer).decode('utf-8')
 
 def recognize_objects(file_path):
+    """Recognize objects in the image using a pre-trained model"""
     try:
-        model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
-        model.eval()
-        model.to(device)
-
-        # Transform the image
+        model = initialize_object_recognition_model()
         transform = get_transform(image_size=384)
         image = transform(Image.open(file_path)).unsqueeze(0).to(device)
 
-        # Perform inference
         with torch.no_grad():
             res = inference(image, model)
 
-        print("Image Tags: ", res[0])
         return res[0]
-
     except Exception as e:
         print(f"Error in recognize_objects: {e}")
         return None
@@ -366,6 +359,13 @@ def fake_image_detect(file_path):
     
     ela_im = ImageEnhance.Brightness(ela_im).enhance(scale)
     
+    # Convert to a numpy array
+    ela_im_np = np.array(ela_im)
+    _, thresholded_diff = cv2.threshold(ela_im_np, 30, 255, cv2.THRESH_BINARY)
+    modified_area = np.count_nonzero(thresholded_diff)
+    total_area = ela_im_np.size  # Total number of pixels
+    fraction_modified = modified_area / total_area
+    
     buffered = BytesIO()
     ela_im.save(buffered, format='png')
     buffered.seek(0)
@@ -374,10 +374,4 @@ def fake_image_detect(file_path):
     os.remove(resaved_filename)
 
     
-    return img_base64
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Image processing")
-    parser.add_argument("datafile", help="Path to the image file")
-    args = parser.parse_args()
-    exif_check(args.datafile)
+    return img_base64, fraction_modified
