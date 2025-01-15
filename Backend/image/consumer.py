@@ -21,7 +21,6 @@ class TaskConsumer(AsyncWebsocketConsumer):
         await self.accept()
         
         messages = await pop_messages(self.task_id)
-        
         for message in messages:
             await self.send(text_data=json.dumps(message))
         
@@ -33,9 +32,13 @@ class TaskConsumer(AsyncWebsocketConsumer):
     async def listen_to_channel(self):
         async for message in self.pubsub.listen():
             if message['type'] == 'message':
-                data = json.loads(message['data'])
-                await buffer_message(self.task_id, data)
-                await self.send(text_data=json.dumps(data))
+                try:
+                    data = json.loads(message['data'])
+                    await buffer_message(self.task_id, data)
+                    await self.send(text_data=json.dumps(data))
+                except json.JSONDecodeError:
+                    # Handle any malformed messages
+                    await self.send(text_data=json.dumps({"error": "Malformed message received"}))
 
     async def disconnect(self, close_code):
         self.listen_task.cancel()
@@ -47,8 +50,11 @@ class TaskConsumer(AsyncWebsocketConsumer):
             self.task_group_name,
             self.channel_name
         )
-        await self.pubsub.unsubscribe(f'message_channel_{self.task_id}')
-        await self.redis_client.close()
+        if self.pubsub:
+            await self.pubsub.unsubscribe(f'message_channel_{self.task_id}')
+
+        if self.redis_client:
+            await self.redis_client.close()
 
     async def task_update(self, event):
         await self.send(text_data=json.dumps(event['message']))
