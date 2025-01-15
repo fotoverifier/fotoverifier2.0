@@ -210,4 +210,4 @@ def run_tasks(image_instance, image_id):
 @shared_task
 def process_quick_scan(image_id):
     image_instance = Image.objects.get(id=image_id)
-    async_to_sync(run_tasks)(image_instance, image_id)
+    run_tasks(image_instance, image_id)
