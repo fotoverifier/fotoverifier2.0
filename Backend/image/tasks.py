@@ -146,21 +146,21 @@ def process_recognize_objects(image_id):
 
 async def run_tasks(image_instance, image_id):
     result1 = await asyncio.to_thread(jpeg_ghost, file_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'jpeg_ghost', 'result': result1})
+    async_to_sync(buffer_message)(image_id, {'task': 'jpeg_ghost', 'result': result1})
 
     result2 = await asyncio.to_thread(exif_check, file_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'exif_check', 'result': result2})
+    async_to_sync(buffer_message)(image_id, {'task': 'exif_check', 'result': result2})
 
     result3 = await asyncio.to_thread(reverse_image_search, image_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'reverse_image_search', 'result': result3})
+    async_to_sync(buffer_message)(image_id, {'task': 'reverse_image_search', 'result': result3})
 
     result4 = await asyncio.to_thread(recognize_objects, file_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'recognize_image', 'result': result4})
+    async_to_sync(buffer_message)(image_id, {'task': 'recognize_image', 'result': result4})
     
     result5 = await asyncio.to_thread(fake_image_detect, file_path=image_instance.image.path)
-    await buffer_message(image_id, {'task': 'ela', 'result': result5})
+    async_to_sync(buffer_message)(image_id, {'task': 'ela', 'result': result5})
 
-    await buffer_message(image_id, {'task': 'quick_scan', 'result': 'completed'})
+    async_to_sync(buffer_message)(image_id, {'task': 'quick_scan', 'result': 'completed'})
 
 
     channel_layer = get_channel_layer()
