@@ -114,7 +114,7 @@ const Res2 = () => {
             <div className={styles.Result_container}>
               <JpegGhostResult
                 img={`data:image/jpeg;base64,${jpegResult}`}
-                commentary={jpegCommentary}
+                commentary={Number(jpegCommentary)}
                 loading={loadingJpegGhost}
               />
             </div>

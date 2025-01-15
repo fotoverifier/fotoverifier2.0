@@ -3,13 +3,18 @@ import Image from 'next/image';
 import Result from '@/assets/Group 79.svg';
 import { SiJpeg } from 'react-icons/si';
 import styles from '@/app/(single layout)/result/categories.module.css';
+import round from 'lodash/round';
 interface ImageResultProps {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
-  commentary: string;
+  commentary: number;
 }
 
-const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading, commentary }) => {
+const JpegGhostResult: React.FC<ImageResultProps> = ({
+  img,
+  loading,
+  commentary,
+}) => {
   return (
     <div className="w-full h-full p-5">
       <div className={styles.title_container}>
@@ -50,7 +55,14 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ img, loading, commentary 
       </div>
       <div className={styles.horizontal_line}> </div>
       <div> Commentary</div>
-      <div>{commentary}</div>
+      <div>Potential modified area fraction: {round(commentary*100, 2)}%</div>
+      {commentary < 0.1 ? (
+        <div>Low probability of JPEG Ghosting</div>
+      ) : commentary < 0.5 ? (
+        <div>Medium probability of JPEG Ghosting</div>
+      ) : (
+        <div>High probability of JPEG Ghosting</div>
+      )}
     </div>
   );
 };

@@ -20,6 +20,7 @@ const Result = () => {
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
+  const [commentary, setCommentary] = useState<number>(0);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
@@ -54,7 +55,8 @@ const Result = () => {
               setSearchResult(message.result.image_results);
               setLoadingReverseImageSearch(false);
             } else if (message.task === 'jpeg_ghost') {
-              setJpegResult(message.result);
+              setJpegResult(message.result[0]);
+              setCommentary(message.result[1]);
               setLoadingJpegGhost(false);
             } else if (message.task === 'recognize_image') {
               setTagResult(message.result);
@@ -100,7 +102,7 @@ const Result = () => {
           <div className="Result-container">
             <JpegGhostResult
               img={`data:image/jpeg;base64,${jpegResult}`}
-              commentary="This is a commentary"
+              commentary={commentary}
               loading={loadingJpegGhost}
             />
           </div>
