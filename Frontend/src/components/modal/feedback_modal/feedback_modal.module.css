@@ -36,8 +36,8 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(17, 24, 39, 0.8); /* gray-900 with 80% opacity */
-  z-index: 1000; /* Ensure it's behind the modal */
+  background-color: rgba(17, 24, 39, 0.8); 
+  z-index: 1000; 
 }
 .textInput {
   width: 100%;
@@ -45,7 +45,7 @@
   padding: 10px;
   border: 1px solid #d1d5db;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
   resize: none; /* Prevents resizing */
   height: 200px;
 }
@@ -54,6 +54,7 @@
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  color: black;
 }
 .dash{
     height: 1px;
@@ -73,14 +74,16 @@
   margin-left: 20px;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  font-size: 1.875rem; /* 3xl */
+  font-size: 1.875rem; 
   color: black;
 }
-
-.closeIcon {
+.closeIcon{
   margin-left: auto;
-  color: #ff0000; /* red-500 */
+  color: gray;
   cursor: pointer;
+}
+.closeIcon:hover {
+  color: #ff0000; 
 }
 .subHeader {
   margin-right: auto;
@@ -91,6 +94,52 @@
   color: black;
 }
 .buttonContainer {
-  width: 100%;
+  width: 40%;
   margin-top: 20px;
+  background-color: gray;
+  color: white;
+  padding: 10px;
+  height: fit-content;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.buttonContainer:hover {
+  width: 40%;
+  margin-top: 20px;
+  background-color: black;
+  padding: 10px;
+  height: fit-content;
+  border-radius: 5px;
+}
+.detailButton {
+  margin-left: 20px;
+  background: none;
+  color: black;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 5%;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  transition: color 0.2s ease-in-out;
+}
+
+.detailButton:hover {
+  color: #01584b; /* Darker blue */
+}
+
+.expandedModal {
+  height: 90%;
+  padding: 25px;
+  animation: expand 0.3s ease-in-out;
+}
+
+@keyframes expand {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
