@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Result from '@/assets/Group 79.svg';
 import { SiJpeg } from 'react-icons/si';
 import styles from '@/app/(single layout)/result/categories.module.css';
 import round from 'lodash/round';
+import InfoButton from '@/components/button/info_button/info_button';
+import placeholder  from "@/assets/placeholder.png";
 interface ImageResultProps {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
@@ -15,6 +17,10 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({
   loading,
   commentary,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
   return (
     <div className="w-full h-full p-5">
       <div className={styles.title_container}>
@@ -23,8 +29,124 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({
             <SiJpeg />
           </div>
           <div className={styles.title}>JPEG Ghost</div>
+           <div onClick={openModal} className="focus:outline-none ml-auto ">
+            <InfoButton></InfoButton>
+          </div>
         </div>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
+          <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
+            {/* Header Section */}
+            <div className='flex items-center mb-6'> 
+              <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2"> JPEG Ghost </div> 
+              <div className="ml-2"> [Library] </div>
+              <div className='ml-2'> The best way to detect abnormalities is to inspect regions with higher reflection </div>
+              <div
+              onClick={closeModal}
+              className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer "
+            >
+              ×
+            </div>
+            </div>
+
+            {/* Three-column Section */}
+              <div className="flex flex-1 border-t pt-4">
+            {/* First Section */}
+            <div className="flex-1 p-4 border-r border-gray-200">
+              <div className="flex mb-2 items-center">
+                <h3 className="font-semibold">Section 1</h3>
+                <div className="ml-2">[Implementation]</div>
+              </div>
+              <div className='h-3/4 flex justify-center items-center'> 
+              <Image
+                src= {placeholder}
+                alt="Placeholder for Section 1"
+                width={150}
+                height={150}
+                className="mb-2"
+              />
+              </div>
+              Content for first section
+            </div>
+
+            {/* Second Section */}
+            <div className="flex-1 p-4 border-r border-gray-200">
+              <div className="flex mb-2 items-center">
+                <h3 className="font-semibold">Section 2</h3>
+                <div className="ml-2">[Implementation]</div>
+              </div>
+              <div className='h-3/4 flex justify-center items-center'> 
+              <Image
+                src= {placeholder}
+                alt="Placeholder for Section 1"
+                width={150}
+                height={150}
+                className="mb-2"
+              />
+              </div>
+              Content for second section
+            </div>
+
+            {/* Grid Section */}
+                <div className="flex-[2] grid grid-cols-2 gap-4">
+                  <div className="p-4">
+                    <h3 className="font-semibold mb-2">Quality 1</h3>
+                     <div className='h-3/4  flex justify-center items-center'> 
+                      <Image
+                        src= {placeholder}
+                        alt="Placeholder for Section 1"
+                        width={150}
+                        height={150}
+                        className="mb-2"
+                      />
+                      </div>
+                    Content for Quality 1
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold mb-2">Quality 2</h3>
+                    <div className='h-3/4  flex justify-center items-center'> 
+                      <Image
+                        src= {placeholder}
+                        alt="Placeholder for Section 1"
+                        width={150}
+                        height={150}
+                        className="mb-2"
+                      />
+                      </div>
+                    Content for Quality 2
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold mb-2">Quality 3</h3>
+                    <div className='h-3/4  flex justify-center items-center'> 
+                      <Image
+                        src= {placeholder}
+                        alt="Placeholder for Section 1"
+                        width={150}
+                        height={150}
+                        className="mb-2"
+                      />
+                      </div>
+                    Content for Quality 3
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold mb-2">Quality 4</h3>
+                    <div className='h-3/4  flex justify-center items-center'> 
+                      <Image
+                        src= {placeholder}
+                        alt="Placeholder for Section 1"
+                        width={150}
+                        height={150}
+                        className="mb-2"
+                      />
+                      </div>
+                    Content for Quality 4
+                  </div>
+                </div>
+              </div>
+                </div>
+              </div>
+      )}
       <div className={styles.image_container}>
         {loading ? (
           <div>Loading...</div>
