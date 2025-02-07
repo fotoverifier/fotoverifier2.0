@@ -14,13 +14,15 @@ import base64
 from io import BytesIO
 import numpy as np
 import torch
-from . import RRDBNet_arch as arch
+import RRDBNet_arch as arch
 import argparse
 from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
 from dotenv import load_dotenv
 import os
+import math
+from utility import desaturate, create_lut
 
 load_dotenv()
 
@@ -93,6 +95,7 @@ def exif_check(file_path):
         "gps_location": check_gps_location(raw_metadata),
         "author_copyright": check_author_copyright(exif_code_form),
         "raw_metadata": raw_metadata
+        
     }
     
 
@@ -158,7 +161,8 @@ def check_camera_information(tags):
         "aperture": str(get_if_exist(tags, 'EXIF ApertureValue')),
         "focal_length": str(get_if_exist(tags, 'EXIF FocalLength')),
         "iso_speed": str(get_if_exist(tags, 'EXIF ISOSpeedRatings')),
-        "flash": str(get_if_exist(tags, 'EXIF Flash'))
+        "flash": str(get_if_exist(tags, 'EXIF Flash')),
+        "camera_image": search(str(get_if_exist(tags, 'Image Make')) + " " + str(get_if_exist(tags, 'Image Model')) + " camera", max_results=1)
     }
 
 def check_gps_location(raw_metadata):
@@ -230,87 +234,85 @@ def reverse_image_search(image_path):
 
 
 def jpeg_ghost(file_path, quality=60):
+    Qmin = 60  # Minimum JPEG quality factor
+    Qmax = 90  # Maximum JPEG quality factor
+    Qstep = 10  # Step size for quality factor
+    shift_x = 0  # Horizontal shift for ghosting
+    shift_y = 0  # Vertical shift for ghosting
     print(f"Processing file: {file_path}")
 
     # Read the original image
-    img = cv2.imread(file_path)
-    if img is None:
+    original = np.double(cv2.imread(file_path))
+    if original is None:
         print("Failed to read image")
         return None
-    
-    # Resave the image with the new quality
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    base = os.path.basename(file_path)
-    file_name = os.path.splitext(base)[0]
-    save_file_name = file_name + "_temp.jpg"
-    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
-    cv2.imwrite(save_file_name, img, encode_param)
 
-    # Load the recompressed image
-    img_low = cv2.imread(save_file_name)
-    if img_low is None:
-        print("Failed to read resaved image")
-        return None
-    img_low_gray = cv2.cvtColor(img_low, cv2.COLOR_BGR2GRAY)
+    ydim, xdim, zdim = original.shape
 
-    # Block-wise DCT comparison
-    block_size = 8  # Typical JPEG block size
-    height, width = img_gray.shape
-    dct_diff = np.zeros_like(img_gray, dtype=np.float32)
+    # Construct ghostmaps with possible shift
+    nQ = int((Qmax - Qmin) / Qstep) + 1
 
-    for i in range(0, height, block_size):
-        for j in range(0, width, block_size):
-            # Extract 8x8 blocks from both images
-            block_original = img_gray[i:i+block_size, j:j+block_size]
-            block_low = img_low_gray[i:i+block_size, j:j+block_size]
+    ghostmap = np.zeros((ydim, xdim, nQ))
+    for i, quality in enumerate(range(Qmin, Qmax + 1, Qstep)):
+        # Shift the image
+        shifted_original = np.roll(original, shift_x, axis=1)
+        shifted_original = np.roll(shifted_original, shift_y, axis=0)
+        
+        # Recompress the shifted image
+        tempvar1 = cv2.imencode(".jpg", shifted_original, [int(cv2.IMWRITE_JPEG_QUALITY), quality])[1].tobytes()
+        tempcar2 = np.frombuffer(tempvar1, np.byte)
+        tmpResave = np.double(cv2.imdecode(tempcar2, cv2.IMREAD_ANYCOLOR))
 
-            # Compute DCT of the blocks
-            dct_original = cv2.dct(np.float32(block_original))
-            dct_low = cv2.dct(np.float32(block_low))
+        # Compute difference and average over RGB
+        for z in range(zdim):
+            ghostmap[:, :, i] += np.square(shifted_original[:, :, z].astype(np.double) - tmpResave[:, :, z])
 
-            # Compute the difference in DCT coefficients
-            dct_diff[i:i+block_size, j:j+block_size] = np.abs(dct_original - dct_low)
+        ghostmap[:, :, i] /= zdim
+    # Compute average over larger area
+    averagingBlock = 16
+    blkE = np.zeros((int((ydim) / averagingBlock), int((xdim) / averagingBlock), nQ))
+    for c in range(nQ):
+        cy = 0
+        for y in range(0, ydim - averagingBlock, averagingBlock):
+            cx = 0
+            for x in range(0, xdim - averagingBlock, averagingBlock):
+                bE = ghostmap[y : y + averagingBlock, x : x + averagingBlock, c]
+                blkE[cy, cx, c] = np.mean(bE)
+                cx += 1
+            cy += 1
 
-    # Normalize the DCT difference map
-    dct_diff_normalized = cv2.normalize(dct_diff, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-    _, thresholded_diff = cv2.threshold(dct_diff_normalized, 100, 255, cv2.THRESH_BINARY)
-    
-    # Calculate the fraction of modified area
-    modified_area = np.count_nonzero(thresholded_diff)
-    total_area = height * width
-    fraction_modified = modified_area / total_area
-    print(f"Fraction of modified area: {fraction_modified:.4f}")
-    
-    # Apply Gaussian smoothing to reduce blockiness
-    smoothed_diff = cv2.GaussianBlur(thresholded_diff, (15, 15), 0)
-    
-    # Optional: Upscale the smoothed difference map for better visualization
-    upscale_size = (width, height)  # Match original image size
-    heatmap = cv2.resize(smoothed_diff, upscale_size, interpolation=cv2.INTER_LINEAR)
-    
-    # Create a custom colormap with red for high values
-    colors = [(0, 0, 1), (1, 0, 0)]  # Blue to Red
-    n_bins = 100  # Number of bins in the colormap
-    custom_cmap = LinearSegmentedColormap.from_list("blue_red", colors, N=n_bins)
+    # Normalize difference
+    minval = np.min(blkE, axis=2)
+    maxval = np.max(blkE, axis=2)
+    for c in range(nQ):
+        blkE[:, :, c] = (blkE[:, :, c] - minval) / (maxval - minval)
 
-    # Visualization
-    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), alpha=0.8)  # Overlay original image
-    plt.imshow(heatmap, cmap=custom_cmap, alpha=0.8)  # Heatmap overlay
-    plt.axis("off")
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    # Plot the results
+    plt.figure(figsize=(8, 6))
+    sp = math.ceil(math.sqrt(nQ))
 
-    # Save the figure to a buffer
-    buf = BytesIO()
-    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
-    buf.seek(0)
+    for c in range(nQ):
+        plt.subplot(sp, sp, c + 1)
+        plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
+        plt.axis("off")
+        plt.title("Quality " + str(Qmin + c * Qstep))
+        plt.draw()
 
-    # Encode the buffer to base64
-    img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    plt.suptitle("Ghost plots for grid offset X = " + str(shift_x) + " and Y = " + str(shift_y))
 
-    # Clean up the temporary file
-    os.remove(save_file_name)
+    # Save plot to a file
+    temp_filename = "temp_ghostplot.png"
+    plt.savefig(temp_filename, dpi=200)
 
-    return img_base64, fraction_modified
+    # Load the saved image in a numpy array, BGR format
+    numpy_ghostplot = cv2.imread(temp_filename, cv2.IMREAD_COLOR)
+
+    # Remove the temporary file
+    os.remove(temp_filename)
+
+    plt.close()
+
+    return numpy_ghostplot
 
 def super_resolution(file_path):
     """Apply super resolution to an image using a pre-trained model"""
@@ -342,36 +344,32 @@ def recognize_objects(file_path):
         print(f"Error in recognize_objects: {e}")
         return None
 
-def fake_image_detect(file_path):
-    resaved_filename = file_path.split('.')[0] + '.resaved.jpg'
+def fake_image_detect(file_path, quality=75, scale=50, contrast=20):
+    contrast = int(contrast / 100 * 128)
     
-    im = Image.open(file_path).convert('RGB')
-    im.save(resaved_filename, 'JPEG', quality=90)
-    resaved_im = Image.open(resaved_filename)
+    original = cv2.imread(file_path)
+    if original is None:
+        print("Failed to read image")
+        return None
     
-    ela_im = ImageChops.difference(im, resaved_im)
+    _, buffer = cv2.imencode(".jpg", original, [cv2.IMWRITE_JPEG_QUALITY, quality])
+    compressed = cv2.imdecode(buffer, cv2.IMREAD_COLOR)
+    original = original.astype(np.float32) / 255
+    difference = cv2.absdiff(original, compressed.astype(np.float32) / 255)
+    ela = cv2.convertScaleAbs(cv2.sqrt(difference) * 255, None, scale / 20)
+    ela = cv2.LUT(ela, create_lut(contrast, contrast))
     
-    extrema = ela_im.getextrema()
-    max_diff = max([ex[1] for ex in extrema])
-    if max_diff == 0:
-        max_diff = 1
-    scale = 255.0 / max_diff
-    
-    ela_im = ImageEnhance.Brightness(ela_im).enhance(scale)
-    
-    # Convert to a numpy array
-    ela_im_np = np.array(ela_im)
-    _, thresholded_diff = cv2.threshold(ela_im_np, 30, 255, cv2.THRESH_BINARY)
-    modified_area = np.count_nonzero(thresholded_diff)
-    total_area = ela_im_np.size  # Total number of pixels
-    fraction_modified = modified_area / total_area
-    
-    buffered = BytesIO()
-    ela_im.save(buffered, format='png')
-    buffered.seek(0)
-    img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
-    
-    os.remove(resaved_filename)
+    # Save the ELA result
+    ela_filename = file_path.split('.')[0] + '_ela.png'
+    cv2.imwrite(ela_filename, ela)
 
-    
-    return img_base64, fraction_modified
+    return ela_filename
+
+# Example usage
+if __name__ == "__main__":
+    result = fake_image_detect("./sample/demo2.jpg")
+    if result is not None:
+        ela_image = cv2.imread(result)
+        cv2.imshow("ELA Result", ela_image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
