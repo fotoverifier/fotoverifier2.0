@@ -1,11 +1,10 @@
 .libraries_container {
     width: 100%;
-    height: 75%;
+    height: 100%;
     display: flex;
     padding: 20px;
     flex-direction: column;
     background-color: white;
-    justify-content: space-between;
 }
 
 .tab_area {

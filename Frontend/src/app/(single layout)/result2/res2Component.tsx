@@ -14,7 +14,7 @@ import ElaResult from '../result/ela';
 import ReverseImgResult from '../result/reverse_img';
 import pattern2 from '@/assets/Group 97.svg';
 import { TbReportSearch } from 'react-icons/tb';
-import { FaCamera, FaUser } from 'react-icons/fa';
+import { FaCamera, FaExchangeAlt, FaUser } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
@@ -103,7 +103,7 @@ const Res2 = () => {
     }
   }, [wsUrls]);
 
-  const tabs = ['Overview', 'Originality', 'Where', 'When', 'Why'];
+  const tabs = ['Overview', 'Originality', 'Location', 'Forsenic'];
 
   const renderContent = (activeTab: string) => {
     const tabData = {
@@ -229,8 +229,8 @@ const Res2 = () => {
           ),
         },
         {
-          key: 'Where',
-          title: 'Where',
+          key: 'Location',
+          title: 'Location',
           description: 'Location',
           content: (
             <div className={`h-full w-full flex`}>
@@ -272,22 +272,12 @@ const Res2 = () => {
           ),
         },
         {
-          key: 'When',
-          title: 'When',
+          key: 'Forsenic',
+          title: 'Forsenic',
           description: 'When this picture is taken',
           content: (
             <div>
               <p>Date and time extracted from photo metadata.</p>
-            </div>
-          ),
-        },
-        {
-          key: 'Why',
-          title: 'Why',
-          description: 'What is the point of the image?',
-          content: (
-            <div>
-              <p>Analysis of the photos intent or subject matter.</p>
             </div>
           ),
         },
@@ -345,6 +335,7 @@ const Res2 = () => {
           <div className="font-bold"> General Report </div>
           <div className="h-full w-1 bg-white mx-5"> </div>
           <div className="text-xl"> Basic Method </div>
+          <div className="mx-5 border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900"> <FaExchangeAlt /> </div>
         </div>
         <Image
           src={pattern2}
