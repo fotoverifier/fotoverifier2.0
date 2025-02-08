@@ -29,8 +29,8 @@ interface AuthorCopyright {
 }
 
 interface GPSLocation {
-  latitude?: string;
-  longitude?: string;
+  latitude?: string | null;
+  longitude?: string | null;
 }
 
 interface MetaDataProps {

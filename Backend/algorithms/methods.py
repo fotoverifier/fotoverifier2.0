@@ -14,15 +14,16 @@ import base64
 from io import BytesIO
 import numpy as np
 import torch
-import RRDBNet_arch as arch
+from . import RRDBNet_arch as arch
 import argparse
 from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
 from dotenv import load_dotenv
+from duckduckgo_images_api import search
 import os
 import math
-from utility import desaturate, create_lut
+from .utility import create_lut
 
 load_dotenv()
 
@@ -50,26 +51,6 @@ def initialize_object_recognition_model():
         object_recognition_model = ram_plus(pretrained="algorithms/ram_plus_swin_large_14m.pth", vit='swin_l', image_size=384)
         object_recognition_model.eval().to(device)
     return object_recognition_model
-
-
-
-def image_process(image_path):
-    args = argparse.Namespace(datafile=image_path)
-
-    if not check_file(image_path):
-        print("Invalid file. Please make sure the file exists and the type is JPEG or PNG")
-        return None
-    
-    exif_data = exif_check(args.datafile)
-    reverse_result = reverse_image_search(image_path)
-    jpeg_ghost_result = jpeg_ghost(image_path, 60)
-    super_resolution_result = super_resolution(image_path)
-    return {
-        "exif_data": exif_data,
-        "reverse_image_search_results": reverse_result,
-        "jpeg_ghost_result": jpeg_ghost_result,
-        "super_resolution_result": super_resolution_result,
-    }
 
 def check_file(data_path):
     """Check if the file exists and is a valid image type"""
@@ -233,7 +214,7 @@ def reverse_image_search(image_path):
     return result
 
 
-def jpeg_ghost(file_path, quality=60):
+def jpeg_ghost(file_path):
     Qmin = 60  # Minimum JPEG quality factor
     Qmax = 90  # Maximum JPEG quality factor
     Qstep = 10  # Step size for quality factor
@@ -288,7 +269,7 @@ def jpeg_ghost(file_path, quality=60):
         blkE[:, :, c] = (blkE[:, :, c] - minval) / (maxval - minval)
 
     # Plot the results
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(6, 4))
     sp = math.ceil(math.sqrt(nQ))
 
     for c in range(nQ):
@@ -298,21 +279,15 @@ def jpeg_ghost(file_path, quality=60):
         plt.title("Quality " + str(Qmin + c * Qstep))
         plt.draw()
 
-    plt.suptitle("Ghost plots for grid offset X = " + str(shift_x) + " and Y = " + str(shift_y))
-
-    # Save plot to a file
-    temp_filename = "temp_ghostplot.png"
-    plt.savefig(temp_filename, dpi=200)
-
-    # Load the saved image in a numpy array, BGR format
-    numpy_ghostplot = cv2.imread(temp_filename, cv2.IMREAD_COLOR)
-
-    # Remove the temporary file
-    os.remove(temp_filename)
-
+    buf = BytesIO()
+    plt.savefig(buf, format="png", dpi=200)
+    buf.seek(0)
+    
     plt.close()
+    
+    img_base64 = base64.b64encode(buf.getvalue()).decode("utf-8")
 
-    return numpy_ghostplot
+    return img_base64, 0
 
 def super_resolution(file_path):
     """Apply super resolution to an image using a pre-trained model"""
@@ -358,18 +333,22 @@ def fake_image_detect(file_path, quality=75, scale=50, contrast=20):
     difference = cv2.absdiff(original, compressed.astype(np.float32) / 255)
     ela = cv2.convertScaleAbs(cv2.sqrt(difference) * 255, None, scale / 20)
     ela = cv2.LUT(ela, create_lut(contrast, contrast))
-    
-    # Save the ELA result
-    ela_filename = file_path.split('.')[0] + '_ela.png'
-    cv2.imwrite(ela_filename, ela)
 
-    return ela_filename
+    # height, width = ela.shape[:2]
+    # new_dim = (int(width * 0.25), int(height * 0.25))
+    # ela = cv2.resize(ela, new_dim, interpolation=cv2.INTER_AREA)
+    
+    _,buffer = cv2.imencode('.png', ela)
+    img_base64 = base64.b64encode(buffer).decode('utf-8')
+
+    return img_base64, 0
 
 # Example usage
 if __name__ == "__main__":
-    result = fake_image_detect("./sample/demo2.jpg")
+    result = jpeg_ghost("./sample/demo4.jpg")
     if result is not None:
-        ela_image = cv2.imread(result)
-        cv2.imshow("ELA Result", ela_image)
+        img_arr = np.frombuffer(result.getvalue(), dtype=np.uint8)
+        img = cv2.imdecode(img_arr, cv2.IMREAD_COLOR)
+        cv2.imshow("JPEG Result", img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()

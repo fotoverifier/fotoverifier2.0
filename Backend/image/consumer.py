@@ -22,36 +22,51 @@ class TaskConsumer(AsyncWebsocketConsumer):
         
         messages = pop_messages(self.task_id)
         for message in messages:
+            print(f"Sending buffered message: {message}")
             await self.send(text_data=json.dumps(message))
         
         self.redis_client = redis.from_url(os.environ.get('REDIS_URL'))
-        self.pubsub = self.redis_client.pubsub()
-        await self.pubsub.subscribe(f'message_channel_{self.task_id}')
-        self.listen_task = asyncio.create_task(self.listen_to_channel())
+        
+        try:
+            self.pubsub = self.redis_client.pubsub()
+            await self.pubsub.subscribe(f'message_channel_{self.task_id}')
+
+            # Listening task in async context
+            self.listen_task = asyncio.create_task(self.listen_to_channel())
+        except Exception as e:
+            print(f"Failed to subscribe to Redis channel: {e}")
+            await self.send(text_data=json.dumps({"error": "Failed to subscribe to task channel"}))
         
     async def listen_to_channel(self):
-        async for message in self.pubsub.listen():
-            if message['type'] == 'message':
-                try:
-                    data = json.loads(message['data'])
-                    buffer_message(self.task_id, data)
-                    await self.send(text_data=json.dumps(data))
-                except json.JSONDecodeError:
-                    # Handle any malformed messages
-                    await self.send(text_data=json.dumps({"error": "Malformed message received"}))
-
+        try:
+            async for message in self.pubsub.listen():
+                if message['type'] == 'message':
+                    try:
+                        data = json.loads(message['data'])
+                        buffer_message(self.task_id, data)
+                        await self.send(text_data=json.dumps(data))
+                    except json.JSONDecodeError:
+                        # Handle any malformed messages
+                        await self.send(text_data=json.dumps({"error": "Malformed message received"}))
+        except asyncio.CancelledError:
+            pass
+        except Exception as e:
+            await self.send(text_data=json.dumps({"error": f"Error in message listening: {str(e)}"}))
+        finally:
+            await self.pubsub.unsubscribe(f'message_channel_{self.task_id}')
+            
+            
     async def disconnect(self, close_code):
         self.listen_task.cancel()
         try:
             await self.listen_task
         except asyncio.CancelledError:
             pass
+        
         await self.channel_layer.group_discard(
             self.task_group_name,
             self.channel_name
         )
-        if self.pubsub:
-            await self.pubsub.unsubscribe(f'message_channel_{self.task_id}')
 
         if self.redis_client:
             await self.redis_client.close()

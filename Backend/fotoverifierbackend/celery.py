@@ -7,3 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fotoverifierbackend.settings')
 app = Celery('fotoverifierbackend')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
+
+@app.task(bind=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')

@@ -16,8 +16,8 @@ export interface ExifData {
     flash: string | undefined;
   };
   gps_location: {
-    latitude: string | undefined;
-    longitude: string | undefined;
+    latitude: string | null;
+    longitude: string | null;
   };
   author_copyright: {
     author: string | undefined;

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import styles from '@/app/(single layout)/result2/res.module.css';
 import Tabs from '@/components/step_tab';
@@ -34,10 +34,10 @@ const Res2 = () => {
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [jpegResult, setJpegResult] = useState<string | null>(null);
-  const [jpegCommentary, setJpegCommentary] = useState<string>("");
+  const [jpegCommentary, setJpegCommentary] = useState<string>('');
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
-  const [elaCommentary, setElaCommentary] = useState<string>("");
+  const [elaCommentary, setElaCommentary] = useState<string>('');
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
   const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
@@ -63,39 +63,59 @@ const Res2 = () => {
           try {
             const message = JSON.parse(event.data);
             console.log('Message:', message);
-            if (message.result === 'completed') {
-              ws.close();
-            } else if (message.task === 'exif_check') {
-              setExifResult(message.result);
-              setLoadingExifCheck(false);
-            } else if (message.task === 'reverse_image_search') {
-              setSearchResult(message.result.image_results);
-              setLoadingReverseImageSearch(false);
-            } else if (message.task === 'jpeg_ghost') {
-              setJpegResult(message.result[0]);
-              setJpegCommentary(message.result[1]);
-              setLoadingJpegGhost(false);
-            } else if (message.task === 'recognize_image') {
-              setTagResult(message.result);
-              setLoadingTagResult(false);
-            } else if (message.task === 'ela') {
-              setElaResult(message.result[0]);
-              setElaCommentary(message.result[1]);
-              setLoadingEla(false);
+
+            // Handling different tasks based on the WebSocket message
+            switch (message.task) {
+              case 'fake_image_detect':
+                if (message.result === 'completed') ws.close();
+                break;
+              case 'exif_check':
+                if (message.result !== 'completed') {
+                  setExifResult(message.result);
+                  setLoadingExifCheck(false);
+                }
+                break;
+              case 'reverse_image_search':
+                if (message.result !== 'completed') {
+                  setSearchResult(message.result.image_results);
+                  setLoadingReverseImageSearch(false);
+                }
+                break;
+              case 'jpeg_ghost':
+                if (message.result !== 'completed') {
+                  setJpegResult(message.result[0]);
+                  setJpegCommentary(message.result[1]);
+                  setLoadingJpegGhost(false);
+                }
+                break;
+              case 'recognize_image':
+                if (message.result !== 'completed') {
+                  setTagResult(message.result);
+                  setLoadingTagResult(false);
+                }
+                break;
+              case 'ela':
+                if (message.result !== 'completed') {
+                  setElaResult(message.result[0]);
+                  setElaCommentary(message.result[1]);
+                  setLoadingEla(false);
+                }
+                break;
+              default:
+                console.log('Unknown task type:', message.task);
+                break;
             }
           } catch (error) {
-            console.error('Failed to parse wsUrls:', error); 
+            console.error('Failed to parse wsUrls:', error);
           }
         };
         ws.onerror = (error) => {
-          if (ws.readyState !== WebSocket.OPEN) {
-            // Optionally, add a delay or retry mechanism here.
-            return; // Skip the error logging for now
-          }
-          console.error(`WebSocket error at ${wsUrlObj.websocket_url}:`, error);
+          return;
         };
         return () => {
-          ws.close();
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.close();
+          }
         };
       } catch (error) {
         console.error('Failed to parse wsUrls:', error);
@@ -240,8 +260,8 @@ const Res2 = () => {
                 </p>
                 <MapComponent
                   coordinate={[
-                    Number(exifResult?.gps_location.latitude || 0),
-                    Number(exifResult?.gps_location.longitude || 0),
+                    Number(exifResult?.gps_location?.latitude),
+                    Number(exifResult?.gps_location?.longitude),
                   ]}
                 />
               </div>
@@ -335,7 +355,10 @@ const Res2 = () => {
           <div className="font-bold"> General Report </div>
           <div className="h-full w-1 bg-white mx-5"> </div>
           <div className="text-xl"> Basic Method </div>
-          <div className="mx-5 border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900"> <FaExchangeAlt /> </div>
+          <div className="mx-5 border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900">
+            {' '}
+            <FaExchangeAlt />{' '}
+          </div>
         </div>
         <Image
           src={pattern2}
