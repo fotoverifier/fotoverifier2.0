@@ -18,6 +18,8 @@ import { FaCamera, FaExchangeAlt, FaUser } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
+import { TiExport } from 'react-icons/ti';
+import Modal_PReport from '@/components/modal/PReport_modal';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -45,6 +47,7 @@ const Res2 = () => {
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);    
   useEffect(() => {
     if (wsUrls) {
       try {
@@ -355,9 +358,25 @@ const Res2 = () => {
           <div className="font-bold"> General Report </div>
           <div className="h-full w-1 bg-white mx-5"> </div>
           <div className="text-xl"> Basic Method </div>
-          <div className="mx-5 border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900">
-            {' '}
-            <FaExchangeAlt />{' '}
+          <div className="relative group mx-5">
+            <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
+              <FaExchangeAlt />
+            </div>
+            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              Change method
+            </span>
+          </div>
+
+         <div className="relative group">
+           <div onClick={() => setIsModalOpen(true)} className="focus:outline-none ml-auto">
+            <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
+              <TiExport />
+               </div>
+            </div>
+            <Modal_PReport isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
+              Generate a portable report
+            </span>
           </div>
         </div>
         <Image

@@ -176,7 +176,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({
         )}
       </div>
       <div className={styles.horizontal_line}> </div>
-      <div> Commentary</div>
       <div>Potential modified area fraction: {round(commentary*100, 2)}%</div>
       {commentary < 0.1 ? (
         <div>Low probability of JPEG Ghosting</div>

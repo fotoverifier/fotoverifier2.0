@@ -8,22 +8,26 @@ interface SideBarItemProps {
     text: string;       
     icon: React.ReactNode;  
     active?: boolean;   
-    href: string;  
+    href: string;
+    caption: string;  
   }
 
 
-const SideBarItem: React.FC<SideBarItemProps> = ({ text, icon, active, href }) => {
+const SideBarItem: React.FC<SideBarItemProps> = ({ text, icon, active, href,caption }) => {
   return (
     <Link href={href} passHref>
-    <div className={`sidebar-item ${active ? 'active' : 'inactive'} ${inter.className} mt-2`}>
+    <div className={`sidebar-item relative group ${active ? 'active' : 'inactive'} ${inter.className} mt-2`}>
       {icon && (
         <div className={`box-icon ${active ? 'active' : ''} p-2`}>
-       <div className='icon-item'>
-       {icon}
-     </div>
-     </div>
+          <div className='icon-item'>
+            {icon}
+          </div>
+        
+        </div>
+
       )}
-      <div className="text font-semibold">{text}</div>
+      <div className="text font-semibold">{text} </div>
+      
     </div>
     </Link>
   );

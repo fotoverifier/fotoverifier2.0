@@ -17,7 +17,7 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({subsets:["latin"]});
 const items = [
-  { text: "Dashboard", icon: <GoHome />, href: "/dashboard" },
+  { text: "Dashboard", icon: <GoHome />, href: "/dashboard"},
   { text: "Upload", icon: <CiImageOff />, href: "/upload" },
   { text: "Libraries", icon: <SiLibrariesdotio />, href: "/libraries" },
   { text: "Privacy", icon: <PiShieldCheckeredFill />, href: "/privacy" },
@@ -41,6 +41,7 @@ const Sidebar = () => {
             icon={item.icon}
             active={pathname === item.href}
             href={item.href}
+            caption = {item.text}
           />
         ))}
       </div>
