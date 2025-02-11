@@ -126,11 +126,11 @@ const Res2 = () => {
     }
   }, [wsUrls]);
 
-  const tabs = ['Overview', 'Originality', 'Location', 'Forsenic'];
+  const tabs = ['Tampering Detection', 'Originality', 'Location', 'Forsenic'];
 
   const renderContent = (activeTab: string) => {
     const tabData = {
-      Overview: (
+      Tampering: (
         <div className={`h-full w-full ${styles.striped_background}`}>
           <div className={styles.Seven_content_container}>
             <div className={styles.Result_container}>
@@ -151,7 +151,10 @@ const Res2 = () => {
               />
             </div>
           </div>
-          <div className={styles.Third_content_container}>
+
+
+
+          {/* <div className={styles.Third_content_container}>
             <div className={styles.Result_container}>
               <MetaData_Result
                 cameraInformation={exifResult?.camera_information || undefined}
@@ -172,7 +175,7 @@ const Res2 = () => {
             <div className={styles.Result_container}>
               <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
             </div>
-          </div>
+          </div>*/}
         </div>
       ),
       OtherTabs: [
@@ -243,11 +246,17 @@ const Res2 = () => {
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
 
               <div className="w-1/3 h-full">
+              <div className='h-1/2'> 
                 <ReverseImgResult
                   searchResult={SearchResult}
                   loading={loadingReverseImageSearch}
                 />
+                </div>
+                <div className='h-1/2'>
+                  <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+                </div>
               </div>
+
             </div>
           ),
         },
@@ -307,8 +316,8 @@ const Res2 = () => {
       ],
     };
 
-    if (activeTab === 'Overview') {
-      return tabData.Overview;
+    if (activeTab === 'Tampering Detection') {
+      return tabData.Tampering;
     } else {
       const selectedTab = tabData.OtherTabs.find(
         (tab) => tab.key === activeTab

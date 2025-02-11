@@ -12,6 +12,41 @@ interface ImageResultProps {
   commentary: number;
 }
 
+
+const qualities = [
+  {
+    title: "Quality 1",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 1",
+  },
+  {
+    title: "Quality 2",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 2",
+  },
+  {
+    title: "Quality 3",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 3",
+  },
+  {
+    title: "Quality 4",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 4",
+  },
+  {
+    title: "Quality 5",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 5",
+  },
+  {
+    title: "Quality 6",
+    img: placeholder, // Replace with the actual image path
+    caption: "Content for Quality 6",
+  },
+];
+
+
 const JpegGhostResult: React.FC<ImageResultProps> = ({
   img,
   loading,
@@ -69,80 +104,24 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({
               </div>
               Content for first section
             </div>
-
-            {/* Second Section */}
-            <div className="flex-1 p-4 border-r border-gray-200">
-              <div className="flex mb-2 items-center">
-                <h3 className="font-semibold">Section 2</h3>
-                <div className="ml-2">[Implementation]</div>
-              </div>
-              <div className='h-3/4 flex justify-center items-center'> 
-              <Image
-                src= {placeholder}
-                alt="Placeholder for Section 1"
-                width={150}
-                height={150}
-                className="mb-2"
-              />
-              </div>
-              Content for second section
-            </div>
-
             {/* Grid Section */}
-                <div className="flex-[2] grid grid-cols-2 gap-4">
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-2">Quality 1</h3>
-                     <div className='h-3/4  flex justify-center items-center'> 
-                      <Image
-                        src= {placeholder}
-                        alt="Placeholder for Section 1"
-                        width={150}
-                        height={150}
-                        className="mb-2"
-                      />
-                      </div>
-                    Content for Quality 1
+             <div className="flex-[2] grid grid-cols-3 gap-4">
+              {qualities.map((quality, index) => (
+                <div key={index} className="p-4">
+                  <h3 className="font-semibold mb-2">{quality.title}</h3>
+                  <div className="h-3/4 flex justify-center items-center">
+                    <Image
+                      src={quality.img}
+                      alt={`Placeholder for ${quality.title}`}
+                      width={150}
+                      height={150}
+                      className="mb-2"
+                    />
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-2">Quality 2</h3>
-                    <div className='h-3/4  flex justify-center items-center'> 
-                      <Image
-                        src= {placeholder}
-                        alt="Placeholder for Section 1"
-                        width={150}
-                        height={150}
-                        className="mb-2"
-                      />
-                      </div>
-                    Content for Quality 2
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-2">Quality 3</h3>
-                    <div className='h-3/4  flex justify-center items-center'> 
-                      <Image
-                        src= {placeholder}
-                        alt="Placeholder for Section 1"
-                        width={150}
-                        height={150}
-                        className="mb-2"
-                      />
-                      </div>
-                    Content for Quality 3
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-2">Quality 4</h3>
-                    <div className='h-3/4  flex justify-center items-center'> 
-                      <Image
-                        src= {placeholder}
-                        alt="Placeholder for Section 1"
-                        width={150}
-                        height={150}
-                        className="mb-2"
-                      />
-                      </div>
-                    Content for Quality 4
-                  </div>
+                  <p>{quality.caption}</p>
                 </div>
+              ))}
+            </div>
               </div>
                 </div>
               </div>

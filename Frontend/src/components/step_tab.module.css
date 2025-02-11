@@ -23,7 +23,9 @@
     cursor: pointer;
     border-radius: 30px;
     border-width: 1px;
+    width: fit-content;
     transition: background-color 0.3s;
+    white-space: nowrap; /* Prevents wrapping to a new line */
 }
 
 .tab.active {

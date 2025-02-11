@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IoLibrary } from "react-icons/io5";
 import { Inter } from "next/font/google";
 import TreeView from "./treeComponent";
@@ -47,14 +48,55 @@ const Libraries = () => {
     },
   ];
 
-  const [activeCategory, setActiveCategory] = useState(categories[0].name); // Track selected category
-  const [activeSubcategory, setActiveSubcategory] = useState(""); // Track selected subcategory
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null); // Track expanded category
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const toggleExpand = (categoryName: string) => {
+  const [activeCategory, setActiveCategory] = useState("");
+  const [activeSubcategory, setActiveSubcategory] = useState("");
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null); // Track expanded categories
+  const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null); // Track expanded subcategories
+
+  // Sync state with query parameters
+  useEffect(() => {
+    const category = searchParams.get("category") || categories[0].name; // Default to the first category
+    const subcategory = searchParams.get("subcategory") || "";
+    setActiveCategory(category);
+    setActiveSubcategory(subcategory);
+  }, [searchParams]);
+
+  const toggleExpandCategory = (categoryName: string) => {
     setExpandedCategory((prev) =>
       prev === categoryName ? null : categoryName
     );
+    setExpandedSubcategory(null); // Reset expanded subcategory when switching categories
+  };
+
+  const toggleExpandSubcategory = (subcategoryName: string) => {
+    setExpandedSubcategory((prev) =>
+      prev === subcategoryName ? null : subcategoryName
+    );
+  };
+
+  const handleCategoryClick = (categoryName: string) => {
+    setActiveCategory(categoryName);
+    setActiveSubcategory("");
+    const formattedCategory = categoryName.toLowerCase().replace(/\s+/g, "_");
+    router.push(`/libraries/category=${formattedCategory}`); // Update route
+  };
+
+  const handleSubcategoryClick = (
+    categoryName: string,
+    subcategoryName: string
+  ) => {
+    setActiveCategory(categoryName);
+    setActiveSubcategory(subcategoryName);
+    const formattedCategory = categoryName.toLowerCase().replace(/\s+/g, "_");
+    const formattedSubcategory = subcategoryName
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+    router.push(
+      `/libraries/category=${formattedCategory}/${formattedSubcategory}`
+    ); // Update route
   };
 
   return (
@@ -81,7 +123,7 @@ const Libraries = () => {
               <li key={index} className="cursor-pointer">
                 {/* Parent Category */}
                 <div
-                  onClick={() => toggleExpand(category.name)}
+                  onClick={() => toggleExpandCategory(category.name)}
                   className={`px-4 py-2 rounded-lg flex justify-between items-center ${
                     activeCategory === category.name
                       ? "bg-green-200 text-green-800 font-semibold"
@@ -91,7 +133,11 @@ const Libraries = () => {
                   {category.name}
                   {category.subcategories.length > 0 && (
                     <span className="ml-2">
-                      {expandedCategory === category.name ? <TiArrowSortedDown/> : <TiArrowSortedUp/>}
+                      {expandedCategory === category.name ? (
+                        <TiArrowSortedDown />
+                      ) : (
+                        <TiArrowSortedUp />
+                      )}
                     </span>
                   )}
                 </div>
@@ -99,19 +145,26 @@ const Libraries = () => {
                 {/* Subcategories */}
                 {expandedCategory === category.name &&
                   category.subcategories.map((subcategory, subIndex) => (
-                    <div
-                      key={subIndex}
-                      onClick={() => {
-                        setActiveCategory(category.name);
-                        setActiveSubcategory(subcategory);
-                      }}
-                      className={`ml-6 my-2 px-4 py-2 rounded-lg cursor-pointer ${
-                        activeSubcategory === subcategory
-                          ? "bg-blue-200 text-blue-800 font-semibold"
-                          : "bg-gray-50 text-gray-600 hover:bg-gray-100"
-                      }`}
-                    >
-                      {subcategory}
+                    <div key={subIndex} className="ml-6">
+                      <div
+                        onClick={() =>
+                          handleSubcategoryClick(category.name, subcategory)
+                        }
+                        className={`my-2 px-4 py-2 rounded-lg cursor-pointer flex justify-between items-center ${
+                          activeSubcategory === subcategory
+                            ? "bg-blue-200 text-blue-800 font-semibold"
+                            : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                        }`}
+                      >
+                        {subcategory}
+                        <span className="ml-2">
+                          {expandedSubcategory === subcategory ? (
+                            <TiArrowSortedDown />
+                          ) : (
+                            <TiArrowSortedUp />
+                          )}
+                        </span>
+                      </div>
                     </div>
                   ))}
               </li>
