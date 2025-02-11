@@ -14,12 +14,12 @@ const Banner = () => {
   return (
     <div className={`banner-container flex-col ${poppins.className}`}>
       <div className="flex ml-auto">
-      <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-md hover:bg-green-950 hover:text-white cursor-pointer" onClick={() => setModalOpen(true)}> Feedback</div>
+      <div className="mr-5 w-fit h-fit border-gray-800 border p-2 rounded-md hover:bg-green-950 hover:text-white cursor-pointer ease-in-out" onClick={() => setModalOpen(true)}> Feedback</div>
        {openModal && (
                <FeedBackModal closeModal={() => setModalOpen(false)} />
       )}
         <Link href="/home">
-      <div className="mr-10  w-fit h-fit border-gray-800 border p-2 rounded-md hover:bg-green-950 hover:text-white"> Homepage</div>
+      <div className="mr-10  w-fit h-fit border-gray-800 border p-2 rounded-md hover:bg-green-950 hover:text-white ease-in-out"> Homepage</div>
       </Link>
       
       </div>
