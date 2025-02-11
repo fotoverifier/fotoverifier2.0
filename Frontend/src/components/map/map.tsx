@@ -19,7 +19,20 @@ interface MapComponentProps {
   coordinate: [number, number]; // Accepts a tuple with latitude and longitude
 }
 
-const MapComponent: React.FC<{ coordinate: [number, number] }> = ({ coordinate }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
+  const isValidCoordinate = (coordinate: [number, number]) => {
+    return (
+      Array.isArray(coordinate) &&
+      coordinate.length === 2 &&
+      typeof coordinate[0] === 'number' &&
+      typeof coordinate[1] === 'number' &&
+      !isNaN(coordinate[0]) &&
+      !isNaN(coordinate[1])
+    )
+  }
+  if (!isValidCoordinate(coordinate)) {
+    return <div>No geolocation found.</div>
+  }
   return (
     <div className="h-full w-full">
       {/* Use key to ensure the map is re-initialized when coordinates change */}

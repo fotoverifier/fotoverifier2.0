@@ -1,5 +1,5 @@
 from celery import shared_task, group
-from algorithms.methods import exif_check, reverse_image_search, jpeg_ghost, super_resolution, recognize_objects, fake_image_detect
+from algorithms.methods import exif_check, reverse_image_search, jpeg_ghost, super_resolution, recognize_objects, ela
 from .models import Image
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -186,10 +186,10 @@ def process_recognize_objects(image_id):
         raise e
 
 @shared_task
-def process_fake_image_detect(image_id):
+def process_ela(image_id):
     try:
         image_instance = Image.objects.get(id=image_id)
-        result = fake_image_detect(file_path=image_instance.image.path)
+        result = ela(file_path=image_instance.image.path)
         
         message = {'task': 'ela', 'result': result}
         buffer_message(image_id, message)
@@ -229,7 +229,7 @@ def process_quick_scan(image_id):
         process_exif_check.s(image_id),
         process_reverse_image_search.s(image_id),
         process_recognize_objects.s(image_id),
-        process_fake_image_detect.s(image_id)
+        process_ela.s(image_id)
     )()
     message = {'task': 'quick_scan', 'status': 'initiated'}
     buffer_message(image_id, message)

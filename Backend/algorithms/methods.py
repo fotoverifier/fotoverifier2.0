@@ -215,7 +215,7 @@ def reverse_image_search(image_path):
 
 
 def jpeg_ghost(file_path):
-    Qmin = 60  # Minimum JPEG quality factor
+    Qmin = 20  # Minimum JPEG quality factor
     Qmax = 90  # Maximum JPEG quality factor
     Qstep = 10  # Step size for quality factor
     shift_x = 0  # Horizontal shift for ghosting
@@ -267,27 +267,28 @@ def jpeg_ghost(file_path):
     maxval = np.max(blkE, axis=2)
     for c in range(nQ):
         blkE[:, :, c] = (blkE[:, :, c] - minval) / (maxval - minval)
-
-    # Plot the results
-    plt.figure(figsize=(6, 4))
-    sp = math.ceil(math.sqrt(nQ))
+        
+    base64_images = []
 
     for c in range(nQ):
-        plt.subplot(sp, sp, c + 1)
-        plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
-        plt.axis("off")
-        plt.title("Quality " + str(Qmin + c * Qstep))
-        plt.draw()
+        quality = Qmin + c * Qstep
+        if 30 <= quality <= 80:
+            # Create a new figure for quality level from 30 to 80
+            plt.figure(figsize=(xdim / 100, ydim / 100))
+            plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
+            plt.axis("off")
+            plt.draw()
 
-    buf = BytesIO()
-    plt.savefig(buf, format="png", dpi=200)
-    buf.seek(0)
-    
-    plt.close()
-    
-    img_base64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+            # Save each figure as a separate image
+            buf = BytesIO()
+            plt.savefig(buf, format="png", dpi=200)
+            buf.seek(0)
+            img_base64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+            base64_images.append(img_base64)
+            buf.close()
+            plt.close()
 
-    return img_base64, 0
+    return base64_images
 
 def super_resolution(file_path):
     """Apply super resolution to an image using a pre-trained model"""
@@ -319,7 +320,7 @@ def recognize_objects(file_path):
         print(f"Error in recognize_objects: {e}")
         return None
 
-def fake_image_detect(file_path, quality=75, scale=50, contrast=20):
+def ela(file_path, quality=75, scale=50, contrast=20):
     contrast = int(contrast / 100 * 128)
     
     original = cv2.imread(file_path)

@@ -35,8 +35,7 @@ const Res2 = () => {
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
-  const [jpegResult, setJpegResult] = useState<string | null>(null);
-  const [jpegCommentary, setJpegCommentary] = useState<string>('');
+  const [jpegResult, setJpegResult] = useState<string[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
   const [elaCommentary, setElaCommentary] = useState<string>('');
@@ -69,7 +68,7 @@ const Res2 = () => {
 
             // Handling different tasks based on the WebSocket message
             switch (message.task) {
-              case 'fake_image_detect':
+              case 'ela':
                 if (message.result === 'completed') ws.close();
                 break;
               case 'exif_check':
@@ -86,8 +85,7 @@ const Res2 = () => {
                 break;
               case 'jpeg_ghost':
                 if (message.result !== 'completed') {
-                  setJpegResult(message.result[0]);
-                  setJpegCommentary(message.result[1]);
+                  setJpegResult(message.result);
                   setLoadingJpegGhost(false);
                 }
                 break;
@@ -138,8 +136,7 @@ const Res2 = () => {
             </div>
             <div className={styles.Result_container}>
               <JpegGhostResult
-                img={`data:image/jpeg;base64,${jpegResult}`}
-                commentary={Number(jpegCommentary)}
+                img={jpegResult ? `data:image/jpeg;base64,${jpegResult[4]}` : ''}
                 loading={loadingJpegGhost}
               />
             </div>
