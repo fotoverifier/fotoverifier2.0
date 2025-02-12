@@ -22,13 +22,6 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
             </div>
             <div className={styles.title}>Error Level Analysis</div>
           </div>
-          {loading ? (
-            <Flex align="center">
-              <Spin indicator={<LoadingOutlined spin />} />
-            </Flex>
-          ) : (
-            <></>
-          )}
         </div>
       </div>
       <div className={styles.image_container}>

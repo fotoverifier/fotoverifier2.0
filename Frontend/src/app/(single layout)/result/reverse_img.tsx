@@ -51,15 +51,11 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
           </div>
           <div className="font-bold text-lg ml-2">Reversed Search</div>
         </div>
-        {loading ? (
-          <Flex align="center" gap="middle">
-            <Spin indicator={<LoadingOutlined spin />} />
-          </Flex>
-        ) : (
+
           <div onClick={openModal} className="focus:outline-none ml-auto">
             <InfoButton />
           </div>
-        )}
+
       </div>
 
       {/* Top 3 Results */}

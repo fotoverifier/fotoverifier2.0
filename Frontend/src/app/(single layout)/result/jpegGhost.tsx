@@ -37,15 +37,10 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             </div>
             <div className={styles.title}>JPEG Ghost</div>
           </div>
-          {loading ? (
-            <Flex align="center">
-              <Spin indicator={<LoadingOutlined spin />} />
-            </Flex>
-          ) : (
-            <div onClick={openModal} className="focus:outline-none ml-auto ">
-              <InfoButton></InfoButton>
-            </div>
-          )}
+
+          <div onClick={openModal} className="focus:outline-none ml-auto ">
+            <InfoButton></InfoButton>
+          </div>
         </div>
       </div>
       {isModalOpen && (

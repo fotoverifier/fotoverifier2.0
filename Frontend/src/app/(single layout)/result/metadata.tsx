@@ -70,15 +70,10 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           </div>
           <div className="font-bold text-lg ml-2">Metadata</div>
         </div>
-          {loading ? (
-            <Flex align="center" gap="middle">
-              <Spin indicator={<LoadingOutlined spin />} />
-            </Flex>
-          ) : (
+
             <div onClick={openModal} className="focus:outline-none ml-auto">
               <InfoButton></InfoButton>
             </div>
-          )}
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
