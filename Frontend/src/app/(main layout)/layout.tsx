@@ -13,7 +13,7 @@ export default function RootLayout({
     <div className="w-screen h-screen flex">
       <Sidebar />
       <div className="w-full">
-        {pathname !== "/libraries" && pathname !== "/privacy" && !pathname.startsWith("/library") && <Banner />}
+          {pathname !== "/libraries" && pathname !== "/privacy" && !pathname.startsWith("/library") && <Banner />}
         {children}
       </div>
     </div>

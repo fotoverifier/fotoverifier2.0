@@ -1,12 +1,33 @@
 import React, { useRef } from "react";
 import { toPng, toJpeg } from "html-to-image";
+import JpegGhostResult from "@/app/(single layout)/result/jpegGhost";
+import ElaResult from "@/app/(single layout)/result/ela";
+import ImgTagging_Result from "@/app/(single layout)/result/osm_tags";
+import { FiEdit } from "react-icons/fi";
 
 interface ModalPReportProps {
   isOpen: boolean;
   closeModal: () => void;
+  jpegResult: string[] | null;
+  elaResult: string  | null;
+  elaCommentary: string  | null;
+  tagResult: any  | null;
+  loadingJpegGhost: boolean ;
+  loadingEla: boolean;
+  loadingTagResult: boolean;
 }
 
-const Modal_PReport: React.FC<ModalPReportProps> = ({ isOpen, closeModal }) => {
+const Modal_PReport: React.FC<ModalPReportProps> = ({
+  isOpen,
+  closeModal,
+  jpegResult,
+  elaResult,
+  elaCommentary,
+  tagResult,
+  loadingJpegGhost,
+  loadingEla,
+  loadingTagResult,
+}) => {
   const contentRef = useRef<HTMLDivElement>(null); // Reference only for content section
 
   const handleExport = (format: "png" | "jpeg") => {
@@ -31,8 +52,8 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({ isOpen, closeModal }) => {
       {isOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen text-black">
           <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
-            {/* Header Section (Excluded from Capture) */}
-            <div className="flex items-center  text-base mb-4">
+            {/* Header Section */}
+            <div className="flex items-center text-base mb-4">
               <div className="text-large font-bold border-2 border-green-800 rounded-lg px-4 py-2 text-black self-center">
                 General Report
               </div>
@@ -62,34 +83,58 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({ isOpen, closeModal }) => {
               </div>
             </div>
 
-            {/* Content Section (Only this part is captured) */}
-            <div className="flex flex-1 border-t pt-4 text-lg bg-white" ref={contentRef}>
-              <div className="flex-1 p-4 border-r border-gray-200">
-                <h3 className="font-semibold mb-2 text-base">JPEG Ghost</h3>
-                <div className="text-sm"> Content for the first section </div>
+            {/* Content Section */}
+            <div
+              className="flex flex-1 border-t pt-4 text-lg bg-white"
+              ref={contentRef}
+            >
+              {/* JPEG Ghost Column */}
+              <div className="flex-1 p-4 border-r border-gray-200 text-base">
+                <JpegGhostResult
+                  img={jpegResult
+                    ? `data:image/jpeg;base64,${jpegResult[4]}`
+                    : ""}
+                  loading={loadingJpegGhost} commentary={0}                />
               </div>
 
-              <div className="flex-1 p-4 border-r border-gray-200">
-                <h3 className="font-semibold mb-2 2 text-base">Error Level Analysis</h3>
-                <div className="text-sm"> Content for the first section </div>
+              {/* ELA Column */}
+              <div className="flex-1 p-4 border-r border-gray-200 text-base">
+                <ElaResult
+                  img={`data:image/jpeg;base64,${elaResult}`}
+                  commentary={Number(elaCommentary)}
+                  loading={loadingEla}
+                />
               </div>
 
-              <div className="flex-1 p-5">
-                <h3 className="font-semibold mb-2 text-base">Common tags</h3>
-                <div className="flex flex-col gap-2 h-full">
-                  {/* Upper Part */}
-                  <div className="flex-1 text-sm">Content for the upper part</div>
+              {/* Image Tagging Column */}
+             <div className="flex-1 p-2 ">
+                <div className="flex items-center justify-center h-full">
+                <div className="flex flex-col gap-2 h-full w-full text-base">
+                  {/* Image Tagging Result Section */}
+                  <div className="h-2/3 flex  items-center justify-center">
+                    <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+                  </div>
 
-                  {/* Bottom Part - Comment Section */}
-                  <div className="flex-1 flex flex-col">
-                    <h4 className="font-semibold mb-2 text-base">Author Note</h4>
+                  {/* Author Note Section */}
+                  <div className="flex-1 flex flex-col h-1/3 border rounded-lg shadow-md p-4 bg-gray-50">
+                    {/* Title Section with Icon */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-2">
+                        <FiEdit className="text-blue-500" size={18} />
+                        <h4 className="font-semibold text-lg text-gray-800">Author Note</h4>
+                      </div>
+                    </div>
+
+                    {/* Textarea Section */}
                     <textarea
-                      className="flex-1 border border-gray-300 rounded p-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2 text-sm"
+                      className="flex-1 border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white placeholder-gray-400"
                       placeholder="Write your comment here..."
                     ></textarea>
                   </div>
                 </div>
               </div>
+              </div>
+
             </div>
           </div>
         </div>
