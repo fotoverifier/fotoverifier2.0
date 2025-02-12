@@ -5,6 +5,7 @@ import Result from '@/assets/Group 79.svg';
 import styles from '@/app/(single layout)/result/categories.module.css';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Spin } from 'antd';
+import { MdWarning } from 'react-icons/md';
 
 interface ElaResultProp {
   img: string | undefined; // Accept the image as a prop
@@ -13,7 +14,8 @@ interface ElaResultProp {
 
 const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
   return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full p-5 flex flex-col">
+      {/* Title Section */}
       <div className={styles.title_container}>
         <div className="flex justify-between">
           <div className="flex">
@@ -24,13 +26,15 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
           </div>
         </div>
       </div>
-      <div className={styles.image_container}>
+
+      {/* Image Section (Takes Remaining Space) */}
+      <div className={`${styles.image_container} flex-1 flex items-center justify-center`}>
         {loading ? (
           <></>
         ) : img ? (
           <div
             className="flex items-center justify-center relative p-2 w-full"
-            style={{ height: '90%' }}
+            style={{ height: "90%" }}
           >
             <Image
               src={img}
@@ -40,24 +44,28 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
               height={0}
               sizes="100vw"
               style={{
-                width: 'auto',
-                maxWidth: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                position: 'relative',
+                width: "auto",
+                maxWidth: "100%",
+                height: "100%",
+                objectFit: "contain",
+                position: "relative",
               }}
             />
           </div>
         ) : (
-          <p>No image available</p> // Fallback message
+          <p>No image available</p>
         )}
       </div>
-      <div className={styles.horizontal_line}> </div>
-      <div>
-        <span className="text-red-500">* </span>The tampered region is
-        highlighted with dark color.
+
+      {/* Warning Section (Always at Bottom) */}
+      <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
+        <MdWarning className="text-red-600" size={20} />
+        <p className="text-red-700 text-sm font-medium">
+          The tampered region is highlighted with a dark color.
+        </p>
       </div>
     </div>
+
   );
 };
 

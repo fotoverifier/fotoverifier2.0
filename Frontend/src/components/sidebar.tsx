@@ -19,7 +19,7 @@ const montserrat = Montserrat({subsets:["latin"]});
 const items = [
   { text: "Dashboard", icon: <GoHome />, href: "/dashboard"},
   { text: "Upload", icon: <CiImageOff />, href: "/upload" },
-  { text: "Libraries", icon: <SiLibrariesdotio />, href: "/libraries" },
+  { text: "Libraries", icon: <SiLibrariesdotio />, href: "/library" },
   { text: "Privacy", icon: <PiShieldCheckeredFill />, href: "/privacy" },
   { text: "GitHub", icon: <FaGithub />, href: "/github" },
 
