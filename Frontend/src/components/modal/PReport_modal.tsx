@@ -10,7 +10,6 @@ interface ModalPReportProps {
   closeModal: () => void;
   jpegResult: string[] | null;
   elaResult: string  | null;
-  elaCommentary: string  | null;
   tagResult: any  | null;
   loadingJpegGhost: boolean ;
   loadingEla: boolean;
@@ -22,7 +21,6 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
   closeModal,
   jpegResult,
   elaResult,
-  elaCommentary,
   tagResult,
   loadingJpegGhost,
   loadingEla,
@@ -94,14 +92,13 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
                   img={jpegResult
                     ? `data:image/jpeg;base64,${jpegResult[4]}`
                     : ""}
-                  loading={loadingJpegGhost} commentary={0}                />
+                  loading={loadingJpegGhost}            />
               </div>
 
               {/* ELA Column */}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">
                 <ElaResult
                   img={`data:image/jpeg;base64,${elaResult}`}
-                  commentary={Number(elaCommentary)}
                   loading={loadingEla}
                 />
               </div>

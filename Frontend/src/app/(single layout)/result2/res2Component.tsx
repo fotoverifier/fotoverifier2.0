@@ -385,7 +385,6 @@ const Res2 = () => {
               closeModal={() => setIsModalOpen(false)} 
               jpegResult={jpegResult}
               elaResult={elaResult}
-              elaCommentary={elaCommentary}
               tagResult={tagResult}
               loadingJpegGhost={loadingJpegGhost}
               loadingEla={loadingEla}

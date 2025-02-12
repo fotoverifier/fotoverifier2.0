@@ -7,7 +7,9 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { MdAnalytics, MdOutlineFindInPage } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import { BiAtom } from "react-icons/bi";
-
+import { Montserrat, Open_Sans } from "next/font/google";
+const montserrat = Montserrat({ subsets: ['latin'] });
+const opensand = Open_Sans({subsets:['latin']});
 const categories = [
   {
     name: "Meta-data Analysis",
@@ -49,9 +51,9 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className={`flex min-h-screen ${montserrat.className}`}>
       {/* Sidebar */}
-      <aside
+      <div
         className={`bg-white ${isSidebarOpen ? "w-1/4" : "w-[9%]"} p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
       >
         {/* Sidebar Header */}
@@ -64,12 +66,12 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
           </div>
 
           {/* Toggle Button - Positioned to the Right with Small Gap */}
-          <button
+          <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all"
           >
             {isSidebarOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
-          </button>
+          </div>
         </div>
 
         {/* Categories */}
@@ -84,11 +86,10 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
                   isSidebarOpen ? "justify-between" : "justify-center"
                 }`}
               >
-                {/* Show Icon Always */}
                 <span className="flex items-center min-w-0">
                   {category.icon}
                   {isSidebarOpen && (
-                    <span className="ml-2 overflow-hidden text-ellipsis whitespace-nowrap">{category.name}</span>
+                    <span className={`ml-2 overflow-hidden text-ellipsis whitespace-nowrap ${opensand.className}`}>{category.name}</span>
                   )}
                 </span>
 
@@ -121,7 +122,7 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
             </div>
           ))}
         </ul>
-      </aside>
+      </div>
 
       {/* Dynamic Content (Right Side) */}
       <section className="flex-1 p-6">{children}</section>

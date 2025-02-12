@@ -8,6 +8,7 @@ import InfoButton from '@/components/button/info_button/info_button';
 import placeholder from '@/assets/placeholder.png';
 import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { MdWarning } from 'react-icons/md';
 interface ImageResultProps {
   images: string[] | null;
   loading: boolean;
@@ -28,7 +29,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   ];
 
   return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full p-5 flex flex-col">
       <div className={styles.title_container}>
         <div className="flex justify-between">
           <div className="flex">
@@ -149,11 +150,12 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
         )}
       </div>
 
-      <div className={styles.horizontal_line}> </div>
-      <div>
-        <span className="text-red-500">* </span>The tampered region is
-        highlighted with dark color.
-      </div>
+      <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
+              <MdWarning className="text-red-600" size={20} />
+              <p className="text-red-700 text-sm font-medium">
+                The tampered region is highlighted with a dark color.
+              </p>
+            </div>
     </div>
   );
 };
