@@ -20,18 +20,17 @@ interface ScanType {
   description: string;
 }
 
-// Define the type for the scanTypes object, where each key is a string that maps to a ScanType
 const scanTypes: Record<string, ScanType> = {
   normal: {
     list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment"],
     description: "Equipped with comprehensive and multiple layers of detection."
   },
   deep: {
-    list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Image Search"],
+    list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Search"],
     description: "Provide assessment with efficient and fast algorithms to detect abnormalities."
   },
   specialized: {
-    list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Image Search", "EXIF Data"],
+    list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Search", "EXIF Data"],
     description: "Immerse yourself in a wide range of algorithms to choose and find the abnormalities by yourself."
   }
 };
@@ -65,17 +64,28 @@ const Method_Box: React.FC<MethodBoxProps> = ({ id, label, isSelected, onSelect,
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-5 rounded shadow-lg w-96">
+              {/* Header Section */}
               <div className="flex items-center mb-3">
-                              <div className="circle mr-4 "> <BiSolidBook /> </div>
-              <h2 className="text-lg font-bold"> List of Algorithms</h2>
-              <div className="ml-auto text-red-500 cursor-pointer" onClick={toggleModal}> 
-               <IoIosCloseCircle size={30} /></div>
-
+                <div className="circle mr-4">
+                  <BiSolidBook />
+                </div>
+                <h2 className="text-lg font-bold">List of Algorithms</h2>
+                <div className="ml-auto text-red-500 cursor-pointer" onClick={toggleModal}>
+                  <IoIosCloseCircle size={30} />
+                </div>
               </div>
-              <div className="separator"> </div>
-              <div className="font-normal text-base">
-                {currentScan.list_of_algo.map((algo: any, index: any) => (
-                  <p key={index}>{algo}</p>
+
+              <div className="separator mb-3"></div>
+
+              {/* Grid Layout for Algorithms */}
+              <div className="grid grid-cols-2 gap-3">
+                {currentScan.list_of_algo.map((algo, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-gray-100 p-3 rounded shadow-md text-center font-medium flex items-center justify-center h-12 overflow-hidden text-ellipsis whitespace-nowrap transition duration-300 ease-in-out transform hover:bg-blue-200 hover:scale-105 cursor-pointer"                    title={algo} // Tooltip for longer names
+                  >
+                    {algo}
+                  </div>
                 ))}
               </div>
             </div>

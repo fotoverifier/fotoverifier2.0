@@ -31,7 +31,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
     <div className="w-full h-full p-5">
       <div className={styles.title_container}>
         <div className="flex justify-between">
-          <div className='flex'>
+          <div className="flex">
             <div className="circle_2">
               <SiJpeg />
             </div>
@@ -145,13 +145,14 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             />
           </div>
         ) : (
-          <p>No image available</p> // Fallback message
+          <></>
         )}
       </div>
+
       <div className={styles.horizontal_line}> </div>
       <div>
-        <span className="text-red-500">* </span>The tampered region is highlighted
-        with dark color.
+        <span className="text-red-500">* </span>The tampered region is
+        highlighted with dark color.
       </div>
     </div>
   );

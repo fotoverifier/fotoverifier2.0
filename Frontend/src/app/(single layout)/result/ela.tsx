@@ -61,8 +61,8 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
       </div>
       <div className={styles.horizontal_line}> </div>
       <div>
-        <span className="text-red-500">* </span>The tampered region is highlighted
-        with dark color.
+        <span className="text-red-500">* </span>The tampered region is
+        highlighted with dark color.
       </div>
     </div>
   );

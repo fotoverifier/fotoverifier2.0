@@ -20,6 +20,7 @@ import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
 import { TiExport } from 'react-icons/ti';
 import Modal_PReport from '@/components/modal/PReport_modal';
+import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -255,13 +256,10 @@ const Res2 = () => {
         {
           key: 'Location',
           title: 'Location',
-          description: 'Location',
+          description: 'Maps and GPS coordinates of the photos location.',
           content: (
             <div className={`h-full w-full flex`}>
               <div className="h-[90%] w-2/3">
-                <p className="mb-3">
-                  Maps and GPS coordinates of the photos location.
-                </p>
                 <MapComponent
                   coordinate={[
                     Number(exifResult?.gps_location?.latitude),
@@ -270,28 +268,36 @@ const Res2 = () => {
                 />
               </div>
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
-              <div className="h-full w-1/3">
-                <div className="font-bold">
-                  Common techniques to detect the location{' '}
+              <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
+                  {/* Title */}
+                  <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
+                      <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
+                        <FiMapPin size={16} /> {/* Icon */}
+                      </div>
+                      Detecting Image Location
+                    </h3>
+
+                  {/* List of Techniques */}
+                  <ul className="space-y-3 text-sm text-gray-700">
+                    <li className="flex items-start">
+                      <span className="mr-2 text-blue-500">✔</span>
+                      Extract location from EXIF metadata.
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2 text-blue-500">✔</span>
+                      Use image matching algorithms (e.g., SIFT) for comparative analysis.
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2 text-blue-500">✔</span>
+                      Analyze visual features (e.g., landmarks) with AI models trained on geotagged data.
+                    </li>
+                  </ul>
+
+                  {/* Additional Task */}
+                  <div className="mt-4 text-sm text-gray-600">
+                    Reverse geolocation can convert coordinates into readable addresses.
+                  </div>
                 </div>
-                <ul className="list-decimal pl-6 mx-3">
-                  <li className="p-2">
-                    One of the rather feasible approaches to extract such
-                    information is via the location from the EXIF Data.
-                  </li>
-                  <li className="p-2">
-                    Another method is to find a second image and compare them
-                    via prevalent matching points algorithms like SIFT.
-                  </li>
-                  <li className="p-2">
-                    Geolocation can also be inferred by analyzing the image
-                    visual features (e.g., landmarks, terrain, or architecture)
-                    using machine learning models trained on geotagged datasets.
-                  </li>
-                </ul>
-                Another task is to reverse geolocation into readable address for
-                human.
-              </div>
             </div>
           ),
         },
@@ -374,8 +380,19 @@ const Res2 = () => {
               <TiExport />
                </div>
             </div>
-            <Modal_PReport isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
+            <Modal_PReport 
+              isOpen={isModalOpen} 
+              closeModal={() => setIsModalOpen(false)} 
+              jpegResult={jpegResult}
+              elaResult={elaResult}
+              elaCommentary={elaCommentary}
+              tagResult={tagResult}
+              loadingJpegGhost={loadingJpegGhost}
+              loadingEla={loadingEla}
+              loadingTagResult={loadingTagResult}
+            />           
+
+           <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
               Generate a portable report
             </span>
           </div>
