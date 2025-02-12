@@ -10,6 +10,8 @@ import { useSearchParams } from 'next/navigation';
 import JpegGhostResult from './jpegGhost';
 import ImgTagging_Result from './osm_tags';
 import { ExifData, SearchResult, Tagging } from '@/interface/interface';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const inter = Inter({ subsets: ['latin'] });
 const Result = () => {
@@ -132,7 +134,9 @@ const Result = () => {
                 </div>
               </div>
               {loadingReverseImageSearch ? (
-                <p>Loading...</p>
+                <Flex align="center" gap="middle">
+                  <Spin indicator={<LoadingOutlined spin />} />
+                </Flex>
               ) : (
                 <div>
                   {SearchResult?.map((result, index) => (
@@ -158,7 +162,13 @@ const Result = () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined spin />} />
+        </Flex>
+      }
+    >
       <Result />
     </Suspense>
   );

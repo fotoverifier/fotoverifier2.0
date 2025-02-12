@@ -23,6 +23,8 @@ import { MdDescription } from 'react-icons/md';
 import Image from 'next/image';
 import { IoInformation } from 'react-icons/io5';
 import { IoMdPerson } from 'react-icons/io';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 const helperData = [
@@ -345,7 +347,9 @@ const Specialized_Information = () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Flex align="center" gap="middle">
+      <Spin indicator={<LoadingOutlined spin />} />
+    </Flex>}>
       <Specialized_Information />
     </Suspense>
   );

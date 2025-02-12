@@ -24,6 +24,7 @@ from duckduckgo_images_api import search
 import os
 import math
 from .utility import create_lut
+import cloudinary.uploader
 
 load_dotenv()
 
@@ -191,7 +192,7 @@ def check_author_copyright(info):
 
 
 def reverse_image_search(image_path):
-    import cloudinary.uploader
+    
     image_url = cloudinary.uploader.upload(image_path)["secure_url"]
     params = {
         "engine": "google_reverse_image",
@@ -268,7 +269,7 @@ def jpeg_ghost(file_path):
     for c in range(nQ):
         blkE[:, :, c] = (blkE[:, :, c] - minval) / (maxval - minval)
         
-    base64_images = []
+    image_urls = []
 
     for c in range(nQ):
         quality = Qmin + c * Qstep
@@ -278,17 +279,17 @@ def jpeg_ghost(file_path):
             plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
             plt.axis("off")
             plt.draw()
-
-            # Save each figure as a separate image
-            buf = BytesIO()
-            plt.savefig(buf, format="png", dpi=200)
-            buf.seek(0)
-            img_base64 = base64.b64encode(buf.getvalue()).decode("utf-8")
-            base64_images.append(img_base64)
-            buf.close()
+            
+            image_filename = f"jpeg_ghost_quality_{quality}.png"
+            image_path = os.path.join("media", image_filename)
+            plt.savefig(image_path, format="png", dpi=200)
             plt.close()
 
-    return base64_images
+            upload_result = cloudinary.uploader.upload(image_path)
+            image_url = upload_result["secure_url"]
+            image_urls.append(image_url)
+
+    return image_urls
 
 def super_resolution(file_path):
     """Apply super resolution to an image using a pre-trained model"""
@@ -342,7 +343,7 @@ def ela(file_path, quality=75, scale=50, contrast=20):
     _,buffer = cv2.imencode('.png', ela)
     img_base64 = base64.b64encode(buffer).decode('utf-8')
 
-    return img_base64, 0
+    return img_base64
 
 # Example usage
 if __name__ == "__main__":

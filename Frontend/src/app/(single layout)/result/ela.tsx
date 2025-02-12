@@ -3,29 +3,37 @@ import Image from 'next/image';
 import { FaLayerGroup } from 'react-icons/fa';
 import Result from '@/assets/Group 79.svg';
 import styles from '@/app/(single layout)/result/categories.module.css';
-import round from 'lodash/round';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Spin } from 'antd';
 
 interface ElaResultProp {
   img: string | undefined; // Accept the image as a prop
   loading: boolean;
-  commentary: number;
 }
 
-const ElaResult: React.FC<ElaResultProp> = ({ img, commentary, loading }) => {
+const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
   return (
     <div className="w-full h-full p-5">
       <div className={styles.title_container}>
-        <div className="flex">
-          <div className="circle_2">
-            {' '}
-            <FaLayerGroup />
+        <div className="flex justify-between">
+          <div className="flex">
+            <div className="circle_2">
+              <FaLayerGroup />
+            </div>
+            <div className={styles.title}>Error Level Analysis</div>
           </div>
-          <div className={styles.title}>Error Level Analysis</div>
+          {loading ? (
+            <Flex align="center">
+              <Spin indicator={<LoadingOutlined spin />} />
+            </Flex>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className={styles.image_container}>
         {loading ? (
-          <div>Loading...</div>
+          <></>
         ) : img ? (
           <div
             className="flex items-center justify-center relative p-2 w-full"
@@ -52,15 +60,10 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, commentary, loading }) => {
         )}
       </div>
       <div className={styles.horizontal_line}> </div>
-      <div> Commentary</div>
-      <div>Potential modified area fraction: {round(commentary * 100, 2)}%</div>
-      {commentary < 0.1 ? (
-        <div>Low probability of Error Level Analysis</div>
-      ) : commentary < 0.5 ? (
-        <div>Medium probability of Error Level Analysis</div>
-      ) : (
-        <div>High probability of Error Level Analysis</div>
-      )}
+      <div>
+        <span className="text-red-500">* </span>The tampered region is highlighted
+        with dark color.
+      </div>
     </div>
   );
 };

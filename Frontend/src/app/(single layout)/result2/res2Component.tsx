@@ -38,7 +38,6 @@ const Res2 = () => {
   const [jpegResult, setJpegResult] = useState<string[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
-  const [elaCommentary, setElaCommentary] = useState<string>('');
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
   const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
@@ -70,6 +69,10 @@ const Res2 = () => {
             switch (message.task) {
               case 'ela':
                 if (message.result === 'completed') ws.close();
+                else {
+                  setElaResult(message.result);
+                  setLoadingEla(false);
+                }
                 break;
               case 'exif_check':
                 if (message.result !== 'completed') {
@@ -93,13 +96,6 @@ const Res2 = () => {
                 if (message.result !== 'completed') {
                   setTagResult(message.result);
                   setLoadingTagResult(false);
-                }
-                break;
-              case 'ela':
-                if (message.result !== 'completed') {
-                  setElaResult(message.result[0]);
-                  setElaCommentary(message.result[1]);
-                  setLoadingEla(false);
                 }
                 break;
               default:
@@ -136,14 +132,13 @@ const Res2 = () => {
             </div>
             <div className={styles.Result_container}>
               <JpegGhostResult
-                img={jpegResult ? `data:image/jpeg;base64,${jpegResult[4]}` : ''}
+                images={jpegResult}
                 loading={loadingJpegGhost}
               />
             </div>
             <div className={styles.Result_container}>
               <ElaResult
                 img={`data:image/jpeg;base64,${elaResult}`}
-                commentary={Number(elaCommentary)}
                 loading={loadingEla}
               />
             </div>

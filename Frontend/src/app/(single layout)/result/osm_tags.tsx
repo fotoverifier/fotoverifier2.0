@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { IoIosPricetag } from 'react-icons/io';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 interface TagResultProps {
   Tag: string | null; // Accept the image as a prop
   loading: boolean;
@@ -31,7 +33,9 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
         ))}
       </div> */}
       {loading ? (
-        <p>Loading...</p>
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined spin />} />
+        </Flex>
       ) : (
         <div className="grid grid-cols-3 gap-4 overflow-scroll max-h-40">
           {tags.map((tag, index) => (

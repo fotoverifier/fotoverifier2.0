@@ -4,6 +4,8 @@ import '@/app/(single layout)/result/result.css';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { Inter, Montserrat } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const inter = Inter({ subsets: ['latin'] });
 const monstserrat = Montserrat({ subsets: ['latin'] });
@@ -61,24 +63,31 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
 
   return (
     <div className={`w-full h-full p-5 ${inter.className}`}>
-      <div className="flex-col items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="circle_2">
             <BsFillInfoCircleFill />
           </div>
           <div className="font-bold text-lg ml-2">Metadata</div>
-
-          <div onClick={openModal} className="focus:outline-none ml-auto">
-            <InfoButton></InfoButton>
-          </div>
         </div>
+          {loading ? (
+            <Flex align="center" gap="middle">
+              <Spin indicator={<LoadingOutlined spin />} />
+            </Flex>
+          ) : (
+            <div onClick={openModal} className="focus:outline-none ml-auto">
+              <InfoButton></InfoButton>
+            </div>
+          )}
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-11/12 max-w-lg p-6">
             <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
             {loading ? (
-              <p>Loading...</p>
+              <Flex align="center" gap="middle">
+                <Spin indicator={<LoadingOutlined spin />} />
+              </Flex>
             ) : (
               <>
                 <div className="mb-4">
