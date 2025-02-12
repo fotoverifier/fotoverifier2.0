@@ -20,7 +20,6 @@ from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
 from dotenv import load_dotenv
-from duckduckgo_images_api import search
 import os
 import math
 from .utility import create_lut
@@ -144,7 +143,7 @@ def check_camera_information(tags):
         "focal_length": str(get_if_exist(tags, 'EXIF FocalLength')),
         "iso_speed": str(get_if_exist(tags, 'EXIF ISOSpeedRatings')),
         "flash": str(get_if_exist(tags, 'EXIF Flash')),
-        "camera_image": search(str(get_if_exist(tags, 'Image Make')) + " " + str(get_if_exist(tags, 'Image Model')) + " camera", max_results=1)
+        "camera_image": image_search(str(get_if_exist(tags, 'Image Make')), str(get_if_exist(tags, 'Image Model')))
     }
 
 def check_gps_location(raw_metadata):
@@ -184,11 +183,27 @@ def check_author_copyright(info):
     author = get_if_exist(info, "XPAuthor")
     copyright_tag = get_if_exist(info, "Copyright")
     profile_copyright = get_if_exist(info, "ProfileCopyright")
+    author_image = image_search(author)
     return {
         "author": author,
         "copyright_tag": copyright_tag,
-        "profile_copyright": profile_copyright
+        "profile_copyright": profile_copyright,
+        "author_image": author_image
     }
+
+def image_search(model):
+    params = {
+        "engine": "google_images",
+        "q": f"{model}",
+        "api_key": os.environ.get('SERPAPI_SECRET_KEY')
+    }
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    
+    result = {
+        "image_results": results.get("images_results", []),
+    }
+    return result
 
 
 def reverse_image_search(image_path):
@@ -200,16 +215,11 @@ def reverse_image_search(image_path):
         "api_key": os.environ.get('SERPAPI_SECRET_KEY')
     }
 
-
     search = GoogleSearch(params)
     results = search.get_dict()
 
-
-
     result = {
         "image_results": results.get("image_results", []),
-        "search_metadata": results.get("search_metadata", {}),
-        "search_information": results.get("search_information", {}),
     }
 
     return result

@@ -14,6 +14,11 @@ export interface ExifData {
     focal_length: string | undefined;
     iso_speed: string | undefined;
     flash: string | undefined;
+    camera_image: {
+      image_results: {
+        original: string;
+      }[];
+    };
   };
   gps_location: {
     latitude: string | null;
@@ -23,6 +28,11 @@ export interface ExifData {
     author: string | undefined;
     copyright_tag: string | undefined;
     profile_copyright: string | undefined;
+    author_image: {
+      image_results: {
+        original: string;
+      }[];
+    };
   };
 }
 

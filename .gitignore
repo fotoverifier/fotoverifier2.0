@@ -115,6 +115,7 @@ ehthumbs.db
 # Sample images
 Backend/algorithms/sample
 Backend/media/*/*.jpg
+Backend/media/*.png
 media/*/*.jpg
 
 # Large models

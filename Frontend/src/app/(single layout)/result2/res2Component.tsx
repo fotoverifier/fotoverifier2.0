@@ -23,6 +23,7 @@ import Modal_PReport from '@/components/modal/PReport_modal';
 import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
+import placeholder from '@/assets/placeholder.png';
 
 const Res2 = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -75,7 +76,7 @@ const Res2 = () => {
                 }
                 break;
               case 'recognize_image':
-                if (message.result === 'completed') ws.close()
+                if (message.result === 'completed') ws.close();
                 else {
                   setTagResult(message.result);
                   setLoadingTagResult(false);
@@ -99,7 +100,7 @@ const Res2 = () => {
                   setLoadingJpegGhost(false);
                 }
                 break;
-              
+
               default:
                 console.log('Unknown task type:', message.task);
                 break;
@@ -122,7 +123,7 @@ const Res2 = () => {
     }
   }, [wsUrls]);
 
-  const tabs = ['Tampering Detection', 'Originality', 'Location', 'Forsenic'];
+  const tabs = ['Tampering Detection', 'Originality', 'Location', 'Forensic'];
 
   const renderContent = (activeTab: string) => {
     const tabData = {
@@ -200,7 +201,16 @@ const Res2 = () => {
                     </div>
                   </div>
 
-                  <div className="h-5/6 border-2 rounded-xl  w-full"></div>
+                  <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
+                    <Image
+                      src={
+                        exifResult?.camera_information?.camera_image?.image_results?.[0].original || placeholder
+                      }
+                      alt='Camera Image'
+                      width={210}
+                      height={210}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -216,7 +226,17 @@ const Res2 = () => {
                       Author Information
                     </div>
                   </div>
-                  <div className="h-5/6 border-2 rounded-xl  w-full"></div>
+                  <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
+                  <Image
+                      src={
+                        exifResult?.author_copyright?.author_image?.image_results?.[0].original || placeholder
+                      }
+                      alt='Camera Image'
+                      width={200}
+                      height={200}
+                      objectFit='contain'
+                    />
+                    </div>
 
                   <div className="h-1/6 w-full py-2">
                     <div className="flex p-5 border-2 rounded-xl">
@@ -303,8 +323,8 @@ const Res2 = () => {
           ),
         },
         {
-          key: 'Forsenic',
-          title: 'Forsenic',
+          key: 'Forensic',
+          title: 'Forensic',
           description: 'When this picture is taken',
           content: (
             <div>

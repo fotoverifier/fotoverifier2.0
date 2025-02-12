@@ -65,7 +65,7 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
           <h3 className="font-semibold mb-2 border rounded-md p-2 w-fit">
             Top Results
           </h3>
-          {searchResult?.map((result, index) => (
+          {searchResult?.splice(0, 3).map((result, index) => (
             <div key={index} className="mb-2">
               <a href={result.redirect_link} className="hover:underline">
                 {index + 1}. {result.title}
