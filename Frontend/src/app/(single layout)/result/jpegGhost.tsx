@@ -16,6 +16,8 @@ interface ImageResultProps {
 
 const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const customSpinIcon = <LoadingOutlined style={{ fontSize: 48, color: "#00000" }} spin />;
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -38,82 +40,79 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             </div>
             <div className={styles.title}>JPEG Ghost</div>
           </div>
-
-          <div onClick={openModal} className="focus:outline-none ml-auto ">
-            <InfoButton></InfoButton>
-          </div>
+         
+            <div onClick={openModal} className="focus:outline-none ml-auto ">
+              <InfoButton></InfoButton>
+            </div>
         </div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
-          <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
-            {/* Header Section */}
-            <div className="flex items-center mb-6">
-              <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2">
-                JPEG Ghost
-              </div>
-              {/* <div className="ml-2"> [Library] </div>
-              <div className="ml-2">
-                The best way to detect abnormalities is to inspect regions with
-                higher reflection.
-              </div> */}
-              <div className="ml-2">
-                <span className="text-red-500">* </span>The tampered region is
-                highlighted with dark color.
-              </div>
-              <div
+           {loading ? (
+            // Loading Spinner Section with Box
+            <div className="relative p-6 bg-white rounded-lg shadow-md border border-gray-300 flex flex-col items-center gap-4">
+              {/* Spinner */}
+              <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: "#4caf50" }} spin />} />
+
+              {/* Loading Message */}
+              <p className="text-gray-700 text-lg font-medium">Loading... Please wait</p>
+
+              {/* Close Button */}
+              <button
                 onClick={closeModal}
-                className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer "
+                className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition duration-300"
               >
                 ×
-              </div>
+              </button>
             </div>
+          )   : (
+            // Modal Content Section
+            <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
+              {/* Header Section */}
+              <div className="flex items-center mb-6">
+                <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2">
+                  JPEG Ghost
+                </div>
+                <div className="ml-2">
+                  <span className="text-red-500">* </span>The tampered region is highlighted with dark color.
+                </div>
+                <div
+                  onClick={closeModal}
+                  className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
+                >
+                  ×
+                </div>
+              </div>
 
-            {/* Three-column Section */}
-            <div className="flex flex-1 border-t pt-4">
-              {/* First Section */}
-              {/* <div className="flex-1 p-4 border-r border-gray-200">
-                <div className="flex mb-2 items-center">
-                  <h3 className="font-semibold">Section 1</h3>
-                  <div className="ml-2">[Implementation]</div>
+              {/* Three-column Section */}
+              <div className="flex flex-1 border-t pt-4">
+                {/* Grid Section */}
+                <div className="flex-[2] grid grid-cols-3 gap-4">
+                  {qualities.map((quality, index) => (
+                    <div key={index} className="p-4">
+                      <h3 className="font-semibold mb-2">{quality.title}</h3>
+                      {quality.img ? (
+                        <div className="h-3/4 flex justify-center items-center">
+                          <Image
+                            src={quality.img}
+                            alt={`Placeholder for ${quality.title}`}
+                            width={150}
+                            height={150}
+                            className="mb-2"
+                            unoptimized
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-3/4 flex justify-center items-center">
+                          No image available
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <div className="h-3/4 flex justify-center items-center">
-                  <Image
-                    src={placeholder}
-                    alt="Placeholder for Section 1"
-                    width={150}
-                    height={150}
-                    className="mb-2"
-                  />
-                </div>
-                Content for first section
-              </div> */}
-              {/* Grid Section */}
-              <div className="flex-[2] grid grid-cols-3 gap-4">
-                {qualities.map((quality, index) => (
-                  <div key={index} className="p-4">
-                    <h3 className="font-semibold mb-2">{quality.title}</h3>
-                    {quality.img ? (
-                      <div className="h-3/4 flex justify-center items-center">
-                        <Image
-                          src={quality.img}
-                          alt={`Placeholder for ${quality.title}`}
-                          width={150}
-                          height={150}
-                          className="mb-2"
-                          unoptimized
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-3/4 flex justify-center items-center">
-                        No image available
-                      </div>
-                    )}
-                  </div>
-                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
       <div className={styles.image_container}>

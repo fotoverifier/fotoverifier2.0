@@ -33,9 +33,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
         ))}
       </div> */}
       {loading ? (
-        <Flex align="center" gap="middle">
-          <Spin indicator={<LoadingOutlined spin />} />
-        </Flex>
+        <></>
       ) : (
         <div className="grid grid-cols-3 gap-4 overflow-scroll max-h-40">
           {tags.map((tag, index) => (
