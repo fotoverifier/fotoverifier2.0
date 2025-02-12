@@ -46,7 +46,7 @@ const Res2 = () => {
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);    
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     if (wsUrls) {
       try {
@@ -69,10 +69,16 @@ const Res2 = () => {
             // Handling different tasks based on the WebSocket message
             switch (message.task) {
               case 'ela':
-                if (message.result === 'completed') ws.close();
-                else {
+                if (message.result !== 'completed') {
                   setElaResult(message.result);
                   setLoadingEla(false);
+                }
+                break;
+              case 'recognize_image':
+                if (message.result === 'completed') ws.close()
+                else {
+                  setTagResult(message.result);
+                  setLoadingTagResult(false);
                 }
                 break;
               case 'exif_check':
@@ -93,12 +99,7 @@ const Res2 = () => {
                   setLoadingJpegGhost(false);
                 }
                 break;
-              case 'recognize_image':
-                if (message.result !== 'completed') {
-                  setTagResult(message.result);
-                  setLoadingTagResult(false);
-                }
-                break;
+              
               default:
                 console.log('Unknown task type:', message.task);
                 break;
@@ -132,10 +133,7 @@ const Res2 = () => {
               <Image_Result img={img} />
             </div>
             <div className={styles.Result_container}>
-              <JpegGhostResult
-                images={jpegResult}
-                loading={loadingJpegGhost}
-              />
+              <JpegGhostResult images={jpegResult} loading={loadingJpegGhost} />
             </div>
             <div className={styles.Result_container}>
               <ElaResult
@@ -144,8 +142,6 @@ const Res2 = () => {
               />
             </div>
           </div>
-
-
 
           {/* <div className={styles.Third_content_container}>
             <div className={styles.Result_container}>
@@ -239,17 +235,19 @@ const Res2 = () => {
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
 
               <div className="w-1/3 h-full">
-              <div className='h-1/2'> 
-                <ReverseImgResult
-                  searchResult={SearchResult}
-                  loading={loadingReverseImageSearch}
-                />
+                <div className="h-1/2">
+                  <ReverseImgResult
+                    searchResult={SearchResult}
+                    loading={loadingReverseImageSearch}
+                  />
                 </div>
-                <div className='h-1/2'>
-                  <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
+                <div className="h-1/2">
+                  <ImgTagging_Result
+                    Tag={tagResult}
+                    loading={loadingTagResult}
+                  />
                 </div>
               </div>
-
             </div>
           ),
         },
@@ -269,35 +267,38 @@ const Res2 = () => {
               </div>
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
               <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
-                  {/* Title */}
-                  <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
-                      <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
-                        <FiMapPin size={16} /> {/* Icon */}
-                      </div>
-                      Detecting Image Location
-                    </h3>
-
-                  {/* List of Techniques */}
-                  <ul className="space-y-3 text-sm text-gray-700">
-                    <li className="flex items-start">
-                      <span className="mr-2 text-blue-500">✔</span>
-                      Extract location from EXIF metadata.
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-blue-500">✔</span>
-                      Use image matching algorithms (e.g., SIFT) for comparative analysis.
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-blue-500">✔</span>
-                      Analyze visual features (e.g., landmarks) with AI models trained on geotagged data.
-                    </li>
-                  </ul>
-
-                  {/* Additional Task */}
-                  <div className="mt-4 text-sm text-gray-600">
-                    Reverse geolocation can convert coordinates into readable addresses.
+                {/* Title */}
+                <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
+                  <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
+                    <FiMapPin size={16} /> {/* Icon */}
                   </div>
+                  Detecting Image Location
+                </h3>
+
+                {/* List of Techniques */}
+                <ul className="space-y-3 text-sm text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-blue-500">✔</span>
+                    Extract location from EXIF metadata.
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-blue-500">✔</span>
+                    Use image matching algorithms (e.g., SIFT) for comparative
+                    analysis.
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-blue-500">✔</span>
+                    Analyze visual features (e.g., landmarks) with AI models
+                    trained on geotagged data.
+                  </li>
+                </ul>
+
+                {/* Additional Task */}
+                <div className="mt-4 text-sm text-gray-600">
+                  Reverse geolocation can convert coordinates into readable
+                  addresses.
                 </div>
+              </div>
             </div>
           ),
         },
@@ -374,25 +375,27 @@ const Res2 = () => {
             </span>
           </div>
 
-         <div className="relative group">
-           <div onClick={() => setIsModalOpen(true)} className="focus:outline-none ml-auto">
-            <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
-              <TiExport />
-               </div>
+          <div className="relative group">
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="focus:outline-none ml-auto"
+            >
+              <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
+                <TiExport />
+              </div>
             </div>
-            <Modal_PReport 
-              isOpen={isModalOpen} 
-              closeModal={() => setIsModalOpen(false)} 
+            <Modal_PReport
+              isOpen={isModalOpen}
+              closeModal={() => setIsModalOpen(false)}
               jpegResult={jpegResult}
               elaResult={elaResult}
-              elaCommentary={elaCommentary}
               tagResult={tagResult}
               loadingJpegGhost={loadingJpegGhost}
               loadingEla={loadingEla}
               loadingTagResult={loadingTagResult}
-            />           
+            />
 
-           <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
+            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
               Generate a portable report
             </span>
           </div>

@@ -1,18 +1,17 @@
-import React, { useRef } from "react";
-import { toPng, toJpeg } from "html-to-image";
-import JpegGhostResult from "@/app/(single layout)/result/jpegGhost";
-import ElaResult from "@/app/(single layout)/result/ela";
-import ImgTagging_Result from "@/app/(single layout)/result/osm_tags";
-import { FiEdit } from "react-icons/fi";
+import React, { useRef } from 'react';
+import { toPng, toJpeg } from 'html-to-image';
+import JpegGhostResult from '@/app/(single layout)/result/jpegGhost';
+import ElaResult from '@/app/(single layout)/result/ela';
+import ImgTagging_Result from '@/app/(single layout)/result/osm_tags';
+import { FiEdit } from 'react-icons/fi';
 
 interface ModalPReportProps {
   isOpen: boolean;
   closeModal: () => void;
   jpegResult: string[] | null;
-  elaResult: string  | null;
-  elaCommentary: string  | null;
-  tagResult: any  | null;
-  loadingJpegGhost: boolean ;
+  elaResult: string | null;
+  tagResult: any | null;
+  loadingJpegGhost: boolean;
   loadingEla: boolean;
   loadingTagResult: boolean;
 }
@@ -22,7 +21,6 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
   closeModal,
   jpegResult,
   elaResult,
-  elaCommentary,
   tagResult,
   loadingJpegGhost,
   loadingEla,
@@ -30,19 +28,19 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
 }) => {
   const contentRef = useRef<HTMLDivElement>(null); // Reference only for content section
 
-  const handleExport = (format: "png" | "jpeg") => {
+  const handleExport = (format: 'png' | 'jpeg') => {
     if (contentRef.current) {
-      const exportFunction = format === "png" ? toPng : toJpeg;
+      const exportFunction = format === 'png' ? toPng : toJpeg;
 
       exportFunction(contentRef.current)
         .then((dataUrl) => {
-          const link = document.createElement("a");
+          const link = document.createElement('a');
           link.href = dataUrl;
           link.download = `content-section.${format}`;
           link.click();
         })
         .catch((error) => {
-          console.error("Error exporting image:", error);
+          console.error('Error exporting image:', error);
         });
     }
   };
@@ -61,13 +59,13 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               {/* Export Buttons */}
               <div className="ml-4 flex space-x-2">
                 <div
-                  onClick={() => handleExport("png")}
+                  onClick={() => handleExport('png')}
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 cursor-pointer"
                 >
                   Export PNG
                 </div>
                 <div
-                  onClick={() => handleExport("jpeg")}
+                  onClick={() => handleExport('jpeg')}
                   className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 cursor-pointer"
                 >
                   Export JPEG
@@ -91,50 +89,52 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               {/* JPEG Ghost Column */}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">
                 <JpegGhostResult
-                  img={jpegResult
-                    ? `data:image/jpeg;base64,${jpegResult[4]}`
-                    : ""}
-                  loading={loadingJpegGhost} commentary={0}                />
+                  images={jpegResult ? jpegResult : []}
+                  loading={loadingJpegGhost}
+                />
               </div>
 
               {/* ELA Column */}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">
                 <ElaResult
                   img={`data:image/jpeg;base64,${elaResult}`}
-                  commentary={Number(elaCommentary)}
                   loading={loadingEla}
                 />
               </div>
 
               {/* Image Tagging Column */}
-             <div className="flex-1 p-2 ">
+              <div className="flex-1 p-2 ">
                 <div className="flex items-center justify-center h-full">
-                <div className="flex flex-col gap-2 h-full w-full text-base">
-                  {/* Image Tagging Result Section */}
-                  <div className="h-2/3 flex  items-center justify-center">
-                    <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
-                  </div>
-
-                  {/* Author Note Section */}
-                  <div className="flex-1 flex flex-col h-1/3 border rounded-lg shadow-md p-4 bg-gray-50">
-                    {/* Title Section with Icon */}
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-2">
-                        <FiEdit className="text-blue-500" size={18} />
-                        <h4 className="font-semibold text-lg text-gray-800">Author Note</h4>
-                      </div>
+                  <div className="flex flex-col gap-2 h-full w-full text-base">
+                    {/* Image Tagging Result Section */}
+                    <div className="h-2/3 flex  items-center justify-center">
+                      <ImgTagging_Result
+                        Tag={tagResult}
+                        loading={loadingTagResult}
+                      />
                     </div>
 
-                    {/* Textarea Section */}
-                    <textarea
-                      className="flex-1 border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white placeholder-gray-400"
-                      placeholder="Write your comment here..."
-                    ></textarea>
+                    {/* Author Note Section */}
+                    <div className="flex-1 flex flex-col h-1/3 border rounded-lg shadow-md p-4 bg-gray-50">
+                      {/* Title Section with Icon */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <FiEdit className="text-blue-500" size={18} />
+                          <h4 className="font-semibold text-lg text-gray-800">
+                            Author Note
+                          </h4>
+                        </div>
+                      </div>
+
+                      {/* Textarea Section */}
+                      <textarea
+                        className="flex-1 border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white placeholder-gray-400"
+                        placeholder="Write your comment here..."
+                      ></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
-              </div>
-
             </div>
           </div>
         </div>
