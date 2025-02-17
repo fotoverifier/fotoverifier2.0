@@ -46,6 +46,14 @@ const Res2 = () => {
     useState<boolean>(true);
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
+  var completedTasks = new Set();
+  const totalTasks = [
+    'jpeg_ghost',
+    'ela',
+    'exif_check',
+    'reverse_image_search',
+    'recognize_image',
+  ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
@@ -76,8 +84,7 @@ const Res2 = () => {
                 }
                 break;
               case 'recognize_image':
-                if (message.result === 'completed') ws.close();
-                else {
+                if (message.result !== 'completed') {
                   setTagResult(message.result);
                   setLoadingTagResult(false);
                 }
@@ -105,12 +112,20 @@ const Res2 = () => {
                 console.log('Unknown task type:', message.task);
                 break;
             }
+            if (message.result === 'completed') {
+              completedTasks.add(message.task);
+            }
+
+            // Close WebSocket only if all tasks are completed
+            if (completedTasks.size === totalTasks.length) {
+              ws.close();
+            }
           } catch (error) {
             console.error('Failed to parse wsUrls:', error);
           }
         };
         ws.onerror = (error) => {
-          return;
+          console.error('WebSocket Error:', error);
         };
         return () => {
           if (ws.readyState === WebSocket.OPEN) {
@@ -204,9 +219,10 @@ const Res2 = () => {
                   <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
                     <Image
                       src={
-                        exifResult?.camera_information?.camera_image?.image_results?.[0].original || unknown_author
+                        exifResult?.camera_information?.camera_image
+                          ?.image_results?.[0].original || unknown_author
                       }
-                      alt='Camera Image'
+                      alt="Camera Image"
                       width={210}
                       height={210}
                     />
@@ -227,16 +243,17 @@ const Res2 = () => {
                     </div>
                   </div>
                   <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
-                  <Image
+                    <Image
                       src={
-                        exifResult?.author_copyright?.author_image?.image_results?.[0].original || unknown_author
+                        exifResult?.author_copyright?.author_image
+                          ?.image_results?.[0].original || unknown_author
                       }
-                      alt='Camera Image'
+                      alt="Camera Image"
                       width={200}
                       height={200}
-                      objectFit='contain'
+                      objectFit="contain"
                     />
-                    </div>
+                  </div>
 
                   <div className="h-1/6 w-full py-2">
                     <div className="flex p-5 border-2 rounded-xl">

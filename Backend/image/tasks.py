@@ -37,7 +37,7 @@ def process_exif_check(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
@@ -73,7 +73,7 @@ def process_reverse_image_search(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
@@ -109,7 +109,7 @@ def process_jpeg_ghost(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
@@ -145,7 +145,7 @@ def process_super_resolution(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
@@ -181,7 +181,7 @@ def process_recognize_objects(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
@@ -217,7 +217,7 @@ def process_ela(image_id):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             f'task_{image_id}',
-            {type: 'task_error', 'message': error_message}
+            {'type': 'task_error', 'message': error_message}
         )
         raise e
 
