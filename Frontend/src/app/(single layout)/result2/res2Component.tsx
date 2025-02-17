@@ -23,7 +23,7 @@ import Modal_PReport from '@/components/modal/PReport_modal';
 import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
-import placeholder from '@/assets/placeholder.png';
+import unknown_author from '@/assets/unknown_author.jpg';
 
 const Res2 = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -204,7 +204,7 @@ const Res2 = () => {
                   <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
                     <Image
                       src={
-                        exifResult?.camera_information?.camera_image?.image_results?.[0].original || placeholder
+                        exifResult?.camera_information?.camera_image?.image_results?.[0].original || unknown_author
                       }
                       alt='Camera Image'
                       width={210}
@@ -229,7 +229,7 @@ const Res2 = () => {
                   <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
                   <Image
                       src={
-                        exifResult?.author_copyright?.author_image?.image_results?.[0].original || placeholder
+                        exifResult?.author_copyright?.author_image?.image_results?.[0].original || unknown_author
                       }
                       alt='Camera Image'
                       width={200}
