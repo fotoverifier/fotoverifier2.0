@@ -120,7 +120,6 @@ media/*/*.jpg
 
 # Large models
 Backend/algorithms/*.pth
-Backend/algorithms/test.py
 
 # Docker
 .dockerignore
