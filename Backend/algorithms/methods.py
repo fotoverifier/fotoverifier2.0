@@ -143,7 +143,7 @@ def check_camera_information(tags):
         "focal_length": str(get_if_exist(tags, 'EXIF FocalLength')),
         "iso_speed": str(get_if_exist(tags, 'EXIF ISOSpeedRatings')),
         "flash": str(get_if_exist(tags, 'EXIF Flash')),
-        "camera_image": image_search(str(get_if_exist(tags, 'Image Make')), str(get_if_exist(tags, 'Image Model')))
+        "camera_image": image_search(str(get_if_exist(tags, 'Image Make')))
     }
 
 def check_gps_location(raw_metadata):
