@@ -258,8 +258,8 @@ def jpeg_ghost(file_path):
         # Compute difference and average over RGB
         for z in range(zdim):
             ghostmap[:, :, i] += np.square(shifted_original[:, :, z].astype(np.double) - tmpResave[:, :, z])
-
         ghostmap[:, :, i] /= zdim
+        
     # Compute average over larger area
     averagingBlock = 16
     blkE = np.zeros((int((ydim) / averagingBlock), int((xdim) / averagingBlock), nQ))
@@ -285,21 +285,52 @@ def jpeg_ghost(file_path):
         quality = Qmin + c * Qstep
         if 30 <= quality <= 80:
             # Create a new figure for quality level from 30 to 80
-            plt.figure(figsize=(xdim / 100, ydim / 100))
+            plt.figure(figsize=(xdim / 30, ydim / 30))
             plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
             plt.axis("off")
             plt.draw()
             
             image_filename = f"jpeg_ghost_quality_{quality}.png"
             image_path = os.path.join("media", image_filename)
-            plt.savefig(image_path, format="png", dpi=200)
+            plt.savefig(image_path, format="png", dpi=300)
             plt.close()
 
             upload_result = cloudinary.uploader.upload(image_path)
             image_url = upload_result["secure_url"]
             image_urls.append(image_url)
+    
+    ghost_img = compute_jpeg_ghost_gimp(original)
+    
+    ghost_image_filename = "jpeg_ghost_gimp_style.png"
+    ghost_image_path = os.path.join("media", ghost_image_filename)
+    cv2.imwrite(ghost_image_path, ghost_img)
+
+    upload_result = cloudinary.uploader.upload(ghost_image_path)
+    image_urls.append(upload_result["secure_url"])  # Append 7th image URL
 
     return image_urls
+
+def compute_jpeg_ghost_gimp(original):
+    """Generate JPEG Ghost image using a technique similar to GIMP"""
+    quality = 80  # Set to a mid-range quality factor
+
+    # Save and reload at lower quality
+    tempvar1 = cv2.imencode(".jpg", original, [int(cv2.IMWRITE_JPEG_QUALITY), quality])[1].tobytes()
+    tempcar2 = np.frombuffer(tempvar1, np.byte)
+    lower_quality = cv2.imdecode(tempcar2, cv2.IMREAD_ANYCOLOR).astype(np.float64)
+
+    # Compute difference
+    diff = np.abs(original - lower_quality)
+    
+    # Normalize to range 0-255
+    diff = (diff - diff.min()) / (diff.max() - diff.min()) * 255
+    diff = diff.astype(np.uint8)
+
+    # Apply heatmap-like visualization
+    heatmap = cv2.applyColorMap(diff, cv2.COLORMAP_JET)
+
+    return heatmap
+
 
 def super_resolution(file_path):
     """Apply super resolution to an image using a pre-trained model"""

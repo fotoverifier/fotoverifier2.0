@@ -22,7 +22,6 @@ class TaskConsumer(AsyncWebsocketConsumer):
         
         messages = pop_messages(self.task_id)
         for message in messages:
-            print(f"Sending buffered message: {message}")
             await self.send(text_data=json.dumps(message))
         
         self.redis_client = redis.from_url(os.environ.get('REDIS_URL'))

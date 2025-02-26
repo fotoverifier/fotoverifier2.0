@@ -71,9 +71,10 @@ const Res2 = () => {
           console.log('Websocket closed at ', wsUrlObj.websocket_url);
         };
         ws.onmessage = (event) => {
+          const message = JSON.parse(event.data);
+          console.log('Message:', message);
           try {
-            const message = JSON.parse(event.data);
-            console.log('Message:', message);
+            
 
             // Handling different tasks based on the WebSocket message
             switch (message.task) {

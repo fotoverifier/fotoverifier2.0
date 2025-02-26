@@ -124,7 +124,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             style={{ height: '90%' }}
           >
             <Image
-              src={typeof images?.[4] === 'string' ? images[4] : placeholder}
+              src={typeof images?.[6] === 'string' ? images[6] : placeholder}
               alt="JPEG Ghost Result"
               width={150}
               height={150}
