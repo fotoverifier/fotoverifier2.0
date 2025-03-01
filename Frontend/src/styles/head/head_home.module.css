@@ -1,4 +1,4 @@
-.header-container {
+.header_container {
   height: 8.5%;
   width: 100%;
   background: #03564a;
@@ -9,13 +9,13 @@
   padding: 0 1rem;
 }
 
-.header-icon {
+.header_icon {
   display: flex;
   width: 20%;
   height: 100%;
 }
 
-.image-wrapper {
+.image_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@
   height: 100%;
 }
 
-.vertical-line-header {
+.vertical_line_header {
   align-self: center;
   width: 1px;
   height: 70%;
@@ -31,18 +31,18 @@
   background-color: white;
 }
 
-.header-icon img {
+.header_icon img {
   object-fit: cover;
 }
 
-.header-shortcuts {
+.header_shortcuts {
   display: flex;
   width: 30%;
   height: 100%;
   justify-content: space-around;
 }
 
-.header-shortcuts button {
+.header_shortcuts button {
   width: auto;
   height: 100%;
   display: flex;
@@ -51,7 +51,7 @@
   padding: 0 1rem;
 }
 
-.header-go {
+.header_go {
   width: 20%;
   height: 100%;
   display: flex;
@@ -60,83 +60,82 @@
   align-items: center;
 }
 
-.header-dashboard-button {
+.header_dashboard_button {
   width: 80%;
   height: 60%;
   border-color: white;
   border-width: 1px;
-  border-radius: 5px;
+  border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.2s ease-in-out;
 }
 
-.header-dashboard-button:hover {
+.header_dashboard_button:hover {
   background-color: #02bea2;
   cursor: pointer;
 }
 
-.header-go:hover {
+.header_go:hover {
   cursor: default;
 }
 
-.header-button {
+.header_button {
   transition: transform 0.2s ease-in-out;
   border: 0;
 }
 
-.header-button:hover {
+.header_button:hover {
   background-color: transparent;
   transform: scale(1.2);
 }
 
 /* Media Queries for Responsive Design */
 @media (max-width: 1200px) {
-  .header-container {
+  .header_container {
     height: 10%;
   }
-  .header-shortcuts {
+  .header_shortcuts {
     width: 40%;
   }
-  .header-go {
+  .header_go {
     width: 25%;
-    
   }
 }
 
 @media (max-width: 992px) {
-  .header-container {
+  .header_container {
     height: auto;
     flex-direction: column;
     align-items: flex-start;
   }
-  .header-icon {
+  .header_icon {
     width: 100%;
     justify-content: center;
   }
-  .vertical-line-header {
+  .vertical_line_header {
     display: none;
   }
-  .header-shortcuts {
+  .header_shortcuts {
     width: 100%;
     justify-content: space-around;
   }
-  .header-go {
+  .header_go {
     width: 100%;
     justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
-  .header-container {
+  .header_container {
     height: auto;
     padding: 1rem 0;
   }
-  .header-shortcuts button {
+  .header_shortcuts button {
     padding: 0.5rem 1rem;
   }
-  .header-dashboard-button {
+  .header_dashboard_button {
     width: 100%;
     height: auto;
     padding: 0.5rem 1rem;
@@ -144,23 +143,23 @@
 }
 
 @media (max-width: 576px) {
-  .header-container {
+  .header_container {
     height: auto;
     padding: 1rem 0;
   }
-  .header-shortcuts {
+  .header_shortcuts {
     flex-direction: column;
     width: 100%;
   }
-  .header-shortcuts button {
+  .header_shortcuts button {
     width: 100%;
     margin-bottom: 0.5rem;
   }
-  .header-go {
+  .header_go {
     width: 100%;
     justify-content: center;
   }
-  .header-dashboard-button {
+  .header_dashboard_button {
     width: 100%;
     height: auto;
     padding: 0.5rem 1rem;

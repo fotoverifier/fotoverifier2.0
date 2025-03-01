@@ -1,0 +1,122 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: transparent; /* Default state */
+  transition: background 0.3s ease-in-out;
+  z-index: 50;
+  font-family: 'Montserrat', 'Source Code Pro', monospace;
+}
+
+.scrolled {
+  background:  #03564a!important;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔰 Header Icons */
+.header_icon {
+  display: flex;
+  width: 20%;
+  height: 100%;
+}
+
+.image_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+/* 🧭 Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+}
+.nav_link{
+  color: white;
+}
+
+/* 📌 Vertical Divider Line */
+.head_line {
+  height: 100%;
+  width: 3px;
+  background-color: #fef6eb;
+}
+
+/* 🚀 Start Button */
+.start_button {
+  background: #ffcc00;
+  color: #03564a;
+  padding: 0.7rem 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.start_button:hover {
+  background: #e6b800;
+}
+/* 🌍 Language Dropdown Container */
+.lang_dropdown {
+  position: relative;
+  display: inline-block;
+  z-index: 100;
+}
+
+/* 🏆 Dropdown Toggle Button */
+.lang_toggle {
+  background: white;
+  border: 2px solid white;
+  color: #03564a;
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 📜 Dropdown Menu */
+.dropdown_menu {
+  position: absolute;
+  top: 100%; /* Make sure it appears right below */
+  left: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  min-width: 160px;
+  z-index: 200; /* Ensure it appears above everything */
+}
+
+/* 🌐 Dropdown Items */
+.dropdown_item {
+  padding: 8px 16px;
+  color: #03564a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown_item:hover {
+  background: #027d66;
+  color: white;
+}
