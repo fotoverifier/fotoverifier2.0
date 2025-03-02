@@ -14,7 +14,7 @@ const categories = [
   {
     name: "Meta-data Analysis",
     slug: "meta-data_analysis",
-    icon: <MdAnalytics size={20} />, // 📊 Icon
+    icon: <MdAnalytics size={20} />,
     subcategories: ["Lesson 1", "Lesson 2"],
   },
   {
@@ -56,7 +56,6 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
       <div
         className={`bg-white ${isSidebarOpen ? "w-1/4" : "w-[9%]"} p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
       >
-        {/* Sidebar Header */}
         <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-between mb-4 border-2 relative">
           <div className="flex items-center">
             <div className="p-2 text-green-800 bg-green-100 rounded-full mr-3">
@@ -65,7 +64,6 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
             {isSidebarOpen && <h1 className="text-xl font-bold text-green-800 overflow-hidden text-ellipsis whitespace-nowrap">Forensic Techniques</h1>}
           </div>
 
-          {/* Toggle Button - Positioned to the Right with Small Gap */}
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all"
@@ -101,7 +99,6 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
                 )}
               </div>
 
-              {/* Subcategories (Only Show If Expanded) */}
               {isSidebarOpen &&
                 expandedCategory === category.slug &&
                 category.subcategories.length > 0 && (

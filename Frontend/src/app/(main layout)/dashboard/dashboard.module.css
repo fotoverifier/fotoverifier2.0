@@ -6,6 +6,8 @@
     align-items: center;
 }
 
+
+
 .content_fcontainer {
     width: 50%;
     height: 100%;
@@ -25,6 +27,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.fcontainer_foot {
+    width: fit-content;
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: #4da8da;  /* Soft light blue */
+    color: #fff8dc;  /* Warm cream-white for contrast */
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;  /* Enhances emphasis */
+    letter-spacing: 1px;  /* Adds subtle refinement */
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2); /* Slight depth for emphasis */
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.fcontainer_foot:hover {
+    background: #68c2e8; /* Slightly brighter blue on hover */
+    transform: translateY(-2px); /* Subtle hover lift */
 }
 
 .dashboard_categories {

@@ -1,13 +1,16 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import "@/app/(main layout)/upload/gridcss.css";
-import { Inter, Poppins } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({subsets: ["latin"], weight:"700"});
+import {Poppins, Noto_Sans, Roboto_Mono} from "next/font/google";
+
 import { IoIosCloseCircle, IoMdMenu } from "react-icons/io";
 import { RiMindMap } from "react-icons/ri";
 import { FcMindMap } from "react-icons/fc";
 import { BiSolidBook } from "react-icons/bi";
+
+const poppins = Poppins({ subsets: ["latin"], weight: "700" });
+const sourceCodePro = Roboto_Mono({ subsets: ["latin"], weight: "400" });
+
 interface MethodBoxProps {
   id: string;
   label: string;
@@ -23,11 +26,11 @@ interface ScanType {
 const scanTypes: Record<string, ScanType> = {
   normal: {
     list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment"],
-    description: "Equipped with comprehensive and multiple layers of detection."
+    description: "Equipped with fast multiple layers of detection."
   },
   deep: {
     list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Search"],
-    description: "Provide assessment with efficient and fast algorithms to detect abnormalities."
+    description: "Provide assessment with more complex algorithms to detect abnormalities."
   },
   specialized: {
     list_of_algo: ["JPEG Ghost", "DCA/LCA", "JPEG Alignment", "Reverse Search", "EXIF Data"],
@@ -92,7 +95,7 @@ const Method_Box: React.FC<MethodBoxProps> = ({ id, label, isSelected, onSelect,
           </div>
         )}
     </div>
-    <div className="font-normal text-sm p-2">
+    <div className={`font-normal text-sm p-2 ${sourceCodePro.className}`}>
         {currentScan ? currentScan.description : "No description available."}
       </div>
     </div>

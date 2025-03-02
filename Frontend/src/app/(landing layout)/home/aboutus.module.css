@@ -21,6 +21,9 @@ padding: 1rem;
 }
 
 .title {
+  display: flex;
+  gap: 30px;
+  align-items: center;
   position: relative;
   font-size: 3rem;
   font-weight: 700;

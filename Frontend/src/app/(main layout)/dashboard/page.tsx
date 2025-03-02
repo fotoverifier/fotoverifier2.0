@@ -68,6 +68,8 @@ const home = () => {
             />
           ))}
       </div>
+      <div className={styles.space}></div>
+      <div className={`font-bold ${styles.fcontainer_foot}`}> Uncover the truth behind every image </div>
       </div>
       <div className={styles.vertical_bar}></div>
       <div className={styles.content_fcontainer}> 
@@ -88,6 +90,10 @@ const home = () => {
             />
           ))}
       </div>
+
+      <div className={styles.space}></div>
+
+      <div className={`font-bold ${styles.fcontainer_foot}`}> Explore our step-by-step tutorials today</div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import Link from "next/link";
 import Pattern from "@/assets/Group 52.svg"; // Updated naming format
 import FeedBackModal from "./modal/feedback_modal/feedback_modal";
 import styles from "@/styles/banner.module.css"; // Importing styles
+import { LuPaperclip } from "react-icons/lu";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
@@ -28,19 +29,18 @@ const Banner = () => {
       </nav>
 
       <div className={`${styles.primary_container} flex`}>
-        {/* Left Side Text Section */}
-        <div className="w-2/3 h-full p-5 flex flex-col justify-center">
+        <div className="w-2/3 h-full p-5 flex flex-col justify-center ">
           <p>
             This is a tool for detecting image tampering using Digital Image
             Forensics techniques, aiming to provide both professional as well as
             casual users with reliable tools to verify images.
           </p>
-
-          {/* New "Our Development Plan" Button under the text */}
+          <div className="flex gap-3">
           <div className={styles.plan_button}>Our Development Plan</div>
+          <div className={`flex ${styles.plan_button} items-center gap-3`}> <LuPaperclip /> Our Paper</div>
+           </div>
         </div>
 
-        {/* Right Side Image Section */}
         <div className="w-1/3 h-full">
           <Image
             src={Pattern}

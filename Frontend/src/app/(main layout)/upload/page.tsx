@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import '@/app/(main layout)/upload/upload.css';
+import styles from "@/app/(main layout)/upload/upload.module.css"
 import { TbExchange } from 'react-icons/tb';
 import Image from 'next/image';
-import { Montserrat, Inter } from 'next/font/google';
+import { Montserrat, Inter, Poppins } from 'next/font/google';
 import Method_Box from './itemgrid';
 import { FaAngleDown } from 'react-icons/fa6';
 import LoadingModal from '@/components/loading_modal';
@@ -15,7 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const montserrat = Montserrat({
   subsets: ['latin'],
 });
-const inter = Inter({ subsets: ['latin'] });
+const inter = Poppins({ subsets: ['latin'],weight:"700" });
 
 const Upload = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -176,68 +176,46 @@ const Upload = () => {
     }
   };
 
-  return (
-    <div className="main-up-container">
-      <div className="seven-up-container">
+   return (
+    <div className={styles.main_up_container}>
+      <div className={styles.seven_up_container}>
         <div className="w-full h-full ml-10">
-          <div className="helper-title">
+          <div className={styles.helper_title}>
             <div className={`${inter.className} flex items-center`}>
-              <div className="circle mr-4 "> 1. </div>
+              <div className={`${styles.circle} mr-4`}>1.</div>
               Photo Input
             </div>
           </div>
-          <div className="input-link">
-            <input
-              type="text"
-              placeholder="Input link"
-              className={`ml-2 ${inter.className}`}
-            />
+          <div className={styles.input_link}>
+            <input type="text" placeholder="Input link" className={`ml-2 ${inter.className}`} />
           </div>
-          <div className="helper-title">
-            <div className="spec-helper">
+          <div className={styles.helper_title}>
+            <div className={styles.spec_helper}>
               <div className={inter.className}>
                 Suitable Size: <span style={{ color: 'red' }}>25MB</span>
               </div>
             </div>
-            <div className="spec-helper">
+            <div className={styles.spec_helper}>
               <div className={inter.className}>
                 Type: <span style={{ color: 'red' }}>PNG, JPEG</span>
               </div>
             </div>
           </div>
-          <div className="input-image">
+          <div className={styles.input_image}>
             {!imageSrc && (
-              <div
-                className="viewer"
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-              >
-                <input
-                  type="file"
-                  id="file-upload"
-                  accept="image/*"
-                  onChange={imageChange}
-                  style={{ display: 'none' }}
-                />
-                <label
-                  htmlFor="file-upload"
-                  className={`custom-file-upload  ${inter.className}`}
-                >
+              <div className={styles.viewer} onDrop={handleDrop} onDragOver={handleDragOver}>
+                <input type="file" id="file-upload" accept="image/*" onChange={imageChange} style={{ display: 'none' }} />
+                <label htmlFor="file-upload" className={`${styles.custom_file_upload} ${inter.className}`}>
                   Choose your files
                 </label>
               </div>
             )}
             {imageSrc && (
               <>
-                <div
-                  className="flex items-center align-middle p-2 justify-center ml-auto"
-                  style={{ height: '10%' }}
-                >
-                  <div className={`mr-2 ${inter.className} font-bold`}>
-                    Change your image
-                  </div>
+                <div className="flex items-center align-middle p-2 justify-center ml-auto" style={{ height: '10%' }}>
+                  <div className={`mr-2 ${inter.className} font-bold`}>Change your image</div>
                   <button>
-                    <TbExchange size={20} onClick={removeImg}></TbExchange>
+                    <TbExchange size={20} onClick={removeImg} />
                   </button>
                 </div>
                 <hr className="separator" />
@@ -266,63 +244,31 @@ const Upload = () => {
           </div>
         </div>
       </div>
-      <div className="three-up-container">
-        <div className="helper-title">
+      <div className={styles.three_up_container}>
+        <div className={styles.helper_title}>
           <div className={`${inter.className} flex items-center`}>
-            <div className="circle mr-4 "> 2. </div>
+            <div className={`${styles.circle} mr-4`}>2.</div>
             Scanning mode
           </div>
         </div>
-        <div className={`${inter.className} choice-container font-semibold`}>
-          <Method_Box
-            id="normal"
-            label="Quick Scan"
-            isSelected={selectedMethod === 'normal'}
-            onSelect={handleMethodSelect}
-            duration="< 1 minute"
-          />
-          <Method_Box
-            id="deep"
-            label="Deep Scan"
-            isSelected={selectedMethod === 'deep'}
-            onSelect={handleMethodSelect}
-            duration="> 1 minute"
-          />
+        <div className={`${styles.choice_container} font-semibold`}>
+          <Method_Box id="normal" label="Quick Scan" isSelected={selectedMethod === 'normal'} onSelect={handleMethodSelect} duration="< 1 minute" />
+          <Method_Box id="deep" label="Deep Scan" isSelected={selectedMethod === 'deep'} onSelect={handleMethodSelect} duration="> 1 minute" />
         </div>
-        <div className="space"></div>
-        <div className={`${inter.className} choice-container font-semibold`}>
-          <Method_Box
-            id="specialized"
-            label="Scan the image by yourself"
-            isSelected={selectedMethod === 'specialized'}
-            onSelect={handleMethodSelect}
-            duration="Specialized mode"
-          />
+        <div className={styles.space}></div>
+        <div className={`${styles.choice_container} font-semibold`}>
+          <Method_Box id="specialized" label="Scan the image by yourself" isSelected={selectedMethod === 'specialized'} onSelect={handleMethodSelect} duration="Specialized mode" />
         </div>
-        <div className="space"> </div>
-        <div className="word-container">
-          <div className={`${inter.className} word-container2`}>
-            <FaAngleDown className="mr-5"></FaAngleDown>
-            For specialized mode, please consider checking our comprehensive
-            tutorials and terminologies.
+        <div className={styles.space}></div>
+        <div className={styles.word_container}>
+          <div className={`${montserrat.className} ${styles.word_container2}`}>
+            <FaAngleDown className="mr-5" />
+            For specialized mode, please consider checking our comprehensive tutorials and terminologies.
           </div>
         </div>
-        <div
-          className={`verify-agree-container ml-5 ${montserrat.className} font-bold mt-5`}
-        >
-          <div
-            className="button"
-            onClick={() => {
-              if (!imageSrc) {
-                toast.error('Please upload an image before verifying.', {theme: 'colored'});
-                return;
-              }
-              handleSubmit();
-            }}
-          >
-            Verify
-          </div>
-          {loading && <LoadingModal message="Uploading image..." />}
+        <div className={`${styles.verify_agree_container} ml-5 ${montserrat.className} font-bold mt-5`}>
+          <div className={styles.button_2} onClick={handleSubmit}>Verify</div>
+           {loading && <LoadingModal message="Uploading image..." />}
           {!loading && uploadComplete && (
             <Link
               href={{

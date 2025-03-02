@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "./aboutus.module.css";
-import { FaFacebook, FaGithub } from "react-icons/fa";
+import { FaChevronRight, FaFacebook, FaGithub } from "react-icons/fa";
 import Wave from "@/animation/wave";
 
 const AboutUs = () => {
@@ -12,14 +12,14 @@ const AboutUs = () => {
     >
       {/* Left - Text Content */}
       <div className={styles.textContainer}>
-        <h2 className={styles.title}>  About <span className={styles.highlight}>US</span></h2>
+        <h2 className={styles.title}>   <FaChevronRight />
+About <span className={styles.highlight}>US</span></h2>
        <div className={styles.description}>
-            <span>Fotoverification</span> is a <span>forensic AI platform</span> that detects and prevents <span>digital fraud</span>.  
-            Powered by <span>HCMUS Security Club</span>, we merge <span>advanced AI</span> with forensic techniques to ensure <span>trust & authenticity</span> in digital content.
+            <span>Fotoverifier</span> provides users with a robust arsenal of tools to detect and analyze <span>image manipulation</span>, ensuring <span>authenticity</span> and <span>integrity</span> in digital content.  
+Powered by <span>HCMUS Security Club</span>, we integrate <span>cutting-edge forensic techniques</span> with advanced detection tools to help users verify <span>the legitimacy of digital media</span>.
             </div> 
       </div>
 
-      {/* Right - Image or Illustration */}
         <motion.div
       className={styles.imageContainer}
       initial={{ opacity: 0, scale: 0.9 }}
