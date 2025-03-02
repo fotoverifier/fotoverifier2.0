@@ -1,22 +1,44 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  height: 110vh; /* Ensures it spans the full height */
+  height: 110vh;
   padding: 4rem 2rem;
   text-align: center;
-  font-family:  'Source Code Pro', monospace;
+  font-family: 'Source Code Pro', monospace;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background: white;
   position: relative;
-  margin-top: -5vh; 
+  margin-top: -5vh;
   overflow: hidden;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-left: none;
   border-right: none;
   border-bottom: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); /* Adjust cell size */
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr)); /* Adjust cell size */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.cell {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.cell:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Glow effect */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect */
 }
 
 
@@ -58,7 +80,6 @@
   color: white;
 }
 
-/* 📖 Features Container */
 .featureContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -66,6 +87,7 @@
   margin-top: 2rem;
   width: 100%;
   max-width: 1100px;
+  z-index: 1;
 }
 
 /* 📚 Feature Cards */

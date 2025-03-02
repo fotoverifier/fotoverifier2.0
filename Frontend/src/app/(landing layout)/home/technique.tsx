@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styles from "./technique.module.css";
 import { Poppins } from "next/font/google";
@@ -46,11 +46,42 @@ const LibraryPage = () => {
     },
   ];
 
+   useEffect(() => {
+    const grid = document.getElementById("grid");
+    const container = document.querySelector(`.${styles.container}`);
+    if (!grid || !container) return;
+
+    const cellSize = 40; // Adjust cell size to match CSS
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    const columns = Math.floor(containerWidth / cellSize);
+    const rows = Math.floor(containerHeight / cellSize);
+
+    for (let i = 0; i < rows * columns; i++) {
+      const cell = document.createElement("div");
+      cell.classList.add(styles.cell);
+
+      // Add hover effect
+      cell.addEventListener("mouseenter", () => {
+        cell.style.backgroundColor = "rgba(8, 255, 255, 0.3)";
+        cell.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.7)";
+      });
+
+      cell.addEventListener("mouseleave", () => {
+        cell.style.backgroundColor = "";
+        cell.style.boxShadow = "";
+      });
+
+      grid.appendChild(cell);
+    }
+  }, []);
+
   return (
     <>
     <div className={styles.container}>
+      <div id="grid" className={styles.grid}></div>
           <motion.div
-        className={styles.featureContainer}
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
@@ -68,10 +99,10 @@ const LibraryPage = () => {
 
           <div className={styles.badgeContainer}>
             <span className={`${styles.badge} ${styles.developer}`}>
-              Developers
+              Professionals
             </span>
             <span className={`${styles.badge} ${styles.designer}`}>
-              Designers
+              Enthusiasts
             </span>
           </div>
         </div>

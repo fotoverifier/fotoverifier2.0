@@ -23,8 +23,8 @@ const Banner = () => {
           Feedback
         </Link>
         <div className={styles.head_line}></div>
-        <Link href="/dashboard">
-          <div className={styles.start_button}>Go to Dashboard</div>
+        <Link href="/home">
+          <div className={styles.start_button}>Go to Home</div>
         </Link>
       </nav>
 
