@@ -83,17 +83,13 @@ const LandingPage2 = () => {
 
             {/* URL Input Field */}
             {isEditing ? (
-              <motion.input
-                type="text"
+              <textarea
                 className={styles.findbyurl_input}
                 placeholder="Enter image URL..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 onBlur={() => setIsEditing(url.trim() !== "")}
                 autoFocus
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
               />
             ) : (
               <motion.div

@@ -48,9 +48,7 @@ const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
         </div>
       </div>
 
-      {/* Right - Navigation */}
       <nav className={styles.nav}>
-        {/* 🌍 Language Dropdown */}
         <div className={styles.lang_dropdown} ref={dropdownRef}>
           <button className={styles.lang_toggle} onClick={toggleDropdown}>
             <Image
@@ -86,7 +84,9 @@ const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
           Feedback
         </Link>
         <div className={styles.head_line}></div>
-        <button className={styles.start_button}>Go to dashboard</button>
+        <Link href="/dashboard">
+        <div className={styles.start_button}>Go to dashboard</div>
+        </Link>
       </nav>
     </header>
   );

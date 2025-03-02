@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "./aboutus.module.css";
 import { FaFacebook, FaGithub } from "react-icons/fa";
+import Wave from "@/animation/wave";
 
 const AboutUs = () => {
   return (
@@ -32,7 +33,7 @@ const AboutUs = () => {
         rel="noopener noreferrer"
         className={`${styles.triangle} ${styles.left}`}
       >
-        <FaFacebook size={60} />
+        <FaFacebook size={60} color="white"/>
       </a>
 
          {/* Right Triangle (GitHub) */}
@@ -42,9 +43,10 @@ const AboutUs = () => {
         rel="noopener noreferrer"
         className={`${styles.triangle} ${styles.right}`}
       >
-        <FaGithub size={60} />
+        <FaGithub size={60}  color="white"/>
       </a>
     </motion.div>
+    <Wave></Wave>
     </div>
   );
 };
