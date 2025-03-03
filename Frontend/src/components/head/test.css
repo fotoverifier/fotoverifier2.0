@@ -1,0 +1,38 @@
+.glow-effect {
+  position: relative;
+  z-index: 200;
+  box-shadow: 0px 0px 15px rgba(255, 255, 0, 0.8);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.help-button {
+  background-color: #f0fdfa;
+  color: #03564a;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 2px solid #03564a;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+.help-button:hover {
+  background-color: #03564a;
+  color: white;
+}
+
+.nav-button {
+  background-color: #03564a;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.nav-button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

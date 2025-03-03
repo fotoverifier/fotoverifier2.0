@@ -144,14 +144,14 @@ const Res2 = () => {
     const tabData = {
       Tampering: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <div className={styles.Seven_content_container}>
-            <div className={styles.Result_container}>
-              <Image_Result img={img} />
-            </div>
-            <div className={styles.Result_container}>
+            <div  className={styles.Seven_content_container}>
+              <div id="help-target" className={styles.Result_container}>
+                  <Image_Result img={img} />
+                </div>
+            <div id="help-target2" className={styles.Result_container}>
               <JpegGhostResult images={jpegResult} loading={loadingJpegGhost} />
             </div>
-            <div className={styles.Result_container}>
+            <div id="help-target3" className={styles.Result_container}>
               <ElaResult
                 img={`data:image/jpeg;base64,${elaResult}`}
                 loading={loadingEla}
@@ -304,15 +304,12 @@ const Res2 = () => {
               </div>
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
               <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
-                {/* Title */}
                 <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
                   <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
-                    <FiMapPin size={16} /> {/* Icon */}
+                    <FiMapPin size={16} /> 
                   </div>
                   Detecting Image Location
                 </h3>
-
-                {/* List of Techniques */}
                 <ul className="space-y-3 text-sm text-gray-700">
                   <li className="flex items-start">
                     <span className="mr-2 text-blue-500">✔</span>
@@ -386,6 +383,7 @@ const Res2 = () => {
 
   return (
     <div className={styles.res_container}>
+      
             <HeaderReport 
           jpegResult={jpegResult}
           elaResult={elaResult}

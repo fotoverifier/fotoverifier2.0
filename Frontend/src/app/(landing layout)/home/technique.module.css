@@ -42,7 +42,7 @@
 }
 .hero {
   margin-bottom: 2rem;
-  z-index: 50;
+  z-index: 20;
 }
 
 .title {
@@ -65,7 +65,7 @@
   padding: 0.5rem 1rem;
   border-radius: 20px;
   display: inline-block;
-  z-index: 50;
+  z-index: 20;
   cursor: pointer;
 }
 
@@ -128,7 +128,7 @@
 
 .ctaContainer {
   margin-top: 2rem;
-    z-index: 50;
+    z-index: 20;
 
 }
 
