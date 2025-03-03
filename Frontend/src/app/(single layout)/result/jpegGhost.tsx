@@ -49,7 +49,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
            {loading ? (
-            // Loading Spinner Section with Box
             <div className="relative p-6 bg-white rounded-lg shadow-md border border-gray-300 flex flex-col items-center gap-4">
               {/* Spinner */}
               <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: "#4caf50" }} spin />} />

@@ -40,11 +40,9 @@
   background-color: rgba(255, 255, 255, 0.3); /* Glow effect */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect */
 }
-
-
-/* 🌟 Hero Section */
 .hero {
   margin-bottom: 2rem;
+  z-index: 50;
 }
 
 .title {
@@ -54,7 +52,6 @@
   font-family: Inter;
 }
 
-/* 🏷️ Developer & Designer Tags */
 .badgeContainer {
   display: flex;
   justify-content: center;
@@ -68,6 +65,8 @@
   padding: 0.5rem 1rem;
   border-radius: 20px;
   display: inline-block;
+  z-index: 50;
+  cursor: pointer;
 }
 
 .developer {
@@ -90,7 +89,6 @@
   z-index: 1;
 }
 
-/* 📚 Feature Cards */
 .card {
   background: white;
   border-radius: 10px;
@@ -128,9 +126,10 @@
   padding: 1rem;
 }
 
-/* 🚀 Call to Action */
 .ctaContainer {
   margin-top: 2rem;
+    z-index: 50;
+
 }
 
 .ctaButton {

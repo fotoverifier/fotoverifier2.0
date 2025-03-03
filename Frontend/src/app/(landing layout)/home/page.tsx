@@ -14,7 +14,6 @@ const LandingPage2 = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [url, setUrl] = useState("");
 
-  // Handle Image Upload
   const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -24,7 +23,6 @@ const LandingPage2 = () => {
     }
   };
 
-  // Remove Image
   const removeImg = () => setImageSrc(null);
 
   return (
@@ -35,7 +33,7 @@ const LandingPage2 = () => {
       initial="hidden"
       animate="visible"
       variants={{
-        visible: { transition: { staggerChildren: 0.3 } }, // Stagger elements
+        visible: { transition: { staggerChildren: 0.3 } }, 
       }}
     >
       {/* Left Section - Text */}

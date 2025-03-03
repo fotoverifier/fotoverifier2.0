@@ -48,10 +48,12 @@
     height: 10%;
     border-radius: 5px;
     margin-top: 5px;
+    font-family: 'Source Code Pro', monospace;
 }
 .res_body_container{
   width: 100%;
   height: 90%;
+  font-family: 'Source Code Pro', monospace;
 }
 .res_header_image {
     object-fit: contain;

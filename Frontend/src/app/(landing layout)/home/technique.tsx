@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./technique.module.css";
 import { Poppins } from "next/font/google";
 import { motion } from "framer-motion";
-
+import PlaceHolder from "@/assets/Group 12.svg";
 const poppins = Poppins({
   subsets: ['latin'],
   weight: '700',
@@ -30,19 +30,19 @@ const LibraryPage = () => {
       title: "Forensic Clarity for Everyone",
       description:
         "Designed for both experts and beginners, with a perfect balance of technical precision and easy-to-understand insights.",
-      imgSrc: "/books/workspace.png",
+      imgSrc: PlaceHolder,
     },
     {
       title: "Seamless & Smart Navigation",
       description:
         "Effortlessly explore forensic tools with our intuitive interface—fast, frustration-free, and designed for instant verification",
-      imgSrc: "/books/handoff.png",
+      imgSrc: PlaceHolder,
     },
     {
       title: "Your Forensic Knowledge Hub",
       description:
         "Instantly access a rich forensic glossary, ensuring every term is clear, precise, and easy to understand for all users.",
-      imgSrc: "/books/design.png",
+      imgSrc: PlaceHolder,
     },
   ];
 
@@ -51,7 +51,7 @@ const LibraryPage = () => {
     const container = document.querySelector(`.${styles.container}`);
     if (!grid || !container) return;
 
-    const cellSize = 40; // Adjust cell size to match CSS
+    const cellSize = 40; 
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
 
@@ -61,8 +61,6 @@ const LibraryPage = () => {
     for (let i = 0; i < rows * columns; i++) {
       const cell = document.createElement("div");
       cell.classList.add(styles.cell);
-
-      // Add hover effect
       cell.addEventListener("mouseenter", () => {
         cell.style.backgroundColor = "rgba(8, 255, 255, 0.3)";
         cell.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.7)";
@@ -86,14 +84,14 @@ const LibraryPage = () => {
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ amount: 0.2 }} // Re-triggers when 20% of the element is visible
+        viewport={{ amount: 0.2 }} 
       >
         <div className={styles.hero}>
           <h1 className={`${styles.title} ${poppins.className}`}>
             Forensic Accuracy, Digital Trust <br />
             Powered by{" "}
             <span className={`text-red-300 ${styles.fotoverification}`}>
-              Fotoverification
+              Fotoverifier V2.0
             </span>
           </h1>
 
@@ -146,7 +144,7 @@ const LibraryPage = () => {
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        viewport={{ amount: 0.2 }} // Re-triggers when 20% of the element is in view
+        viewport={{ amount: 0.2 }}
       >
         <button className={styles.ctaButton}>View all features</button>
       </motion.div>

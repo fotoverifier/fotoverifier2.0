@@ -1,0 +1,19 @@
+.res_header_container {
+  align-self: center;
+  width: 97.5%;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  background-color: #01584bdd;
+  color: white;
+  height: 10%;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.res_header_image {
+  object-fit: contain;
+  margin-left: auto;
+  position: relative;
+}

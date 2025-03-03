@@ -7,22 +7,20 @@ import Wave from "@/animation/wave";
 import { useEffect, useRef, useState } from "react";
 
 const AboutUs = () => {
-  const text = "About US"; // The text to be typed
-  const typingSpeed = 200; // Typing speed in milliseconds
+  const text = "About US";
+  const typingSpeed = 200;
 
   const [displayedText, setDisplayedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
   const [index, setIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
 
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5 }); // Re-triggers when 50% visible
+  const isInView = useInView(ref, { amount: 0.5 }); 
 
   useEffect(() => {
     if (isInView) {
-      // Reset typing effect every time section enters view
       setDisplayedText("");
       setIndex(0);
-      setShowCursor(true); // Ensure cursor is visible when typing starts
     }
   }, [isInView]);
 
@@ -33,12 +31,16 @@ const AboutUs = () => {
         setIndex(index + 1);
       }, typingSpeed);
       return () => clearTimeout(timer);
-    } else if (index === text.length && isInView) {
-      // Delay hiding the cursor AFTER full typing is done
-      const cursorTimeout = setTimeout(() => setShowCursor(false), 500);
-      return () => clearTimeout(cursorTimeout);
     }
   }, [index, text, isInView]);
+
+  useEffect(() => {
+    const cursorBlink = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500); 
+    return () => clearInterval(cursorBlink);
+  }, []); 
+
   return (
     <div
       className={styles.aboutUsContainer}
@@ -51,7 +53,7 @@ const AboutUs = () => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ amount: 0.5 }} // Triggers animation when 50% visible
+      viewport={{ amount: 0.5 }} 
     >
       <FaChevronRight /> {displayedText}
       {showCursor && <span className={styles.cursor}>|</span>}
@@ -59,7 +61,7 @@ const AboutUs = () => {
 
        <div className={styles.description}>
             <span>Fotoverifier</span> provides users with a robust arsenal of tools to detect and analyze <span>image manipulation</span>, ensuring <span>authenticity</span> and <span>integrity</span> in digital content.  
-Powered by <span>HCMUS Security Club</span>, we integrate <span>cutting-edge forensic techniques</span> with advanced detection tools to help users verify <span>the legitimacy of digital media</span>.
+          Powered by <span>HCMUS Security Club</span>, we integrate <span>cutting-edge forensic techniques</span> with advanced detection tools to help users verify <span>the legitimacy of digital media</span>.
             </div> 
       </div>
 
