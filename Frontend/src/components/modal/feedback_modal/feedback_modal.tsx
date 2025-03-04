@@ -81,14 +81,12 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
               </div>
               <CircleRating onSelect={setUiRating} />
 
-              {/* UX Rating */}
               <div className={styles.subHeader}>
                 <BiUser size={20} />
                 Rate UX
               </div>
               <CircleRating onSelect={setUxRating} />
 
-              {/* Verification Score */}
               <div className={styles.subHeader}>
                 <MdOutlineVerifiedUser size={20} />
                 Verification Score
@@ -97,7 +95,6 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
             </>
           )}
 
-          {/* Predefined Feedback Tags */}
           <div className={styles.subHeader}>
             <MdFeedback size={20} />
             Your Feedback

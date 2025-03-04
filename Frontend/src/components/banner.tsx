@@ -13,15 +13,26 @@ const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const Banner = () => {
-  const [openModal, setModalOpen] = React.useState(false);
+  const [openModal, setIsModalOpen] = React.useState(false);
 
   return (
     <div className={`${styles.banner_container} flex-col ${poppins.className}`}>
       <nav className={styles.nav}>
         {/* Navigation Links */}
-        <Link href="#" className={styles.nav_link}>
-          Feedback
-        </Link>
+          <button
+        className={styles.nav_link}
+        onClick={(e) => {
+          e.preventDefault(); // Prevent default link behavior
+          setIsModalOpen(true);
+        }}
+      >
+        Feedback
+      </button>
+
+      {/* Render Modal when open */}
+      {openModal && (
+        <FeedBackModal closeModal={() => setIsModalOpen(false)} />
+      )}
         <div className={styles.head_line}></div>
         <Link href="/home">
           <div className={styles.start_button}>Go to Home</div>

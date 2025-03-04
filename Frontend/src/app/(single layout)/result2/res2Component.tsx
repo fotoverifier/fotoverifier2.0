@@ -145,13 +145,13 @@ const Res2 = () => {
       Tampering: (
         <div className={`h-full w-full ${styles.striped_background}`}>
             <div  className={styles.Seven_content_container}>
-              <div id="help-target" className={styles.Result_container}>
+              <div id="img" className={styles.Result_container}>
                   <Image_Result img={img} />
                 </div>
-            <div id="help-target2" className={styles.Result_container}>
+            <div id="jpeg_ghost" className={styles.Result_container}>
               <JpegGhostResult images={jpegResult} loading={loadingJpegGhost} />
             </div>
-            <div id="help-target3" className={styles.Result_container}>
+            <div id="ela" className={styles.Result_container}>
               <ElaResult
                 img={`data:image/jpeg;base64,${elaResult}`}
                 loading={loadingEla}

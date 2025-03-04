@@ -22,7 +22,14 @@ interface HeaderReportProps {
   loadingEla: boolean;
   loadingTagResult: boolean;
 }
-const steps = ["help-target", "help-target2", "help-target3"];
+
+const steps = [
+  { id: "img", description: "This section displays the image you uploaded. Make sure it's the correct file before proceeding." },
+  { id: "jpeg_ghost", description: "JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image." },
+  { id: "ela", description: "Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations." },
+];
+
+
 
 
 const HeaderReport: React.FC<HeaderReportProps> = ({
@@ -37,40 +44,47 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [helpButton, setHelpButton] = useState<{ text: string; position: { top: number; left: number } } | null>(null);
+ const [currentStep, setCurrentStep] = useState(0);
+  const [helpBox, setHelpBox] = useState<{ 
+  text: string; 
+  position: { top: number; left: number }; 
+  description: string; 
+} | null>(null);
 
-  const highlightSection = (stepIndex: number) => {
-    if (stepIndex < 0 || stepIndex >= steps.length) {
-      removeHighlight(); 
-    }
 
-    const target = document.getElementById(steps[stepIndex]);
+const highlightSection = (stepIndex: number) => {
+  if (stepIndex < 0 || stepIndex >= steps.length) {
+    removeHighlight();
+    return;
+  }
 
-    if (target) {
-      removeHighlight(); 
+  const target = document.getElementById(steps[stepIndex].id);
 
-      target.classList.add("glow-effect");
+  if (target) {
+    removeHighlight();
+    target.classList.add("glow-effect");
 
-      const rect = target.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
 
-      setHelpButton({
-        text: "Close",
-        position: {
-          top: rect.top + window.scrollY - 50, 
-          left: rect.left + window.scrollX + rect.width / 2, 
-        },
-      });
-    }
-
-    setCurrentStep(stepIndex);
-  };
-
-  const removeHighlight = () => {
-    steps.forEach((id) => {
-      document.getElementById(id)?.classList.remove("glow-effect");
+    setHelpBox({
+      text: `${stepIndex + 1}/${steps.length}`, 
+      position: {
+        top: window.scrollY + 15, 
+        left: rect.left + window.scrollX + rect.width / 2 - 150, 
+      },
+      description: steps[stepIndex].description, 
     });
-    setHelpButton(null);
+  }
+
+  setCurrentStep(stepIndex);
+};
+
+
+    const removeHighlight = () => {
+    steps.forEach((step) => {
+      document.getElementById(step.id)?.classList.remove("glow-effect");
+    });
+    setHelpBox(null);
   };
 
   return (
@@ -88,7 +102,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
          <div className="relative">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="border-2 border-white p-2 rounded-full cursor-pointer bg-slate-200 text-slate-600 hover:bg-[#f0fdfa] hover:border-[#f0fdfa] text-white hover:text-[#03564a] transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
+        className="border-2 border-white p-2 rounded-full cursor-pointer bg-slate-200 text-gray-800 hover:bg-[#f0fdfa] hover:border-[#f0fdfa]  hover:text-[#03564a] transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
       >
         <span className="text-lg">{selectedMethod}</span>
         {isOpen ? <FaSortUp size={20} className="mt-2" /> : <FaSortDown size={20} className="mb-2" />}
@@ -160,39 +174,48 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           </span>
         </div>
 
-        {helpButton && (
-        <div
-          className="help-button-container"
-          style={{
-            top: `${helpButton.position.top}px`,
-            left: `${helpButton.position.left}px`,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <button
-            className="nav-button"
-            onClick={() => highlightSection(currentStep - 1)}
-            disabled={currentStep === 0}
-          >
-            {"<"}
-          </button>
+        {helpBox && (
+          <>
+            <div className="overlay" onClick={removeHighlight} />
 
-          <button className="help-button"  onClick={removeHighlight}>
-            {helpButton.text}
-          </button>
+            <div
+              className="help-box"
+              style={{
+                top: `${helpBox.position.top}px`,
+                left: `${helpBox.position.left}px`,
+                position: "absolute",
+                width: "300px",
+                zIndex: 300,
+              }}
+            >
+              <div className="help-description">
+                {helpBox.description}
+              </div>
 
-          <button
-            className="nav-button"
-            onClick={() => highlightSection(currentStep + 1)}
-            disabled={currentStep === steps.length - 1}
-          >
-            {">"}
-          </button>
-        </div>
-      )}
+              <div className="help-navigation">
+                <button
+                  className="nav-button"
+                  onClick={() => highlightSection(currentStep - 1)}
+                  disabled={currentStep === 0}
+                >
+                  {"<"}
+                </button>
+
+                <button className="help-button" onClick={removeHighlight}>
+                  {helpBox.text}
+                </button>
+
+                <button
+                  className="nav-button"
+                  onClick={() => highlightSection(currentStep + 1)}
+                  disabled={currentStep === steps.length - 1}
+                >
+                  {">"}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
 
       </div>
 
