@@ -46,34 +46,92 @@ const LibraryPage = () => {
     },
   ];
 
-   useEffect(() => {
-    const grid = document.getElementById("grid");
-    const container = document.querySelector(`.${styles.container}`);
-    if (!grid || !container) return;
+    useEffect(() => {
+    const grid = document.getElementById("grid") as HTMLElement | null;
+const container = document.querySelector(`.${styles.container}`) as HTMLElement | null;
+if (!grid || !container) return;
 
-    const cellSize = 40; 
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+const cellSize = 60;
+const containerWidth = container.clientWidth;
+const containerHeight = container.clientHeight;
+const columns = Math.floor(containerWidth / cellSize);
+const rows = Math.floor(containerHeight / cellSize);
+const totalCells = rows * columns;
+const cells: HTMLDivElement[] = [];
+for (let i = 0; i < totalCells; i++) {
+  const cell = document.createElement("div");
+  cell.classList.add(styles.cell);
+  grid.appendChild(cell);
+  cells.push(cell);
+}
 
-    const columns = Math.floor(containerWidth / cellSize);
-    const rows = Math.floor(containerHeight / cellSize);
+let trail: number[] = [];
 
-    for (let i = 0; i < rows * columns; i++) {
-      const cell = document.createElement("div");
-      cell.classList.add(styles.cell);
-      cell.addEventListener("mouseenter", () => {
-        cell.style.backgroundColor = "rgba(8, 255, 255, 0.3)";
-        cell.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.7)";
-      });
+const clearGlow = (cell: HTMLDivElement) => {
+  cell.style.backgroundColor = "";
+  cell.style.boxShadow = "";
+};
 
-      cell.addEventListener("mouseleave", () => {
-        cell.style.backgroundColor = "";
-        cell.style.boxShadow = "";
-      });
+const setGlow = (cell: HTMLDivElement, intensityIndex: number) => {
+  const opacities = [0.3, 0.2, 0.1];
+  const boxShadows = [
+    "0 0 10px rgba(255, 255, 255, 0.7)",
+    "0 0 7px rgba(255, 255, 255, 0.5)",
+    "0 0 5px rgba(255, 255, 255, 0.3)",
+  ];
+  cell.style.backgroundColor = `rgba(8, 255, 255, ${opacities[intensityIndex]})`;
+  cell.style.boxShadow = boxShadows[intensityIndex];
+};
 
-      grid.appendChild(cell);
+const mouseMoveHandler = (e: MouseEvent) => {
+  // Use the grid element's bounding rectangle instead of the container's
+  const rect = grid.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const col = Math.floor(x / cellSize);
+  const row = Math.floor(y / cellSize);
+  const index = row * columns + col;
+
+  if (index < 0 || index >= cells.length) return;
+
+  // Update the trail by removing the current index if it exists and then unshifting it.
+  trail = trail.filter((idx) => idx !== index);
+  trail.unshift(index);
+  if (trail.length > 3) {
+    const removedIndex = trail.pop();
+    if (removedIndex !== undefined) {
+      clearGlow(cells[removedIndex]);
     }
+  }
+
+  cells.forEach((cell) => {
+    cell.style.backgroundColor = "";
+    cell.style.boxShadow = "";
+  });
+
+  trail.forEach((cellIndex, i) => {
+    const cell = cells[cellIndex];
+    setGlow(cell, i);
+  });
+};
+
+const mouseLeaveHandler = () => {
+  cells.forEach((cell) => {
+    clearGlow(cell);
+  });
+  trail = [];
+};
+
+container.addEventListener("mousemove", mouseMoveHandler);
+container.addEventListener("mouseleave", mouseLeaveHandler);
+
+return () => {
+  container.removeEventListener("mousemove", mouseMoveHandler);
+  container.removeEventListener("mouseleave", mouseLeaveHandler);
+};
   }, []);
+
+
 
   return (
     <>
@@ -112,9 +170,9 @@ const LibraryPage = () => {
         initial="hidden"
         whileInView="visible"
         variants={{
-          visible: { transition: { staggerChildren: 0.3 } }, // Stagger animation for smooth effect
+          visible: { transition: { staggerChildren: 0.3 } }, 
         }}
-        viewport={{ amount: 0.2 }} // Re-trigger when scrolled back into view
+        viewport={{ amount: 0.2 }} 
       >
         {features.map((feature, index) => (
           <motion.div
@@ -137,7 +195,6 @@ const LibraryPage = () => {
         ))}
       </motion.div>
 
-      {/* Call-to-Action Section */}
       <motion.div
         className={styles.ctaContainer}
         variants={fadeInUp}

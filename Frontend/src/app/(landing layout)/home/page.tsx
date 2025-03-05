@@ -25,6 +25,19 @@ const LandingPage2 = () => {
 
   const removeImg = () => setImageSrc(null);
 
+   const fullText = "Quickly verify the integrity of photos or videos with advanced algorithms and a 5-step approach.";
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+  fullText.split('').forEach((char, index) => {
+    setTimeout(() => {
+      setDisplayedText((prev) => prev + char);
+    }, index * 50);
+  });
+}, []);
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.header}></div>
@@ -46,8 +59,8 @@ const LandingPage2 = () => {
           <span className={styles.bold_text}>IMAGE VERIFICATION </span>
           IN A <span className={styles.highlight}>MORE ENGAGING</span> WAY
         </h1>
-        <p className={styles.description}>
-          Quickly verify the integrity of photos or videos with advanced algorithms and a 5-step approach.
+        <p className={`${styles.description}`}>
+          {displayedText}
         </p>
         <motion.button
           className={styles.cta_button}

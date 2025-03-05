@@ -7,15 +7,16 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { MdAnalytics, MdOutlineFindInPage } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import { BiAtom } from "react-icons/bi";
-import { Montserrat, Open_Sans } from "next/font/google";
+import { Montserrat, Open_Sans, Source_Code_Pro } from "next/font/google";
 const montserrat = Montserrat({ subsets: ['latin'] });
 const opensand = Open_Sans({subsets:['latin']});
+const sourceCodePro = Source_Code_Pro({subsets:['latin']});
 const categories = [
   {
     name: "Meta-data Analysis",
     slug: "meta-data_analysis",
     icon: <MdAnalytics size={20} />,
-    subcategories: ["Lesson 1", "Lesson 2"],
+    subcategories: ["JPEG Ghost", "EXIF Data"],
   },
   {
     name: "Computational Photography",
@@ -51,7 +52,7 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
   };
 
   return (
-    <div className={`flex min-h-screen ${montserrat.className}`}>
+    <div className={`flex min-h-screen ${sourceCodePro.className}`}>
       {/* Sidebar */}
       <div
         className={`bg-white ${isSidebarOpen ? "w-1/4" : "w-[9%]"} p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
@@ -77,7 +78,6 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
         <ul className="space-y-2">
           {categories.map((category) => (
             <div key={category.slug} className="cursor-pointer">
-              {/* Category Click Behavior */}
               <div
                 onClick={() => handleCategoryClick(category.slug, category.subcategories.length > 0)}
                 className={`px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center ${
@@ -122,7 +122,7 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
       </div>
 
       {/* Dynamic Content (Right Side) */}
-      <section className="flex-1 p-6">{children}</section>
+      <section className="flex-1">{children}</section>
     </div>
   );
 }

@@ -45,7 +45,6 @@ const AboutUs = () => {
     <div
       className={styles.aboutUsContainer}
     >
-      {/* Left - Text Content */}
       <div className={styles.textContainer}>
        <motion.h2
       ref={ref}

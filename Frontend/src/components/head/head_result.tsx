@@ -28,8 +28,7 @@ const steps = [
   { id: "img", description: "This section displays the image you uploaded. Make sure it's the correct file before proceeding." },
   { id: "jpeg_ghost", description: "JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image." },
   { id: "ela", description: "Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations." },
-  {id : "jpeg-specific", description: "further details"},
-  {id: "jpeg-modal", description : "All the jpeg resolutions"}
+  {id : "jpeg-specific", description: "Click here to run JPEG Ghost"},
 ];
 
 

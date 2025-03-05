@@ -95,7 +95,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
             </>
           )}
 
-          <div className={styles.subHeader}>
+          <div id = 'tags_title' className={styles.subHeader}>
             <MdFeedback size={20} />
             Your Feedback
           </div>
@@ -129,14 +129,27 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
           </div>
 
           <div className={styles.dash}></div>
+
+
+           <div className={styles.feedbackTags}>
+            {predefinedFeedback.map((tag) => (
+              <div
+                key={tag}
+                className={`${styles.feedbackTag} ${
+                  selectedTags.includes(tag) ? styles.selected : ""
+                }`}
+                onClick={() => toggleTag(tag)}
+              >
+                {tag}
+              </div>
+            ))}
+          </div>
             <textarea
               className={styles.textInput}
               placeholder="Write additional feedback here..."
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
             />
-
-            {/* Image Upload Section */}
             <label htmlFor="imageUpload" className={styles.imageUpload}>
               Click to Upload Images
               <input

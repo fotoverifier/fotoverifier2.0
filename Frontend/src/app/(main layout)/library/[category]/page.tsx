@@ -5,10 +5,10 @@ const categories = [
   {
     name: "Meta-data Analysis",
     slug: "meta-data_analysis",
-    subcategories: ["Lesson 1", "Lesson 2"],
+    subcategories: ["JPEG Ghost", "EXIF Data"],
   },
   {
-    name: "Computational Photography",
+    name: "Computational  Photography",
     slug: "computational_photography",
     subcategories: ["Lesson 3", "Lesson 4"],
   },
