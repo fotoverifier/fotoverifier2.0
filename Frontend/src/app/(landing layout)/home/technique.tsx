@@ -2,12 +2,19 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './technique.module.css';
-import { Poppins } from 'next/font/google';
+import { Be_Vietnam_Pro, Poppins } from 'next/font/google';
 import { motion } from 'framer-motion';
 import PlaceHolder from '@/assets/Group 12.svg';
+import { useLanguage } from '@/context/LanguageContext';
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: '700',
+  subsets: ['latin-ext'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+const beVietnam = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
@@ -24,23 +31,21 @@ const featureVariants = {
 };
 
 const LibraryPage = () => {
+  const { t } = useLanguage();
   const features = [
     {
-      title: 'Forensic Clarity for Everyone',
-      description:
-        'Designed for both experts and beginners, with a perfect balance of technical precision and easy-to-understand insights.',
+      title: t('forensic_clarity_title'),
+      description: t('forensic_clarity_description'),
       imgSrc: PlaceHolder,
     },
     {
-      title: 'Seamless & Smart Navigation',
-      description:
-        'Effortlessly explore forensic tools with our intuitive interface—fast, frustration-free, and designed for instant verification',
+      title: t('smart_navigation_title'),
+      description: t('smart_navigation_description'),
       imgSrc: PlaceHolder,
     },
     {
-      title: 'Your Forensic Knowledge Hub',
-      description:
-        'Instantly access a rich forensic glossary, ensuring every term is clear, precise, and easy to understand for all users.',
+      title: t('forensic_hub_title'),
+      description: t('forensic_hub_description'),
       imgSrc: PlaceHolder,
     },
   ];
@@ -85,7 +90,6 @@ const LibraryPage = () => {
     };
 
     const mouseMoveHandler = (e: MouseEvent) => {
-      // Use the grid element's bounding rectangle instead of the container's
       const rect = grid.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -95,7 +99,6 @@ const LibraryPage = () => {
 
       if (index < 0 || index >= cells.length) return;
 
-      // Update the trail by removing the current index if it exists and then unshifting it.
       trail = trail.filter((idx) => idx !== index);
       trail.unshift(index);
       if (trail.length > 3) {
@@ -144,9 +147,9 @@ const LibraryPage = () => {
           viewport={{ amount: 0.2 }}
         >
           <div className={styles.hero}>
-            <h1 className={`${styles.title} ${poppins.className}`}>
-              Forensic Accuracy, Digital Trust <br />
-              Powered by{' '}
+            <h1 className={`${styles.title} ${beVietnam.className}`}>
+              {t('forensic_accuracy_title')} <br />
+              {t('powered_by')}
               <span className={`text-red-300 ${styles.fotoverification}`}>
                 Fotoverifier V2.0
               </span>
@@ -178,7 +181,7 @@ const LibraryPage = () => {
               key={index}
               className={styles.card}
               variants={featureVariants}
-              custom={index} // Pass index for staggered animation
+              custom={index}
             >
               <div className={styles.imageContainer}>
                 <Image
@@ -202,7 +205,10 @@ const LibraryPage = () => {
           transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
           viewport={{ amount: 0.2 }}
         >
-          <button className={styles.ctaButton}>View all features</button>
+          <button className={styles.ctaButton}>
+            {' '}
+            {t('View_all_features')}
+          </button>
         </motion.div>
       </div>
     </>

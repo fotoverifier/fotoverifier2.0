@@ -13,8 +13,10 @@ export default function RootLayout({
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // If scrolled down 50px, update state
+      setIsScrolled(window.scrollY > 50);
     };
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

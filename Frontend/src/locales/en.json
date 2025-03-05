@@ -13,5 +13,19 @@
   "find_by_url_button": "Find by URL",
   "terms_agreement_text": "I agree to the terms and conditions.",
   "image_reliability_question": "Is this image reliable?",
-  "Choose your image": "Choose your image"
+  "Choose your image": "Choose your image",
+
+  "forensic_clarity_title": "Forensic Clarity for Everyone",
+  "forensic_clarity_description": "Perfect for experts and beginners, balancing precision and simplicity.",
+
+  "smart_navigation_title": "Seamless & Smart Navigation",
+  "smart_navigation_description": "Explore forensic tools effortlessly with a fast, intuitive interface.",
+
+  "forensic_hub_title": "Your Forensic Knowledge Hub",
+  "forensic_hub_description": "Access a rich forensic glossary for clear and precise explanations.",
+
+  "forensic_accuracy_title": "Forensic Accuracy, Digital Trust ",
+  "powered_by": "Powered by",
+
+  "View_all_features": "View all features"
 }
