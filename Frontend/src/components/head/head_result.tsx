@@ -9,16 +9,17 @@ import Modal_PReport from "../modal/PReport_modal";
 import pattern2 from "@/assets/Group 52.svg"
 import "@/styles/head/head_result.css"
 import "@/components/head/test.css"
+import { Descriptions } from "antd";
 const methods = [
   { name: "Basic Method", icon: <FaTools size={16} className="text-[#03564a]" /> },
   { name: "Deep Method", icon: <FaSearch size={16} className="text-[#03564a]" /> },
   { name: "Specialized Method", icon: <FaStar size={16} className="text-[#03564a]" /> }
 ];
 interface HeaderReportProps {
-  jpegResult: string[] | null;
+  jpegResult?: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
-  loadingJpegGhost: boolean;
+  loadingJpegGhost?: boolean;
   loadingEla: boolean;
   loadingTagResult: boolean;
 }
@@ -27,6 +28,8 @@ const steps = [
   { id: "img", description: "This section displays the image you uploaded. Make sure it's the correct file before proceeding." },
   { id: "jpeg_ghost", description: "JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image." },
   { id: "ela", description: "Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations." },
+  {id : "jpeg-specific", description: "further details"},
+  {id: "jpeg-modal", description : "All the jpeg resolutions"}
 ];
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { IoIosPricetag } from 'react-icons/io';
-import { Flex, Spin } from 'antd';
+import { Flex, Spin, Tabs } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 interface TagResultProps {
   Tag: string | null; // Accept the image as a prop
@@ -31,11 +31,9 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
             {tag}
           </div>
         ))}
-      </div> */}
-      {loading ? (
-        <></>
-      ) : (
-        <div className="grid grid-cols-3 gap-4 overflow-scroll max-h-40">
+       </div> */}
+
+        <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40">
           {tags.map((tag, index) => (
             <div
               key={index}
@@ -45,7 +43,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
             </div>
           ))}
         </div>
-      )}
+    
     </div>
   );
 };
