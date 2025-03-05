@@ -1,8 +1,7 @@
 'use client';
-import Sidebar from "@/components/sidebar";
 import Banner from "@/components/banner";
 import { usePathname } from 'next/navigation';
-import Sidebar_Alt from "@/components/sidebar_alt";
+import Sidebar_Alt from "@/components/sidebar/sidebar_alt";
 
 export default function RootLayout({
   children,

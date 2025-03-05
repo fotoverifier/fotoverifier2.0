@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
 import '@/app/(single layout)/result/result.css';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { Inter, Montserrat } from 'next/font/google';

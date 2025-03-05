@@ -272,7 +272,7 @@ const Upload = () => {
           {!loading && uploadComplete && (
             <Link
               href={{
-                pathname: '/result2',
+                pathname: '/result',
                 query: {
                   image: imageSrc,
                   wsUrls: retrievedData,

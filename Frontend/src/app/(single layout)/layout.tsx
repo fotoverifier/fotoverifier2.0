@@ -1,6 +1,4 @@
-import Header from "@/components/head/header";
-import Sidebar from "@/components/sidebar";
-import Sidebar_Alt from "@/components/sidebar_alt";
+import Sidebar_Alt from "@/components/sidebar/sidebar_alt";
 export default function RootLayout({
   children,
 }: Readonly<{

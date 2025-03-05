@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 
-export default function ImageMagnifier({
-  src,
-  width = "500px",
+  export default function ImageMagnifier({
+    src,
+    width = "500px",
   height = "500px",
   magnifierHeight = 150,
   magnifierWidth = 150,

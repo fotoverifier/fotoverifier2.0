@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import styles from "@/components/step_tab.module.css";
+import styles from "@/components/tab/step_tab.module.css";
 import { Montserrat } from "next/font/google";
 
 interface TabProps {

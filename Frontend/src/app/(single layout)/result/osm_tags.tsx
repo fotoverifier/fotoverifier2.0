@@ -1,8 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
 import { IoIosPricetag } from 'react-icons/io';
-import { Flex, Spin, Tabs } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 interface TagResultProps {
   Tag: string | null; // Accept the image as a prop
   loading: boolean;

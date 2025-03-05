@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Result from '@/assets/Group 79.svg';
 import { SiJpeg } from 'react-icons/si';
 import styles from '@/app/(single layout)/result/categories.module.css';
-import round from 'lodash/round';
-import InfoButton from '@/components/button/info_button/info_button';
 import placeholder from '@/assets/placeholder.png';
-import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';

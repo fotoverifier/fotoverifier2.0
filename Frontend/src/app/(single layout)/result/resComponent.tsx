@@ -1,24 +1,24 @@
 'use client';
 import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
-import styles from '@/app/(single layout)/result2/res.module.css';
-import Tabs from '@/components/step_tab';
+import styles from '@/app/(single layout)/result/res.module.css';
+import Tabs from '@/components/tab/step_tab';
 import Image from 'next/image';
 import { ExifData, SearchResult } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
-import Image_Result from '../result/image';
-import ImgTagging_Result from '../result/osm_tags';
-import MetaData_Result from '../result/metadata';
-import JpegGhostResult from '../result/jpegGhost';
-import ElaResult from '../result/ela';
-import ReverseImgResult from '../result/reverse_img';
+import Image_Result from './image';
+import ImgTagging_Result from './osm_tags';
+import MetaData_Result from './metadata';
+import JpegGhostResult from './jpegGhost';
+import ElaResult from './ela';
+import ReverseImgResult from './reverse_img';
 
 import { FaCamera, FaExchangeAlt, FaSortDown, FaSortUp, FaUser } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
 
-import { FiHelpCircle, FiMapPin } from 'react-icons/fi';
+import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
