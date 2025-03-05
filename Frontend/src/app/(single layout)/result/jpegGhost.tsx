@@ -16,8 +16,9 @@ interface ImageResultProps {
 
 const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const customSpinIcon = <LoadingOutlined style={{ fontSize: 48, color: "#00000" }} spin />;
-
+  const customSpinIcon = (
+    <LoadingOutlined style={{ fontSize: 48, color: '#00000' }} spin />
+  );
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -40,22 +41,31 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             </div>
             <div className={styles.title}>JPEG Ghost</div>
           </div>
-         
-            <div onClick={openModal} className="focus:outline-none ml-auto ">
-              <InfoButton></InfoButton>
-            </div>
+
+          <div onClick={openModal} className="focus:outline-none ml-auto ">
+            <InfoButton></InfoButton>
+          </div>
         </div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
-           {loading ? (
+          {loading ? (
             // Loading Spinner Section with Box
             <div className="relative p-6 bg-white rounded-lg shadow-md border border-gray-300 flex flex-col items-center gap-4">
               {/* Spinner */}
-              <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: "#4caf50" }} spin />} />
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ fontSize: 48, color: '#4caf50' }}
+                    spin
+                  />
+                }
+              />
 
               {/* Loading Message */}
-              <p className="text-gray-700 text-lg font-medium">Loading... Please wait</p>
+              <p className="text-gray-700 text-lg font-medium">
+                Loading... Please wait
+              </p>
 
               {/* Close Button */}
               <button
@@ -65,7 +75,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                 ×
               </button>
             </div>
-          )   : (
+          ) : (
             // Modal Content Section
             <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
               {/* Header Section */}
@@ -74,7 +84,8 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                   JPEG Ghost
                 </div>
                 <div className="ml-2">
-                  <span className="text-red-500">* </span>The tampered region is highlighted with dark color.
+                  <span className="text-red-500">* </span>The tampered region is
+                  highlighted with dark color.
                 </div>
                 <div
                   onClick={closeModal}
@@ -124,7 +135,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             style={{ height: '90%' }}
           >
             <Image
-              src={typeof images?.[6] === 'string' ? images[6] : placeholder}
+              src={typeof images?.[3] === 'string' ? images[3] : placeholder}
               alt="JPEG Ghost Result"
               width={150}
               height={150}
@@ -145,11 +156,11 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
       </div>
 
       <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
-              <MdWarning className="text-red-600" size={20} />
-              <p className="text-red-700 text-sm font-medium">
-                The tampered region is highlighted with a dark color.
-              </p>
-            </div>
+        <MdWarning className="text-red-600" size={20} />
+        <p className="text-red-700 text-sm font-medium">
+          The tampered region is highlighted with a dark color.
+        </p>
+      </div>
     </div>
   );
 };
