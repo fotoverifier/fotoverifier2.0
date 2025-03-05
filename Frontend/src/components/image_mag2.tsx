@@ -1,10 +1,10 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
-  export default function ImageMagnifier({
-    src,
-    width = "500px",
-  height = "500px",
+export default function ImageMagnifier({
+  src,
+  width = '500px',
+  height = '500px',
   magnifierHeight = 150,
   magnifierWidth = 150,
   zoomLevel = 1.75,
@@ -21,18 +21,18 @@ import { useState } from "react";
   const [showMagnifier, setShowMagnifier] = useState(false);
 
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
+    <div style={{ display: 'flex', gap: '20px' }}>
       {/* Original Image */}
       <div
         style={{
-          position: "relative",
+          position: 'relative',
           height: height,
           width: width,
         }}
       >
         <img
           src={src}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: '100%', width: '100%' }}
           onMouseEnter={(e) => {
             const elem = e.currentTarget;
             const { width, height } = elem.getBoundingClientRect();
@@ -59,10 +59,10 @@ import { useState } from "react";
         style={{
           height: height,
           width: width,
-          border: "1px solid lightgray",
-          backgroundColor: "white",
+          border: '1px solid lightgray',
+          backgroundColor: 'white',
           backgroundImage: `url('${src}')`,
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: 'no-repeat',
           backgroundSize: `${imgWidth * zoomLevel}px ${
             imgHeight * zoomLevel
           }px`,

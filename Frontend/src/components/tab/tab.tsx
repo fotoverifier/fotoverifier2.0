@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from  '@/styles/tab/tab.module.css';
+import styles from '@/styles/tab/tab.module.css';
 interface TabAreaProps {
   activeTab: string;
   onTabChange: (tab: string) => void;

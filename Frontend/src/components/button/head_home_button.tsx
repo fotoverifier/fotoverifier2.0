@@ -1,7 +1,7 @@
-"use client";
-import { useState } from "react";
-import { FaAngleDown } from "react-icons/fa";
-import { FaAngleUp } from "react-icons/fa";
+'use client';
+import { useState } from 'react';
+import { FaAngleDown } from 'react-icons/fa';
+import { FaAngleUp } from 'react-icons/fa';
 const HH_Button = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -18,13 +18,13 @@ const HH_Button = () => {
   const handleIconClick = (e: any) => {
     e.stopPropagation();
     setIsMenuOpen(true);
-    console.log("Icon clicked!");
+    console.log('Icon clicked!');
   };
 
   const handleButtonClick = () => {
     // Button's action (e.g., navigation)
     setIsMenuOpen(true);
-    console.log("Button clicked!");
+    console.log('Button clicked!');
   };
 
   return (

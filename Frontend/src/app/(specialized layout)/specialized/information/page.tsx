@@ -347,9 +347,13 @@ const Specialized_Information = () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<Flex align="center" gap="middle">
-      <Spin indicator={<LoadingOutlined spin />} />
-    </Flex>}>
+    <Suspense
+      fallback={
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined spin />} />
+        </Flex>
+      }
+    >
       <Specialized_Information />
     </Suspense>
   );

@@ -1,10 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Header_Home_Alt from "@/components/head/head_home_alt";
-import LibraryPage from "./home/technique";
-import AboutUs from "./home/about_us";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Header_Home_Alt from '@/components/head/head_home_alt';
+import LibraryPage from './home/technique';
+import AboutUs from './home/about_us';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -12,8 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       setIsScrolled(window.scrollY > 50); // If scrolled down 50px, update state
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (

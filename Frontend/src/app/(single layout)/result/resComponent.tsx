@@ -13,7 +13,13 @@ import JpegGhostResult from './jpegGhost';
 import ElaResult from './ela';
 import ReverseImgResult from './reverse_img';
 
-import { FaCamera, FaExchangeAlt, FaSortDown, FaSortUp, FaUser } from 'react-icons/fa';
+import {
+  FaCamera,
+  FaExchangeAlt,
+  FaSortDown,
+  FaSortUp,
+  FaUser,
+} from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
@@ -68,8 +74,6 @@ const Res = () => {
           const message = JSON.parse(event.data);
           console.log('Message:', message);
           try {
-            
-
             switch (message.task) {
               case 'ela':
                 if (message.result !== 'completed') {
@@ -131,12 +135,12 @@ const Res = () => {
     const tabData = {
       Tampering: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-            <div  className={styles.Seven_content_container}>
-              <div id="img" className={styles.Result_container}>
-                  <Image_Result img={img} />
-                </div>
+          <div className={styles.Seven_content_container}>
+            <div id="img" className={styles.Result_container}>
+              <Image_Result img={img} />
+            </div>
             <div id="jpeg_ghost" className={styles.Result_container}>
-<JpegGhostResult wsUrls={wsUrls} />
+              <JpegGhostResult wsUrls={wsUrls} />
             </div>
             <div id="ela" className={styles.Result_container}>
               <ElaResult
@@ -293,7 +297,7 @@ const Res = () => {
               <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
                 <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
                   <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
-                    <FiMapPin size={16} /> 
+                    <FiMapPin size={16} />
                   </div>
                   Detecting Image Location
                 </h3>
@@ -367,16 +371,14 @@ const Res = () => {
     return <div className="h-full w-full">No content available.</div>;
   };
 
-
   return (
     <div className={styles.res_container}>
-      
-            <HeaderReport 
-          elaResult={elaResult}
-          tagResult={tagResult}
-          loadingEla={loadingEla}
-          loadingTagResult={loadingTagResult}
-        />
+      <HeaderReport
+        elaResult={elaResult}
+        tagResult={tagResult}
+        loadingEla={loadingEla}
+        loadingTagResult={loadingTagResult}
+      />
       <div className={` ${styles.res_body_container} ${inter.className}`}>
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>

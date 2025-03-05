@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import styles from "./feedback_modal.module.css";
-import { MdFeedback } from "react-icons/md";
-import { IoIosCloseCircle } from "react-icons/io";
-import { MdOutlineDesignServices, MdOutlineVerifiedUser } from "react-icons/md";
-import { BiUser } from "react-icons/bi";
-import CircleRating from "@/components/Rating/rating_circle";
+import React, { useState } from 'react';
+import styles from './feedback_modal.module.css';
+import { MdFeedback } from 'react-icons/md';
+import { IoIosCloseCircle } from 'react-icons/io';
+import { MdOutlineDesignServices, MdOutlineVerifiedUser } from 'react-icons/md';
+import { BiUser } from 'react-icons/bi';
+import CircleRating from '@/components/Rating/rating_circle';
 
 const predefinedFeedback = [
-  "UI is sleek",
-  "UI needs improvement",
-  "Great UX",
-  "UX is confusing",
-  "Fast and responsive",
-  "Bugs need fixing",
-  "Love the design",
-  "More features needed",
+  'UI is sleek',
+  'UI needs improvement',
+  'Great UX',
+  'UX is confusing',
+  'Fast and responsive',
+  'Bugs need fixing',
+  'Love the design',
+  'More features needed',
 ];
 
 interface FeedBackModalProps {
@@ -23,13 +23,15 @@ interface FeedBackModalProps {
 
 const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [feedback, setFeedback] = useState<string>("");
+  const [feedback, setFeedback] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [rating, setRating] = useState<number | null>(null);
   const [uiRating, setUiRating] = useState<number | null>(null);
   const [uxRating, setUxRating] = useState<number | null>(null);
-  const [verificationRating, setVerificationRating] = useState<number | null>(null);
+  const [verificationRating, setVerificationRating] = useState<number | null>(
+    null
+  );
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
@@ -50,13 +52,18 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
     <>
       <div className={styles.backdrop} onClick={closeModal}></div>
 
-      <div className={`${styles.modal} ${isExpanded ? styles.expandedModal : ""}`}>
+      <div
+        className={`${styles.modal} ${isExpanded ? styles.expandedModal : ''}`}
+      >
         <div className={styles.modalLeft}>
           <div className={styles.modalHeader}>
             <MdFeedback size={30} />
             <div className={styles.title}>Feedback</div>
-            <div className={styles.detailButton} onClick={() => setIsExpanded(!isExpanded)}>
-              {isExpanded ? "Less Details" : "More Details"}
+            <div
+              className={styles.detailButton}
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? 'Less Details' : 'More Details'}
             </div>
             <div className={styles.closeIcon} onClick={closeModal}>
               <IoIosCloseCircle size={30} />
@@ -95,7 +102,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
             </>
           )}
 
-          <div id = 'tags_title' className={styles.subHeader}>
+          <div id="tags_title" className={styles.subHeader}>
             <MdFeedback size={20} />
             Your Feedback
           </div>
@@ -105,7 +112,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
               <div
                 key={tag}
                 className={`${styles.feedbackTag} ${
-                  selectedTags.includes(tag) ? styles.selected : ""
+                  selectedTags.includes(tag) ? styles.selected : ''
                 }`}
                 onClick={() => toggleTag(tag)}
               >
@@ -113,37 +120,34 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
               </div>
             ))}
           </div>
-          <div className={styles.resultButton}>
-            Send
-          </div>
+          <div className={styles.resultButton}>Send</div>
         </div>
 
         {isExpanded && (
           <div className={styles.modalRight}>
             <div className={styles.modalHeader}>
-            <div className={styles.title}> Fotoverifier</div>
-       
-            <div className={styles.closeIcon} onClick={closeModal}>
-              <IoIosCloseCircle size={30} />
-            </div>
-          </div>
+              <div className={styles.title}> Fotoverifier</div>
 
-          <div className={styles.dash}></div>
-
-
-           <div className={styles.feedbackTags}>
-            {predefinedFeedback.map((tag) => (
-              <div
-                key={tag}
-                className={`${styles.feedbackTag} ${
-                  selectedTags.includes(tag) ? styles.selected : ""
-                }`}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
+              <div className={styles.closeIcon} onClick={closeModal}>
+                <IoIosCloseCircle size={30} />
               </div>
-            ))}
-          </div>
+            </div>
+
+            <div className={styles.dash}></div>
+
+            <div className={styles.feedbackTags}>
+              {predefinedFeedback.map((tag) => (
+                <div
+                  key={tag}
+                  className={`${styles.feedbackTag} ${
+                    selectedTags.includes(tag) ? styles.selected : ''
+                  }`}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {tag}
+                </div>
+              ))}
+            </div>
             <textarea
               className={styles.textInput}
               placeholder="Write additional feedback here..."
@@ -170,13 +174,9 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
                 ))}
               </div>
             )}
-                      <div className={styles.resultButton}>
-            Send
+            <div className={styles.resultButton}>Send</div>
           </div>
-          </div>
-          
         )}
-        
       </div>
     </>
   );

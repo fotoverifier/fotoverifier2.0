@@ -1,6 +1,9 @@
-import React, { ReactNode } from "react";
-import styles from "./card_category.module.css"; // Importing CSS module
-import { IoIosArrowForward, IoIosInformationCircleOutline } from "react-icons/io";
+import React, { ReactNode } from 'react';
+import styles from './card_category.module.css'; // Importing CSS module
+import {
+  IoIosArrowForward,
+  IoIosInformationCircleOutline,
+} from 'react-icons/io';
 
 // 📌 Define props interface
 interface CardProps {
@@ -10,7 +13,12 @@ interface CardProps {
   titleIcon: ReactNode; // Icon next to title
 }
 
-const Card_Cate: React.FC<CardProps> = ({ svgIcon, title, description, titleIcon }) => {
+const Card_Cate: React.FC<CardProps> = ({
+  svgIcon,
+  title,
+  description,
+  titleIcon,
+}) => {
   return (
     <div className={styles.card}>
       {/* Render Main Icon */}
@@ -28,9 +36,7 @@ const Card_Cate: React.FC<CardProps> = ({ svgIcon, title, description, titleIcon
         <p className={styles.card__description}>{description}</p>
 
         {/* 🚀 Start Button Below the Description */}
-        <div className={styles.start_button}>
-            Start Now  →
-            </div>
+        <div className={styles.start_button}>Start Now →</div>
       </div>
     </div>
   );

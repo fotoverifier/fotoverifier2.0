@@ -1,16 +1,14 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { Inter, Montserrat, Poppins } from "next/font/google";
-import Link from "next/link";
-import Pattern from "@/assets/Group 52.svg"; // Updated naming format
-import FeedBackModal from "./modal/feedback_modal/feedback_modal";
-import styles from "@/styles/banner.module.css"; // Importing styles
-import { LuPaperclip } from "react-icons/lu";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { Inter, Montserrat, Poppins } from 'next/font/google';
+import Link from 'next/link';
+import Pattern from '@/assets/Group 52.svg';
+import FeedBackModal from './modal/feedback_modal/feedback_modal';
+import styles from '@/styles/banner.module.css';
+import { LuPaperclip } from 'react-icons/lu';
 
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
-const montserrat = Montserrat({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
 const Banner = () => {
   const [openModal, setIsModalOpen] = React.useState(false);
@@ -18,21 +16,19 @@ const Banner = () => {
   return (
     <div className={`${styles.banner_container} flex-col ${poppins.className}`}>
       <nav className={styles.nav}>
-        {/* Navigation Links */}
-          <button
-        className={styles.nav_link}
-        onClick={(e) => {
-          e.preventDefault(); // Prevent default link behavior
-          setIsModalOpen(true);
-        }}
-      >
-        Feedback
-      </button>
+        <button
+          className={styles.nav_link}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsModalOpen(true);
+          }}
+        >
+          Feedback
+        </button>
 
-      {/* Render Modal when open */}
-      {openModal && (
-        <FeedBackModal closeModal={() => setIsModalOpen(false)} />
-      )}
+        {openModal && (
+          <FeedBackModal closeModal={() => setIsModalOpen(false)} />
+        )}
         <div className={styles.head_line}></div>
         <Link href="/home">
           <div className={styles.start_button}>Go to Home</div>
@@ -47,9 +43,12 @@ const Banner = () => {
             casual users with reliable tools to verify images.
           </p>
           <div className="flex gap-3">
-          <div className={styles.plan_button}>Our Development Plan</div>
-          <div className={`flex ${styles.plan_button} items-center gap-3`}> <LuPaperclip /> Our Paper</div>
-           </div>
+            <div className={styles.plan_button}>Our Development Plan</div>
+            <div className={`flex ${styles.plan_button} items-center gap-3`}>
+              {' '}
+              <LuPaperclip /> Our Paper
+            </div>
+          </div>
         </div>
 
         <div className="w-1/3 h-full">

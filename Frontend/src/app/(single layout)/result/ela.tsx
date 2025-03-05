@@ -28,13 +28,15 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
       </div>
 
       {/* Image Section (Takes Remaining Space) */}
-      <div className={`${styles.image_container} flex-1 flex items-center justify-center`}>
+      <div
+        className={`${styles.image_container} flex-1 flex items-center justify-center`}
+      >
         {loading ? (
           <></>
         ) : img ? (
           <div
             className="flex items-center justify-center relative p-2 w-full"
-            style={{ height: "90%" }}
+            style={{ height: '90%' }}
           >
             <Image
               src={img}
@@ -44,11 +46,11 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
               height={0}
               sizes="100vw"
               style={{
-                width: "auto",
-                maxWidth: "100%",
-                height: "100%",
-                objectFit: "contain",
-                position: "relative",
+                width: 'auto',
+                maxWidth: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                position: 'relative',
               }}
             />
           </div>
@@ -65,7 +67,6 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
         </p>
       </div>
     </div>
-
   );
 };
 

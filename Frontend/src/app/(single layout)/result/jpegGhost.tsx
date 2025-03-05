@@ -21,10 +21,10 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
   const [jpegResult, setJpegResult] = useState<string[] | null>(null);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(false);
 
-  const [runCompleted, setRunCompleted] = useState(false); 
+  const [runCompleted, setRunCompleted] = useState(false);
 
   const closeModal = () => setIsModalOpen(false);
-    const qualities = [
+  const qualities = [
     { title: 'Quality 30', img: jpegResult?.[0] ?? placeholder },
     { title: 'Quality 40', img: jpegResult?.[1] ?? placeholder },
     { title: 'Quality 50', img: jpegResult?.[2] ?? placeholder },
@@ -32,7 +32,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
     { title: 'Quality 70', img: jpegResult?.[4] ?? placeholder },
     { title: 'Quality 80', img: jpegResult?.[5] ?? placeholder },
   ];
-
 
   const runJpegGhost = () => {
     if (!wsUrls) {
@@ -79,11 +78,10 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
       console.error('Failed to parse wsUrls:', error);
     }
   };
-    const handleDetailClick = () => {
+  const handleDetailClick = () => {
     // Implement your detail action here
-    console.log("Detail button clicked");
+    console.log('Detail button clicked');
   };
-
 
   return (
     <div className="w-full h-full p-5 flex flex-col">
@@ -119,24 +117,21 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
           </div>
 
           {runCompleted && (
-              <button
-                onClick={openModal}
-                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md ml-3"
-              >
-                <FaInfoCircle size={20} />
-              </button>
-            )}
-
+            <button
+              onClick={openModal}
+              className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md ml-3"
+            >
+              <FaInfoCircle size={20} />
+            </button>
+          )}
         </div>
       </div>
 
-
-      
       {isRunning ? (
-      <div className={styles.image_container}>
-        <div className={styles.loadingBox}>
-          <div className={styles.spinner}></div>
-          <p className={styles.loadingText}>Loading... Please wait</p>
+        <div className={styles.image_container}>
+          <div className={styles.loadingBox}>
+            <div className={styles.spinner}></div>
+            <p className={styles.loadingText}>Loading... Please wait</p>
           </div>
         </div>
       ) : (
@@ -155,49 +150,53 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
-            <div id = "jpeg-modal"  className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
-              {/* Header Section */}
-              <div className="flex items-center mb-6">
-                <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2">
-                  JPEG Ghost
-                </div>
-                <div className="ml-2">
-                  <span className="text-red-500">* </span>The tampered region is highlighted with dark color.
-                </div>
-                <div
-                  onClick={closeModal}
-                  className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
-                >
-                  ×
-                </div>
+          <div
+            id="jpeg-modal"
+            className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col"
+          >
+            {/* Header Section */}
+            <div className="flex items-center mb-6">
+              <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2">
+                JPEG Ghost
               </div>
-
-              <div className="flex flex-1 border-t pt-4">
-                <div className="flex-[2] grid grid-cols-3 gap-4">
-                  {qualities.map((quality, index) => (
-                    <div key={index} className="p-4">
-                      <h3 className="font-semibold mb-2">{quality.title}</h3>
-                      {quality.img ? (
-                        <div className="h-3/4 flex justify-center items-center">
-                          <Image
-                            src={quality.img}
-                            alt={`Placeholder for ${quality.title}`}
-                            width={150}
-                            height={150}
-                            className="mb-2"
-                            unoptimized
-                          />
-                        </div>
-                      ) : (
-                        <div className="h-3/4 flex justify-center items-center">
-                          No image available
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <div className="ml-2">
+                <span className="text-red-500">* </span>The tampered region is
+                highlighted with dark color.
+              </div>
+              <div
+                onClick={closeModal}
+                className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
+              >
+                ×
               </div>
             </div>
+
+            <div className="flex flex-1 border-t pt-4">
+              <div className="flex-[2] grid grid-cols-3 gap-4">
+                {qualities.map((quality, index) => (
+                  <div key={index} className="p-4">
+                    <h3 className="font-semibold mb-2">{quality.title}</h3>
+                    {quality.img ? (
+                      <div className="h-3/4 flex justify-center items-center">
+                        <Image
+                          src={quality.img}
+                          alt={`Placeholder for ${quality.title}`}
+                          width={150}
+                          height={150}
+                          className="mb-2"
+                          unoptimized
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-3/4 flex justify-center items-center">
+                        No image available
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

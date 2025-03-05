@@ -2,7 +2,11 @@
 import React, { useState } from 'react';
 import './home.css';
 import LandingBanner from '@/components/landing_banner';
-import { FaArrowRightLong, FaFileSignature, FaMagnifyingGlass } from 'react-icons/fa6';
+import {
+  FaArrowRightLong,
+  FaFileSignature,
+  FaMagnifyingGlass,
+} from 'react-icons/fa6';
 import Link from 'next/link';
 import Image from 'next/image';
 import Detail from '@/assets/Group_29.svg';
@@ -53,36 +57,39 @@ const Home_V1 = () => {
       <div className="home-container">
         <div className="home-first-half flex-col">
           <div className="home-fh-container justify-between">
-            <div className='w-full h-fit rounded-lg border-2 p-5 bg-white mb-10'>
-            <div
-              className={`home-fh-container-title ${montserrat.className} font-bold`}
-            >
-              A reliable multimedia verification tool{' '}
+            <div className="w-full h-fit rounded-lg border-2 p-5 bg-white mb-10">
+              <div
+                className={`home-fh-container-title ${montserrat.className} font-bold`}
+              >
+                A reliable multimedia verification tool{' '}
+              </div>
+              <div
+                className={`home-fh-container-description  ${montserrat.className}`}
+              >
+                Quickly verify the integrity of photos or videos with a vast
+                array of advanced algorithms and 5 steps approach
+              </div>
             </div>
-            <div
-              className={`home-fh-container-description  ${montserrat.className}`}
-            >
-              Quickly verify the integrity of photos or videos with a vast array
-              of advanced algorithms and 5 steps approach
-            </div>
-             </div>
-            <div
-              className={`${incon.className}`}
-            >
-                  <ShinyButton title='For detail Assesment'></ShinyButton>
-            </div>
-        
-            <div className={`flex w-full h-auto justify-between mt-14 ${incon.className}`}>
-              <Card icon={FaMagnifyingGlass
-              } description='Finding the potential source'></Card>
-                        <Card icon={FaFileSignature } description='Leaked Signature? '></Card>
-                                          <Card icon={BiMessageAltError
-              } description='Is this image forgery? '></Card>
-
+            <div className={`${incon.className}`}>
+              <ShinyButton title="For detail Assesment"></ShinyButton>
             </div>
 
-           
-              
+            <div
+              className={`flex w-full h-auto justify-between mt-14 ${incon.className}`}
+            >
+              <Card
+                icon={FaMagnifyingGlass}
+                description="Finding the potential source"
+              ></Card>
+              <Card
+                icon={FaFileSignature}
+                description="Leaked Signature? "
+              ></Card>
+              <Card
+                icon={BiMessageAltError}
+                description="Is this image forgery? "
+              ></Card>
+            </div>
           </div>
         </div>
 
@@ -164,7 +171,7 @@ const Home_V1 = () => {
               </div>
 
               <div className={`verify-agree-container ${montserrat.className}`}>
-                <Link href="/result2" className="button">
+                <Link href="/result" className="button">
                   {' '}
                   Verify
                 </Link>

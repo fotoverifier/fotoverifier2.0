@@ -6,7 +6,7 @@
 }
 
 .half_up_container {
-    padding: 1rem;
+  padding: 1rem;
   width: 60%;
   height: 100%;
   display: flex;
@@ -16,7 +16,7 @@
 }
 
 .seven_up_container {
-    padding: 1rem;
+  padding: 1rem;
   width: 60%;
   height: 100%;
   display: flex;
@@ -81,8 +81,6 @@
   outline: none;
 }
 
-
-
 .viewer {
   height: 100%;
   width: 100%;
@@ -138,7 +136,7 @@
 }
 
 .three_up_container {
-    padding: 1rem;
+  padding: 1rem;
   width: 40%;
   height: 100%;
   display: flex;

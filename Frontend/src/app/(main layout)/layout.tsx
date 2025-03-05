@@ -1,7 +1,7 @@
 'use client';
-import Banner from "@/components/banner";
+import Banner from '@/components/banner';
 import { usePathname } from 'next/navigation';
-import Sidebar_Alt from "@/components/sidebar/sidebar_alt";
+import Sidebar_Alt from '@/components/sidebar/sidebar_alt';
 
 export default function RootLayout({
   children,
@@ -13,7 +13,9 @@ export default function RootLayout({
     <div className="w-screen h-screen flex">
       <Sidebar_Alt />
       <div className="w-full">
-          {pathname !== "/privacy" && !pathname.startsWith("/library") && <Banner />}
+        {pathname !== '/privacy' && !pathname.startsWith('/library') && (
+          <Banner />
+        )}
         {children}
       </div>
     </div>

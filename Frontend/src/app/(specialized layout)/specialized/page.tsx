@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Specialized = () => {
-  return (
-    <div>Specialized</div>
-  )
-}
+  return <div>Specialized</div>;
+};
 
-export default Specialized
+export default Specialized;

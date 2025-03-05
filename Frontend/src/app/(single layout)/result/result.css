@@ -1,66 +1,65 @@
-.Top-container{
-    width: 100%;
-    height: 12.5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.Top-container {
+  width: 100%;
+  height: 12.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
-.Content-container{
-    width: 100%;
-    height: 85%;
+.Content-container {
+  width: 100%;
+  height: 85%;
 }
-.Half-content-container{
-    width: 100%;
-    height: 50%;
-    display: flex;
-    justify-content: space-evenly;
+.Half-content-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-evenly;
 }
 .Result-container {
-    width: 31%;
-    height: 95%;
-    border-radius: 5px;
-    border-width: 1px;
+  width: 31%;
+  height: 95%;
+  border-radius: 5px;
+  border-width: 1px;
 }
 .Result-container-2 {
-    width: 40%;
-    height: 95%;
-    border-radius: 5px;
-    border-width: 1px;
+  width: 40%;
+  height: 95%;
+  border-radius: 5px;
+  border-width: 1px;
 }
-
 
 .Result-container:hover {
-    border-color: black;
+  border-color: black;
 }
-.Confident-score-container{
-    padding: 10px;
-    margin-left: 10px;
-    width: 30%;
-    height: 60%;
-    border-radius: 10px;
-    border-width: 1px;
-    display: flex;
-    align-items: center;
+.Confident-score-container {
+  padding: 10px;
+  margin-left: 10px;
+  width: 30%;
+  height: 60%;
+  border-radius: 10px;
+  border-width: 1px;
+  display: flex;
+  align-items: center;
 }
-.hortizontal-space{
-    width: 5%;
+.hortizontal-space {
+  width: 5%;
 }
-.General-report-container{
-    width: 65%;
-    height: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.General-report-container {
+  width: 65%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
-.circle_2{
+.circle_2 {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: 2px solid;
-  background-color: #01584B;
+  background-color: #01584b;
   color: white;
-  display: flex;         
+  display: flex;
   font-weight: bold;
-  justify-content: center; 
-  align-items: center;    
+  justify-content: center;
+  align-items: center;
 }

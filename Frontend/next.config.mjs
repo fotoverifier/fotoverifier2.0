@@ -3,8 +3,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/home",
+        source: '/',
+        destination: '/home',
         permanent: true, // This makes it a permanent redirect (301)
       },
     ];
@@ -18,7 +18,7 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: '**',
-      }
+      },
     ],
   },
 };

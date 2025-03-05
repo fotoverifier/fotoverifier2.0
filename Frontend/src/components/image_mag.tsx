@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
-import { useEffect, useRef, useState } from "react";
+'use client';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ImageMagnifier({
   src,
@@ -8,7 +8,7 @@ export default function ImageMagnifier({
   height,
   magnifierHeight = 150,
   magnifieWidth = 150,
-  zoomLevel = 1.75
+  zoomLevel = 1.75,
 }: {
   src: string;
   width?: string;
@@ -23,9 +23,9 @@ export default function ImageMagnifier({
   return (
     <div
       style={{
-        position: "relative",
+        position: 'relative',
         height: height,
-        width: width
+        width: width,
       }}
     >
       <img
@@ -52,27 +52,27 @@ export default function ImageMagnifier({
           // close magnifier
           setShowMagnifier(false);
         }}
-        alt={"img"}
+        alt={'img'}
       />
 
       <div
         style={{
-          display: showMagnifier ? "" : "none",
-          position: "absolute",
+          display: showMagnifier ? '' : 'none',
+          position: 'absolute',
 
           // prevent maginier blocks the mousemove event of img
-          pointerEvents: "none",
+          pointerEvents: 'none',
           // set size of magnifier
           height: `${magnifierHeight}px`,
           width: `${magnifieWidth}px`,
           // move element center to cursor pos
           top: `${y - magnifierHeight / 2}px`,
           left: `${x - magnifieWidth / 2}px`,
-          opacity: "1", // reduce opacity so you can verify position
-          border: "1px solid lightgray",
-          backgroundColor: "white",
+          opacity: '1', // reduce opacity so you can verify position
+          border: '1px solid lightgray',
+          backgroundColor: 'white',
           backgroundImage: `url('${src}')`,
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: 'no-repeat',
 
           //calculate zoomed image size
           backgroundSize: `${imgWidth * zoomLevel}px ${
@@ -81,7 +81,7 @@ export default function ImageMagnifier({
 
           //calculete position of zoomed image.
           backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
-          backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`
+          backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
         }}
       ></div>
     </div>

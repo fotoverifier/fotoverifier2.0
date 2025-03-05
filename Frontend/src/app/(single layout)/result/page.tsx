@@ -8,10 +8,14 @@ const Res = dynamic(() => import('./resComponent'), { ssr: false });
 
 export default function Page() {
   return (
-    <Suspense fallback={<Flex align="center" gap="middle">
-      <Spin indicator={<LoadingOutlined spin />} />
-    </Flex>}>
-      <Res/>
+    <Suspense
+      fallback={
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined spin />} />
+        </Flex>
+      }
+    >
+      <Res />
     </Suspense>
   );
 }

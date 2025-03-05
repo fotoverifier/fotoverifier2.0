@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 interface DropDownProps {
   title: string;
@@ -17,7 +17,6 @@ const DropdownButton: React.FC<DropDownProps> = ({ title, array }) => {
 
   return (
     <div className="relative inline-block">
-
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className="text-white bg-transparent px-4 py-2 border-none hover:border-none"
@@ -30,7 +29,7 @@ const DropdownButton: React.FC<DropDownProps> = ({ title, array }) => {
       {isOpen && (
         <ul
           className="absolute bg-white border border-gray-300 mt-2 rounded-md shadow-md"
-          style={{ minWidth: "max-content" }}
+          style={{ minWidth: 'max-content' }}
         >
           {array.map((option) => (
             <li

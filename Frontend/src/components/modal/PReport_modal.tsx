@@ -87,8 +87,7 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               ref={contentRef}
             >
               {/* JPEG Ghost Column */}
-              <div className="flex-1 p-4 border-r border-gray-200 text-base">
-              </div>
+              <div className="flex-1 p-4 border-r border-gray-200 text-base"></div>
 
               {/* ELA Column */}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">

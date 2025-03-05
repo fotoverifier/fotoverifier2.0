@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaImage } from 'react-icons/fa';
 interface ImageResultProps {
-  img: string | null; 
+  img: string | null;
 }
 
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {

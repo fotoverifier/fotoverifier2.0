@@ -1,21 +1,21 @@
-.normal-deep-scan-container{
+.normal-deep-scan-container {
   width: 45%;
   height: 100%;
   background-color: white;
   border-radius: 10px;
   border-width: 1px;
 }
-.normal-deep-scan-container:hover{
+.normal-deep-scan-container:hover {
   border-color: gray;
 }
-.specialized-scan-container{
+.specialized-scan-container {
   width: 95%;
   height: 100%;
   background-color: white;
   border-radius: 10px;
   border-width: 1px;
 }
-.specialized-scan-container:hover{
+.specialized-scan-container:hover {
   border-color: gray;
 }
 .circle-checkbox-container {
@@ -39,7 +39,7 @@
 }
 
 .circle-checkbox-label::after {
-  content: "";
+  content: '';
   width: 15px;
   height: 15px;
   background-color: black;
@@ -55,10 +55,10 @@
 .circle-checkbox:checked + .circle-checkbox-label::after {
   opacity: 1; /* Visible when checked */
 }
-.button-title{
+.button-title {
   padding: 10px;
   height: 30%;
-  width: 100%;  
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;

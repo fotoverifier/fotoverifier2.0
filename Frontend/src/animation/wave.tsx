@@ -1,5 +1,5 @@
-"use client";
-import styles from "./wave.module.css";
+'use client';
+import styles from './wave.module.css';
 
 const Wave = () => {
   return (

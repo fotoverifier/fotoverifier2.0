@@ -51,10 +51,10 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
           </div>
           <div className="font-bold text-lg ml-2">Reversed Search</div>
         </div>
-     
-          <div onClick={openModal} className="focus:outline-none ml-auto">
-            <InfoButton />
-          </div>
+
+        <div onClick={openModal} className="focus:outline-none ml-auto">
+          <InfoButton />
+        </div>
       </div>
 
       {/* Top 3 Results */}
@@ -85,8 +85,17 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
             {loading ? (
               // Spinner Section
               <div className="p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-md flex flex-col items-center gap-4">
-                <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: "00000" }} spin />} />
-                <p className="text-gray-700 text-lg font-medium">Searching... Please wait</p>
+                <Spin
+                  indicator={
+                    <LoadingOutlined
+                      style={{ fontSize: 48, color: '00000' }}
+                      spin
+                    />
+                  }
+                />
+                <p className="text-gray-700 text-lg font-medium">
+                  Searching... Please wait
+                </p>
               </div>
             ) : searchResult?.length !== 0 ? (
               // Results Section
@@ -112,7 +121,6 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
           </div>
         </div>
       )}
-
     </div>
   );
 };

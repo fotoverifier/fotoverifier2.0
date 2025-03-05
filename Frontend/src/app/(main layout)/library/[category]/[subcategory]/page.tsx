@@ -1,5 +1,5 @@
-"use client";
-import { useParams } from "next/navigation";
+'use client';
+import { useParams } from 'next/navigation';
 
 export default function SubcategoryPage() {
   const params = useParams();
@@ -7,8 +7,8 @@ export default function SubcategoryPage() {
     ? params.subcategory[0]
     : params.subcategory;
   const formattedSubcategory = subcategory
-    ? subcategory.replace(/_/g, " ")
-    : "Unknown Subcategory";
+    ? subcategory.replace(/_/g, ' ')
+    : 'Unknown Subcategory';
 
   return (
     <div className="max-full mx-auto p-6 h-full bg-white">
@@ -17,7 +17,9 @@ export default function SubcategoryPage() {
           {formattedSubcategory}
         </h1>
         <p className="text-lg text-gray-700 mt-2">
-          This section introduces the topic <strong>{formattedSubcategory}</strong> and provides a brief overview of its significance.
+          This section introduces the topic{' '}
+          <strong>{formattedSubcategory}</strong> and provides a brief overview
+          of its significance.
         </p>
       </section>
 
@@ -28,7 +30,9 @@ export default function SubcategoryPage() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold text-[#03564a]">Methodology</h2>
         <p className="text-gray-700 mt-2">
-          In this section, we discuss the methods and approaches used to analyze the topic. Detailed steps, procedures, and techniques are outlined to ensure a rigorous examination of the subject matter.
+          In this section, we discuss the methods and approaches used to analyze
+          the topic. Detailed steps, procedures, and techniques are outlined to
+          ensure a rigorous examination of the subject matter.
         </p>
       </section>
 
@@ -37,9 +41,14 @@ export default function SubcategoryPage() {
 
       {/* Section 3: Paper - Related Work */}
       <section>
-        <h2 className="text-2xl font-bold text-[#03564a]">Paper - Related Work</h2>
+        <h2 className="text-2xl font-bold text-[#03564a]">
+          Paper - Related Work
+        </h2>
         <p className="text-gray-700 mt-2">
-          This section reviews relevant literature and related studies that have contributed to our understanding of <strong>{formattedSubcategory}</strong>. Key findings from previous research and academic papers are summarized here.
+          This section reviews relevant literature and related studies that have
+          contributed to our understanding of{' '}
+          <strong>{formattedSubcategory}</strong>. Key findings from previous
+          research and academic papers are summarized here.
         </p>
       </section>
     </div>

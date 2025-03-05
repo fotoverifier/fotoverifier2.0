@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 interface CircleRatingProps {
   onSelect: (rating: number) => void; // Callback when user selects a rating
@@ -20,8 +20,8 @@ const CircleRating: React.FC<CircleRatingProps> = ({ onSelect }) => {
           className={`w-8 h-8 flex items-center justify-center rounded-full border-2 transition-all duration-300
             ${
               selectedRating === num
-                ? "bg-[#03564a] text-white border-[#03564a] scale-110"
-                : "bg-transparent text-[#03564a] border-[#03564a] hover:bg-[#ffcc00] hover:text-white"
+                ? 'bg-[#03564a] text-white border-[#03564a] scale-110'
+                : 'bg-transparent text-[#03564a] border-[#03564a] hover:bg-[#ffcc00] hover:text-white'
             }`}
           onClick={() => handleSelect(num)}
         >

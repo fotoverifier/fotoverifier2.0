@@ -9,7 +9,10 @@ import markerIconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const DefaultIcon = L.icon({
   iconUrl: typeof markerIcon === 'string' ? markerIcon : markerIcon.src,
-  shadowUrl: typeof markerIconShadow === 'string' ? markerIconShadow : markerIconShadow.src,
+  shadowUrl:
+    typeof markerIconShadow === 'string'
+      ? markerIconShadow
+      : markerIconShadow.src,
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -28,17 +31,17 @@ const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
       typeof coordinate[1] === 'number' &&
       !isNaN(coordinate[0]) &&
       !isNaN(coordinate[1])
-    )
-  }
+    );
+  };
   if (!isValidCoordinate(coordinate)) {
-    return <div>No geolocation found.</div>
+    return <div>No geolocation found.</div>;
   }
   return (
     <div className="h-full w-full">
       {/* Use key to ensure the map is re-initialized when coordinates change */}
-      <MapContainer 
-        center={coordinate} 
-        zoom={13} 
+      <MapContainer
+        center={coordinate}
+        zoom={13}
         style={{ height: '100%', width: '100%' }}
         key={coordinate.toString()} // Use coordinate as key
       >

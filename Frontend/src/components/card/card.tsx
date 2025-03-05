@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./card.module.css";
-import { IconType } from "react-icons";
+import React from 'react';
+import styles from './card.module.css';
+import { IconType } from 'react-icons';
 
 interface CardProps {
   icon: IconType;

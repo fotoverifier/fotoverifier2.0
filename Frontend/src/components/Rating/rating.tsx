@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { FaStar } from "react-icons/fa";
-import styles from "./rating.module.css";
+import React, { useState } from 'react';
+import { FaStar } from 'react-icons/fa';
+import styles from './rating.module.css';
 
 const Rating: React.FC = () => {
   const [rating, setRating] = useState<number>(0);
@@ -17,7 +17,7 @@ const Rating: React.FC = () => {
           onMouseLeave={() => setHover(null)}
         >
           <FaStar
-            color={(hover || rating) >= star ? "#ffc107" : "#e4e5e9"}
+            color={(hover || rating) >= star ? '#ffc107' : '#e4e5e9'}
             size={35}
           />
         </div>

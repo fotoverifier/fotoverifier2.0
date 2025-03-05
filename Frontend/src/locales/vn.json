@@ -1,0 +1,17 @@
+{
+  "welcome": "Chào mừng bạn đến với trang web của chúng tôi!",
+  "language": "Ngôn ngữ",
+
+  "quickly_verify": "Nhanh chóng xác minh tính toàn vẹn của ảnh hoặc video với các thuật toán tiên tiến và quy trình 5 bước.",
+  "image_verification": "XÁC MINH HÌNH ẢNH",
+  "engaging_way": "THEO CÁCH THÚ VỊ HƠN",
+  "verify_now": "Xác minh ngay →",
+  "feedback": "Phản hồi",
+  "go_to_dashboard": "Đi tới bảng điều khiển",
+  "image_verification_subtext": "Phương thức đánh giá",
+  "image_url_placeholder": "Nhập URL hình ảnh...",
+  "find_by_url_button": "Tìm bằng URL",
+  "terms_agreement_text": "Tôi đồng ý với các điều khoản và điều kiện.",
+  "image_reliability_question": "Ảnh này có đáng tin cậy?",
+  "Choose your image": "Chọn hình ảnh"
+}

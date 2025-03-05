@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export const metadata: Metadata = {
   title: 'Fotoverifier 2.0',
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="h-screen w-full flex">{children}</body>
-    </html>
+    <LanguageProvider>
+      <html lang="en">
+        <body className="h-screen w-full flex">{children}</body>
+      </html>
+    </LanguageProvider>
   );
 }

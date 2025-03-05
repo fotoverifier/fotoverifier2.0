@@ -2,11 +2,18 @@
   position: relative;
   width: 60%;
   height: 90%;
- background: 
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.5)20%, transparent 100%),
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.5) 20%,
+      transparent 100%
+    ),
     linear-gradient(to bottom right, #03564a, #027d66),
     radial-gradient(rgba(255, 255, 255, 0.7) 1px, transparent 1px);
-  background-size: auto, auto, 30px 30px; /* Keep dots smaller */
+  background-size:
+    auto,
+    auto,
+    30px 30px; /* Keep dots smaller */
   background-blend-mode: overlay; /* Blend dots smoothly */
 
   border-radius: 10px;
@@ -17,10 +24,7 @@
   perspective: 1000px;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2); /* Lighter glow effect */
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
 }
-
-
 
 .card svg {
   width: 48px;
@@ -41,12 +45,11 @@
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
-    background: linear-gradient(to bottom right, #038c65, #029f7d);
+  background: linear-gradient(to bottom right, #038c65, #029f7d);
   transform: rotateX(-90deg);
   transform-origin: bottom;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-backdrop-filter: blur(0px); /* Ensures text does not inherit blur */
-
+  backdrop-filter: blur(0px); /* Ensures text does not inherit blur */
 }
 
 .card:hover .card__content {
@@ -88,7 +91,7 @@ backdrop-filter: blur(0px); /* Ensures text does not inherit blur */
   color: white;
   line-height: 1.4;
   white-space: normal;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   overflow-wrap: break-word;
   display: block;
   max-width: 100%; /* Ensures it doesn't overflow */
@@ -116,7 +119,9 @@ backdrop-filter: blur(0px); /* Ensures text does not inherit blur */
   display: flex;
   align-items: center;
   gap: 6px; /* Space between text and icon */
-  transition: background 0.3s ease-in-out, transform 0.2s ease;
+  transition:
+    background 0.3s ease-in-out,
+    transform 0.2s ease;
 }
 
 .start_button:hover {

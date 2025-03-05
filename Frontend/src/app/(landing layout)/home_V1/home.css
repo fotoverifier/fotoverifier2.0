@@ -1,201 +1,197 @@
 .home-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    --s: 200px; /* Control the size */
-    --c1: #e6f7f5; /* Light Greenish White */
-    --c2: #cdecef; /* Light Cyan */
-    --c3: #b6e2e6; /* Soft Blueish Green */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  --s: 200px; /* Control the size */
+  --c1: #e6f7f5; /* Light Greenish White */
+  --c2: #cdecef; /* Light Cyan */
+  --c3: #b6e2e6; /* Soft Blueish Green */
 
-    background: repeating-conic-gradient(
-            from 30deg,
-            #0000 0 120deg,
-            var(--c3) 0 180deg
-        )
-        calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
-        repeating-conic-gradient(
-            from 30deg,
-            var(--c1) 0 60deg,
-            var(--c2) 0 120deg,
-            var(--c3) 0 180deg
-        );
-    background-size: var(--s) calc(var(--s) * 0.577);
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
 }
-.home-first-half{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.home-first-half {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.home-fh-container{
-    width: 90%;
-    height: 80%;
+.home-fh-container {
+  width: 90%;
+  height: 80%;
 }
-.home-fh-container-title{
-    font-size: 3.5rem;
-    color: black;
+.home-fh-container-title {
+  font-size: 3.5rem;
+  color: black;
 }
-.home-fh-container-description{
-    font-size: 20px;
-    color: black;
+.home-fh-container-description {
+  font-size: 20px;
+  color: black;
 }
-.home-second-half{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.home-second-half {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.upload-fcontainer{
-    width: 85%;
-    height: 90%;
-    background-color: #61A49A;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 7px;
-    border: none;
-    
+.upload-fcontainer {
+  width: 85%;
+  height: 90%;
+  background-color: #61a49a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: none;
 }
-.upload-scontainer{
-    padding: 10px;
-    width: 95%;
-    height: 95%;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;  /* Centers vertically */
-    align-items: center;  /* Centers horizontally */
-    flex-direction: column;  
-    border-radius: 5px;
+.upload-scontainer {
+  padding: 10px;
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between; /* Centers vertically */
+  align-items: center; /* Centers horizontally */
+  flex-direction: column;
+  border-radius: 5px;
 }
-.title-container{
-    width: 95%;
-    height: 5%;
+.title-container {
+  width: 95%;
+  height: 5%;
 }
-.findbyurl-container{
-    padding: 10px;
-    width: 95%;
-    height: 10%;
-    border-radius: 5px;
-    border-color: black;
-    border-style: dotted;
-    border-width: 1px;
+.findbyurl-container {
+  padding: 10px;
+  width: 95%;
+  height: 10%;
+  border-radius: 5px;
+  border-color: black;
+  border-style: dotted;
+  border-width: 1px;
 }
-.inputimg-container{
-    padding: 10px;
-    width: 95%;
-    height: 60%;
-    border-radius: 5px;
-    border-color: black;
-    border-style: dotted;
-    border-width: 1px;
+.inputimg-container {
+  padding: 10px;
+  width: 95%;
+  height: 60%;
+  border-radius: 5px;
+  border-color: black;
+  border-style: dotted;
+  border-width: 1px;
 }
-.verify-agree-container{
-    width: 95%;
-    height: 8%;
-    display: flex;
-    justify-content: space-evenly;
+.verify-agree-container {
+  width: 95%;
+  height: 8%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.agree-section{
-    align-self: center;
-    margin-left: auto; 
+.agree-section {
+  align-self: center;
+  margin-left: auto;
 }
 .button {
-    width: 50%;
-    height: 100%;
-    background-color: #D9D9D9; /* Green background */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Larger font size */
-    font-weight: bold; /* Bold text */
-    transition: background-color 0.3s ease; /* Smooth transition */
-    overflow: hidden; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: #d9d9d9; /* Green background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Larger font size */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button:hover {
-    background-color: black; /* Darker green on hover */
+  background-color: black; /* Darker green on hover */
 }
 
 .button:active {
-    background-color: #3e8e41; /* Even darker green on click */
-    transform: scale(0.98); /* Slightly shrink on click */
+  background-color: #3e8e41; /* Even darker green on click */
+  transform: scale(0.98); /* Slightly shrink on click */
 }
-.banner{
-    width: 100%;
-    height: 11.5%;
-    background: linear-gradient(to left, #03564A, #90E6F2);
+.banner {
+  width: 100%;
+  height: 11.5%;
+  background: linear-gradient(to left, #03564a, #90e6f2);
 }
-.button-choose-file{
-    width: 50%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px; 
-    border-color: black;
-    border-style: dotted;
-    border-width: 1px;
+.button-choose-file {
+  width: 50%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border-color: black;
+  border-style: dotted;
+  border-width: 1px;
 }
-.vertical-line{
-    width: 1px;
-    height: 100%;
-    background-color: black;
+.vertical-line {
+  width: 1px;
+  height: 100%;
+  background-color: black;
 }
-.detail-button{
-    width: fit-content;
-    height: fit-content;
-    padding: 15px;
-    border-radius: 5px;
-    border-width: 1px;
-    border-color: black;
-    color: black;
+.detail-button {
+  width: fit-content;
+  height: fit-content;
+  padding: 15px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: black;
+  color: black;
 }
-.detail-button:hover{
-    cursor: pointer;
+.detail-button:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
-    .home-fh-container-title {
-        font-size: 2.5rem;
-    }
-    .home-fh-container-description {
-        font-size: 1.25rem;
-    }
+  .home-fh-container-title {
+    font-size: 2.5rem;
+  }
+  .home-fh-container-description {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 992px) {
-    .home-fh-container-title {
-        font-size: 2rem;
-    }
-    .home-fh-container-description {
-        font-size: 1rem;
-    }
+  .home-fh-container-title {
+    font-size: 2rem;
+  }
+  .home-fh-container-description {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .home-fh-container-title {
-        font-size: 1.5rem;
-    }
-    .home-fh-container-description {
-        font-size: 0.875rem;
-    }
+  .home-fh-container-title {
+    font-size: 1.5rem;
+  }
+  .home-fh-container-description {
+    font-size: 0.875rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .home-fh-container-title {
-        font-size: 1.25rem;
-    }
-    .home-fh-container-description {
-        font-size: 0.75rem;
-    }
+  .home-fh-container-title {
+    font-size: 1.25rem;
+  }
+  .home-fh-container-description {
+    font-size: 0.75rem;
+  }
 }
 .input-image {
   width: 95%;
