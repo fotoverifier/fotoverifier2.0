@@ -11,7 +11,7 @@ export default function Page() {
     <Suspense fallback={<Flex align="center" gap="middle">
       <Spin indicator={<LoadingOutlined spin />} />
     </Flex>}>
-      <Res />
+      <Res/>
     </Suspense>
   );
 }

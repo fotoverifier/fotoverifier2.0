@@ -20,11 +20,10 @@ import MapComponent from '@/components/map/map';
 
 import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
-const montserrat = Montserrat({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
 import HeaderReport from '@/components/head/head_result';
 
-const Res2 = () => {
+const Res = () => {
   const location: [number, number] = [51.505, -0.09];
   {
     /* SERVER AREA */
@@ -385,4 +384,4 @@ const Res2 = () => {
   );
 };
 
-export default Res2;
+export default Res;
