@@ -12,6 +12,7 @@
   transition-duration: .3s;
   overflow: hidden;
   position: relative;
+  font-family: "Inter";
 }
 
 .info_svgIcon {

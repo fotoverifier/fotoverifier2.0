@@ -14,7 +14,6 @@ const LandingPage2 = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [url, setUrl] = useState("");
 
-  // Handle Image Upload
   const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -24,7 +23,6 @@ const LandingPage2 = () => {
     }
   };
 
-  // Remove Image
   const removeImg = () => setImageSrc(null);
 
   return (
@@ -35,10 +33,9 @@ const LandingPage2 = () => {
       initial="hidden"
       animate="visible"
       variants={{
-        visible: { transition: { staggerChildren: 0.3 } }, // Stagger elements
+        visible: { transition: { staggerChildren: 0.3 } }, 
       }}
     >
-      {/* Left Section - Text */}
       <motion.div
         className={styles.text_section}
         initial={{ opacity: 0, x: -50 }}
@@ -62,7 +59,6 @@ const LandingPage2 = () => {
         </motion.button>
       </motion.div>
 
-      {/* Right Section - Floating Elements */}
       <motion.div
         className={styles.visual_section}
         initial={{ opacity: 0, x: 50 }}
@@ -81,7 +77,6 @@ const LandingPage2 = () => {
               <div className={styles.subtext}>How can we assess it?</div>
             </motion.div>
 
-            {/* URL Input Field */}
             {isEditing ? (
               <textarea
                 className={styles.findbyurl_input}
@@ -92,18 +87,15 @@ const LandingPage2 = () => {
                 autoFocus
               />
             ) : (
-              <motion.div
+             <div
                 className={styles.findbyurl_container}
                 onClick={() => setIsEditing(true)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
               >
-                <div className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all mr-5">
+<div className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all mr-5">
                   <GoLink className="w-4 h-4" />
                 </div>
                 Find by URL
-              </motion.div>
+              </div>
             )}
 
             {/* Image Upload Section */}

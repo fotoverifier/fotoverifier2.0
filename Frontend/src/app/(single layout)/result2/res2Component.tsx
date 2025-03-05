@@ -12,18 +12,17 @@ import MetaData_Result from '../result/metadata';
 import JpegGhostResult from '../result/jpegGhost';
 import ElaResult from '../result/ela';
 import ReverseImgResult from '../result/reverse_img';
-import pattern2 from '@/assets/Group 97.svg';
-import { TbReportSearch } from 'react-icons/tb';
-import { FaCamera, FaExchangeAlt, FaUser } from 'react-icons/fa';
+
+import { FaCamera, FaExchangeAlt, FaSortDown, FaSortUp, FaUser } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
-import { TiExport } from 'react-icons/ti';
-import Modal_PReport from '@/components/modal/PReport_modal';
-import { FiMapPin } from 'react-icons/fi';
+
+import { FiHelpCircle, FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
+import HeaderReport from '@/components/head/head_result';
 
 const Res2 = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -145,14 +144,14 @@ const Res2 = () => {
     const tabData = {
       Tampering: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <div className={styles.Seven_content_container}>
-            <div className={styles.Result_container}>
-              <Image_Result img={img} />
-            </div>
-            <div className={styles.Result_container}>
+            <div  className={styles.Seven_content_container}>
+              <div id="img" className={styles.Result_container}>
+                  <Image_Result img={img} />
+                </div>
+            <div id="jpeg_ghost" className={styles.Result_container}>
               <JpegGhostResult images={jpegResult} loading={loadingJpegGhost} />
             </div>
-            <div className={styles.Result_container}>
+            <div id="ela" className={styles.Result_container}>
               <ElaResult
                 img={`data:image/jpeg;base64,${elaResult}`}
                 loading={loadingEla}
@@ -305,15 +304,12 @@ const Res2 = () => {
               </div>
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
               <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
-                {/* Title */}
                 <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
                   <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
-                    <FiMapPin size={16} /> {/* Icon */}
+                    <FiMapPin size={16} /> 
                   </div>
                   Detecting Image Location
                 </h3>
-
-                {/* List of Techniques */}
                 <ul className="space-y-3 text-sm text-gray-700">
                   <li className="flex items-start">
                     <span className="mr-2 text-blue-500">✔</span>
@@ -384,68 +380,18 @@ const Res2 = () => {
     return <div className="h-full w-full">No content available.</div>;
   };
 
+
   return (
     <div className={styles.res_container}>
-      <div className={styles.res_header_container}>
-        {/*<div className="flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800">
-          <div className={styles.circle}>
-            <IoLibrary />
-          </div>
-          <div className={`ml-2 font-bold text-xl ${inter.className}`}>
-            The confident score
-          </div>
-        </div>*/}
-        <div
-          className={`text-2xl ${montserrat.className} flex h-full items-center`}
-        >
-          <div className={`${styles.circle} mx-3`}>
-            <TbReportSearch />
-          </div>
-          <div className="font-bold"> General Report </div>
-          <div className="h-full w-1 bg-white mx-5"> </div>
-          <div className="text-xl"> Basic Method </div>
-          <div className="relative group mx-5">
-            <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
-              <FaExchangeAlt />
-            </div>
-            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-              Change method
-            </span>
-          </div>
-
-          <div className="relative group">
-            <div
-              onClick={() => setIsModalOpen(true)}
-              className="focus:outline-none ml-auto"
-            >
-              <div className="border-2 border-white p-2 rounded-full cursor-pointer hover:bg-green-900 flex items-center justify-center">
-                <TiExport />
-              </div>
-            </div>
-            <Modal_PReport
-              isOpen={isModalOpen}
-              closeModal={() => setIsModalOpen(false)}
-              jpegResult={jpegResult}
-              elaResult={elaResult}
-              tagResult={tagResult}
-              loadingJpegGhost={loadingJpegGhost}
-              loadingEla={loadingEla}
-              loadingTagResult={loadingTagResult}
-            />
-
-            <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap truncate">
-              Generate a portable report
-            </span>
-          </div>
-        </div>
-        <Image
-          src={pattern2}
-          alt=""
-          height={300}
-          width={300}
-          className={styles.res_header_image}
+      
+            <HeaderReport 
+          jpegResult={jpegResult}
+          elaResult={elaResult}
+          tagResult={tagResult}
+          loadingJpegGhost={loadingJpegGhost}
+          loadingEla={loadingEla}
+          loadingTagResult={loadingTagResult}
         />
-      </div>
       <div className={` ${styles.res_body_container} ${inter.className}`}>
         <Tabs tabs={tabs} renderContent={renderContent} />
       </div>

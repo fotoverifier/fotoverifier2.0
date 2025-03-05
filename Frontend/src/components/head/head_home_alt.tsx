@@ -2,27 +2,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "@/styles/head/head_home_alt.module.css"; // Import module CSS
+import styles from "@/styles/head/head_home_alt.module.css"; 
 import FotoverifierWhite from "@/assets/Fotoverifier_white.svg";
 import IconWhite from "@/assets/icon_main_white.svg";
+import FeedBackModal from "../modal/feedback_modal/feedback_modal";
 
 const languages = [
-  { code: "EN", name: "English", flag: "https://flagcdn.com/w40/gb.png" }, // UK flag
-  { code: "VN", name: "Tiếng Việt", flag: "https://flagcdn.com/w40/vn.png" }, // Vietnam flag
-  { code: "DK", name: "Dansk", flag: "https://flagcdn.com/w40/dk.png" }, // Denmark flag
+  { code: "EN", name: "English", flag: "https://flagcdn.com/w40/gb.png" },
+  { code: "VN", name: "Tiếng Việt", flag: "https://flagcdn.com/w40/vn.png" },
+  { code: "DK", name: "Dansk", flag: "https://flagcdn.com/w40/dk.png" },
 ];
 
 const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]); // Default: English
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]); 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Toggle dropdown visibility
+
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -38,7 +39,6 @@ const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
 
   return (
    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
-      {/* Left - Icons */}
       <div className={styles.header_icon}>
         <div className={styles.image_wrapper}>
           <Image src={IconWhite} alt="Image 1" objectFit="cover" />
@@ -79,10 +79,20 @@ const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
           )}
         </div>
 
-        {/* Navigation Links */}
-        <Link href="#" className={styles.nav_link}>
-          Feedback
-        </Link>
+         <button
+        className={styles.nav_link}
+        onClick={(e) => {
+          e.preventDefault(); // Prevent default link behavior
+          setIsModalOpen(true);
+        }}
+      >
+        Feedback
+      </button>
+
+      {/* Render Modal when open */}
+      {isModalOpen && (
+        <FeedBackModal closeModal={() => setIsModalOpen(false)} />
+      )}
         <div className={styles.head_line}></div>
         <Link href="/dashboard">
         <div className={styles.start_button}>Go to dashboard</div>

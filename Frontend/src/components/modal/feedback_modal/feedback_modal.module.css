@@ -8,12 +8,13 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1001; /* Ensure it's above the backdrop */
+  z-index: 2000;
   min-width: 300px;
   text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
 
 .resultButton {
@@ -26,19 +27,22 @@
   cursor: pointer;
   font-size: 16px;
   width: 100%;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .resultButton:hover {
-  background-color: #0056b3;
+  background-color: rgb(130, 130, 130);
+  transform: scale(1.05);
 }
 
 .backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(17, 24, 39, 0.8); 
-  z-index: 1000; 
+  background-color: rgba(17, 24, 39, 0.8);
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
 }
+
 .textInput {
   width: 100%;
   margin-top: 10px;
@@ -46,8 +50,9 @@
   border: 1px solid #d1d5db;
   border-radius: 5px;
   font-size: 13px;
-  resize: none; /* Prevents resizing */
+  resize: none;
   height: 200px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .textInput:focus {
@@ -56,43 +61,56 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
   color: black;
 }
-.dash{
-    height: 1px;
-    width: 100%;
-    border-bottom: black;
-    border-width: 1px;
-    border-style: dashed;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
+.dash {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
 .modalHeader {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  transition: all 0.3s ease-in-out;
 }
+
 .title {
   margin-left: 20px;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  font-size: 1.875rem; 
+  font-size: 1.875rem;
   color: black;
+  transition: color 0.3s ease-in-out;
 }
-.closeIcon{
+
+.closeIcon {
   margin-left: auto;
   color: gray;
   cursor: pointer;
+  transition: color 0.3s ease-in-out;
 }
+
 .closeIcon:hover {
-  color: #ff0000; 
+  color: #ff0000;
 }
+
 .subHeader {
+  display: flex;
   margin-right: auto;
   font-family: "Montserrat", sans-serif;
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 600;
-  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 15px;
   color: black;
+  gap: 8px;
+  padding-left: 5px;
+  border-left: 4px solid #ffcc00;
 }
+
 .buttonContainer {
   width: 40%;
   margin-top: 20px;
@@ -102,37 +120,72 @@
   height: fit-content;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
+
 .buttonContainer:hover {
-  width: 40%;
-  margin-top: 20px;
   background-color: black;
-  padding: 10px;
-  height: fit-content;
-  border-radius: 5px;
+  transform: scale(1.05);
 }
+
 .detailButton {
   margin-left: 20px;
   background: none;
   color: black;
-  font-size: 0.875rem; /* text-sm */
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   border-radius: 5%;
   border-width: 1px;
   border-color: black;
   padding: 10px;
-  transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .detailButton:hover {
-  color: #01584b; /* Darker blue */
+  color: #01584b;
+  transform: scale(1.05);
 }
 
 .expandedModal {
+  width: 80%;
   height: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   padding: 25px;
-  animation: expand 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.feedbackTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.feedbackTag {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #03564a;
+  background-color: transparent;
+  color: #03564a;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.feedbackTag.selected {
+  background-color: #03564a;
+  color: white;
+}
+
+.feedbackTag:hover {
+  background-color: #ffcc00;
+  color: #03564a;
 }
 
 @keyframes expand {
@@ -142,4 +195,89 @@
   to {
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+.modalLeft {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalRight {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.textInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+  height: 120px;
+  transition: height 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.expandedModal .textInput {
+  height: 200px;
+}
+
+.imageUpload {
+  width: 100%;
+  margin-top: 20px;
+  border: 2px dashed #03564a;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #03564a;
+  transition: all 0.3s ease-in-out;
+}
+
+.imageUpload:hover {
+  background-color: #f8f8f8;
+  border-color: #ffcc00;
+}
+
+.uploadedImages {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.uploadedImages img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid #03564a;
+  transition: transform 0.3s ease-in-out;
+}
+
+.uploadedImages img:hover {
+  transform: scale(1.1);
+}
+
+.expandedModal .modalLeft .closeIcon {
+  display: none;
+}
+
+.modalRight .closeIcon {
+  display: block;
+}
+
+.expandedModal .modalRight .modalHeader {
+  justify-content: center;
+}
+
+.expandedModal .modalLeft .resultButton {
+  display: none;
 }
