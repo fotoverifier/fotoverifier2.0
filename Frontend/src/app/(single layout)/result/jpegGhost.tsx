@@ -107,9 +107,12 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
 
       {jpegResult && (
         <>
-          <div className="mt-4 p-2 border border-gray-300 rounded-md bg-gray-100 z-100 overflow-hidden">
-            <strong>JPEG Ghost Result:</strong> {JSON.stringify(jpegResult)}
-          </div>
+          <Image
+            src={jpegResult[4]}
+            alt={'JPEG Ghost Image'}
+            width={500}
+            height={500}
+          ></Image>
         </>
       )}
 

@@ -61,7 +61,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
       <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
         <MdWarning className="text-red-600" size={20} />
         <p className="text-red-700 text-sm font-medium">
-          The tampered region is highlighted with a dark color.
+          The tampered region is highlighted with a bright color.
         </p>
       </div>
     </div>
