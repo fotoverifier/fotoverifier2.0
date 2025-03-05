@@ -36,10 +36,8 @@ const Res2 = () => {
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
-  const [jpegResult, setJpegResult] = useState<string[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
-  const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
   const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
     useState<boolean>(true);
@@ -47,14 +45,12 @@ const Res2 = () => {
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   var completedTasks = new Set();
   const totalTasks = [
-    'jpeg_ghost',
     'ela',
     'exif_check',
     'reverse_image_search',
     'recognize_image',
   ];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     if (wsUrls) {
       try {
@@ -75,7 +71,6 @@ const Res2 = () => {
           try {
             
 
-            // Handling different tasks based on the WebSocket message
             switch (message.task) {
               case 'ela':
                 if (message.result !== 'completed') {
@@ -101,13 +96,6 @@ const Res2 = () => {
                   setLoadingReverseImageSearch(false);
                 }
                 break;
-              case 'jpeg_ghost':
-                if (message.result !== 'completed') {
-                  setJpegResult(message.result);
-                  setLoadingJpegGhost(false);
-                }
-                break;
-
               default:
                 console.log('Unknown task type:', message.task);
                 break;
@@ -149,7 +137,7 @@ const Res2 = () => {
                   <Image_Result img={img} />
                 </div>
             <div id="jpeg_ghost" className={styles.Result_container}>
-              <JpegGhostResult images={jpegResult} loading={loadingJpegGhost} />
+<JpegGhostResult wsUrls={wsUrls} />
             </div>
             <div id="ela" className={styles.Result_container}>
               <ElaResult
@@ -385,10 +373,8 @@ const Res2 = () => {
     <div className={styles.res_container}>
       
             <HeaderReport 
-          jpegResult={jpegResult}
           elaResult={elaResult}
           tagResult={tagResult}
-          loadingJpegGhost={loadingJpegGhost}
           loadingEla={loadingEla}
           loadingTagResult={loadingTagResult}
         />

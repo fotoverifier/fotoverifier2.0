@@ -14,27 +14,28 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
+const pathname = usePathname();
+const router = useRouter();
 
-  const tabParam = searchParams.get("tab");
+const tabParam = searchParams.get("tab");
+const imageParam = searchParams.get("image");
 
-  const [activeTab, setActiveTab] = useState<string>(
-    tabParam && tabs.includes(tabParam) ? tabParam : tabs[0]
-  );
+const [activeTab, setActiveTab] = useState<string>(
+  tabParam && tabs.includes(tabParam) ? tabParam : tabs[0]
+);
 
-  useEffect(() => {
-    if (tabParam && tabs.includes(tabParam)) {
-      setActiveTab(tabParam);
-    }
-  }, [tabParam, tabs]);
+useEffect(() => {
+  if (tabParam && tabs.includes(tabParam)) {
+    setActiveTab(tabParam);
+  }
+}, [tabParam, tabs]);
 
-  const handleTabChange = (selectedTab: string) => {
-    setActiveTab(selectedTab);
+const handleTabChange = (selectedTab: string) => {
+  setActiveTab(selectedTab);
 
-    const newUrl = `${pathname}?tab=${selectedTab}`;
-    router.replace(newUrl);
-  };
+  const newUrl = `${pathname}?tab=${selectedTab}${imageParam ? `&image=${imageParam}` : ''}`;
+  router.replace(newUrl);
+};
 
   return (
     <div className={styles.tabs_container}>

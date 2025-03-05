@@ -8,10 +8,10 @@ import { FiEdit } from 'react-icons/fi';
 interface ModalPReportProps {
   isOpen: boolean;
   closeModal: () => void;
-  jpegResult: string[] | null;
+  jpegResult?: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
-  loadingJpegGhost: boolean;
+  loadingJpegGhost?: boolean;
   loadingEla: boolean;
   loadingTagResult: boolean;
 }
@@ -88,10 +88,6 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
             >
               {/* JPEG Ghost Column */}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">
-                <JpegGhostResult
-                  images={jpegResult ? jpegResult : []}
-                  loading={loadingJpegGhost}
-                />
               </div>
 
               {/* ELA Column */}
