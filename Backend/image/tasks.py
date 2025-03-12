@@ -225,10 +225,10 @@ def process_ela(image_id):
 def process_quick_scan(image_id):
     # You can optionally group them for parallel execution
     group(
+        process_jpeg_ghost.s(image_id),
         process_ela.s(image_id),
         process_exif_check.s(image_id),
         process_reverse_image_search.s(image_id),
-        process_jpeg_ghost.s(image_id),
         process_recognize_objects.s(image_id),
     )()
     message = {'task': 'quick_scan', 'status': 'initiated'}
