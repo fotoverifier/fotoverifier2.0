@@ -38,7 +38,7 @@ def initialize_super_res_model():
     global super_res_model
     if super_res_model is None:
         super_res_model = arch.RRDBNet(3, 3, 64, 23, gc=32)
-        model_path = 'algorithms/RRDB_ESRGAN_x4.pth'
+        model_path = os.path.join("algorithms", "RRDB_ESRGAN_x4.pth")
         super_res_model.load_state_dict(torch.load(model_path, weights_only=True), strict=True)
         super_res_model.eval().to(device)
     return super_res_model
