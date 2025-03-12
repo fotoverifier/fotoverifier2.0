@@ -15,7 +15,6 @@ interface ElaResultProp {
 const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
   return (
     <div className="w-full h-full p-5 flex flex-col">
-      {/* Title Section */}
       <div className={styles.title_container}>
         <div className="flex justify-between">
           <div className="flex">
@@ -26,8 +25,6 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
           </div>
         </div>
       </div>
-
-      {/* Image Section (Takes Remaining Space) */}
       <div
         className={`${styles.image_container} flex-1 flex items-center justify-center`}
       >
@@ -59,7 +56,6 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
         )}
       </div>
 
-      {/* Warning Section (Always at Bottom) */}
       <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
         <MdWarning className="text-red-600" size={20} />
         <p className="text-red-700 text-sm font-medium">

@@ -5,9 +5,11 @@ import styles from './aboutus.module.css';
 import { FaChevronRight, FaFacebook, FaGithub } from 'react-icons/fa';
 import Wave from '@/animation/wave';
 import { useEffect, useRef, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const AboutUs = () => {
-  const text = 'About US';
+  const {t} = useLanguage();
+  const text = t("About Us");
   const typingSpeed = 200;
 
   const [displayedText, setDisplayedText] = useState('');
@@ -57,13 +59,7 @@ const AboutUs = () => {
         </motion.h2>
 
         <div className={styles.description}>
-          <span>Fotoverifier</span> provides users with a robust arsenal of
-          tools to detect and analyze <span>image manipulation</span>, ensuring{' '}
-          <span>authenticity</span> and <span>integrity</span> in digital
-          content. Powered by <span>HCMUS Security Club</span>, we integrate{' '}
-          <span>cutting-edge forensic techniques</span> with advanced detection
-          tools to help users verify{' '}
-          <span>the legitimacy of digital media</span>.
+          {t('About Us Description')}
         </div>
       </div>
 
@@ -73,7 +69,6 @@ const AboutUs = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        {/* Left Triangle (Facebook) */}
         <a
           href="https://facebook.com"
           target="_blank"
@@ -83,7 +78,6 @@ const AboutUs = () => {
           <FaFacebook size={60} color="white" />
         </a>
 
-        {/* Right Triangle (GitHub) */}
         <a
           href="https://github.com"
           target="_blank"

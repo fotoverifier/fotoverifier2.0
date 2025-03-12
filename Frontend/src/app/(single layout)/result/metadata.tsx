@@ -61,7 +61,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
   console.log(gps_location);
 
   return (
-    <div className={`w-full h-full p-5 ${inter.className}`}>
+    <div className={`w-full h-full p-5`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="circle_2">
@@ -78,7 +78,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="bg-white rounded-lg w-11/12 max-w-lg p-6">
             <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
             {loading ? (
-              // Spinner Section
               <div className="p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-md flex flex-col items-center gap-4">
                 <Spin
                   indicator={
@@ -94,7 +93,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
               </div>
             ) : (
               <>
-                {/* Camera Information Section */}
                 <div className="mb-4">
                   <div className="flex">
                     <div className="circle_2">1.</div>

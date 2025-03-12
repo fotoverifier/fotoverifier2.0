@@ -129,7 +129,7 @@ const Res = () => {
     }
   }, [wsUrls]);
 
-  const tabs = ['Tampering Detection', 'Originality', 'Location', 'Forensic'];
+  const tabs = ['Tampering_Detection', 'Originality', 'Location', 'Forensic'];
 
   const renderContent = (activeTab: string) => {
     const tabData = {
@@ -149,29 +149,6 @@ const Res = () => {
               />
             </div>
           </div>
-
-          {/* <div className={styles.Third_content_container}>
-            <div className={styles.Result_container}>
-              <MetaData_Result
-                cameraInformation={exifResult?.camera_information || undefined}
-                original_date={exifResult?.original_date || undefined}
-                modify_date={exifResult?.modify_date || undefined}
-                software_modify={exifResult?.software_modify || undefined}
-                author_copyright={exifResult?.author_copyright || undefined}
-                gps_location={exifResult?.gps_location}
-                loading={loadingExifCheck}
-              />
-            </div>
-            <div className={styles.Result_container}>
-              <ReverseImgResult
-                searchResult={SearchResult}
-                loading={loadingReverseImageSearch}
-              />
-            </div>
-            <div className={styles.Result_container}>
-              <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
-            </div>
-          </div>*/}
         </div>
       ),
       OtherTabs: [
@@ -183,7 +160,7 @@ const Res = () => {
           content: (
             <div className="h-full w-full flex">
               <div className="w-1/3 h-full">
-                <div className="h-1/6 w-full">
+                <div id="MetaDataArea" className="h-1/6 w-full bg-white rounded-full">
                   <MetaData_Result
                     cameraInformation={
                       exifResult?.camera_information || undefined
@@ -196,7 +173,7 @@ const Res = () => {
                     loading={loadingExifCheck}
                   />
                 </div>
-                <div className="h-5/6 w-fulll">
+                <div id = "CameraArea" className="h-5/6 w-full bg-white rounded-md">
                   <div className="flex p-5 h-1/6">
                     <div className={styles.circle_2}>
                       <FaCamera />
@@ -223,7 +200,7 @@ const Res = () => {
 
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
               <div className="w-1/3 h-full">
-                <div className="h-5/6 w-fulll">
+                <div  id ="AuthorArea" className="h-5/6 w-full  bg-white rounded-md">
                   <div className="flex p-5 h-1/6">
                     <div className={styles.circle_2}>
                       <FaUser />
@@ -245,7 +222,7 @@ const Res = () => {
                       objectFit="contain"
                     />
                   </div>
-
+                  </div>
                   <div className="h-1/6 w-full py-2">
                     <div className="flex p-5 border-2 rounded-xl">
                       <div className={styles.circle_2}>
@@ -257,19 +234,19 @@ const Res = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+
               </div>
 
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
 
               <div className="w-1/3 h-full">
-                <div className="h-1/2">
+                <div id = "ReverseArea" className="h-1/2 bg-white w-full rounded-md">
                   <ReverseImgResult
                     searchResult={SearchResult}
                     loading={loadingReverseImageSearch}
                   />
                 </div>
-                <div className="h-1/2">
+                <div id = "ImageTaggingArea" className="h-1/2 bg-white w-full rounded-md">
                   <ImgTagging_Result
                     Tag={tagResult}
                     loading={loadingTagResult}
@@ -340,7 +317,7 @@ const Res = () => {
       ],
     };
 
-    if (activeTab === 'Tampering Detection') {
+    if (activeTab === 'Tampering_Detection') {
       return tabData.Tampering;
     } else {
       const selectedTab = tabData.OtherTabs.find(

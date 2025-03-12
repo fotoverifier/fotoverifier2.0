@@ -28,10 +28,9 @@ const LanguageContext = createContext<LanguageContextType>({
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocale] = useState<Locale>('en'); // Default locale
+  const [locale, setLocale] = useState<Locale>('en'); 
 
   useEffect(() => {
-    // Load from localStorage on client
     const storedLocale = localStorage.getItem('locale') as Locale;
     if (storedLocale) {
       setLocale(storedLocale);

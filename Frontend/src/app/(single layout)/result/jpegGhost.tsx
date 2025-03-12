@@ -105,12 +105,12 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
           >
             {isRunning ? (
               <MdOutlinePause
-                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md"
+                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md"
                 size={30}
               />
             ) : (
               <FaCaretRight
-                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md"
+                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md"
                 size={30}
               />
             )}
@@ -154,7 +154,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
             id="jpeg-modal"
             className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col"
           >
-            {/* Header Section */}
             <div className="flex items-center mb-6">
               <div className="text-xl font-bold border-2 border-green-800 rounded-lg p-2">
                 JPEG Ghost
