@@ -48,7 +48,7 @@ const Res = () => {
     useState<boolean>(true);
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
-  var completedTasks = new Set();
+  var completedTasks = useRef(new Set());
   const totalTasks = [
     'ela',
     'exif_check',
@@ -62,15 +62,10 @@ const Res = () => {
         const parsedUrls = JSON.parse(wsUrls);
         const wsUrlObj = parsedUrls;
 
-        const ws = new WebSocket(wsUrlObj.websocket_url);
+        const ws1 = new WebSocket(wsUrlObj.websocket_url);
+        const ws2 = new WebSocket(wsUrlObj.websocket_url);
 
-        ws.onopen = () => {
-          console.log('Websocket connected at ', wsUrlObj.websocket_url);
-        };
-        ws.onclose = () => {
-          console.log('Websocket closed at ', wsUrlObj.websocket_url);
-        };
-        ws.onmessage = (event) => {
+        const handleMessage = (event: MessageEvent) => {
           const message = JSON.parse(event.data);
           console.log('Message:', message);
           try {
@@ -104,23 +99,47 @@ const Res = () => {
                 break;
             }
             if (message.result === 'completed') {
-              completedTasks.add(message.task);
+              completedTasks.current.add(message.task);
             }
 
             // Close WebSocket only if all tasks are completed
-            if (completedTasks.size === totalTasks.length) {
-              ws.close();
+            if (completedTasks.current.size === totalTasks.length) {
+              ws1.close();
+              ws2.close();
             }
           } catch (error) {
             console.error('Failed to parse wsUrls:', error);
           }
         };
-        ws.onerror = (error) => {
-          console.error('WebSocket Error:', error);
+
+        ws1.onopen = () => {
+          console.log('WebSocket 1 connected at ', wsUrlObj.websocket_url);
         };
+        ws1.onclose = () => {
+          console.log('WebSocket 1 closed at ', wsUrlObj.websocket_url);
+        };
+        ws1.onmessage = handleMessage;
+        ws1.onerror = (error) => {
+          console.error('WebSocket 1 Error:', error);
+        };
+
+        ws2.onopen = () => {
+          console.log('WebSocket 2 connected at ', wsUrlObj.websocket_url);
+        };
+        ws2.onclose = () => {
+          console.log('WebSocket 2 closed at ', wsUrlObj.websocket_url);
+        };
+        ws2.onmessage = handleMessage;
+        ws2.onerror = (error) => {
+          console.error('WebSocket 2 Error:', error);
+        };
+
         return () => {
-          if (ws.readyState === WebSocket.OPEN) {
-            ws.close();
+          if (ws1.readyState === WebSocket.OPEN) {
+            ws1.close();
+          }
+          if (ws2.readyState === WebSocket.OPEN) {
+            ws2.close();
           }
         };
       } catch (error) {
