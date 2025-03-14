@@ -13,9 +13,8 @@ def buffer_message(image_id, message):
         print(f"Buffered message for image {image_id}: {message['task']}")
         redis_instance.expire(f'message_queue_{image_id}', 3600)  # Expiry after 1 hour
     except redis.RedisError as e:
-        # Handle Redis-specific errors (e.g., connection issues)
         print(f"Error buffering message for image {image_id}: {e}")
-        # Optionally, log or send the error somewhere
+
 
 def pop_messages(task_id):
     try:
