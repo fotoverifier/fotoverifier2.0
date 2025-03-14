@@ -19,7 +19,7 @@ module.exports = {
   {
     name   : "celery",
     script : "celery",
-    args: "-A fotoverifierbackend worker --loglevel=info -c 4",
+    args: "-A fotoverifierbackend worker --loglevel=info -c 2",
     interpreter: "/home/ubuntu/fotoverifier2.0/Backend/venv/bin/python",
     cwd: "./Backend",
     watch: false,
