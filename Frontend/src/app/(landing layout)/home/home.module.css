@@ -315,3 +315,8 @@
     text-align: center;
   }
 }
+.verificationSteps {
+  margin-top: 2rem;
+  width: 90%;
+  max-width: 600px;
+}

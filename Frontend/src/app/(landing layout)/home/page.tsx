@@ -9,6 +9,8 @@ import { GoLink } from 'react-icons/go';
 import { IoImagesOutline } from 'react-icons/io5';
 import Card from '@/components/card/card';
 import { useLanguage } from '@/context/LanguageContext';
+import VerificationStepsAnimation from '@/components/5steps/VerificationStepsAnimation';
+import FloatingFlippingImage from '@/components/flipping_img/flipping_img';
 
 const LandingPage2 = () => {
   const { t } = useLanguage();
@@ -78,6 +80,7 @@ const LandingPage2 = () => {
           >
             {t('verify_now')}
           </motion.button>
+          <VerificationStepsAnimation className={styles.verification}/>
         </motion.div>
 
         <motion.div
