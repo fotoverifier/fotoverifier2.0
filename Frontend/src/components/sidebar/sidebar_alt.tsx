@@ -14,6 +14,7 @@ import IconMain from '@/assets/icon_main.svg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import styles from "./sidebar_alt.module.css"
 
 const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
@@ -68,35 +69,34 @@ export default function Sidebar_Alt() {
   };
 
   return (
-    <div
-      className={`bg-white w-[7%] p-3 shadow-md border-r flex flex-col transition-all duration-300 relative`}
-    >
-      <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-center mb-4 border-2">
-        <div className="text-green-800 bg-green-100 rounded-full">
+    <div className={styles.sidebarContainer}>
+      <div className={styles.logoContainer}>
+        <div className={styles.logoIcon}>
           <Image src={IconMain} width={50} height={50} alt="" />
         </div>
       </div>
 
-      <div className="w-full h-[2px] bg-green-800 my-3"></div>
+      <div className={styles.divider}></div>
 
-      <ul className="space-y-2 flex-grow">
+      <ul className={styles.navList}>
         {categories.map((category) => {
           const isActive = pathname === category.slug;
           return (
-            <div key={category.slug} className="relative group cursor-pointer">
+            <div key={category.slug} className={styles.navItem}>
               <div
                 onClick={() =>
                   category.slug.startsWith('http')
                     ? window.open(category.slug, '_blank')
                     : router.push(category.slug)
                 }
-                className={`px-4 py-3 rounded-lg flex items-center justify-center relative transition-colors duration-300 
-                  ${isActive ? 'bg-green-200 text-green-800 font-bold' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                className={`${styles.navLink} ${
+                  isActive ? styles.navLinkActive : styles.navLinkInactive
+                }`}
               >
-                <div className="flex justify-center items-center w-6 h-6">
+                <div className={styles.navIconContainer}>
                   {category.icon}
                 </div>
-                <span className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                <span className={styles.navTooltip}>
                   {category.name}
                 </span>
               </div>
@@ -105,22 +105,22 @@ export default function Sidebar_Alt() {
         })}
       </ul>
 
-      <div className="mt-auto space-y-2">
+      <div className={styles.footerContainer}>
         {/* Theme Toggle Button */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="w-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-3 transition-all duration-300"
+          className={styles.themeToggle}
         >
           {darkMode ? (
-            <FaSun size={20} className="text-yellow-500" />
+            <FaSun size={20} className={styles.sunIcon} />
           ) : (
-            <FaMoon size={20} className="text-gray-600" />
+            <FaMoon size={20} className={styles.moonIcon} />
           )}
         </button>
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-20 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-2 transition-all duration-300"
+          className={styles.languageButton}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -137,27 +137,27 @@ export default function Sidebar_Alt() {
             <line x1="2" y1="12" x2="22" y2="12"></line>
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
           </svg>
-          <span className="ml-2 font-semibold text-center">
+          <span className={styles.languageCode}>
             {selectedLanguage.code.toUpperCase()}
           </span>
         </button>
 
         {isOpen && (
-          <div className="absolute left-full ml-2 bottom-2 w-48 bg-white shadow-lg rounded-lg py-1 z-10 border-2">
+          <div className={styles.languageDropdown}>
             {languages.map((lang) => (
               <div
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang)}
-                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center ${
+                className={`${styles.languageOption} ${
                   selectedLanguage.code === lang.code
-                    ? 'bg-gray-50 font-medium'
+                    ? styles.languageOptionActive
                     : ''
                 }`}
               >
                 <img
                   src={lang.flag}
                   alt={lang.code}
-                  className="h-5 w-8 mr-2 object-cover"
+                  className={styles.languageFlag}
                 />
                 <span>{lang.name}</span>
               </div>
