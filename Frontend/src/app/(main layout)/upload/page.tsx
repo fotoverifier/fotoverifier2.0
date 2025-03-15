@@ -11,13 +11,15 @@ import CompletionModal from '@/components/modal/complete_modal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
+import { useLanguage } from '@/context/LanguageContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
 });
-const inter = Poppins({ subsets: ['latin'], weight: '700' });
+const inter = Montserrat({ subsets: ['latin'] });
 
 const Upload = () => {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>('');
@@ -187,25 +189,27 @@ const Upload = () => {
           <div className={styles.helper_title}>
             <div className={`${inter.className} flex items-center`}>
               <div className={`${styles.circle} mr-4`}>1.</div>
-              Photo Input
+              {t('upload_photo_input')}
             </div>
           </div>
           <div className={styles.input_link}>
             <input
               type="text"
-              placeholder="Input link"
+              placeholder={t('upload_input_link')}
               className={`ml-2 ${inter.className}`}
             />
           </div>
           <div className={styles.helper_title}>
-            <div className={styles.spec_helper}>
-              <div className={inter.className}>
-                Suitable Size: <span style={{ color: 'red' }}>25MB</span>
+            <div className={styles.spec_helper_2}>
+              <div className={`${inter.className}`}>
+                {t('upload_suitable_size')}{' '}
+                <span style={{ color: 'red' }}>25MB</span>
               </div>
             </div>
             <div className={styles.spec_helper}>
               <div className={inter.className}>
-                Type: <span style={{ color: 'red' }}>PNG, JPEG</span>
+                {t('upload_type')}{' '}
+                <span style={{ color: 'red' }}>PNG, JPEG</span>
               </div>
             </div>
           </div>
@@ -227,7 +231,7 @@ const Upload = () => {
                   htmlFor="file-upload"
                   className={`${styles.custom_file_upload} ${inter.className}`}
                 >
-                  Choose your files
+                  {t('upload_choose_files')}
                 </label>
               </div>
             )}
@@ -238,7 +242,7 @@ const Upload = () => {
                   style={{ height: '10%' }}
                 >
                   <div className={`mr-2 ${inter.className} font-bold`}>
-                    Change your image
+                    {t('upload_change_image')}
                   </div>
                   <button>
                     <TbExchange size={20} onClick={removeImg} />
@@ -274,30 +278,23 @@ const Upload = () => {
         <div className={styles.helper_title}>
           <div className={`${inter.className} flex items-center`}>
             <div className={`${styles.circle} mr-4`}>2.</div>
-            Scanning mode
+            {t('upload_scanning_mode')}
           </div>
         </div>
         <div className={`${styles.choice_container} font-semibold`}>
           <Method_Box
             id="normal"
-            label="Quick Scan"
+            label={t('upload_quick_scan')}
             isSelected={selectedMethod === 'normal'}
             onSelect={handleMethodSelect}
             duration="< 1 minute"
-          />
-          <Method_Box
-            id="deep"
-            label="Deep Scan"
-            isSelected={selectedMethod === 'deep'}
-            onSelect={handleMethodSelect}
-            duration="> 1 minute"
           />
         </div>
         <div className={styles.space}></div>
         <div className={`${styles.choice_container} font-semibold`}>
           <Method_Box
             id="specialized"
-            label="Scan the image by yourself"
+            label={t('upload_scan_by_yourself')}
             isSelected={selectedMethod === 'specialized'}
             onSelect={handleMethodSelect}
             duration="Specialized mode"
@@ -307,17 +304,16 @@ const Upload = () => {
         <div className={styles.word_container}>
           <div className={`${montserrat.className} ${styles.word_container2}`}>
             <FaAngleDown className="mr-5" />
-            For specialized mode, please consider checking our comprehensive
-            tutorials and terminologies.
+            {t('upload_specialized_mode_note')}
           </div>
         </div>
         <div
           className={`${styles.verify_agree_container} ml-5 ${montserrat.className} font-bold mt-5`}
         >
           <div className={styles.button_2} onClick={handleSubmit}>
-            Verify
+            {t('upload_verify')}
           </div>
-          {loading && <LoadingModal message="Uploading image..." />}
+          {loading && <LoadingModal message={t('upload_uploading')} />}
           {!loading && uploadComplete && (
             <Link
               href={{
@@ -328,7 +324,7 @@ const Upload = () => {
                 },
               }}
             >
-              <CompletionModal message="Upload Complete!" />
+              <CompletionModal message={t('upload_complete')} />
             </Link>
           )}
         </div>

@@ -3,13 +3,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
-import styles from './LanguageSwitcher.module.css'; // Ensure you have styles
+import styles from './LanguageSwitcher.module.css';
 import '@/context/LanguageContext';
-import type { Locale } from '@/context/LanguageContext'; // Ensure this is your type
+import type { Locale } from '@/context/LanguageContext';
 
 const languages = [
   { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
   { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },
+  { code: 'no', name: 'Norsk', flag: 'https://flagcdn.com/w40/no.png' },
 ];
 
 const LanguageSwitcher = () => {
@@ -51,7 +52,7 @@ const LanguageSwitcher = () => {
               className={styles.dropdown_item}
               onClick={() => {
                 setSelectedLanguage(lang);
-                setLocale(lang.code as Locale); // Change the locale
+                setLocale(lang.code as Locale);
                 setDropdownOpen(false);
               }}
             >

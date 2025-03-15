@@ -1,0 +1,75 @@
+{
+  "welcome": "Velkommen til nettstedet vårt!",
+  "language": "Språk",
+
+  "quickly_verify": "Verifiser raskt integriteten til bilder eller videoer med avanserte algoritmer og en 5-trinns tilnærming.",
+  "image_verification": "BILDEVERIFISERING",
+  "engaging_way": "PÅ EN MER ENGASJERENDE MÅTE",
+  "verify_now": "Verifiser nå →",
+  "feedback": "Tilbakemelding",
+  "go_to_dashboard": "Gå til dashbord",
+  "image_verification_subtext": "Hvordan kan vi vurdere det?",
+  "image_url_placeholder": "Skriv inn bilde-URL...",
+  "find_by_url_button": "Finn med URL",
+  "terms_agreement_text": "Jeg godtar vilkårene og betingelsene.",
+  "image_reliability_question": "Er dette bildet pålitelig?",
+  "Choose your image": "Velg bildet ditt",
+
+  "forensic_clarity_title": "Kriminalteknisk klarhet for alle",
+  "forensic_clarity_description": "Perfekt for eksperter og nybegynnere, balanserer presisjon og enkelhet.",
+
+  "smart_navigation_title": "Sømløs og smart navigasjon",
+  "smart_navigation_description": "Utforsk kriminaltekniske verktøy uanstrengt med et raskt, intuitivt grensesnitt.",
+
+  "forensic_hub_title": "Ditt kriminaltekniske kunnskapssenter",
+  "forensic_hub_description": "Få tilgang til en omfattende kriminalteknisk ordliste for tydelige og presise forklaringer.",
+
+  "forensic_accuracy_title": "Kriminalteknisk nøyaktighet, digital tillit",
+  "powered_by": "Drevet av",
+
+  "View_all_features": "Se alle funksjoner",
+
+  "About Us": "Om oss",
+  "About Us Description": "Fotoverifier gir brukere et robust arsenal av verktøy for å oppdage og analysere bildemanipulasjon, for å sikre autentisitet og integritet i digitalt innhold. Drevet av HCMUS Security Club, integrerer vi banebrytende kriminaltekniske teknikker med avanserte oppdagelsesverktøy for å hjelpe brukere med å verifisere legitimiteten til digitale medier.",
+
+  "image_tampering_tool_description": "Dette er et verktøy for å oppdage manipulering av bilder ved hjelp av Digital Image Forensics-teknikker, med mål om å gi både profesjonelle og vanlige brukere pålitelige verktøy for å verifisere bilder.",
+  "Go to Home": "Gå til landingsside",
+  "development_plan": "Vår utviklingsplan",
+  "our_paper": "Vårt papir",
+
+  "image_assessment_title": "Bildevurdering",
+  "image_assessment_description": "Analyser bildekvalitet, autentisitet og metadata for å sikre integritet og oppdage potensielle manipulasjoner.",
+
+  "tutorial_title": "Hvordan bruke vår app",
+  "tutorial_description": "Lær hvordan du effektivt navigerer i vår app, laster opp bilder, analyserer metadata og oppdager bildeforfalskning.",
+  "Service_1_title": "Avdekk sannheten bak hvert bilde",
+  "Home": "Hjem",
+  "Upload": "Last opp",
+  "Library": "Bibliotek",
+  "Policy": "Retningslinjer",
+  "GitHub": "GitHub",
+
+  "Our services": "Våre tjenester",
+  "Tutorial": "Veiledning",
+  "tutorial_1_title": "Utforsk våre trinnvise veiledninger i dag",
+
+  "upload_photo_input": "Bildeinngang",
+  "upload_input_link": "Skriv inn lenke",
+  "upload_suitable_size": "Egnet størrelse:",
+  "upload_type": "Type:",
+  "upload_choose_files": "Velg filene dine",
+  "upload_change_image": "Endre bildet ditt",
+  "upload_scanning_mode": "Skannemodus",
+  "upload_specialized_mode_note": "For spesialisert modus, vennligst sjekk våre omfattende veiledninger og terminologier.",
+  "upload_verify": "Verifiser",
+  "upload_uploading": "Laster opp bilde...",
+  "upload_complete": "Opplasting fullført!",
+
+  "upload_normal_description": "Utstyrt med raske flere lag med deteksjon.",
+  "upload_specialized_description": "Fordyp deg i et bredt spekter av algoritmer for å velge og finne avvik selv.",
+
+  "upload_quick_scan": "Hurtigskanning",
+  "upload_scan_by_yourself": "Skann bildet selv",
+
+  "Techniques": "Teknikker"
+}

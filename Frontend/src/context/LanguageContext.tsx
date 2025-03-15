@@ -9,8 +9,8 @@ import {
 } from 'react';
 import en from '@/locales/en.json';
 import vi from '@/locales/vn.json';
-
-export type Locale = 'en' | 'vi';
+import no from '@/locales/no.json';
+export type Locale = 'en' | 'vi' | 'no';
 type TranslationKeys = keyof typeof en;
 
 type LanguageContextType = {
@@ -19,7 +19,7 @@ type LanguageContextType = {
   setLocale: (lang: Locale) => void;
 };
 
-const translations: Record<Locale, typeof en> = { en, vi };
+const translations: Record<Locale, typeof en> = { en, vi, no };
 
 const LanguageContext = createContext<LanguageContextType>({
   locale: 'en',
@@ -28,7 +28,7 @@ const LanguageContext = createContext<LanguageContextType>({
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocale] = useState<Locale>('en'); 
+  const [locale, setLocale] = useState<Locale>('en');
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('locale') as Locale;

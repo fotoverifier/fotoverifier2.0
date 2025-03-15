@@ -30,5 +30,47 @@
   "View_all_features": "View all features",
 
   "About Us": "About Us",
-  "About Us Description": "Fotoverifier provides users with a robust arsenal of tools to detect and analyze image manipulation, ensuring authenticity and integrity in digital content. Powered by HCMUS Security Club, we integrate cutting-edge forensic techniques with advanced detection tools to help users verify the legitimacy of digital media."
+  "About Us Description": "Fotoverifier provides users with a robust arsenal of tools to detect and analyze image manipulation, ensuring authenticity and integrity in digital content. Powered by HCMUS Security Club, we integrate cutting-edge forensic techniques with advanced detection tools to help users verify the legitimacy of digital media.",
+
+  "image_tampering_tool_description": "This is a tool for detecting image tampering using Digital Image Forensics techniques, aiming to provide both professional as well as casual users with reliable tools to verify images.",
+  "Go to Home": "Go to Home",
+  "development_plan": "Our Development Plan",
+  "our_paper": "Our Paper",
+
+  "image_assessment_title": "Image Assessment",
+  "image_assessment_description": "Analyze image quality, authenticity, and metadata to ensure integrity and detect potential manipulations.",
+
+  "Service_1_title": "Uncover the truth behind every image",
+
+  "tutorial_title": "How to Use Our App",
+  "tutorial_description": "Learn how to efficiently navigate our app, upload images, analyze metadata, and detect image manipulation.",
+
+  "Home": "Home",
+  "Upload": "Upload",
+  "Library": "Library",
+  "Policy": "Policy",
+  "GitHub": "GitHub",
+  "Our services": "Our services",
+  "Tutorial": "Tutorial",
+  "tutorial_1_title": "Explore our step-by-step tutorials today",
+
+  "upload_photo_input": "Photo Input",
+  "upload_input_link": "Input link",
+  "upload_suitable_size": "Suitable Size:",
+  "upload_type": "Type:",
+  "upload_choose_files": "Choose your files",
+  "upload_change_image": "Change your image",
+  "upload_scanning_mode": "Scanning mode",
+  "upload_specialized_mode_note": "For specialized mode, please consider checking our comprehensive tutorials and terminologies.",
+  "upload_verify": "Verify",
+  "upload_uploading": "Uploading image...",
+  "upload_complete": "Upload Complete!",
+
+  "upload_normal_description": "Equipped with fast multiple layers of detection.",
+  "upload_specialized_description": "Immerse yourself in a wide range of algorithms to choose and find the abnormalities by yourself.",
+
+  "upload_quick_scan": "Quick Scan",
+  "upload_scan_by_yourself": "Scan the image by yourself",
+
+  "Techniques": "Techniques"
 }

@@ -12,7 +12,8 @@ import {
 } from 'react-icons/fa';
 import IconMain from '@/assets/icon_main.svg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
@@ -22,15 +23,53 @@ const categories = [
   { name: 'GitHub', slug: 'https://github.com', icon: <FaGithub size={20} /> },
 ];
 
+const languages = [
+  { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
+  { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },
+  { code: 'no', name: 'Norsk', flag: 'https://flagcdn.com/w40/no.png' },
+];
+
 export default function Sidebar_Alt() {
+  const { t } = useLanguage();
+
+  const categories = [
+    { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
+    { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
+    { name: t('Library'), slug: '/library', icon: <IoLibrary size={20} /> },
+    { name: t('Policy'), slug: '/privacy', icon: <MdPolicy size={20} /> },
+    {
+      name: 'GitHub',
+      slug: 'https://github.com',
+      icon: <FaGithub size={20} />,
+    },
+  ];
+
   const router = useRouter();
   const pathname = usePathname();
   const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('EN');
+
+  const { setLocale, locale } = useLanguage();
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    languages.find((lang) => lang.code === locale) || languages[0]
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const matchedLang = languages.find((lang) => lang.code === locale);
+    if (matchedLang) {
+      setSelectedLanguage(matchedLang);
+    }
+  }, [locale]);
+
+  const handleLanguageChange = (lang: any) => {
+    setLocale(lang.code);
+    setIsOpen(false);
+  };
 
   return (
     <div
-      className={`bg-white w-[7%] p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
+      className={`bg-white w-[7%] p-3 shadow-md border-r flex flex-col transition-all duration-300 relative`}
     >
       <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-center mb-4 border-2">
         <div className="text-green-800 bg-green-100 rounded-full">
@@ -79,14 +118,52 @@ export default function Sidebar_Alt() {
           )}
         </button>
 
-        {/* Language Toggle Button */}
         <button
-          onClick={() => setLanguage(language === 'EN' ? 'VN' : 'EN')}
-          className="w-fit flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-3 transition-all duration-300"
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-20 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-2 transition-all duration-300"
         >
-          <FaGlobe size={20} />
-          <span className="ml-2 font-semibold w-6 text-center">{language}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span className="ml-2 font-semibold text-center">
+            {selectedLanguage.code.toUpperCase()}
+          </span>
         </button>
+
+        {isOpen && (
+          <div className="absolute left-full ml-2 bottom-2 w-48 bg-white shadow-lg rounded-lg py-1 z-10 border-2">
+            {languages.map((lang) => (
+              <div
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang)}
+                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center ${
+                  selectedLanguage.code === lang.code
+                    ? 'bg-gray-50 font-medium'
+                    : ''
+                }`}
+              >
+                <img
+                  src={lang.flag}
+                  alt={lang.code}
+                  className="h-5 w-8 mr-2 object-cover"
+                />
+                <span>{lang.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
