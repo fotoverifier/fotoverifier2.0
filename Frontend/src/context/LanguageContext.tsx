@@ -10,7 +10,8 @@ import {
 import en from '@/locales/en.json';
 import vi from '@/locales/vn.json';
 import no from '@/locales/no.json';
-export type Locale = 'en' | 'vi' | 'no';
+import jp from '@/locales/jp.json'
+export type Locale = 'en' | 'vi' | 'no' |'jp';
 type TranslationKeys = keyof typeof en;
 
 type LanguageContextType = {
@@ -19,7 +20,7 @@ type LanguageContextType = {
   setLocale: (lang: Locale) => void;
 };
 
-const translations: Record<Locale, typeof en> = { en, vi, no };
+const translations: Record<Locale, typeof en> = { en, vi, no, jp };
 
 const LanguageContext = createContext<LanguageContextType>({
   locale: 'en',

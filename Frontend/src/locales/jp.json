@@ -1,0 +1,76 @@
+{
+  "welcome": "私たちのウェブサイトへようこそ！",
+  "language": "言語",
+
+  "quickly_verify": "高度なアルゴリズムと5ステップアプローチで写真や動画の真正性を迅速に検証。",
+  "image_verification": "画像検証",
+  "engaging_way": "より魅力的な方法で",
+  "verify_now": "今すぐ検証 →",
+  "feedback": "フィードバック",
+  "go_to_dashboard": "ダッシュボードへ",
+  "image_verification_subtext": "どのように評価できますか？",
+  "image_url_placeholder": "画像のURLを入力...",
+  "find_by_url_button": "URLで検索",
+  "terms_agreement_text": "利用規約に同意します。",
+  "image_reliability_question": "この画像は信頼できますか？",
+  "Choose your image": "画像を選択",
+
+  "forensic_clarity_title": "すべての人にフォレンジックの明瞭性を",
+  "forensic_clarity_description": "専門家と初心者の両方に最適、精度とシンプルさのバランスを実現。",
+
+  "smart_navigation_title": "シームレスでスマートなナビゲーション",
+  "smart_navigation_description": "高速で直感的なインターフェースでフォレンジックツールを簡単に探索。",
+
+  "forensic_hub_title": "フォレンジック知識のハブ",
+  "forensic_hub_description": "明確で正確な説明を提供する豊富なフォレンジック用語集にアクセス。",
+
+  "forensic_accuracy_title": "フォレンジックの精度、デジタルの信頼",
+  "powered_by": "提供元",
+
+  "View_all_features": "すべての機能を見る",
+
+  "About Us": "私たちについて",
+  "About Us Description": "Fotoverifierは、デジタルコンテンツの真正性と整合性を保証するために、画像操作を検出・分析する強力なツールを提供します。HCMUS Security Clubの支援のもと、最先端のフォレンジック技術と高度な検出ツールを統合し、ユーザーがデジタルメディアの信頼性を検証できるようにしています。",
+
+  "image_tampering_tool_description": "デジタル画像フォレンジック技術を活用し、画像の改ざんを検出するツールです。専門家だけでなく一般ユーザーにも信頼できる画像検証ツールを提供します。",
+  "Go to Home": "ホームへ",
+  "development_plan": "開発計画",
+  "our_paper": "私たちの論文",
+
+  "image_assessment_title": "画像評価",
+  "image_assessment_description": "画像の品質、真正性、メタデータを分析し、整合性を確保し、不正な加工を検出します。",
+
+  "Service_1_title": "すべての画像の真実を解明",
+
+  "tutorial_title": "アプリの使い方",
+  "tutorial_description": "アプリの操作方法、画像のアップロード、メタデータの分析、画像改ざんの検出方法を学びましょう。",
+
+  "Home": "ホーム",
+  "Upload": "アップロード",
+  "Library": "ライブラリ",
+  "Policy": "ポリシー",
+  "GitHub": "GitHub",
+  "Our services": "私たちのサービス",
+  "Tutorial": "チュートリアル",
+  "tutorial_1_title": "ステップバイステップのチュートリアルを今すぐ体験",
+
+  "upload_photo_input": "写真入力",
+  "upload_input_link": "リンク入力",
+  "upload_suitable_size": "適切なサイズ:",
+  "upload_type": "タイプ:",
+  "upload_choose_files": "ファイルを選択",
+  "upload_change_image": "画像を変更",
+  "upload_scanning_mode": "スキャンモード",
+  "upload_specialized_mode_note": "専門モードをご利用の際は、包括的なチュートリアルと用語集をご確認ください。",
+  "upload_verify": "検証",
+  "upload_uploading": "画像をアップロード中...",
+  "upload_complete": "アップロード完了！",
+
+  "upload_normal_description": "高速で複数のレイヤーによる検出を備えています。",
+  "upload_specialized_description": "幅広いアルゴリズムを自由に選択し、不正加工を自分で特定できます。",
+
+  "upload_quick_scan": "クイックスキャン",
+  "upload_scan_by_yourself": "自分で画像をスキャン",
+
+  "Techniques": "技術"
+}

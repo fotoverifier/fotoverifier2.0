@@ -28,7 +28,9 @@ const languages = [
   { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
   { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },
   { code: 'no', name: 'Norsk', flag: 'https://flagcdn.com/w40/no.png' },
+  { code: 'jp', name: '日本語', flag: 'https://flagcdn.com/w40/jp.png' }
 ];
+
 
 export default function Sidebar_Alt() {
   const { t } = useLanguage();
