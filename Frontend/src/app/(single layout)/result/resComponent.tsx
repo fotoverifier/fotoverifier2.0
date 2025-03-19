@@ -56,7 +56,7 @@ const Res = () => {
     if(!img || !taskId) return;
 
     const eventSource = new EventSource(
-      `http://localhost:8000/quick-scan-stream/?task_id=${taskId}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
     );
 
 

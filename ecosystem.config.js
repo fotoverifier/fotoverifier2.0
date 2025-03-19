@@ -8,12 +8,12 @@ module.exports = {
     cwd: "./Backend",
     watch: false,
     env: {
-        "CLOUD_NAME":"dhwi6wtrj",
-        "CLOUD_API_KEY":"237324986757275",
-        "CLOUD_API_SECRET":"dVF-YkIcaEcw5jwINxBYrudiGeE",
-        "REDIS_URL":"redis://localhost:6379/0",
-        "TF_ENABLE_ONEDNN_OPTS":"0",
-        "SERPAPI_SECRET_KEY":"b945106cd612c06211da4507b158c6861c6e1059c0de67d92f0aedcd889f29ab"
+        "CLOUD_NAME": process.env.CLOUD_NAME,
+        "CLOUD_API_KEY": process.env.CLOUD_API_KEY,
+        "CLOUD_API_SECRET": process.env.CLOUD_API_SECRET,
+        "REDIS_URL": process.env.REDIS_URL,
+        "TF_ENABLE_ONEDNN_OPTS": process.env.TF_ENABLE_ONEDNN_OPTS,
+        "SERPAPI_SECRET_KEY": process.env.SERPAPI_SECRET_KEY
     }
   },
   {
@@ -24,12 +24,12 @@ module.exports = {
     cwd: "./Backend",
     watch: false,
     env: {
-        "CLOUD_NAME":"dhwi6wtrj",
-        "CLOUD_API_KEY":"237324986757275",
-        "CLOUD_API_SECRET":"dVF-YkIcaEcw5jwINxBYrudiGeE",
-        "REDIS_URL":"redis://localhost:6379/0",
-        "TF_ENABLE_ONEDNN_OPTS":"0",
-        "SERPAPI_SECRET_KEY":"b945106cd612c06211da4507b158c6861c6e1059c0de67d92f0aedcd889f29ab"
+      "CLOUD_NAME": process.env.CLOUD_NAME,
+      "CLOUD_API_KEY": process.env.CLOUD_API_KEY,
+      "CLOUD_API_SECRET": process.env.CLOUD_API_SECRET,
+      "REDIS_URL": process.env.REDIS_URL,
+      "TF_ENABLE_ONEDNN_OPTS": process.env.TF_ENABLE_ONEDNN_OPTS,
+      "SERPAPI_SECRET_KEY": process.env.SERPAPI_SECRET_KEY
     }
   },
   {
@@ -38,6 +38,9 @@ module.exports = {
     args: "run start",
     cwd: "./Frontend",
     watch: false,
+    env: {
+      "NEXT_PUBLIC_BACKEND_URL": process.env.NEXT_PUBLIC_BACKEND_URL
+    }
   },
 ]
 }
