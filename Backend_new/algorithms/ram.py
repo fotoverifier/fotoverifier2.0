@@ -29,6 +29,7 @@ def recognize_objects(image_bytes: bytes):
         with torch.no_grad():
             result = inference(input_tensor, model)
 
+        print(result[0])
         return result[0]
     except Exception as e:
         raise ValueError(f"Error processing image: {str(e)}")
