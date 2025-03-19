@@ -8,7 +8,7 @@ import { Flex, Spin } from 'antd';
 import { MdWarning } from 'react-icons/md';
 
 interface ElaResultProp {
-  img: string | undefined; // Accept the image as a prop
+  img: string | null; // Accept the image as a prop
   loading: boolean;
 }
 

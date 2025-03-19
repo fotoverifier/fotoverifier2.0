@@ -24,7 +24,7 @@ const Upload = () => {
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [retrievedData, setRetrievedData] = useState<string | null>(null);
+  const [taskId, setTaskId] = useState<string>('');
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
   const router = useRouter();
 
@@ -84,11 +84,11 @@ const Upload = () => {
     if (selectedMethod === 'normal') {
       try {
         const formData = new FormData();
-        formData.append('image', imageFile);
+        formData.append('file', imageFile);
         // Single API call wrapped in a Promise
 
         const response = await fetch(
-          'http://fotoverifier.eu:9001/api/quick-scan/',
+          'http://localhost:8000/quick-scan/',
           {
             method: 'POST',
             body: formData,
@@ -103,10 +103,8 @@ const Upload = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const result = await response.json();
-
-        console.log('Result:', result);
-        setRetrievedData(JSON.stringify(result));
+        const {task_id } = await response.json();
+        setTaskId(task_id);
       } catch (error: any) {
         console.error('Error fetching data:', error);
         alert(`Error: ${error.message}`);
@@ -133,7 +131,6 @@ const Upload = () => {
 
         const data = await response.json();
         console.log('Image uploaded successfully:', data);
-        setRetrievedData(data);
       } catch (error) {
         console.log('Error submitting image:', error);
         alert('There was an error submitting the image. Please try again.');
@@ -171,7 +168,6 @@ const Upload = () => {
         );
 
         console.log('Results:', results);
-        setRetrievedData(JSON.stringify(results));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -320,7 +316,7 @@ const Upload = () => {
                 pathname: '/result',
                 query: {
                   image: imageSrc,
-                  wsUrls: retrievedData,
+                  task_id: taskId,
                 },
               }}
             >

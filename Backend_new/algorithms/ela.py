@@ -8,7 +8,8 @@ from .utility import create_lut
 def ela(image_bytes, quality=75, scale=50, contrast=20):
     contrast = int(contrast / 100 * 128)
     
-    # Convert bytes to OpenCV image
+    if isinstance(image_bytes, BytesIO):
+        image_bytes = image_bytes.getvalue()  # Extract raw bytes
     image_array = np.frombuffer(image_bytes, dtype=np.uint8)
     original = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     

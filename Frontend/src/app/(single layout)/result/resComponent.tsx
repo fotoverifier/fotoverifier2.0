@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, Suspense, useRef } from 'react';
+import React, { useEffect, useState, Suspense, useRef, act } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import styles from '@/app/(single layout)/result/res.module.css';
 import Tabs from '@/components/tab/step_tab';
@@ -15,9 +15,6 @@ import ReverseImgResult from './reverse_img';
 
 import {
   FaCamera,
-  FaExchangeAlt,
-  FaSortDown,
-  FaSortUp,
   FaUser,
 } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
@@ -37,118 +34,94 @@ const Res = () => {
 
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
-  const wsUrls = searchParams.get('wsUrls');
+  const taskId = searchParams.get('task_id');
+
+  const [results, setResults] = useState<any[]>([]); // Store received responses
+
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
+  const [jpegGhostResult, setJpegGhostResult] = useState<string[] | null>(null);
+
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
   const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
     useState<boolean>(true);
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
-  var completedTasks = useRef(new Set());
-  const totalTasks = [
-    'ela',
-    'exif_check',
-    'reverse_image_search',
-    'recognize_image',
-  ];
+  const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
 
   useEffect(() => {
-    if (wsUrls) {
+    if(!img || !taskId) return;
+
+    const eventSource = new EventSource(
+      `http://localhost:8000/quick-scan-stream/?task_id=${taskId}`
+    );
+
+
+
+    eventSource.onmessage = (event) => {
       try {
-        const parsedUrls = JSON.parse(wsUrls);
-        const wsUrlObj = parsedUrls;
+        const data = JSON.parse(event.data);
+        console.log("Received:", data);
 
-        const ws1 = new WebSocket(wsUrlObj.websocket_url);
-        const ws2 = new WebSocket(wsUrlObj.websocket_url);
+        if (data.status === "done") {
+          console.log("All tasks completed. Closing SSE...");
+          eventSource.close();
+          return;
+        }
 
-        const handleMessage = (event: MessageEvent) => {
-          const message = JSON.parse(event.data);
-          console.log('Message:', message);
-          try {
-            switch (message.task) {
-              case 'ela':
-                if (message.result !== 'completed') {
-                  setElaResult(message.result);
-                  setLoadingEla(false);
-                }
-                break;
-              case 'recognize_image':
-                if (message.result !== 'completed') {
-                  setTagResult(message.result);
-                  setLoadingTagResult(false);
-                }
-                break;
-              case 'exif_check':
-                if (message.result !== 'completed') {
-                  setExifResult(message.result);
-                  setLoadingExifCheck(false);
-                }
-                break;
-              case 'reverse_image_search':
-                if (message.result !== 'completed') {
-                  setSearchResult(message.result.image_results);
-                  setLoadingReverseImageSearch(false);
-                }
-                break;
-              default:
-                console.log('Unknown task type:', message.task);
-                break;
-            }
-            if (message.result === 'completed') {
-              completedTasks.current.add(message.task);
-            }
+        if (!data?.result?.result?.method) {
+          console.warn("Unexpected SSE data format:", data);
+          return; // Skip this iteration if 'method' is missing
+        }
 
-            // Close WebSocket only if all tasks are completed
-            if (completedTasks.current.size === totalTasks.length) {
-              ws1.close();
-              ws2.close();
-            }
-          } catch (error) {
-            console.error('Failed to parse wsUrls:', error);
-          }
-        };
+        switch (data.result.result.method) {
+          case "exif":
+            setExifResult(data.result.result.exif_data);
+            setLoadingExifCheck(false);
+            break;
+          case "jpeg_ghost":
+            setJpegGhostResult(data.result.result.jpeg_ghost);
+            setLoadingJpegGhost(false);
+            break;
+          case "ram":
+            setTagResult(data.result.result.recognized_objects);
+            setLoadingTagResult(false);
+            break;
+          case "reverse_search":
+            setSearchResult(data.result.result.reverse_search.image_results);
+            setLoadingReverseImageSearch(false);
+            break;
+          case "ela":
+            setElaResult(data.result.result.ela_image);
+            setLoadingEla(false);
+            break;
+          default:
+            console.warn("Unknown task received:", data.task);
+        }
 
-        ws1.onopen = () => {
-          console.log('WebSocket 1 connected at ', wsUrlObj.websocket_url);
-        };
-        ws1.onclose = () => {
-          console.log('WebSocket 1 closed at ', wsUrlObj.websocket_url);
-        };
-        ws1.onmessage = handleMessage;
-        ws1.onerror = (error) => {
-          console.error('WebSocket 1 Error:', error);
-        };
-
-        ws2.onopen = () => {
-          console.log('WebSocket 2 connected at ', wsUrlObj.websocket_url);
-        };
-        ws2.onclose = () => {
-          console.log('WebSocket 2 closed at ', wsUrlObj.websocket_url);
-        };
-        ws2.onmessage = handleMessage;
-        ws2.onerror = (error) => {
-          console.error('WebSocket 2 Error:', error);
-        };
-
-        return () => {
-          if (ws1.readyState === WebSocket.OPEN) {
-            ws1.close();
-          }
-          if (ws2.readyState === WebSocket.OPEN) {
-            ws2.close();
-          }
-        };
+        setResults((prevResults) => [...prevResults, data]);
       } catch (error) {
-        console.error('Failed to parse wsUrls:', error);
+        console.error("Error parsing SSE data:", error);
       }
     }
-  }, [wsUrls]);
 
-  const tabs = ['Tampering_Detection', 'Originality', 'Location', 'Forensic'];
+    eventSource.onerror = (error) => {
+      console.log(eventSource.readyState);
+      if(eventSource.readyState === EventSource.CLOSED || eventSource.readyState == 0) return; // Skip if connection is closed
+      else console.error("SSE connection error:", error);
+      eventSource.close();
+    };
+
+
+    return () => {
+      eventSource.close(); // Clean up on unmount
+    };
+
+  }, []);
+  const [activeTab, setActiveTab] = useState('Tampering_Detection');
 
   const renderContent = (activeTab: string) => {
     const tabData = {
@@ -159,7 +132,8 @@ const Res = () => {
               <Image_Result img={img} />
             </div>
             <div id="jpeg_ghost" className={styles.Result_container}>
-              <JpegGhostResult wsUrls={wsUrls} />
+              <JpegGhostResult images={jpegGhostResult} loading={loadingJpegGhost}/>
+
             </div>
             <div id="ela" className={styles.Result_container}>
               <ElaResult
@@ -390,7 +364,7 @@ const Res = () => {
         loadingTagResult={loadingTagResult}
       />
       <div className={` ${styles.res_body_container} ${inter.className}`}>
-        <Tabs tabs={tabs} renderContent={renderContent} />
+        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
       </div>
     </div>
   );
