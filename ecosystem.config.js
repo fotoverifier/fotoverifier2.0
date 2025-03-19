@@ -1,11 +1,11 @@
 module.exports = {
   apps : [
   {
-    name   : "daphne",
-    script : "daphne",
-    args: "-b 0.0.0.0 -p 9001 fotoverifierbackend.asgi:application",
-    interpreter: "/home/ubuntu/fotoverifier2.0/Backend/venv/bin/python",
-    cwd: "./Backend",
+    name   : "fastapi",
+    script : "uvicorn",
+    args: "main:app --host 0.0.0.0 --port 9001",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python",
+    cwd: "./Backend_new",
     watch: false,
     env: {
         "CLOUD_NAME": process.env.CLOUD_NAME,
@@ -19,9 +19,9 @@ module.exports = {
   {
     name   : "celery",
     script : "celery",
-    args: "-A fotoverifierbackend worker --loglevel=info -c 2",
-    interpreter: "/home/ubuntu/fotoverifier2.0/Backend/venv/bin/python",
-    cwd: "./Backend",
+    args: "-A fotoverifierbackend worker --loglevel=info -c 4",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python",
+    cwd: "./Backend_new",
     watch: false,
     env: {
       "CLOUD_NAME": process.env.CLOUD_NAME,
