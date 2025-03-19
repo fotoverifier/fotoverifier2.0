@@ -1,20 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import styles from '@/components/tab/step_tab.module.css';
 import { Montserrat } from 'next/font/google';
 
 interface TabProps {
+  tabs: string[];
   renderContent: (activeTab: string) => React.ReactNode;
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
 }
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-const tabs = ['Tampering_Detection', 'Originality', 'Location', 'Forensic'];
+const Tabs: React.FC<TabProps> = ({ tabs, renderContent }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
-const Tabs: React.FC<TabProps> = ({ renderContent, activeTab, setActiveTab }) => {
+  const tabParam = searchParams.get('tab');
+  const imageParam = searchParams.get('image');
+
+  const [activeTab, setActiveTab] = useState<string>(
+    tabParam && tabs.includes(tabParam) ? tabParam : tabs[0]
+  );
+
+  useEffect(() => {
+    if (tabParam && tabs.includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam, tabs]);
+
+  const handleTabChange = (selectedTab: string) => {
+    setActiveTab(selectedTab);
+
+    const newUrl = `${pathname}?tab=${selectedTab}${imageParam ? `&image=${imageParam}` : ''}`;
+    router.replace(newUrl);
+  };
+
   return (
     <div className={styles.tabs_container}>
       <div
@@ -24,7 +46,7 @@ const Tabs: React.FC<TabProps> = ({ renderContent, activeTab, setActiveTab }) =>
           <React.Fragment key={tab}>
             <div
               className={`${styles.tab} ${activeTab === tab ? styles.active : ''}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabChange(tab)}
             >
               {tab}
             </div>
