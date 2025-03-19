@@ -8,7 +8,7 @@ import { Flex, Spin } from 'antd';
 import { MdWarning } from 'react-icons/md';
 
 interface ElaResultProp {
-  img: string | undefined; // Accept the image as a prop
+  img: string | null; // Accept the image as a prop
   loading: boolean;
 }
 
@@ -37,6 +37,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
           >
             <Image
               src={img}
+              unoptimized
               className="image-preview"
               alt={Result}
               width={0}

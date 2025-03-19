@@ -1,6 +1,5 @@
 import os
 import io
-import requests
 import cloudinary
 import cloudinary.uploader
 import dotenv
@@ -28,6 +27,7 @@ def reverse_image_search(image_stream: io.BytesIO):
         result = {
             "image_results": results.get("image_results", []),
         }
+        print(result)
         return result
     except Exception as e:
         return {"error": str(e)}

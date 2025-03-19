@@ -7,77 +7,24 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';
 interface ImageResultProps {
-  wsUrls: string | null;
+  images: string[] | null; 
+  loading: boolean;
 }
 
-const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
+const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const customSpinIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: '#00000' }} spin />
-  );
-
-  const openModal = () => setIsModalOpen(true);
   const [isRunning, setIsRunning] = useState(false);
-  const [jpegResult, setJpegResult] = useState<string[] | null>(null);
-  const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(false);
 
-  const [runCompleted, setRunCompleted] = useState(false);
-
-  const closeModal = () => setIsModalOpen(false);
   const qualities = [
-    { title: 'Quality 30', img: jpegResult?.[0] ?? placeholder },
-    { title: 'Quality 40', img: jpegResult?.[1] ?? placeholder },
-    { title: 'Quality 50', img: jpegResult?.[2] ?? placeholder },
-    { title: 'Quality 60', img: jpegResult?.[3] ?? placeholder },
-    { title: 'Quality 70', img: jpegResult?.[4] ?? placeholder },
-    { title: 'Quality 80', img: jpegResult?.[5] ?? placeholder },
+    { title: 'Quality 30', img: images?.[0] ?? placeholder },
+    { title: 'Quality 40', img: images?.[1] ?? placeholder },
+    { title: 'Quality 50', img: images?.[2] ?? placeholder },
+    { title: 'Quality 60', img: images?.[3] ?? placeholder },
+    { title: 'Quality 70', img: images?.[4] ?? placeholder },
+    { title: 'Quality 80', img: images?.[5] ?? placeholder },
   ];
 
-  const runJpegGhost = () => {
-    if (!wsUrls) {
-      console.error('WebSocket URL is missing.');
-      return;
-    }
-
-    try {
-      const parsedUrls = JSON.parse(wsUrls);
-      const wsUrlObj = parsedUrls;
-
-      const websocket = new WebSocket(wsUrlObj.websocket_url);
-      setLoadingJpegGhost(true);
-
-      websocket.onopen = () => {
-        console.log('WebSocket connected for JPEG Ghost task.');
-      };
-
-      websocket.onmessage = (event) => {
-        try {
-          const message = JSON.parse(event.data);
-          console.log('Received message:', message);
-
-          if (message.task === 'jpeg_ghost') {
-            setJpegResult(message.result);
-            setLoadingJpegGhost(false);
-            setIsRunning(false); // Stop animation when task completes
-            setRunCompleted(true); // Mark run as completed
-            websocket.close(); // Close WebSocket after receiving jpeg_ghost result
-          }
-        } catch (error) {
-          console.error('Error parsing WebSocket message:', error);
-        }
-      };
-
-      websocket.onclose = () => {
-        console.log('WebSocket closed.');
-      };
-
-      websocket.onerror = (error) => {
-        console.error('WebSocket error:', error);
-      };
-    } catch (error) {
-      console.error('Failed to parse wsUrls:', error);
-    }
-  };
+ 
   const handleDetailClick = () => {
     // Implement your detail action here
     console.log('Detail button clicked');
@@ -98,9 +45,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
             className="focus:outline-none ml-auto"
             onClick={() => {
               setIsRunning(!isRunning);
-              if (!isRunning) {
-                runJpegGhost(); // Run jpeg ghost when starting
-              }
             }}
           >
             {isRunning ? (
@@ -116,9 +60,9 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
             )}
           </div>
 
-          {runCompleted && (
+          {!loading && images && images.length > 0 &&  (
             <button
-              onClick={openModal}
+              onClick={() => setIsModalOpen(true)}
               className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md ml-3"
             >
               <FaInfoCircle size={20} />
@@ -127,7 +71,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
         </div>
       </div>
 
-      {isRunning ? (
+      {loading && isRunning ? (
         <div className={styles.image_container}>
           <div className={styles.loadingBox}>
             <div className={styles.spinner}></div>
@@ -135,10 +79,10 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
           </div>
         </div>
       ) : (
-        jpegResult && (
+        images && images.length > 0 && (
           <div className={styles.image_container}>
             <Image
-              src={jpegResult[4]}
+              src={images[4]}
               alt={'JPEG Ghost Image'}
               width={500}
               height={500}
@@ -148,7 +92,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
         )
       )}
 
-      {isModalOpen && (
+      {isModalOpen && images && images.length > 0 &&  (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
           <div
             id="jpeg-modal"
@@ -163,7 +107,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ wsUrls }) => {
                 highlighted with dark color.
               </div>
               <div
-                onClick={closeModal}
+                onClick={() => setIsModalOpen(false)}
                 className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
               >
                 ×

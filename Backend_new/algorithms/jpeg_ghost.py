@@ -1,17 +1,28 @@
 import os
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 import cloudinary.uploader
+from io import BytesIO
 
-def jpeg_ghost(file_path):
+def jpeg_ghost(image_bytes):
     Qmin, Qmax, Qstep = 20, 90, 10
     shift_x, shift_y = 0, 0
-
-    original = np.double(cv2.imread(file_path))
-    if original is None:
-        raise ValueError("Failed to read image")
     
+    # Ensure input is raw bytes, not BytesIO
+    if isinstance(image_bytes, BytesIO):
+        image_bytes = image_bytes.getvalue()
+    
+    # Convert bytes to OpenCV image
+    image_array = np.frombuffer(image_bytes, dtype=np.uint8)
+    original = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+    
+    if original is None:
+        return {"jpeg_ghost_error": "Failed to decode image. Ensure it's a valid format."}
+
+    original = np.double(original)
     ydim, xdim, zdim = original.shape
     nQ = (Qmax - Qmin) // Qstep + 1
     ghostmap = np.zeros((ydim, xdim, nQ))
@@ -21,6 +32,9 @@ def jpeg_ghost(file_path):
         shifted = np.roll(shifted, shift_y, axis=0)
         _, enc = cv2.imencode(".jpg", shifted, [cv2.IMWRITE_JPEG_QUALITY, quality])
         tmp_resave = np.double(cv2.imdecode(np.frombuffer(enc, np.byte), cv2.IMREAD_ANYCOLOR))
+        
+        if tmp_resave is None:
+            return {"jpeg_ghost_error": "Failed to recompress image"}
         
         for z in range(zdim):
             ghostmap[:, :, i] += np.square(shifted[:, :, z] - tmp_resave[:, :, z])
@@ -55,6 +69,12 @@ def generate_images(blkE, Qmin, Qstep, nQ):
             img_path = f"media/jpeg_ghost_quality_{quality}.png"
             plt.savefig(img_path, format="png", dpi=200)
             plt.close()
-            image_urls.append(cloudinary.uploader.upload(img_path)["secure_url"])
+            
+            try:
+                response = cloudinary.uploader.upload(img_path)
+                image_urls.append(response["secure_url"])
+            finally:
+                os.remove(img_path)  # ✅ Deletes the file after uploading
     
+    print(image_urls)
     return image_urls
