@@ -2,9 +2,9 @@ module.exports = {
   apps : [
   {
     name   : "fastapi",
-    script : "uvicorn",
+    script : "/home/ubuntu/fotoverifier2.0/Backend_new/venv/Scripts/uvicorn.exe",
     args: "main:app --host 0.0.0.0 --port 9001",
-    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python3.10",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python",
     cwd: "./Backend_new",
     watch: false,
     env: {
@@ -18,9 +18,9 @@ module.exports = {
   },
   {
     name   : "celery",
-    script : "celery",
+    script : "/home/ubuntu/fotoverifier2.0/Backend_new/venv/Scripts/celery.exe",
     args: "-A tasks worker --loglevel=info -c 4",
-    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python3.10",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/venv/bin/python",
     cwd: "./Backend_new",
     watch: false,
     env: {
