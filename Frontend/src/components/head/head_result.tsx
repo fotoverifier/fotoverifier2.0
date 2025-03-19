@@ -45,59 +45,60 @@ const steps = [
     description:
       "This section displays the image you uploaded. Make sure it's the correct file before proceeding.",
 
-    tab: "Tampering_Detection",
+    tab: 'Tampering_Detection',
   },
   {
     id: 'jpeg_ghost',
     description:
       'JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image.',
-    tab: "Tampering_Detection",
+    tab: 'Tampering_Detection',
   },
   {
     id: 'ela',
     description:
       'Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations.',
-    tab: "Tampering_Detection",
+    tab: 'Tampering_Detection',
   },
-  { id: 'jpeg-specific', description: 'Click here to run JPEG Ghost', tab: "Tampering_Detection"},
+  {
+    id: 'jpeg-specific',
+    description: 'Click here to run JPEG Ghost',
+    tab: 'Tampering_Detection',
+  },
 
   {
     id: 'MetaDataArea',
     description:
-      "Exif Data: Timeline verification, editing software detection, geolocation consistency checks. Missing metadata often signals manipulation.",
+      'Exif Data: Timeline verification, editing software detection, geolocation consistency checks. Missing metadata often signals manipulation.',
 
-    tab: "Originality",
+    tab: 'Originality',
   },
   {
     id: 'CameraArea',
-    description:
-      "Image of camera models extracted from the EXIF Data",
+    description: 'Image of camera models extracted from the EXIF Data',
 
-    tab: "Originality",
+    tab: 'Originality',
   },
   {
     id: 'AuthorArea',
-    description:
-       "Image of author extracted from the EXIF Data",
+    description: 'Image of author extracted from the EXIF Data',
 
-    tab: "Originality",
+    tab: 'Originality',
   },
 
   {
     id: 'ReverseArea',
     description:
-      "Search across multiple platforms to find earliest appearances; compare against claimed date and examine visual differences between versions.",
+      'Search across multiple platforms to find earliest appearances; compare against claimed date and examine visual differences between versions.',
 
-    tab: "Originality",
+    tab: 'Originality',
   },
   {
     id: 'ImageTaggingArea',
     description:
       "Analyze AI-generated tags to quickly understand the image's key visual elements and potential inconsistencies.",
 
-    tab: "Originality",
+    tab: 'Originality',
   },
-
 ];
 
 const HeaderReport: React.FC<HeaderReportProps> = ({
@@ -119,62 +120,55 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     description: string;
   } | null>(null);
 
-
-
   const extractTab = (url: string = window.location.search): string => {
-  // Handle cases where tab is the last parameter or followed by another parameter
-  const tabMatch = url.match(/tab=([^&]+)(&|$)/);
-  
-  return tabMatch ? tabMatch[1] : 'Tampering_Detection';
-};
+    const tabMatch = url.match(/tab=([^&]+)(&|$)/);
 
-const highlightSection = (stepIndex: number) => {
-  const currentTab = extractTab();
+    return tabMatch ? tabMatch[1] : 'Tampering_Detection';
+  };
 
-  const currentTabSteps = steps.filter(step => step.tab === currentTab);
+  const highlightSection = (stepIndex: number) => {
+    const currentTab = extractTab();
 
-  if (
-    stepIndex < 0 || 
-    stepIndex >= currentTabSteps.length
-  ) {
-    removeHighlight();
-    return;
-  }
+    const currentTabSteps = steps.filter((step) => step.tab === currentTab);
 
-  const target = document.getElementById(currentTabSteps[stepIndex].id);
+    if (stepIndex < 0 || stepIndex >= currentTabSteps.length) {
+      removeHighlight();
+      return;
+    }
 
-  if (target) {
-    removeHighlight();
-    target.classList.add('glow-effect');
+    const target = document.getElementById(currentTabSteps[stepIndex].id);
 
-    const rect = target.getBoundingClientRect();
+    if (target) {
+      removeHighlight();
+      target.classList.add('glow-effect');
 
-    setHelpBox({
-      text: `${stepIndex + 1}/${currentTabSteps.length}`,
-      position: {
-        top: rect.top - 200,
-        left: rect.left + window.scrollX + rect.width / 2 - 150,
-      },
-      description: currentTabSteps[stepIndex].description,
-    });
-  }
+      const rect = target.getBoundingClientRect();
 
-  setCurrentStep(stepIndex);
-};
+      setHelpBox({
+        text: `${stepIndex + 1}/${currentTabSteps.length}`,
+        position: {
+          top: rect.top - 200,
+          left: rect.left + window.scrollX + rect.width / 2 - 150,
+        },
+        description: currentTabSteps[stepIndex].description,
+      });
+    }
 
+    setCurrentStep(stepIndex);
+  };
 
   const removeHighlight = () => {
-  const currentTab = extractTab();
-  const currentTabSteps = steps.filter(step => step.tab === currentTab);
+    const currentTab = extractTab();
+    const currentTabSteps = steps.filter((step) => step.tab === currentTab);
 
-  currentTabSteps.forEach((step) => {
-    const element = document.getElementById(step.id);
-    if (element) {
-      element.classList.remove('glow-effect');
-    }
-  });
-  setHelpBox(null);
-};
+    currentTabSteps.forEach((step) => {
+      const element = document.getElementById(step.id);
+      if (element) {
+        element.classList.remove('glow-effect');
+      }
+    });
+    setHelpBox(null);
+  };
 
   return (
     <div className="res_header_container flex items-center justify-between">

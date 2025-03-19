@@ -7,12 +7,13 @@ import Pattern from '@/assets/Group 52.svg';
 import FeedBackModal from './modal/feedback_modal/feedback_modal';
 import styles from '@/styles/banner.module.css';
 import { LuPaperclip } from 'react-icons/lu';
+import { useLanguage } from '@/context/LanguageContext';
 
 const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
 const Banner = () => {
   const [openModal, setIsModalOpen] = React.useState(false);
-
+  const { t } = useLanguage();
   return (
     <div className={`${styles.banner_container} flex-col ${poppins.className}`}>
       <nav className={styles.nav}>
@@ -23,7 +24,7 @@ const Banner = () => {
             setIsModalOpen(true);
           }}
         >
-          Feedback
+          {t('feedback')}
         </button>
 
         {openModal && (
@@ -31,22 +32,18 @@ const Banner = () => {
         )}
         <div className={styles.head_line}></div>
         <Link href="/home">
-          <div className={styles.start_button}>Go to Home</div>
+          <div className={styles.start_button}>{t('Go to Home')}</div>
         </Link>
       </nav>
 
       <div className={`${styles.primary_container} flex`}>
         <div className="w-2/3 h-full p-5 flex flex-col justify-center ">
-          <p>
-            This is a tool for detecting image tampering using Digital Image
-            Forensics techniques, aiming to provide both professional as well as
-            casual users with reliable tools to verify images.
-          </p>
+          <p>{t('image_tampering_tool_description')}</p>
           <div className="flex gap-3">
-            <div className={styles.plan_button}>Our Development Plan</div>
+            <div className={styles.plan_button}> {t('development_plan')}</div>
             <div className={`flex ${styles.plan_button} items-center gap-3`}>
               {' '}
-              <LuPaperclip /> Our Paper
+              <LuPaperclip /> {t('our_paper')}
             </div>
           </div>
         </div>

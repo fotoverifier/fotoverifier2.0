@@ -60,6 +60,10 @@
   font-weight: bold;
 }
 
+.spec_helper_2 {
+  font-size: medium;
+  margin-right: auto;
+}
 .spec_helper {
   font-size: medium;
   margin-left: auto;

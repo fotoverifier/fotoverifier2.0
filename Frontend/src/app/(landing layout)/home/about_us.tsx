@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const AboutUs = () => {
-  const {t} = useLanguage();
-  const text = t("About Us");
+  const { t } = useLanguage();
+  const text = t('About Us');
   const typingSpeed = 200;
 
   const [displayedText, setDisplayedText] = useState('');
@@ -58,9 +58,7 @@ const AboutUs = () => {
           {showCursor && <span className={styles.cursor}>|</span>}
         </motion.h2>
 
-        <div className={styles.description}>
-          {t('About Us Description')}
-        </div>
+        <div className={styles.description}>{t('About Us Description')}</div>
       </div>
 
       <motion.div

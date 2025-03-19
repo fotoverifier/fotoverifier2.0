@@ -31,5 +31,45 @@
 
   "About Us": "Về chúng tôi",
 
-  "About Us Description": "Fotoverifier cung cấp cho người dùng một kho công cụ mạnh mẽ để phát hiện và phân tích các hình ảnh bị chỉnh sửa, đảm bảo tính xác thực và toàn vẹn của nội dung kỹ thuật số. Được hỗ trợ bởi Câu lạc bộ Bảo mật HCMUS, chúng tôi tích hợp các kỹ thuật điều tra số tiên tiến với các công cụ phát hiện nâng cao để giúp người dùng xác minh tính hợp pháp của phương tiện kỹ thuật số."
+  "About Us Description": "Fotoverifier cung cấp cho người dùng một kho công cụ mạnh mẽ để phát hiện và phân tích các hình ảnh bị chỉnh sửa, đảm bảo tính xác thực và toàn vẹn của nội dung kỹ thuật số. Được hỗ trợ bởi Câu lạc bộ Bảo mật HCMUS, chúng tôi tích hợp các kỹ thuật điều tra số tiên tiến với các công cụ phát hiện nâng cao để giúp người dùng xác minh tính hợp pháp của phương tiện kỹ thuật số.",
+
+  "image_tampering_tool_description": "Đây là một công cụ phát hiện giả mạo hình ảnh bằng kỹ thuật Digital Image Forensics, nhằm cung cấp cho cả người dùng chuyên nghiệp và thông thường những công cụ đáng tin cậy để xác minh hình ảnh.",
+  "Go to Home": "Trang chủ",
+  "development_plan": "Kế hoạch phát triển",
+  "our_paper": "Bài báo của chúng tôi",
+  "image_assessment_title": "Đánh giá hình ảnh",
+  "image_assessment_description": "Phân tích chất lượng hình ảnh, tính xác thực và siêu dữ liệu để đảm bảo tính toàn vẹn và phát hiện các chỉnh sửa tiềm ẩn.",
+
+  "tutorial_title": "Cách sử dụng ứng dụng",
+  "tutorial_description": "Tìm hiểu cách điều hướng ứng dụng một cách hiệu quả, tải lên hình ảnh, phân tích siêu dữ liệu và phát hiện chỉnh sửa hình ảnh.",
+  "Service_1_title": "Khám phá sự thật đằng sau mỗi bức ảnh",
+
+  "Home": "Trang chủ",
+  "Upload": "Tải lên",
+  "Library": "Thư viện",
+  "Policy": "Chính sách",
+  "GitHub": "GitHub",
+  "Our services": "Dịch vụ",
+  "Tutorial": "Hướng dẫn",
+  "tutorial_1_title": "Khám phá hướng dẫn từng bước ngay hôm nay",
+
+  "upload_photo_input": "Tải ảnh",
+  "upload_input_link": "Tải liên kết",
+  "upload_suitable_size": "Kích thước phù hợp:",
+  "upload_type": "Loại:",
+  "upload_choose_files": "Chọn tệp",
+  "upload_change_image": "Thay đổi hình ảnh",
+  "upload_scanning_mode": "Chế độ quét",
+  "upload_specialized_mode_note": "Đối với chế độ chuyên sâu, vui lòng xem hướng dẫn chi tiết và thuật ngữ của chúng tôi.",
+  "upload_verify": "Xác minh",
+  "upload_uploading": "Đang tải lên hình ảnh...",
+  "upload_complete": "Tải lên hoàn tất!",
+
+  "upload_normal_description": "Được trang bị nhiều lớp phát hiện nhanh chóng.",
+  "upload_specialized_description": "Khám phá nhiều thuật toán khác nhau để tự tìm ra các điểm bất thường.",
+
+  "upload_quick_scan": "Quét nhanh",
+  "upload_scan_by_yourself": "Tự quét hình ảnh",
+
+  "Techniques": "Kỹ thuật"
 }

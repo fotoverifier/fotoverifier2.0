@@ -12,7 +12,9 @@ import {
 } from 'react-icons/fa';
 import IconMain from '@/assets/icon_main.svg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
+import styles from "./sidebar_alt.module.css"
 
 const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
@@ -22,42 +24,81 @@ const categories = [
   { name: 'GitHub', slug: 'https://github.com', icon: <FaGithub size={20} /> },
 ];
 
+const languages = [
+  { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
+  { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },
+  { code: 'no', name: 'Norsk', flag: 'https://flagcdn.com/w40/no.png' },
+  { code: 'jp', name: '日本語', flag: 'https://flagcdn.com/w40/jp.png' }
+];
+
+
 export default function Sidebar_Alt() {
+  const { t } = useLanguage();
+
+  const categories = [
+    { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
+    { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
+    { name: t('Library'), slug: '/library', icon: <IoLibrary size={20} /> },
+    { name: t('Policy'), slug: '/privacy', icon: <MdPolicy size={20} /> },
+    {
+      name: 'GitHub',
+      slug: 'https://github.com',
+      icon: <FaGithub size={20} />,
+    },
+  ];
+
   const router = useRouter();
   const pathname = usePathname();
   const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('EN');
+
+  const { setLocale, locale } = useLanguage();
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    languages.find((lang) => lang.code === locale) || languages[0]
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const matchedLang = languages.find((lang) => lang.code === locale);
+    if (matchedLang) {
+      setSelectedLanguage(matchedLang);
+    }
+  }, [locale]);
+
+  const handleLanguageChange = (lang: any) => {
+    setLocale(lang.code);
+    setIsOpen(false);
+  };
 
   return (
-    <div
-      className={`bg-white w-[7%] p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
-    >
-      <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-center mb-4 border-2">
-        <div className="text-green-800 bg-green-100 rounded-full">
+    <div className={styles.sidebarContainer}>
+      <div className={styles.logoContainer}>
+        <div className={styles.logoIcon}>
           <Image src={IconMain} width={50} height={50} alt="" />
         </div>
       </div>
 
-      <div className="w-full h-[2px] bg-green-800 my-3"></div>
+      <div className={styles.divider}></div>
 
-      <ul className="space-y-2 flex-grow">
+      <ul className={styles.navList}>
         {categories.map((category) => {
           const isActive = pathname === category.slug;
           return (
-            <div key={category.slug} className="relative group cursor-pointer">
+            <div key={category.slug} className={styles.navItem}>
               <div
                 onClick={() =>
                   category.slug.startsWith('http')
                     ? window.open(category.slug, '_blank')
                     : router.push(category.slug)
                 }
-                className={`px-4 py-3 rounded-lg flex items-center justify-center relative transition-colors duration-300 
-                  ${isActive ? 'bg-green-200 text-green-800 font-bold' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                className={`${styles.navLink} ${
+                  isActive ? styles.navLinkActive : styles.navLinkInactive
+                }`}
               >
-                <div className="flex justify-center items-center w-6 h-6">
+                <div className={styles.navIconContainer}>
                   {category.icon}
                 </div>
-                <span className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                <span className={styles.navTooltip}>
                   {category.name}
                 </span>
               </div>
@@ -66,27 +107,65 @@ export default function Sidebar_Alt() {
         })}
       </ul>
 
-      <div className="mt-auto space-y-2">
+      <div className={styles.footerContainer}>
         {/* Theme Toggle Button */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="w-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-3 transition-all duration-300"
+          className={styles.themeToggle}
         >
           {darkMode ? (
-            <FaSun size={20} className="text-yellow-500" />
+            <FaSun size={20} className={styles.sunIcon} />
           ) : (
-            <FaMoon size={20} className="text-gray-600" />
+            <FaMoon size={20} className={styles.moonIcon} />
           )}
         </button>
 
-        {/* Language Toggle Button */}
         <button
-          onClick={() => setLanguage(language === 'EN' ? 'VN' : 'EN')}
-          className="w-fit flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg p-3 transition-all duration-300"
+          onClick={() => setIsOpen(!isOpen)}
+          className={styles.languageButton}
         >
-          <FaGlobe size={20} />
-          <span className="ml-2 font-semibold w-6 text-center">{language}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span className={styles.languageCode}>
+            {selectedLanguage.code.toUpperCase()}
+          </span>
         </button>
+
+        {isOpen && (
+          <div className={styles.languageDropdown}>
+            {languages.map((lang) => (
+              <div
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang)}
+                className={`${styles.languageOption} ${
+                  selectedLanguage.code === lang.code
+                    ? styles.languageOptionActive
+                    : ''
+                }`}
+              >
+                <img
+                  src={lang.flag}
+                  alt={lang.code}
+                  className={styles.languageFlag}
+                />
+                <span>{lang.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

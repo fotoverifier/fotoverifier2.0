@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import styles from '@/app/(main layout)/dashboard/dashboard.module.css';
 import { Inter, Poppins } from 'next/font/google';
@@ -9,44 +10,45 @@ import Image_Aessment from '@/assets/Image_Asessment.svg';
 import Tutorial from '@/assets/Tutorial.svg';
 import { TiThLarge } from 'react-icons/ti';
 import { IoIosInformationCircleOutline } from 'react-icons/io';
+import { useLanguage } from '@/context/LanguageContext';
 const inter = Inter({ subsets: ['latin'] });
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-const categories = [
-  {
-    title: 'Image Assessment',
-    description:
-      'Analyze image quality, authenticity, and metadata to ensure integrity and detect potential manipulations.',
-    icon: (
-      <Image
-        src={Image_Aessment}
-        alt="Image Assessment Icon"
-        width={200}
-        height={200}
-      />
-    ),
-    titleIcon: 1,
-  },
-];
+const Dashboard = () => {
+  const { t } = useLanguage();
 
-// 📌 Tutorials Data
-const tutorials = [
-  {
-    title: 'How to Use Our App',
-    description:
-      'Learn how to efficiently navigate our app, upload images, analyze metadata, and detect image manipulation.',
-    icon: <Image src={Tutorial} alt="Tutorial" width={200} height={200} />,
-    titleIcon: 2,
-  },
-];
-const home = () => {
+  const categories = [
+    {
+      title: t('image_assessment_title'),
+      description: t('image_assessment_description'),
+      icon: (
+        <Image
+          src={Image_Aessment}
+          alt="Image Assessment Icon"
+          width={200}
+          height={200}
+        />
+      ),
+      titleIcon: 1,
+    },
+  ];
+
+  const tutorials = [
+    {
+      title: t('tutorial_title'),
+      description: t('tutorial_description'),
+      icon: <Image src={Tutorial} alt="Tutorial" width={200} height={200} />,
+      titleIcon: 2,
+    },
+  ];
+
   return (
     <div className={`${styles.home_container2} ${montserrat.className}`}>
       <div className={styles.content_fcontainer}>
         <div className={styles.space}></div>
         <div className={`font-bold ${styles.fcontainer_title}`}>
-          Our services
+          {t('Our services')}
         </div>
         <div className={styles.space}></div>
         <div className={styles.dashboard_categories}>
@@ -63,13 +65,15 @@ const home = () => {
         <div className={styles.space}></div>
         <div className={`font-bold ${styles.fcontainer_foot}`}>
           {' '}
-          Uncover the truth behind every image{' '}
+          {t('Service_1_title')}{' '}
         </div>
       </div>
       <div className={styles.vertical_bar}></div>
       <div className={styles.content_fcontainer}>
         <div className={styles.space}></div>
-        <div className={`font-bold ${styles.fcontainer_title}`}>Tutorial</div>
+        <div className={`font-bold ${styles.fcontainer_title}`}>
+          {t('Tutorial')}
+        </div>
         <div className={styles.space}></div>
         <div className={styles.dashboard_categories}>
           {tutorials.map((tutorial, index) => (
@@ -87,11 +91,11 @@ const home = () => {
 
         <div className={`font-bold ${styles.fcontainer_foot}`}>
           {' '}
-          Explore our step-by-step tutorials today
+          {t('tutorial_1_title')}
         </div>
       </div>
     </div>
   );
 };
 
-export default home;
+export default Dashboard;

@@ -1,30 +1,43 @@
 .normal-deep-scan-container {
-  width: 45%;
+  width: 95%;
   height: 100%;
   background-color: white;
   border-radius: 10px;
-  border-width: 1px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border-left: 3px solid #10b981;
 }
+
 .normal-deep-scan-container:hover {
-  border-color: gray;
+  border-color: #10b981;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.15);
 }
+
 .specialized-scan-container {
   width: 95%;
   height: 100%;
   background-color: white;
   border-radius: 10px;
-  border-width: 1px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  /* Add yellow accent */
+  border-left: 3px solid #fbbf24;
 }
+
 .specialized-scan-container:hover {
-  border-color: gray;
+  border-color: #fbbf24;
+  box-shadow: 0 4px 8px rgba(251, 191, 36, 0.15);
 }
+
 .circle-checkbox-container {
   display: flex;
   align-items: center;
 }
 
 .circle-checkbox {
-  display: none; /* Hide default checkbox */
+  display: none;
 }
 
 .circle-checkbox-label {
@@ -53,11 +66,11 @@
 }
 
 .circle-checkbox:checked + .circle-checkbox-label::after {
-  opacity: 1; /* Visible when checked */
+  opacity: 1;
 }
 .button-title {
   padding: 10px;
-  height: 30%;
+  height: 40%;
   width: 100%;
   display: flex;
   align-items: center;

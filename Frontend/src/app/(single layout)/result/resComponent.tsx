@@ -155,7 +155,10 @@ const Res = () => {
           content: (
             <div className="h-full w-full flex">
               <div className="w-1/3 h-full">
-                <div id="MetaDataArea" className="h-1/6 w-full bg-white rounded-full">
+                <div
+                  id="MetaDataArea"
+                  className="h-1/6 w-full bg-white rounded-full"
+                >
                   <MetaData_Result
                     cameraInformation={
                       exifResult?.camera_information || undefined
@@ -168,7 +171,10 @@ const Res = () => {
                     loading={loadingExifCheck}
                   />
                 </div>
-                <div id = "CameraArea" className="h-5/6 w-full bg-white rounded-md">
+                <div
+                  id="CameraArea"
+                  className="h-5/6 w-full bg-white rounded-md"
+                >
                   <div className="flex p-5 h-1/6">
                     <div className={styles.circle_2}>
                       <FaCamera />
@@ -195,7 +201,10 @@ const Res = () => {
 
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
               <div className="w-1/3 h-full">
-                <div  id ="AuthorArea" className="h-5/6 w-full  bg-white rounded-md">
+                <div
+                  id="AuthorArea"
+                  className="h-5/6 w-full  bg-white rounded-md"
+                >
                   <div className="flex p-5 h-1/6">
                     <div className={styles.circle_2}>
                       <FaUser />
@@ -217,31 +226,36 @@ const Res = () => {
                       objectFit="contain"
                     />
                   </div>
-                  </div>
-                  <div className="h-1/6 w-full py-2">
-                    <div className="flex p-5 border-2 rounded-xl">
-                      <div className={styles.circle_2}>
-                        <PiAppWindowFill />
-                      </div>
-                      <div className="font-bold text-lg ml-2 border-black">
-                        {' '}
-                        Software Modification
-                      </div>
+                </div>
+                <div className="h-1/6 w-full py-2">
+                  <div className="flex p-5 border-2 rounded-xl">
+                    <div className={styles.circle_2}>
+                      <PiAppWindowFill />
+                    </div>
+                    <div className="font-bold text-lg ml-2 border-black">
+                      {' '}
+                      Software Modification
                     </div>
                   </div>
-
+                </div>
               </div>
 
               <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
 
               <div className="w-1/3 h-full">
-                <div id = "ReverseArea" className="h-1/2 bg-white w-full rounded-md">
+                <div
+                  id="ReverseArea"
+                  className="h-1/2 bg-white w-full rounded-md"
+                >
                   <ReverseImgResult
                     searchResult={SearchResult}
                     loading={loadingReverseImageSearch}
                   />
                 </div>
-                <div id = "ImageTaggingArea" className="h-1/2 bg-white w-full rounded-md">
+                <div
+                  id="ImageTaggingArea"
+                  className="h-1/2 bg-white w-full rounded-md"
+                >
                   <ImgTagging_Result
                     Tag={tagResult}
                     loading={loadingTagResult}
