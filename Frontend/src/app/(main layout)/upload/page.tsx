@@ -88,7 +88,7 @@ const Upload = () => {
         // Single API call wrapped in a Promise
 
         const response = await fetch(
-          'http://localhost:8000/quick-scan/',
+          'http://fotoverifier:9001/quick-scan/',
           {
             method: 'POST',
             body: formData,
