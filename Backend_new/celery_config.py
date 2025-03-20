@@ -1,7 +1,13 @@
 from celery import Celery
 import os
+from dotenv import load_dotenv
 
-redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+load_dotenv()
+
+redis_url = os.getenv("REDIS_URL")
+
+if not redis_url:
+    raise ValueError("REDIS_URL is not set! Check your .env file.")
 
 celery_app = Celery(
     "tasks",

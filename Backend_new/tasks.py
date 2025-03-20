@@ -9,8 +9,17 @@ import io
 import redis
 import os
 import json
+from dotenv import load_dotenv
 
-redis_client = redis.from_url(os.environ.get('REDIS_URL'))
+load_dotenv()
+
+redis_url = os.getenv("REDIS_URL")
+
+if not redis_url:
+    raise ValueError("REDIS_URL is not set! Check your .env file.")
+
+
+redis_client = redis.from_url(redis_url)
 
 @celery_app.task
 def process_exif(image_bytes):

@@ -13,16 +13,22 @@ import json
 from tasks import process_quick_scan
 import redis
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 image_storage = {}
 app = FastAPI()
-redis_client = redis.from_url(os.environ.get("REDIS_URL"))
+redis_url = os.getenv("REDIS_URL")
+if not redis_url:
+    raise ValueError("REDIS_URL is not set! Check your .env file.")
+redis_client = redis.from_url(redis_url)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:9000",
-        os.environ.get("FRONTEND_URL"),
+        os.getenv("FRONTEND_URL"),
         ],  # ✅ Change this to your frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # ✅ Allow all HTTP methods (GET, POST, etc.)

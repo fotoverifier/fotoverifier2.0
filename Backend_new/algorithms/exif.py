@@ -4,6 +4,14 @@ import exifread
 import io
 from serpapi import GoogleSearch
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+serpapi_secret_key = os.getenv("SERPAPI")
+if not serpapi_secret_key:
+    raise ValueError("SERPAPI is not set! Check your .env file.")
+
 
 def exif_check(image_bytes):
     image_file = io.BytesIO(image_bytes)
@@ -124,7 +132,7 @@ def image_search(model):
     params = {
         "engine": "google_images",
         "q": f"{model}",
-        "api_key": os.environ.get('SERPAPI_SECRET_KEY')
+        "api_key": serpapi_secret_key
     }
     search = GoogleSearch(params)
     results = search.get_dict()
