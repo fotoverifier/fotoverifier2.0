@@ -11,7 +11,6 @@ module.exports = {
       "REDIS_URL": process.env.REDIS_URL,
       "FRONTEND_URL": process.env.FRONTEND_URL,
     },
-    exec_interpreter: "node"
   },
   {
     name   : "celery",
@@ -28,7 +27,6 @@ module.exports = {
       "FRONTEND_URL": process.env.FRONTEND_URL,
       "SERPAPI_SECRET_KEY": process.env.SERPAPI_SECRET_KEY
     },
-    exec_interpreter: "node"
   },
   {
     name   : "next",
