@@ -6,7 +6,7 @@ from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 object_recognition_model = None
 
 def initialize_object_recognition_model():
