@@ -13,6 +13,22 @@ module.exports = {
     }
   },
   {
+    name   : "celery",
+    script: "celery",
+    args: "-A tasks worker --loglevel=info",
+    interpreter: "python3",
+    cwd: "./Backend_new",
+    watch: false,
+    env: {
+      "CLOUD_NAME": process.env.CLOUD_NAME,
+      "CLOUD_API_KEY": process.env.CLOUD_API_KEY,
+      "CLOUD_API_SECRET": process.env.CLOUD_API_SECRET,
+      "REDIS_URL": process.env.REDIS_URL,
+      "FRONTEND_URL": process.env.FRONTEND_URL,
+      "SERPAPI_SECRET_KEY": process.env.SERPAPI_SECRET_KEY
+    }
+  },
+  {
     name   : "next",
     script : "npm",
     args: "run buildnstart",
