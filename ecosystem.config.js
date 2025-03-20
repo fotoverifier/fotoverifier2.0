@@ -10,7 +10,8 @@ module.exports = {
     env: {
       "REDIS_URL": process.env.REDIS_URL,
       "FRONTEND_URL": process.env.FRONTEND_URL,
-    }
+    },
+    exec_interpreter: "node"
   },
   {
     name   : "celery",
@@ -26,7 +27,8 @@ module.exports = {
       "REDIS_URL": process.env.REDIS_URL,
       "FRONTEND_URL": process.env.FRONTEND_URL,
       "SERPAPI_SECRET_KEY": process.env.SERPAPI_SECRET_KEY
-    }
+    },
+    exec_interpreter: "node"
   },
   {
     name   : "next",
@@ -36,7 +38,8 @@ module.exports = {
     watch: false,
     env: {
       "NEXT_PUBLIC_BACKEND_URL": process.env.NEXT_PUBLIC_BACKEND_URL
-    }
+    },
+    exec_interpreter: "node" 
   },
 ]
 }
