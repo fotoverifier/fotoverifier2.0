@@ -20,7 +20,10 @@ redis_client = redis.from_url(os.environ.get("REDIS_URL"))
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:9000"],  # ✅ Change this to your frontend URL
+    allow_origins=[
+        "http://localhost:9000",
+        os.environ.get("FRONTEND_URL"),
+        ],  # ✅ Change this to your frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # ✅ Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # ✅ Allow all headers
@@ -108,7 +111,7 @@ async def quick_scan_stream(task_id: str):
 
                 # If main task is finished, check for child tasks
                 if main_task_data.get("status") in ["SUCCESS", "FAILURE"]:
-                    child_task_ids = redis_client.get(f"task-children-{main_task_data.get("result")}")
+                    child_task_ids = redis_client.get(f"task-children-{main_task_data.get('result')}")
                     if child_task_ids:
                         child_task_ids = json.loads(child_task_ids)
                         

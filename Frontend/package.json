@@ -6,6 +6,7 @@
     "dev": "next dev -p 9000 --turbo",
     "build": "next build",
     "start": "next start -p 9000",
+    "buildnstart": "next build&&next start -p 9000",
     "lint": "next lint",
     "format": "prettier --write ."
   },
