@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-serpapi_secret_key = os.getenv("SERPAPI")
+serpapi_secret_key = os.getenv("SERPAPI_SECRET_KEY")
 if not serpapi_secret_key:
     raise ValueError("SERPAPI is not set! Check your .env file.")
 
