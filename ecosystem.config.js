@@ -4,7 +4,7 @@ module.exports = {
     name   : "uvicorn",
     script: "uvicorn",
     args: "main:app --host 0.0.0.0 --port 9001",
-    interpreter: "python3",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/new_venv/bin/python3",
     cwd: "./Backend_new",
     watch: false,
     env: {
@@ -16,7 +16,7 @@ module.exports = {
     name   : "celery",
     script: "celery",
     args: "-A tasks worker --loglevel=info -c 4",
-    interpreter: "python3",
+    interpreter: "/home/ubuntu/fotoverifier2.0/Backend_new/new_venv/bin/python3",
     cwd: "./Backend_new",
     watch: false,
     env: {
