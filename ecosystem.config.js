@@ -31,7 +31,7 @@ module.exports = {
   {
     name   : "next",
     script : "npm",
-    args: "run buildnstart",
+    args: "run start",
     cwd: "./Frontend",
     watch: false,
     env: {
