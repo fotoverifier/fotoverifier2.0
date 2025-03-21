@@ -31,13 +31,12 @@ module.exports = {
   {
     name   : "next",
     script : "npm",
-    args: "run start",
+    args: "run buildnstart",
     cwd: "./Frontend",
     watch: false,
     env: {
       "NEXT_PUBLIC_BACKEND_URL": process.env.NEXT_PUBLIC_BACKEND_URL
     },
-    exec_interpreter: "node" 
   },
 ]
 }
