@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { SearchResult } from '@/interface/interface';
 import { IoIosReverseCamera } from 'react-icons/io';
 import { Inter } from 'next/font/google';

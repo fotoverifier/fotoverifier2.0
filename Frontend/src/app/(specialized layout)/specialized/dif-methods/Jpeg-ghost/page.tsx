@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from '@/app/(specialized layout)/specialized/dif-methods/Jpeg-ghost/jpeg.module.css';
 import Image from 'next/image';
 import metadata from '@/assets/metadata.png';
-import ImageMagnifier from '@/components/image_mag';
+import ImageMagnifier from '@/components/magnifier/image_mag';
 import jpg1 from '@/assets/jpg1.jpg';
 import jpg2 from '@/assets/jpg2.jpg';
 import { Inter } from 'next/font/google';

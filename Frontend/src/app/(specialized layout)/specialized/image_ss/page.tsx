@@ -3,7 +3,7 @@ import styles from '@/app/(specialized layout)/specialized/image_ss/image_ss.mod
 import { Inter } from 'next/font/google';
 import metadata from '@/assets/metadata.png';
 import Image from 'next/image';
-import ImageMagnifier from '@/components/image_mag';
+import ImageMagnifier from '@/components/magnifier/image_mag';
 import { ImEnlarge } from 'react-icons/im';
 
 const inter = Inter({ subsets: ['latin'] });

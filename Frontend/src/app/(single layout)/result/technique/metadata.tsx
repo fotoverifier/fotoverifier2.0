@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '@/app/(single layout)/result/result.css';
+import '@/app/(single layout)/result/technique/result.css';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { Inter, Montserrat } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
@@ -134,7 +134,6 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
                   )}
                 </div>
 
-                {/* Software Information Section */}
                 <div className="mb-4">
                   <div className="flex">
                     <div className="circle_2">2.</div>

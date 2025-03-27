@@ -30,7 +30,7 @@ const featureVariants = {
   }),
 };
 
-const LibraryPage = () => {
+const Technique_Landing = () => {
   const { t } = useLanguage();
   const features = [
     {
@@ -215,4 +215,4 @@ const LibraryPage = () => {
   );
 };
 
-export default LibraryPage;
+export default Technique_Landing;

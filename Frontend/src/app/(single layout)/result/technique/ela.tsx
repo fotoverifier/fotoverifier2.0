@@ -2,9 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaLayerGroup } from 'react-icons/fa';
 import Result from '@/assets/Group 79.svg';
-import styles from '@/app/(single layout)/result/categories.module.css';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Flex, Spin } from 'antd';
+import styles from '@/app/(single layout)/result/technique/categories.module.css';
 import { MdWarning } from 'react-icons/md';
 
 interface ElaResultProp {

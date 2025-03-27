@@ -6,12 +6,12 @@ import Image from 'next/image';
 import { Montserrat, Inter, Poppins } from 'next/font/google';
 import Method_Box from './itemgrid';
 import { FaAngleDown } from 'react-icons/fa6';
-import LoadingModal from '@/components/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLanguage } from '@/context/LanguageContext';
+import LoadingModal from '@/components/modal/loading_modal';
 
 const montserrat = Montserrat({
   subsets: ['latin'],

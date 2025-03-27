@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { SiJpeg } from 'react-icons/si';
-import styles from '@/app/(single layout)/result/categories.module.css';
+import styles from '@/app/(single layout)/result/technique/categories.module.css';
 import placeholder from '@/assets/placeholder.png';
-import { LoadingOutlined } from '@ant-design/icons';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';
 interface ImageResultProps {

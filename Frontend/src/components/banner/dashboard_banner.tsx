@@ -4,14 +4,14 @@ import Image from 'next/image';
 import { Inter, Montserrat, Poppins } from 'next/font/google';
 import Link from 'next/link';
 import Pattern from '@/assets/Group 52.svg';
-import FeedBackModal from './modal/feedback_modal/feedback_modal';
 import styles from '@/styles/banner.module.css';
 import { LuPaperclip } from 'react-icons/lu';
 import { useLanguage } from '@/context/LanguageContext';
+import FeedBackModal from '../modal/feedback_modal/feedback_modal';
 
 const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
-const Banner = () => {
+const DashBoard_Banner = () => {
   const [openModal, setIsModalOpen] = React.useState(false);
   const { t } = useLanguage();
   return (
@@ -62,4 +62,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default DashBoard_Banner;

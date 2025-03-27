@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { toPng, toJpeg } from 'html-to-image';
-import JpegGhostResult from '@/app/(single layout)/result/jpegGhost';
-import ElaResult from '@/app/(single layout)/result/ela';
-import ImgTagging_Result from '@/app/(single layout)/result/osm_tags';
+import JpegGhostResult from '@/app/(single layout)/result/technique/jpegGhost';
+import ElaResult from '@/app/(single layout)/result/technique/ela';
+import ImgTagging_Result from '@/app/(single layout)/result/technique/osm_tags';
 import { FiEdit } from 'react-icons/fi';
 
 interface ModalPReportProps {

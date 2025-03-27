@@ -6,12 +6,12 @@ import Tabs from '@/components/tab/step_tab';
 import Image from 'next/image';
 import { ExifData, SearchResult } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
-import Image_Result from './image';
-import ImgTagging_Result from './osm_tags';
-import MetaData_Result from './metadata';
-import JpegGhostResult from './jpegGhost';
-import ElaResult from './ela';
-import ReverseImgResult from './reverse_img';
+import Image_Result from './technique/image';
+import ImgTagging_Result from './technique/osm_tags';
+import MetaData_Result from './technique/metadata';
+import JpegGhostResult from './technique/jpegGhost';
+import ElaResult from './technique/ela';
+import ReverseImgResult from './technique/reverse_img';
 
 import {
   FaCamera,

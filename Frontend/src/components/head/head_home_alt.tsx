@@ -6,7 +6,7 @@ import styles from '@/styles/head/head_home_alt.module.css';
 import FotoverifierWhite from '@/assets/Fotoverifier_white.svg';
 import IconWhite from '@/assets/icon_main_white.svg';
 import FeedBackModal from '../modal/feedback_modal/feedback_modal';
-import LanguageSwitcher from '../translator/LanguageSwitcher';
+import LanguageSwitcher from '../../hook/translator/LanguageSwitcher';
 import { useLanguage } from '@/context/LanguageContext';
 
 const Header_Home_Alt = ({ isScrolled }: { isScrolled: boolean }) => {
