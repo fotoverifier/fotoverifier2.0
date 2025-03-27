@@ -71,5 +71,9 @@
   "upload_quick_scan": "Quét nhanh",
   "upload_scan_by_yourself": "Tự quét hình ảnh",
 
-  "Techniques": "Kỹ thuật"
+  "Techniques": "Kỹ thuật",
+   "Tampering Detection": "Phát hiện can thiệp",
+            "Originality": "Tính nguyên gốc",
+            "Location": "Vị trí",
+            "Forensic": "Pháp y"
 }

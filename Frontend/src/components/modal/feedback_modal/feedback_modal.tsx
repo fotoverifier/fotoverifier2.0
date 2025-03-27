@@ -72,7 +72,6 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
 
           <div className={styles.dash}></div>
 
-          {/* Overall Experince */}
           <div className={styles.subHeader}>
             <MdFeedback size={20} />
             How would you grade your experience?

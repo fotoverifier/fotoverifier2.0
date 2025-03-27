@@ -72,5 +72,9 @@
   "upload_quick_scan": "Quick Scan",
   "upload_scan_by_yourself": "Scan the image by yourself",
 
-  "Techniques": "Techniques"
+  "Techniques": "Techniques",
+  "Tampering Detection": "Tampering Detection",
+            "Originality": "Originality",
+            "Location": "Location",
+            "Forensic": "Forensic"
 }

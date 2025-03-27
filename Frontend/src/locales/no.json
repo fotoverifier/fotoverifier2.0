@@ -71,5 +71,9 @@
   "upload_quick_scan": "Hurtigskanning",
   "upload_scan_by_yourself": "Skann bildet selv",
 
-  "Techniques": "Teknikker"
+  "Techniques": "Teknikker",
+  "Tampering Detection": "Manipulasjonsoppdagelse",
+            "Originality": "Originalitet",
+            "Location": "Plassering",
+            "Forensic": "Rettsmedisinsk"
 }

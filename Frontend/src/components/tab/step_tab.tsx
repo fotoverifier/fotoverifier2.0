@@ -3,19 +3,20 @@
 import React from 'react';
 import styles from '@/components/tab/step_tab.module.css';
 import { Montserrat } from 'next/font/google';
+import { useTabContext } from '@/context/tabContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface TabProps {
   renderContent: (activeTab: string) => React.ReactNode;
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-
 }
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-const tabs = ['Tampering_Detection', 'Originality', 'Location', 'Forensic'];
 
-const Tabs: React.FC<TabProps> = ({ renderContent, activeTab, setActiveTab }) => {
+const Tabs: React.FC<TabProps> = ({ renderContent }) => {
+  const { t } = useLanguage();
+  const { activeTab, setActiveTab } = useTabContext();
+  const tabs = [t('Tampering Detection'), t('Originality'), t('Location'), t('Forensic')];
 
   return (
     <div className={styles.tabs_container}>

@@ -60,10 +60,7 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
       {loading ? (
         <></>
       ) : searchResult?.length !== 0 ? (
-        <div className="mt-4">
-          <h3 className="font-semibold mb-2 border rounded-md p-2 w-fit">
-            Top Results
-          </h3>
+        <div className="mt-4 p-2">
           {searchResult?.splice(0, 3).map((result, index) => (
             <div key={index} className="mb-2">
               <a href={result.redirect_link} className="hover:underline">
@@ -76,13 +73,11 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
         <div>No results found</div>
       )}
 
-      {/* Modal for Viewing All Results */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-11/12 max-w-lg p-6">
             <h2 className="text-xl font-bold mb-4">Reversed Link Search</h2>
             {loading ? (
-              // Spinner Section
               <div className="p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-md flex flex-col items-center gap-4">
                 <Spin
                   indicator={
@@ -97,7 +92,6 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
                 </p>
               </div>
             ) : searchResult?.length !== 0 ? (
-              // Results Section
               <>
                 {searchResult?.map((result, index) => (
                   <div key={index} className="mb-2">

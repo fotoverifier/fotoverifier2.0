@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
 import { FiHelpCircle } from 'react-icons/fi';
@@ -16,6 +16,7 @@ import pattern2 from '@/assets/Group 52.svg';
 import '@/styles/head/head_result.css';
 import '@/components/head/test.css';
 import { Descriptions } from 'antd';
+import { useTabContext } from '@/context/tabContext';
 const methods = [
   {
     name: 'Basic Method',
@@ -45,24 +46,24 @@ const steps = [
     description:
       "This section displays the image you uploaded. Make sure it's the correct file before proceeding.",
 
-    tab: 'Tampering_Detection',
+    tab: 'Tampering Detection',
   },
   {
     id: 'jpeg_ghost',
     description:
       'JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image.',
-    tab: 'Tampering_Detection',
+    tab: 'Tampering Detection',
   },
   {
     id: 'ela',
     description:
       'Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations.',
-    tab: 'Tampering_Detection',
+    tab: 'Tampering Detection',
   },
   {
     id: 'jpeg-specific',
     description: 'Click here to run JPEG Ghost',
-    tab: 'Tampering_Detection',
+    tab: 'Tampering Detection',
   },
 
   {
@@ -119,17 +120,14 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     position: { top: number; left: number };
     description: string;
   } | null>(null);
+  
 
-  const extractTab = (url: string = window.location.search): string => {
-    const tabMatch = url.match(/tab=([^&]+)(&|$)/);
+  const { activeTab } = useTabContext();
 
-    return tabMatch ? tabMatch[1] : 'Tampering_Detection';
-  };
 
+  
   const highlightSection = (stepIndex: number) => {
-    const currentTab = extractTab();
-
-    const currentTabSteps = steps.filter((step) => step.tab === currentTab);
+    const currentTabSteps = steps.filter((step) => step.tab === activeTab);
 
     if (stepIndex < 0 || stepIndex >= currentTabSteps.length) {
       removeHighlight();
@@ -137,7 +135,6 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     }
 
     const target = document.getElementById(currentTabSteps[stepIndex].id);
-
     if (target) {
       removeHighlight();
       target.classList.add('glow-effect');
@@ -158,8 +155,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   };
 
   const removeHighlight = () => {
-    const currentTab = extractTab();
-    const currentTabSteps = steps.filter((step) => step.tab === currentTab);
+    const currentTabSteps = steps.filter((step) => step.tab === activeTab);
 
     currentTabSteps.forEach((step) => {
       const element = document.getElementById(step.id);
@@ -169,6 +165,12 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     });
     setHelpBox(null);
   };
+
+  useEffect(() => {
+    removeHighlight();
+    setCurrentStep(0);
+
+  }, [activeTab]);
 
   return (
     <div className="res_header_container flex items-center justify-between">
@@ -273,6 +275,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
                 width: '300px',
                 zIndex: 300,
               }}
+              id='help-box'
             >
               <div className="help-description">{helpBox.description}</div>
 

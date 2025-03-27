@@ -25,6 +25,7 @@ import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
 import HeaderReport from '@/components/head/head_result';
+import { TabProvider } from '@/context/tabContext';
 
 const Res = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -117,11 +118,10 @@ const Res = () => {
 
 
     return () => {
-      eventSource.close(); // Clean up on unmount
+      eventSource.close(); 
     };
 
   }, []);
-  const [activeTab, setActiveTab] = useState('Tampering_Detection');
 
   const renderContent = (activeTab: string) => {
     const tabData = {
@@ -324,7 +324,7 @@ const Res = () => {
       ],
     };
 
-    if (activeTab === 'Tampering_Detection') {
+    if (activeTab === 'Tampering Detection') {
       return tabData.Tampering;
     } else {
       const selectedTab = tabData.OtherTabs.find(
@@ -356,6 +356,8 @@ const Res = () => {
   };
 
   return (
+        <TabProvider>
+
     <div className={styles.res_container}>
       <HeaderReport
         elaResult={elaResult}
@@ -364,9 +366,10 @@ const Res = () => {
         loadingTagResult={loadingTagResult}
       />
       <div className={` ${styles.res_body_container} ${inter.className}`}>
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
+          <Tabs renderContent={renderContent} />
       </div>
     </div>
+    </TabProvider>
   );
 };
 

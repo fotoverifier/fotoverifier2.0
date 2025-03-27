@@ -56,5 +56,9 @@
   "upload_specialized_description": "様々なアルゴリズムから選択して、自分で不正加工を特定できます。",
   "upload_quick_scan": "クイックスキャン",
   "upload_scan_by_yourself": "詳細スキャン",
-  "Techniques": "解析手法"
+  "Techniques": "解析手法",
+    "Tampering Detection": "改ざん検出",
+    "Originality": "独自性",
+    "Location": "位置情報",
+    "Forensic": "法科学的検証"
 }
