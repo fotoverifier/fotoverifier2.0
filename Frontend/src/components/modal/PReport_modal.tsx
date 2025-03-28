@@ -50,13 +50,13 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
       {isOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen text-black">
           <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
-            {/* Header Section */}
+            {}
             <div className="flex items-center text-base mb-4">
               <div className="text-large font-bold border-2 border-green-800 rounded-lg px-4 py-2 text-black self-center">
                 General Report
               </div>
 
-              {/* Export Buttons */}
+              {}
               <div className="ml-4 flex space-x-2">
                 <div
                   onClick={() => handleExport('png')}
@@ -72,7 +72,7 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
                 </div>
               </div>
 
-              {/* Close Button */}
+              {}
               <div
                 onClick={closeModal}
                 className="ml-auto bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 transition duration-300"
@@ -81,15 +81,15 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               </div>
             </div>
 
-            {/* Content Section */}
+            {}
             <div
               className="flex flex-1 border-t pt-4 text-lg bg-white"
               ref={contentRef}
             >
-              {/* JPEG Ghost Column */}
+              {}
               <div className="flex-1 p-4 border-r border-gray-200 text-base"></div>
 
-              {/* ELA Column */}
+              {}
               <div className="flex-1 p-4 border-r border-gray-200 text-base">
                 <ElaResult
                   img={`data:image/jpeg;base64,${elaResult}`}
@@ -97,11 +97,11 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
                 />
               </div>
 
-              {/* Image Tagging Column */}
+              {}
               <div className="flex-1 p-2 ">
                 <div className="flex items-center justify-center h-full">
                   <div className="flex flex-col gap-2 h-full w-full text-base">
-                    {/* Image Tagging Result Section */}
+                    {}
                     <div className="h-2/3 flex  items-center justify-center">
                       <ImgTagging_Result
                         Tag={tagResult}
@@ -109,9 +109,9 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
                       />
                     </div>
 
-                    {/* Author Note Section */}
+                    {}
                     <div className="flex-1 flex flex-col h-1/3 border rounded-lg shadow-md p-4 bg-gray-50">
-                      {/* Title Section with Icon */}
+                      {}
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-2">
                           <FiEdit className="text-blue-500" size={18} />
@@ -121,7 +121,7 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
                         </div>
                       </div>
 
-                      {/* Textarea Section */}
+                      {}
                       <textarea
                         className="flex-1 border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white placeholder-gray-400"
                         placeholder="Write your comment here..."

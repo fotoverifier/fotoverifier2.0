@@ -29,7 +29,7 @@ const GeneralPolicy = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      {/* Header */}
+      {}
       <header className="bg-white shadow p-6 rounded-lg mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-800">General Policy</h1>
         <p className="text-gray-600 mt-2">
@@ -38,7 +38,7 @@ const GeneralPolicy = () => {
         </p>
       </header>
 
-      {/* 2x2 Grid for Policies */}
+      {}
       <main className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {policies.map((policy, index) => (
           <section
@@ -53,7 +53,7 @@ const GeneralPolicy = () => {
         ))}
       </main>
 
-      {/* Footer */}
+      {}
       <footer className="mt-16 text-center text-gray-500 text-sm">
         © {new Date().getFullYear()} Your Company Name. All Rights Reserved.
       </footer>

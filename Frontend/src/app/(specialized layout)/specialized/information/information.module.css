@@ -71,7 +71,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  place-items: center; /* Centers items both horizontally and vertically */
+  place-items: center; 
   padding: 10px;
 }
 .tagging_container {
@@ -134,7 +134,7 @@
 }
 
 .tab.active {
-  color: black; /* Adjust color if needed */
+  color: black; 
 }
 
 .tab.active::after {
@@ -144,7 +144,7 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: black; /* Color of the bar */
+  background-color: black; 
 }
 
 .content_area {
@@ -173,9 +173,9 @@
 }
 
 .image {
-  max-width: 60%; /* Restrict to 80% of the container's width */
-  max-height: 100%; /* Restrict to 80% of the container's height */
-  object-fit: cover; /* Ensures the image maintains its aspect ratio */
+  max-width: 60%; 
+  max-height: 100%; 
+  object-fit: cover; 
   align-self: center;
   justify-self: center;
 }

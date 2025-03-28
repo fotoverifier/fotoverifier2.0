@@ -29,7 +29,7 @@
   letter-spacing: 1px;
 }
 
-/* 📖 Description */
+
 .description {
   font-size: 1.2rem;
   color: #555;
@@ -37,7 +37,7 @@
   line-height: 1.6;
 }
 
-/* 🎯 Mission & Values */
+
 .missionContainer,
 .valuesContainer {
   margin-top: 2rem;
@@ -50,14 +50,14 @@
 
 .missionContainer:hover,
 .valuesContainer:hover {
-  transform: scale(1.02); /* Subtle hover effect */
+  transform: scale(1.02); 
 }
 
 .missionTitle,
 .valuesTitle {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #03564a; /* Green Accent */
+  color: #03564a; 
 }
 
 .missionDescription {
@@ -67,7 +67,7 @@
   line-height: 1.5;
 }
 
-/* 📌 Values List */
+
 .valuesList {
   list-style: none;
   padding: 0;
@@ -94,7 +94,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background: #ffcc00; /* Yellow CTA */
+  background: #ffcc00; 
   border-radius: 30px;
   cursor: pointer;
   border: none;

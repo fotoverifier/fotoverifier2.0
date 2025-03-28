@@ -113,7 +113,7 @@ const Method_Box: React.FC<MethodBoxProps> = ({
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden transition-all duration-300 transform scale-100">
-              {/* Header Section */}
+              {}
               <div className="bg-gradient-to-r from-teal-800 to-teal-700 p-4 flex items-center">
                 <div className="bg-yellow-400 p-2 rounded-full mr-3 text-teal-800">
                   <BiSolidBook size={20} />

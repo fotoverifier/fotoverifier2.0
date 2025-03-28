@@ -166,7 +166,7 @@ const Technique_Landing = () => {
           </div>
         </motion.div>
 
-        {/* Features Section */}
+        {}
         <motion.div
           className={styles.featureContainer}
           initial="hidden"

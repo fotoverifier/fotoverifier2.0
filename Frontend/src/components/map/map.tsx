@@ -38,7 +38,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
   }
   return (
     <div className="h-full w-full">
-      {/* Use key to ensure the map is re-initialized when coordinates change */}
+      {}
       <MapContainer
         center={coordinate}
         zoom={13}

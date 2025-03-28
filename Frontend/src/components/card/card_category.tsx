@@ -21,7 +21,7 @@ const Card_Cate: React.FC<CardProps> = ({
 }) => {
   return (
     <div className={styles.card}>
-      {/* Render Main Icon */}
+      {}
       {svgIcon}
 
       <div className={styles.card__content}>
@@ -30,12 +30,12 @@ const Card_Cate: React.FC<CardProps> = ({
           <p className={styles.card__title}>{title}</p>
         </div>
 
-        {/* 🔹 Divider Line */}
+        {}
         <div className={styles.divider}></div>
 
         <p className={styles.card__description}>{description}</p>
 
-        {/* 🚀 Start Button Below the Description */}
+        {}
         <div className={styles.start_button}>Start Now →</div>
       </div>
     </div>
