@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
 import { Flex, Spin } from 'antd';
 import styles from '@/app/(single layout)/result/technique/categories.module.css';
-
+ 
 import { LoadingOutlined } from '@ant-design/icons';
 const inter = Inter({ subsets: ['latin'] });
 interface ReverseImgProp {
@@ -59,6 +59,7 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
 
       {loading ? (
         <div className={styles.image_container}>
+          
           <div className={styles.loadingBox}>
             <div className={styles.spinner}></div>
             <p className={styles.loadingText}>Please wait</p>

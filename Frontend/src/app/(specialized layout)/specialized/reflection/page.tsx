@@ -1,18 +1,21 @@
 'use client';
 import React, { useState } from 'react';
-import styles from './reflection.module.css';
+import styles from './reflection.module.css'
 import { Inter } from 'next/font/google';
 import { CiLight } from 'react-icons/ci';
 import { FaSliders, FaWaveSquare } from 'react-icons/fa6';
 import { MdOutlineTonality } from 'react-icons/md';
 const inter = Inter({ subsets: ['latin'] });
 
+
+
 const Specialized_Reflect = () => {
+
   const [noiseLevel, setNoiseLevel] = useState(20);
   const [brightness, setBrightness] = useState(0);
   const [contrast, setContrast] = useState(100);
-  const [kernelSize, setKernelSize] = useState('3');
-  const [noiseType, setNoiseType] = useState('Gaussian');
+  const [kernelSize, setKernelSize] = useState("3");
+  const [noiseType, setNoiseType] = useState("Gaussian");
 
   const handleNoiseLevelChange = (e: any) => {
     setNoiseLevel(e.target.value);
@@ -38,9 +41,10 @@ const Specialized_Reflect = () => {
     setNoiseLevel(20);
     setBrightness(0);
     setContrast(100);
-    setKernelSize('3');
-    setNoiseType('Gaussian');
+    setKernelSize("3");
+    setNoiseType("Gaussian");
   };
+
 
   return (
     <div className={styles.container}>
@@ -61,19 +65,17 @@ const Specialized_Reflect = () => {
             <div className={styles.circle_secondary}>
               <FaWaveSquare />
             </div>
-            <h2 className={`${styles.section_title} ${inter.className}`}>
-              Noise Modification
-            </h2>
+            <h2 className={`${styles.section_title} ${inter.className}`}>Noise Modification</h2>
           </div>
-
+          
           <div className={styles.section_content}>
             <div className={styles.control_group}>
               <label className={styles.control_label}>Noise Level</label>
               <div className={styles.slider_container}>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="100" 
                   value={noiseLevel}
                   onChange={handleNoiseLevelChange}
                   className={styles.slider}
@@ -81,23 +83,23 @@ const Specialized_Reflect = () => {
                 <span className={styles.value_display}>{noiseLevel}%</span>
               </div>
             </div>
-
+            
             <div className={styles.control_group}>
               <label className={styles.control_label}>Noise Type</label>
               <div className={styles.button_group}>
-                <button
+                <button 
                   className={`${styles.option_button} ${noiseType === 'Gaussian' ? styles.active : ''}`}
                   onClick={() => handleNoiseTypeChange('Gaussian')}
                 >
                   Gaussian
                 </button>
-                <button
+                <button 
                   className={`${styles.option_button} ${noiseType === 'Salt & Pepper' ? styles.active : ''}`}
                   onClick={() => handleNoiseTypeChange('Salt & Pepper')}
                 >
                   Salt & Pepper
                 </button>
-                <button
+                <button 
                   className={`${styles.option_button} ${noiseType === 'Speckle' ? styles.active : ''}`}
                   onClick={() => handleNoiseTypeChange('Speckle')}
                 >
@@ -105,11 +107,11 @@ const Specialized_Reflect = () => {
                 </button>
               </div>
             </div>
-
+            
             <div className={styles.control_group}>
               <label className={styles.control_label}>Kernel Size</label>
               <div className={styles.select_container}>
-                <select
+                <select 
                   className={styles.select_control}
                   value={kernelSize}
                   onChange={handleKernelSizeChange}
@@ -120,38 +122,34 @@ const Specialized_Reflect = () => {
                 </select>
               </div>
             </div>
-
+            
             <div className={styles.image_preview}>
               <div className={styles.preview_label}>Noise Analysis</div>
-              {/* Placeholder for image or canvas element */}
               <div className={styles.preview_placeholder}>
                 <div className={styles.placeholder_text}>
-                  Level: {noiseLevel}% | Type: {noiseType} | Kernel:{' '}
-                  {kernelSize}x{kernelSize}
+                  Level: {noiseLevel}% | Type: {noiseType} | Kernel: {kernelSize}x{kernelSize}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+        
         <div className={styles.section}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
               <MdOutlineTonality />
             </div>
-            <h2 className={`${styles.section_title} ${inter.className}`}>
-              Luminance Gradient
-            </h2>
+            <h2 className={`${styles.section_title} ${inter.className}`}>Luminance Gradient</h2>
           </div>
-
+          
           <div className={styles.section_content}>
             <div className={styles.control_group}>
               <label className={styles.control_label}>Brightness</label>
               <div className={styles.slider_container}>
-                <input
-                  type="range"
-                  min="-100"
-                  max="100"
+                <input 
+                  type="range" 
+                  min="-100" 
+                  max="100" 
                   value={brightness}
                   onChange={handleBrightnessChange}
                   className={styles.slider}
@@ -159,14 +157,14 @@ const Specialized_Reflect = () => {
                 <span className={styles.value_display}>{brightness}</span>
               </div>
             </div>
-
+            
             <div className={styles.control_group}>
               <label className={styles.control_label}>Contrast</label>
               <div className={styles.slider_container}>
-                <input
-                  type="range"
-                  min="0"
-                  max="200"
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="200" 
                   value={contrast}
                   onChange={handleContrastChange}
                   className={styles.slider}
@@ -174,7 +172,7 @@ const Specialized_Reflect = () => {
                 <span className={styles.value_display}>{contrast}%</span>
               </div>
             </div>
-
+            
             <div className={styles.control_group}>
               <label className={styles.control_label}>Gradient Map</label>
               <div className={styles.color_map}>
@@ -185,7 +183,7 @@ const Specialized_Reflect = () => {
                 </div>
               </div>
             </div>
-
+            
             <div className={styles.image_preview}>
               <div className={styles.preview_label}>Luminance Analysis</div>
               <div className={styles.preview_placeholder}>
@@ -197,6 +195,8 @@ const Specialized_Reflect = () => {
           </div>
         </div>
       </div>
+      
+     
     </div>
   );
 };
