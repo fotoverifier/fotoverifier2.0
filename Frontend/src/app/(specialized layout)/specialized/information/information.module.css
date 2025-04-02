@@ -15,9 +15,10 @@
 .image_container {
   width: 92.5%;
   height: 80%;
-  border-radius: 10px;
-  border-width: 0.5px;
-  border-color: gray;
+  border: 1px solid rgba(3, 86, 74, 0.15);
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  box-shadow: 0 1px 3px rgba(3, 86, 74, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,10 +83,10 @@
 .result_container {
   width: 92.5%;
   height: 80%;
-  border-radius: 10px;
-  border-width: 2px;
-  border-color: gray;
-  border-style: groove;
+  border: 1px solid rgba(3, 86, 74, 0.15);
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  box-shadow: 0 1px 3px rgba(3, 86, 74, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;

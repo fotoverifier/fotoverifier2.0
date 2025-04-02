@@ -153,7 +153,7 @@ const Specialized_Information = () => {
         </div>
         <div className={styles.image_container}>
           <div className={styles.change_image_section}>
-            <div className={`mr-5 ${inter.className} font-bold`}>
+            <div className={`mr-5 ${inter.className} font-bold text-[#03564a]`}>
               {' '}
               Change your image
             </div>
@@ -190,7 +190,7 @@ const Specialized_Information = () => {
                 <FaTags />
               </div>
               <div
-                className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}
+                className={`font-bold text-lg ml-2 mb-2  ${montserrat.className} text-[#03564a]`}
               >
                 Tagging{' '}
               </div>

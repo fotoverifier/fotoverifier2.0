@@ -1,130 +1,111 @@
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
+import styles from './image_ss.module.css';
+import { TbZoomInArea } from 'react-icons/tb';
+import { IoGitNetworkOutline } from 'react-icons/io5';
 import { Inter } from 'next/font/google';
-import { ImEnlarge } from 'react-icons/im';
-import { FaCloudUploadAlt } from 'react-icons/fa';
-
-import styles from '@/app/(specialized layout)/specialized/image_ss/image_ss.module.css';
-import metadata from '@/assets/metadata.png';
-import ImageMagnifier from '@/components/magnifier/image_mag';
-
 const inter = Inter({ subsets: ['latin'] });
 
-const Specialized_SS = () => {
-  const [originalImage, setOriginalImage] = useState<string | null>(null);
-  const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
+const ImageSuperResolution = () => {
+  const [upscaleFactor, setUpscaleFactor] = useState('4x');
+  const [modelType, setModelType] = useState('ESRGAN');
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setOriginalImage(reader.result as string);
-    
-        setEnhancedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleUpscaleFactorChange = (factor: string) => {
+    setUpscaleFactor(factor);
+  };
+
+  const handleModelTypeChange = (type: string) => {
+    setModelType(type);
+  };
+
+  const handleReset = () => {
+    setUpscaleFactor('4x');
+    setModelType('ESRGAN');
   };
 
   return (
-    <div className="h-full w-full bg-white">
-      <div className={styles.helper_title}>
-          <div
-            className={`${inter.className} flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800 font-bold text-xl`}
-          >
-            <div className={`${styles.circle} mr-4`}>
-              <ImEnlarge />
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.helper_title}>
+          {}
+          <div className={`${inter.className} ${styles.title_badge}`}>
+            <div className={styles.circle}>
+              {}
+              <TbZoomInArea />
             </div>
+            {}
             Image Super Resolution
           </div>
         </div>
-        <div className='flex'>
-      <div className={styles.home_first_half}>
-        
-        
-        <div className={styles.image_container}>
-          <div className={styles.change_image_section}>
-            <label 
-              htmlFor="image-upload" 
-              className="flex flex-col items-center justify-center cursor-pointer p-4 border-2 border-dashed rounded-lg"
-            >
-              <FaCloudUploadAlt className="text-4xl text-gray-600 mb-2" />
-              <span className="text-gray-600">
-                {originalImage ? 'Change Image' : 'Upload Image'}
-              </span>
-              <input 
-                type="file" 
-                id="image-upload"
-                accept="image/*"
-                className="hidden"
-                onChange={handleImageUpload}
-              />
-            </label>
+        <button onClick={handleReset} className={styles.reset_button}>
+          Reset All
+        </button>{' '}
+        {}
+      </div>
+      <div className={styles.content_area}>
+        <div className={styles.section}>
+          <div className={styles.section_header}>
+            <div className={styles.circle_secondary}>
+              <IoGitNetworkOutline />
+            </div>
+            <h2 className={`${styles.section_title} ${inter.className}`}>
+              Resolution Enhancement
+            </h2>
           </div>
-          
-          <div className={styles.horizontal_line}></div>
-          
-          <div className={styles.show_container}>
-            {originalImage && (
-              <div className={styles.image_wrapper}>
-                <Image 
-                  src={originalImage} 
-                  alt="Original Image" 
-                  width={300} 
-                  height={300} 
-                  className="object-contain"
-                />
+
+          <div className={styles.section_content}>
+            <div className={styles.control_group_container}>
+              <div className={styles.control_group}>
+                <label className={styles.control_label}>Upscale Factor</label>
+                <div className={styles.button_group}>
+                  {['2x', '4x', '8x'].map((factor) => (
+                    <button
+                      key={factor}
+                      className={`${styles.option_button} ${upscaleFactor === factor ? styles.active : ''}`}
+                      onClick={() => handleUpscaleFactorChange(factor)}
+                    >
+                      {factor}
+                    </button>
+                  ))}
+                </div>
               </div>
-            )}
+
+              <div className={styles.control_group}>
+                <label className={styles.control_label}>Model Type</label>
+                <div className={styles.button_group}>
+                  {[
+                    'ESRGAN (Ex 1)',
+                    'SRCNN (Ex 2)',
+                    'EDSR (Ex 3)',
+                    'RealESRGAN (Ex 4)',
+                  ].map((model) => (
+                    <button
+                      key={model}
+                      className={`${styles.option_button} ${modelType === model ? styles.active : ''}`}
+                      onClick={() => handleModelTypeChange(model)}
+                    >
+                      {model}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.image_preview_container}>
+              <div className={styles.image_preview}>
+                <div className={styles.preview_label}>Enhancement Preview</div>
+                <div className={styles.preview_placeholder}>
+                  <div className={styles.placeholder_text}>
+                    Upscale: {upscaleFactor} | Model: {modelType}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Second Half - Image Magnification */}
-      <div className={styles.home_second_half}>
-        <div className={`${styles.helper_title} p-2 flex flex-col`}>
-          <div className={`${inter.className}`}>Image Magnification</div>
-          <div className={`${inter.className} text-sm font-semibold`}>
-            Explore image details with our interactive magnification tool.
-          </div>
-        </div>
-
-        <div className={styles.image_container}>
-          <div className={styles.change_image_section}>
-            Enhanced Image
-          </div>
-          
-          <div className={styles.horizontal_line}></div>
-          
-          <div className={styles.show_container}>
-            {enhancedImage ? (
-              <>
-                <div className={styles.image_wrapper}>
-                  <Image 
-                    src={enhancedImage} 
-                    alt="Enhanced Image" 
-                    width={300} 
-                    height={300} 
-                    className="object-contain"
-                  />
-                </div>
-                <div className={styles.image_wrapper}>
-                  <ImageMagnifier src={enhancedImage} />
-                </div>
-              </>
-            ) : (
-              <div className="text-gray-500 text-center p-4">
-                Upload an image to enable magnification
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
     </div>
   );
 };
 
-export default Specialized_SS;
+export default ImageSuperResolution;
