@@ -10,8 +10,8 @@ import {
 import en from '@/locales/en.json';
 import vi from '@/locales/vn.json';
 import no from '@/locales/no.json';
-import jp from '@/locales/jp.json'
-export type Locale = 'en' | 'vi' | 'no' |'jp';
+import jp from '@/locales/jp.json';
+export type Locale = 'en' | 'vi' | 'no' | 'jp';
 type TranslationKeys = keyof typeof en;
 
 type LanguageContextType = {

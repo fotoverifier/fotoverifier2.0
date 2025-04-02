@@ -6,7 +6,7 @@ import placeholder from '@/assets/placeholder.png';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';
 interface ImageResultProps {
-  images: string[] | null; 
+  images: string[] | null;
   loading: boolean;
 }
 
@@ -21,11 +21,9 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
     { title: 'Quality 60', img: images?.[3] ?? placeholder },
     { title: 'Quality 70', img: images?.[4] ?? placeholder },
     { title: 'Quality 80', img: images?.[5] ?? placeholder },
- ];
+  ];
 
-  
   const handleDetailClick = () => {
-    // Implement your detail action here
     console.log('Detail button clicked');
   };
 
@@ -59,7 +57,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             )}
           </div>
 
-          {!loading && images && images.length > 0 &&  (
+          {!loading && images && images.length > 0 && (
             <button
               onClick={() => setIsModalOpen(true)}
               className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md ml-3"
@@ -74,14 +72,15 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
         <div className={styles.image_container}>
           <div className={styles.loadingBox}>
             <div className={styles.spinner}></div>
-            <p className={styles.loadingText}>Loading... Please wait</p>
+            <p className={styles.loadingText}>Please wait</p>
           </div>
         </div>
       ) : (
-        images && images.length > 0 && (
+        images &&
+        images.length > 0 && (
           <div className={styles.image_container}>
             <Image
-                            src={images[4]}
+              src={images[4]}
               alt={'JPEG Ghost Image'}
               width={500}
               height={500}
@@ -91,7 +90,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
         )
       )}
 
-      {isModalOpen && images && images.length > 0 &&  (
+      {isModalOpen && images && images.length > 0 && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">
           <div
             id="jpeg-modal"

@@ -14,8 +14,8 @@
 }
 
 .hideScrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   overflow: hidden;
 }
 
@@ -26,7 +26,6 @@
   bottom: 0;
   left: 0;
   background: #015871;
-  
 }
 
 .wave {

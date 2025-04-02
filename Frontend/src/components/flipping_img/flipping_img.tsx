@@ -15,14 +15,14 @@ const FloatingFlippingImage = () => {
       {/* Background squares for layered effect */}
       <div className="relative">
         {/* Bottom square - largest and darkest */}
-        <motion.div 
+        <motion.div
           className="absolute rounded-lg bg-white opacity-100"
-          style={{ 
-            width: "280px", 
-            height: "280px", 
-            top: "20px", 
-            left: "-30px",
-            zIndex: 1
+          style={{
+            width: '280px',
+            height: '280px',
+            top: '20px',
+            left: '-30px',
+            zIndex: 1,
           }}
           animate={{
             rotate: isFlipped ? 12 : 8,
@@ -32,31 +32,31 @@ const FloatingFlippingImage = () => {
           transition={{
             rotate: {
               duration: 0.7,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             },
             scale: {
               duration: 3,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
+              repeatType: 'reverse',
+              ease: 'easeInOut',
             },
             x: {
               duration: 4,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            },
           }}
         />
-        
-        <motion.div 
+
+        <motion.div
           className="absolute rounded-lg bg-amber-500"
-          style={{ 
-            width: "270px", 
-            height: "270px", 
-            top: "10px", 
-            left: "-20px",
-            zIndex: 2
+          style={{
+            width: '270px',
+            height: '270px',
+            top: '10px',
+            left: '-20px',
+            zIndex: 2,
           }}
           animate={{
             rotate: isFlipped ? -15 : -10,
@@ -66,20 +66,20 @@ const FloatingFlippingImage = () => {
           transition={{
             rotate: {
               duration: 0.7,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             },
             scale: {
               duration: 2.5,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
+              repeatType: 'reverse',
+              ease: 'easeInOut',
             },
             y: {
               duration: 3.5,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            },
           }}
         />
 
@@ -93,15 +93,15 @@ const FloatingFlippingImage = () => {
             y: {
               duration: 2,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
+              repeatType: 'reverse',
+              ease: 'easeInOut',
             },
             rotate: {
               duration: 2,
               repeat: isFlipped ? 0 : Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            },
           }}
           onClick={handleClick}
           style={{ zIndex: 3 }}
@@ -113,21 +113,21 @@ const FloatingFlippingImage = () => {
             }}
             transition={{
               duration: 0.6,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
             style={{
-              backfaceVisibility: "hidden"
+              backfaceVisibility: 'hidden',
             }}
           >
             <div className="relative w-full h-full">
-              <Image 
+              <Image
                 src={placeholderImage}
                 alt="Front image"
                 fill
                 sizes="(max-width: 768px) 100vw, 256px"
                 style={{
                   objectFit: 'cover',
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
                 }}
                 className="shadow-lg"
               />
@@ -141,21 +141,21 @@ const FloatingFlippingImage = () => {
             }}
             transition={{
               duration: 0.6,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
             style={{
-              backfaceVisibility: "hidden"
+              backfaceVisibility: 'hidden',
             }}
           >
             <div className="relative w-full h-full bg-white rounded-lg">
-              <Image 
+              <Image
                 src={placeholderImage}
                 alt="Back image"
                 fill
                 sizes="(max-width: 768px) 100vw, 256px"
                 style={{
                   objectFit: 'cover',
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
                 }}
                 className="shadow-lg"
               />

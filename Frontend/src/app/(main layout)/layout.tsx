@@ -7,7 +7,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname(); 
+  const pathname = usePathname();
   return (
     <div className="w-screen h-screen flex">
       <Sidebar_Alt />

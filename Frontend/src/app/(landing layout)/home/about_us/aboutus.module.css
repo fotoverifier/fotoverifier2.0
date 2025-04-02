@@ -29,14 +29,12 @@
   letter-spacing: 1px;
 }
 
-
 .description {
   font-size: 1.2rem;
   color: #555;
   margin-top: 1rem;
   line-height: 1.6;
 }
-
 
 .missionContainer,
 .valuesContainer {
@@ -50,14 +48,14 @@
 
 .missionContainer:hover,
 .valuesContainer:hover {
-  transform: scale(1.02); 
+  transform: scale(1.02);
 }
 
 .missionTitle,
 .valuesTitle {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #03564a; 
+  color: #03564a;
 }
 
 .missionDescription {
@@ -66,7 +64,6 @@
   margin-top: 0.5rem;
   line-height: 1.5;
 }
-
 
 .valuesList {
   list-style: none;
@@ -94,7 +91,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background: #ffcc00; 
+  background: #ffcc00;
   border-radius: 30px;
   cursor: pointer;
   border: none;

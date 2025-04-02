@@ -10,8 +10,10 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
 }) => {
   return (
     <div className={styles.modal}>
-      <div className={styles.spinner}></div>
-      <p>{message}</p>
+      <div className="w-fit h-fit bg-white p-5 rounded-md flex flex-col items-center">
+        <div className={styles.spinner}></div>
+        <div className="text-black">{message}</div>
+      </div>
     </div>
   );
 };

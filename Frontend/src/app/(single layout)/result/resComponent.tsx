@@ -13,10 +13,7 @@ import JpegGhostResult from './technique/jpegGhost';
 import ElaResult from './technique/ela';
 import ReverseImgResult from './technique/reverse_img';
 
-import {
-  FaCamera,
-  FaUser,
-} from 'react-icons/fa';
+import { FaCamera, FaUser } from 'react-icons/fa';
 import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import MapComponent from '@/components/map/map';
@@ -39,7 +36,6 @@ const Res = () => {
 
   const [results, setResults] = useState<any[]>([]); // Store received responses
 
-
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
@@ -54,73 +50,73 @@ const Res = () => {
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
 
   useEffect(() => {
-    if(!img || !taskId) return;
+    if (!img || !taskId) return;
 
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
     );
 
-
-
     eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        console.log("Received:", data);
+        console.log('Received:', data);
 
-        if (data.status === "done") {
-          console.log("All tasks completed. Closing SSE...");
+        if (data.status === 'done') {
+          console.log('All tasks completed. Closing SSE...');
           eventSource.close();
           return;
         }
 
         if (!data?.result?.result?.method) {
-          console.warn("Unexpected SSE data format:", data);
+          console.warn('Unexpected SSE data format:', data);
           return; // Skip this iteration if 'method' is missing
         }
 
         switch (data.result.result.method) {
-          case "exif":
+          case 'exif':
             setExifResult(data.result.result.exif_data);
             setLoadingExifCheck(false);
             break;
-          case "jpeg_ghost":
+          case 'jpeg_ghost':
             setJpegGhostResult(data.result.result.jpeg_ghost);
             setLoadingJpegGhost(false);
             break;
-          case "ram":
+          case 'ram':
             setTagResult(data.result.result.recognized_objects);
             setLoadingTagResult(false);
             break;
-          case "reverse_search":
+          case 'reverse_search':
             setSearchResult(data.result.result.reverse_search.image_results);
             setLoadingReverseImageSearch(false);
             break;
-          case "ela":
+          case 'ela':
             setElaResult(data.result.result.ela_image);
             setLoadingEla(false);
             break;
           default:
-            console.warn("Unknown task received:", data.task);
+            console.warn('Unknown task received:', data.task);
         }
 
         setResults((prevResults) => [...prevResults, data]);
       } catch (error) {
-        console.error("Error parsing SSE data:", error);
+        console.error('Error parsing SSE data:', error);
       }
-    }
+    };
 
     eventSource.onerror = (error) => {
       console.log(eventSource.readyState);
-      if(eventSource.readyState === EventSource.CLOSED || eventSource.readyState == 0) return; // Skip if connection is closed
-      else console.error("SSE connection error:", error);
+      if (
+        eventSource.readyState === EventSource.CLOSED ||
+        eventSource.readyState == 0
+      )
+        return; // Skip if connection is closed
+      else console.error('SSE connection error:', error);
       eventSource.close();
     };
 
-
     return () => {
-      eventSource.close(); 
+      eventSource.close();
     };
-
   }, []);
 
   const renderContent = (activeTab: string) => {
@@ -132,8 +128,10 @@ const Res = () => {
               <Image_Result img={img} />
             </div>
             <div id="jpeg_ghost" className={styles.Result_container}>
-              <JpegGhostResult images={jpegGhostResult} loading={loadingJpegGhost}/>
-
+              <JpegGhostResult
+                images={jpegGhostResult}
+                loading={loadingJpegGhost}
+              />
             </div>
             <div id="ela" className={styles.Result_container}>
               <ElaResult
@@ -356,19 +354,18 @@ const Res = () => {
   };
 
   return (
-        <TabProvider>
-
-    <div className={styles.res_container}>
-      <HeaderReport
-        elaResult={elaResult}
-        tagResult={tagResult}
-        loadingEla={loadingEla}
-        loadingTagResult={loadingTagResult}
-      />
-      <div className={` ${styles.res_body_container} ${inter.className}`}>
+    <TabProvider>
+      <div className={styles.res_container}>
+        <HeaderReport
+          elaResult={elaResult}
+          tagResult={tagResult}
+          loadingEla={loadingEla}
+          loadingTagResult={loadingTagResult}
+        />
+        <div className={` ${styles.res_body_container} ${inter.className}`}>
           <Tabs renderContent={renderContent} />
+        </div>
       </div>
-    </div>
     </TabProvider>
   );
 };

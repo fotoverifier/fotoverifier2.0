@@ -12,11 +12,15 @@ interface TabProps {
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-
 const Tabs: React.FC<TabProps> = ({ renderContent }) => {
   const { t } = useLanguage();
   const { activeTab, setActiveTab } = useTabContext();
-  const tabs = [t('Tampering Detection'), t('Originality'), t('Location'), t('Forensic')];
+  const tabs = [
+    t('Tampering Detection'),
+    t('Originality'),
+    t('Location'),
+    t('Forensic'),
+  ];
 
   return (
     <div className={styles.tabs_container}>

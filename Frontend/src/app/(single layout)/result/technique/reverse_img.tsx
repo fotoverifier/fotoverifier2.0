@@ -4,6 +4,8 @@ import { IoIosReverseCamera } from 'react-icons/io';
 import { Inter } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
 import { Flex, Spin } from 'antd';
+import styles from '@/app/(single layout)/result/technique/categories.module.css';
+
 import { LoadingOutlined } from '@ant-design/icons';
 const inter = Inter({ subsets: ['latin'] });
 interface ReverseImgProp {
@@ -42,7 +44,6 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
 
   return (
     <div className="w-full h-full p-5">
-      {/* Header Section */}
       <div className="flex items-center justify-between">
         <div className="flex">
           <div className="circle_2">
@@ -56,9 +57,13 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
         </div>
       </div>
 
-      {/* Top 3 Results */}
       {loading ? (
-        <></>
+        <div className={styles.image_container}>
+          <div className={styles.loadingBox}>
+            <div className={styles.spinner}></div>
+            <p className={styles.loadingText}>Please wait</p>
+          </div>
+        </div>
       ) : searchResult?.length !== 0 ? (
         <div className="mt-4 p-2">
           {searchResult?.splice(0, 3).map((result, index) => (
@@ -102,7 +107,6 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
                 ))}
               </>
             ) : (
-              // No Results Section
               <div>No results found</div>
             )}
             <button

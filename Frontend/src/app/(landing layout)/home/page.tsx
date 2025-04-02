@@ -80,7 +80,7 @@ const LandingPage2 = () => {
           >
             {t('verify_now')}
           </motion.button>
-          <VerificationStepsAnimation className={styles.verification}/>
+          <VerificationStepsAnimation className={styles.verification} />
         </motion.div>
 
         <motion.div

@@ -14,7 +14,7 @@ import IconMain from '@/assets/icon_main.svg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import styles from "./sidebar_alt.module.css"
+import styles from './sidebar_alt.module.css';
 
 const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
@@ -28,9 +28,8 @@ const languages = [
   { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
   { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },
   { code: 'no', name: 'Norsk', flag: 'https://flagcdn.com/w40/no.png' },
-  { code: 'jp', name: '日本語', flag: 'https://flagcdn.com/w40/jp.png' }
+  { code: 'jp', name: '日本語', flag: 'https://flagcdn.com/w40/jp.png' },
 ];
-
 
 export default function Sidebar_Alt() {
   const { t } = useLanguage();
@@ -95,12 +94,8 @@ export default function Sidebar_Alt() {
                   isActive ? styles.navLinkActive : styles.navLinkInactive
                 }`}
               >
-                <div className={styles.navIconContainer}>
-                  {category.icon}
-                </div>
-                <span className={styles.navTooltip}>
-                  {category.name}
-                </span>
+                <div className={styles.navIconContainer}>{category.icon}</div>
+                <span className={styles.navTooltip}>{category.name}</span>
               </div>
             </div>
           );

@@ -103,7 +103,7 @@ const Upload = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const {task_id } = await response.json();
+        const { task_id } = await response.json();
         setTaskId(task_id);
       } catch (error: any) {
         console.error('Error fetching data:', error);

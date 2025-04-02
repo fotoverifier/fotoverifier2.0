@@ -21,19 +21,19 @@ const categories = [
   {
     name: 'Computational Photography',
     slug: 'computational_photography',
-    icon: <FaCamera size={20} />, // 📷 Icon
+    icon: <FaCamera size={20} />,
     subcategories: ['Lesson 3', 'Lesson 4'],
   },
   {
     name: 'Tampering Detection',
     slug: 'tampering_detection',
-    icon: <MdOutlineFindInPage size={20} />, // 🔍 Icon
+    icon: <MdOutlineFindInPage size={20} />,
     subcategories: [],
   },
   {
     name: 'Optical/Physical',
     slug: 'optical_physical',
-    icon: <BiAtom size={20} />, // 🔬 Icon
+    icon: <BiAtom size={20} />,
     subcategories: [],
   },
 ];
@@ -45,24 +45,24 @@ export default function LibraryLayout({
 }) {
   const router = useRouter();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar state
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const handleCategoryClick = (slug: string, hasSubcategories: boolean) => {
     if (hasSubcategories) {
-      setExpandedCategory((prev) => (prev === slug ? null : slug)); // Toggle subcategories
+      setExpandedCategory((prev) => (prev === slug ? null : slug));
     } else {
-      router.push(`/library/${slug}`); // Navigate directly to category if no subcategories
+      router.push(`/library/${slug}`);
     }
   };
 
   return (
-    <div className={`flex min-h-screen ${sourceCodePro.className}`}>
-      {/* Sidebar */}
+    <div className={`flex h-screen ${sourceCodePro.className}`}>
       <div
-        className={`bg-white ${isSidebarOpen ? 'w-1/4' : 'w-[9%]'} p-4 shadow-md border-r flex flex-col transition-all duration-300 relative`}
+        className={`bg-white ${
+          isSidebarOpen ? 'w-1/4' : 'w-[9%]'
+        } p-4 shadow-md border-r flex flex-col transition-all duration-300 relative overflow-y-auto`}
       >
-        <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-between mb-4 border-2 relative">
-          <div className="flex items-center">
+        <div className="bg-white shadow-md p-4 rounded-lg flex items-center justify-between mb-4 border-2 relative flex-shrink-0">
+          <div className="flex items-center min-w-0">
             <div className="p-2 text-green-800 bg-green-100 rounded-full mr-3">
               <IoLibrary size={24} />
             </div>
@@ -75,7 +75,7 @@ export default function LibraryLayout({
 
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all"
+            className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all cursor-pointer"
           >
             {isSidebarOpen ? (
               <FiChevronLeft size={20} />
@@ -85,75 +85,77 @@ export default function LibraryLayout({
           </div>
         </div>
 
-        {/* Categories */}
-        <h2
-          className={`text-lg font-bold mb-3 ${isSidebarOpen ? 'block' : 'hidden'}`}
-        >
-          Categories
-        </h2>
-        <ul className="space-y-2">
-          {categories.map((category) => (
-            <div key={category.slug} className="cursor-pointer">
-              <div
-                onClick={() =>
-                  handleCategoryClick(
-                    category.slug,
-                    category.subcategories.length > 0
-                  )
-                }
-                className={`px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center ${
-                  isSidebarOpen ? 'justify-between' : 'justify-center'
-                }`}
-              >
-                <span className="flex items-center min-w-0">
-                  {category.icon}
-                  {isSidebarOpen && (
-                    <span
-                      className={`ml-2 overflow-hidden text-ellipsis whitespace-nowrap ${opensand.className}`}
-                    >
-                      {category.name}
-                    </span>
-                  )}
-                </span>
-
-                {/* Show Toggle Arrow Only If Sidebar is Open */}
-                {isSidebarOpen && category.subcategories.length > 0 && (
-                  <span>
-                    {expandedCategory === category.slug ? (
-                      <TiArrowSortedUp />
-                    ) : (
-                      <TiArrowSortedDown />
+        <div className="flex-grow overflow-y-auto">
+          <h2
+            className={`text-lg font-bold mb-3 ${
+              isSidebarOpen ? 'block' : 'hidden'
+            } sticky top-0 bg-white pt-1`}
+          >
+            Categories
+          </h2>
+          <ul className="space-y-2">
+            {categories.map((category) => (
+              <div key={category.slug} className="cursor-pointer">
+                <div
+                  onClick={() =>
+                    handleCategoryClick(
+                      category.slug,
+                      category.subcategories.length > 0
+                    )
+                  }
+                  className={`px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center ${
+                    isSidebarOpen ? 'justify-between' : 'justify-center'
+                  }`}
+                >
+                  <span className="flex items-center min-w-0">
+                    <span className="mr-2 flex-shrink-0">{category.icon}</span>
+                    {isSidebarOpen && (
+                      <span
+                        className={`ml-2 overflow-hidden text-ellipsis whitespace-nowrap ${opensand.className}`}
+                      >
+                        {category.name}
+                      </span>
                     )}
                   </span>
-                )}
-              </div>
 
-              {isSidebarOpen &&
-                expandedCategory === category.slug &&
-                category.subcategories.length > 0 && (
-                  <div className="ml-6 mt-2 space-y-2">
-                    {category.subcategories.map((subcategory) => (
-                      <div
-                        key={subcategory}
-                        onClick={() =>
-                          router.push(
-                            `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`
-                          )
-                        }
-                        className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100"
-                      >
-                        {subcategory}
-                      </div>
-                    ))}
-                  </div>
-                )}
-            </div>
-          ))}
-        </ul>
+                  {isSidebarOpen && category.subcategories.length > 0 && (
+                    <span>
+                      {expandedCategory === category.slug ? (
+                        <TiArrowSortedUp />
+                      ) : (
+                        <TiArrowSortedDown />
+                      )}
+                    </span>
+                  )}
+                </div>
+
+                {isSidebarOpen &&
+                  expandedCategory === category.slug &&
+                  category.subcategories.length > 0 && (
+                    <div className="ml-6 mt-2 space-y-2">
+                      {category.subcategories.map((subcategory) => (
+                        <div
+                          key={subcategory}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            console.log(
+                              `Maps to /library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`
+                            );
+                          }}
+                          className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100"
+                        >
+                          {subcategory}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+              </div>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      {/* Dynamic Content (Right Side) */}
-      <section className="flex-1">{children}</section>
+      <section className="flex-1 overflow-y-auto">{children}</section>
     </div>
   );
 }

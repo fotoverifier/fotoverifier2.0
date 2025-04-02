@@ -73,7 +73,7 @@
 
   "Techniques": "Teknikker",
   "Tampering Detection": "Manipulasjonsoppdagelse",
-            "Originality": "Originalitet",
-            "Location": "Plassering",
-            "Forensic": "Rettsmedisinsk"
+  "Originality": "Originalitet",
+  "Location": "Plassering",
+  "Forensic": "Rettsmedisinsk"
 }

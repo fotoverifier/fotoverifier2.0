@@ -1,13 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import styles from '@/app/(specialized layout)/specialized/dif-methods/Jpeg-ghost/jpeg.module.css';
 import Image from 'next/image';
-import metadata from '@/assets/metadata.png';
-import ImageMagnifier from '@/components/magnifier/image_mag';
-import jpg1 from '@/assets/jpg1.jpg';
-import jpg2 from '@/assets/jpg2.jpg';
 import { Inter } from 'next/font/google';
-import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import { VscSymbolMethod } from 'react-icons/vsc';
 
 interface Reference {
@@ -15,16 +11,16 @@ interface Reference {
   url: string;
 }
 
-const inter = Inter({ subsets: ['latin'] });
 const Specialized_dif_ghost = () => {
-  const [showExample, setShowExample] = useState(false);
-
-  const toggleContent = () => {
-    setShowExample((prevShowExample) => !prevShowExample);
-  };
+  const [activeTab, setActiveTab] = useState<'definition' | 'example'>(
+    'definition'
+  );
 
   const references: Reference[] = [
-    { title: 'JPEG Ghost Analysis', url: 'https://example.com/jpeg-ghost' },
+    {
+      title: 'JPEG Ghost Analysis',
+      url: 'https://example.com/jpeg-ghost',
+    },
     {
       title: 'Image Forensics Techniques',
       url: 'https://example.com/image-forensics',
@@ -35,92 +31,158 @@ const Specialized_dif_ghost = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
   return (
-    <div className="h-full w-full">
-      <div className={styles.tutorial_container}>
-        <div className={styles.helper_title}>
-          <div className={`${inter.className} flex items-center`}>
-            <div className={`${styles.circle} mr-4 `}>
-              {' '}
-              <VscSymbolMethod></VscSymbolMethod>{' '}
-            </div>
-            JPEG Ghost
+    <div className="min-h-screen bg-gray-50 p-6 flex flex-col">
+      <div className="bg-white shadow-md rounded-lg mb-6 p-4">
+        <div className="flex items-center text-2xl font-semibold text-teal-800">
+          <div className="mr-4 bg-teal-100 text-teal-600 p-2 rounded-full">
+            <VscSymbolMethod size={24} />
           </div>
-        </div>
-        <div className={`flex w-full h-full p-3 ${inter.className}`}>
-          <button onClick={toggleContent} className={styles.custom_button}>
-            {showExample ? (
-              <>
-                Show Definition <FaCaretLeft />
-              </>
-            ) : (
-              <>
-                Show Example <FaCaretRight />
-              </>
-            )}
-          </button>
-          {showExample ? (
-            <div className={styles.tutorial_area}>
-              <div className={styles.tutorial_image}>
-                Input Picture
-                <Image src={jpg1} alt="" />
-              </div>
-              <div className={styles.tutorial_image}>
-                Output Picture
-                <Image src={jpg2} alt="" />
-              </div>
-              <div className={styles.note}>
-                Comment: A square in the middle of the image was cropped and
-                saved with lower quality.
-              </div>
-            </div>
-          ) : (
-            <div className={styles.definition_area}>
-              <div className="p-2 flex">
-                {' '}
-                <div className="font-bold mr-1 ">JPEG Ghost:</div> Detect
-                spliced images based on the differences between several areas of
-                the Color Filter Array{' '}
-              </div>
-              <div className={styles.horizontal_line}> </div>
-              <div className="p-2 flex">
-                {' '}
-                <div className="font-bold "> Reference</div>{' '}
-              </div>
-              <ul className={styles.reference_list}>
-                {references.map((ref, index) => (
-                  <li key={index} className={styles.reference_item}>
-                    <span className={styles.reference_number}>
-                      {index + 1}.
-                    </span>{' '}
-                    {/* Adding the number */}
-                    <a href={ref.url} target="_blank" rel="noopener noreferrer">
-                      {ref.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          JPEG Ghost Forensics
         </div>
       </div>
 
-      <div className={styles.jpeghost_container}>
-        <div className="w-1/2 h-full ml-5 flex items-center">
-          <div className={styles.image_container}>
-            <div className={styles.change_image_section}>Input image</div>
-            <div className={styles.horizontal_line}></div>
-            <div className={styles.show_container}></div>
-          </div>
-        </div>
-        <div className="w-1/2 h-full flex items-center">
-          <div className={styles.image_container}>
-            <div className={styles.change_image_section}>JPEG Ghost</div>
-            <div className={styles.horizontal_line}></div>
-            <div className={styles.show_container}></div>
-          </div>
-        </div>
+      <div className="flex mb-6">
+        <button
+          onClick={() => setActiveTab('definition')}
+          className={`
+            px-4 py-2 mr-2 rounded-lg transition-all
+            ${
+              activeTab === 'definition'
+                ? 'bg-teal-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }
+          `}
+        >
+          Definition
+        </button>
+        <button
+          onClick={() => setActiveTab('example')}
+          className={`
+            px-4 py-2 rounded-lg transition-all
+            ${
+              activeTab === 'example'
+                ? 'bg-teal-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }
+          `}
+        >
+          Example
+        </button>
       </div>
+
+      <AnimatePresence mode="wait">
+        {activeTab === 'definition' && (
+          <motion.div
+            key="definition"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="bg-white shadow-md rounded-lg p-6 flex-grow"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Definition */}
+              <div>
+                <h2 className="text-xl font-bold text-teal-800 mb-4">
+                  What is JPEG Ghost?
+                </h2>
+                <p className="text-gray-700 leading-relaxed">
+                  JPEG Ghost is an advanced image forensics technique used to
+                  detect spliced or manipulated images by analyzing differences
+                  in the Color Filter Array (CFA) across various image regions.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-bold text-teal-800 mb-4">
+                  References
+                </h2>
+                <ul className="space-y-2">
+                  {references.map((ref, index) => (
+                    <li
+                      key={index}
+                      className="bg-gray-100 rounded-md p-3 flex items-center justify-between"
+                    >
+                      <span className="text-gray-700 mr-2">
+                        {index + 1}. {ref.title}
+                      </span>
+                      <a
+                        href={ref.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-teal-600 hover:text-teal-800 transition-colors"
+                      >
+                        <FaExternalLinkAlt />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {activeTab === 'example' && (
+          <motion.div
+            key="example"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="bg-white shadow-md rounded-lg p-6 flex-grow"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Input Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/path/to/jpg1.jpg"
+                    alt="Input image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Output Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/path/to/jpg2.jpg"
+                    alt="Output image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 bg-gray-100 p-4 rounded-lg text-center">
+              <p className="text-gray-700 italic">
+                Note: A square in the middle of the image was cropped and saved
+                with lower quality.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

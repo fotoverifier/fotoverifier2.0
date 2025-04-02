@@ -28,7 +28,7 @@ export default function RootLayout({
       <div className="absolute top-0 left-0 w-full h-[110vh]">
         {children}
         <div id="librarySection">
-          <Technique_Landing/>
+          <Technique_Landing />
         </div>
         <div id="aboutUS">
           <AboutUs />

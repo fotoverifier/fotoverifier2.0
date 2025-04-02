@@ -177,7 +177,6 @@ const Specialized_Information = () => {
                 <Image
                   src={imgSrc || default_img}
                   alt="Selected image"
-                  layout="fill"
                   style={{ objectFit: 'cover' }}
                   className={styles.image}
                 />
@@ -228,7 +227,7 @@ const Specialized_Information = () => {
           <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
 
           <div className={`${styles.content_area} ${inter.className}`}>
-            {activeTab === 'Exif Data' && exifResult && (
+            {activeTab === 'Exif Data' && (
               <div className="h-full w-full p-2 flex flex-col justify-evenly">
                 {exifDataSections.map((section, index) => (
                   <div key={index} className="h-1/2 w-full p-2">
@@ -246,51 +245,50 @@ const Specialized_Information = () => {
                       </div>
                     </div>
                     {section.fields.map((field, idx) => {
-                      // Map field labels to values in exifResult
                       let value;
                       switch (field.label) {
                         case 'Make':
-                          value = exifResult.camera_information?.make;
+                          value = exifResult?.camera_information?.make;
                           break;
                         case 'Model':
-                          value = exifResult.camera_information?.model;
+                          value = exifResult?.camera_information?.model;
                           break;
                         case 'Exposure':
-                          value = exifResult.camera_information?.exposure;
+                          value = exifResult?.camera_information?.exposure;
                           break;
                         case 'Aperture':
-                          value = exifResult.camera_information?.aperture;
+                          value = exifResult?.camera_information?.aperture;
                           break;
                         case 'Focal Length':
-                          value = exifResult.camera_information?.focal_length;
+                          value = exifResult?.camera_information?.focal_length;
                           break;
                         case 'ISO Speed':
-                          value = exifResult.camera_information?.iso_speed;
+                          value = exifResult?.camera_information?.iso_speed;
                           break;
                         case 'Flash':
-                          value = exifResult.camera_information?.flash;
+                          value = exifResult?.camera_information?.flash;
                           break;
                         case 'Software Modified':
-                          value = exifResult.software_modify;
+                          value = exifResult?.software_modify;
                           break;
                         case 'Modification Date':
-                          value = exifResult.modify_date;
+                          value = exifResult?.modify_date;
                           break;
                         case 'Original Date':
-                          value = exifResult.original_date?.original_date;
+                          value = exifResult?.original_date?.original_date;
                           break;
                         case 'Create Date':
-                          value = exifResult.original_date?.create_date;
+                          value = exifResult?.original_date?.create_date;
                           break;
                         case 'Author':
-                          value = exifResult.author_copyright?.author;
+                          value = exifResult?.author_copyright?.author;
                           break;
                         case 'Copyright Tag':
-                          value = exifResult.author_copyright?.copyright_tag;
+                          value = exifResult?.author_copyright?.copyright_tag;
                           break;
                         case 'Profile Copyright':
                           value =
-                            exifResult.author_copyright?.profile_copyright;
+                            exifResult?.author_copyright?.profile_copyright;
                           break;
                         default:
                           value = 'N/A';

@@ -13,18 +13,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Modal_PReport from '../modal/PReport_modal';
 import pattern2 from '@/assets/Group 52.svg';
-import '@/styles/head/head_result.css';
+import styles from '@/styles/head/head_result.module.css';
+
 import '@/components/head/test.css';
-import { Descriptions } from 'antd';
 import { useTabContext } from '@/context/tabContext';
 const methods = [
   {
     name: 'Basic Method',
     icon: <FaTools size={16} className="text-[#03564a]" />,
-  },
-  {
-    name: 'Deep Method',
-    icon: <FaSearch size={16} className="text-[#03564a]" />,
   },
   {
     name: 'Specialized Method',
@@ -120,12 +116,9 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     position: { top: number; left: number };
     description: string;
   } | null>(null);
-  
 
   const { activeTab } = useTabContext();
 
-
-  
   const highlightSection = (stepIndex: number) => {
     const currentTabSteps = steps.filter((step) => step.tab === activeTab);
 
@@ -169,32 +162,33 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   useEffect(() => {
     removeHighlight();
     setCurrentStep(0);
-
   }, [activeTab]);
 
   return (
-    <div className="res_header_container flex items-center justify-between">
-      <div className="text-2xl flex h-full items-center text-white px-6 py-3 rounded-lg gap-6">
-        <div className="flex items-center space-x-3">
-          <div className="p-3 rounded-full bg-[#ffffff] text-[#03564a] shadow-md flex items-center justify-center">
+    <div className={`${styles.res_header_container}`}>
+      <div className={styles.text_container}>
+        <div className={styles.icon_text_container}>
+          <div className={styles.icon_container}>
             <TbReportSearch size={28} />
           </div>
-          <div className="font-bold text-white text-xl">General Report</div>
+          <div className={styles.title_text}>General Report</div>
         </div>
 
-        <div className="h-10 w-1 bg-white mx-5 rounded"></div>
+        <div className={styles.divider}></div>
 
-        <div className="relative">
+        <div className={styles.dropdown_container}>
           <div
             onClick={() => setIsOpen(!isOpen)}
-            className="border-2 border-white p-2 rounded-full cursor-pointer bg-slate-200 text-gray-800 hover:bg-[#f0fdfa] hover:border-[#f0fdfa]  hover:text-[#03564a] transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
+            className={styles.dropdown_button}
           >
-            <span className="text-lg">{selectedMethod}</span>
-            {isOpen ? (
-              <FaSortUp size={20} className="mt-2" />
-            ) : (
-              <FaSortDown size={20} className="mb-2" />
-            )}
+            <span className={styles.dropdown_text}>{selectedMethod}</span>
+            <div className={styles.dropdown_icon_container}>
+              {isOpen ? (
+                <FaSortUp size={18} className={styles.dropdown_up_icon} />
+              ) : (
+                <FaSortDown size={18} className={styles.dropdown_down_icon} />
+              )}
+            </div>
           </div>
 
           <AnimatePresence>
@@ -204,12 +198,12 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
-                className="absolute left-0 mt-2 w-56 bg-white border border-gray-300 rounded-sm shadow-lg"
+                className={styles.dropdown_menu}
               >
                 {methods.map((method) => (
                   <button
                     key={method.name}
-                    className="flex items-center w-full px-4 py-2 text-sm text-gray-800 transition-all duration-300 hover:bg-[#f0fdfa] hover:text-[#03564a] gap-2 text-left"
+                    className={styles.dropdown_menu_item}
                     onClick={() => {
                       setSelectedMethod(method.name);
                       setIsOpen(false);
@@ -225,11 +219,11 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
         </div>
       </div>
 
-      <div className="rounded-full bg-[#03564a] flex p-2 gap-4 shadow-lg mr-auto">
-        <div className="relative group">
+      <div className={styles.action_buttons_container}>
+        <div className={styles.tooltip_container}>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="border-2 border-white p-2 rounded-full cursor-pointer bg-transparent hover:bg-[#f0fdfa] hover:border-[#f0fdfa] text-white hover:text-[#03564a] transition-all duration-300 flex items-center justify-center shadow-md"
+            className={styles.action_button}
           >
             <TiExport size={20} />
           </button>
@@ -245,29 +239,25 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
             loadingTagResult={loadingTagResult}
           />
 
-          <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md">
-            Generate a portable report
-          </span>
+          <span className={styles.tooltip}>Generate a portable report</span>
         </div>
 
-        <div className="relative group">
+        <div className={styles.tooltip_container}>
           <button
-            className="border-2 border-white p-2 rounded-full cursor-pointer bg-transparent hover:bg-[#f0fdfa] hover:border-[#f0fdfa] text-white hover:text-[#03564a] transition-all duration-300 flex items-center justify-center shadow-md"
+            className={styles.action_button}
             onClick={() => highlightSection(currentStep)}
           >
             <FiHelpCircle size={20} />
           </button>
-          <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md">
-            Need Help?
-          </span>
+          <span className={styles.tooltip}>Need Help?</span>
         </div>
 
         {helpBox && (
           <>
-            <div className="overlay" onClick={removeHighlight} />
+            <div className={styles.overlay} onClick={removeHighlight} />
 
             <div
-              className="help-box"
+              className={styles.help_box}
               style={{
                 top: `${helpBox.position.top}px`,
                 left: `${helpBox.position.left}px`,
@@ -275,25 +265,30 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
                 width: '300px',
                 zIndex: 300,
               }}
-              id='help-box'
+              id="help-box"
             >
-              <div className="help-description">{helpBox.description}</div>
+              <div className={styles.help_description}>
+                {helpBox.description}
+              </div>
 
-              <div className="help-navigation">
+              <div className={styles.help_navigation}>
                 <button
-                  className="nav-button"
+                  className={styles.nav_button}
                   onClick={() => highlightSection(currentStep - 1)}
                   disabled={currentStep === 0}
                 >
                   {'<'}
                 </button>
 
-                <button className="help-button" onClick={removeHighlight}>
+                <button
+                  className={styles.help_button}
+                  onClick={removeHighlight}
+                >
                   {helpBox.text}
                 </button>
 
                 <button
-                  className="nav-button"
+                  className={styles.nav_button}
                   onClick={() => highlightSection(currentStep + 1)}
                   disabled={currentStep === steps.length - 1}
                 >
@@ -304,14 +299,6 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           </>
         )}
       </div>
-
-      <Image
-        src={pattern2}
-        alt="Header Image"
-        height={300}
-        width={300}
-        className="res_header_image"
-      />
     </div>
   );
 };

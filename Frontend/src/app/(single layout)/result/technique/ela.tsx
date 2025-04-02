@@ -27,7 +27,12 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
         className={`${styles.image_container} flex-1 flex items-center justify-center`}
       >
         {loading ? (
-          <></>
+          <div className={styles.image_container}>
+            <div className={styles.loadingBox}>
+              <div className={styles.spinner}></div>
+              <p className={styles.loadingText}>Please wait</p>
+            </div>
+          </div>
         ) : img ? (
           <div
             className="flex items-center justify-center relative p-2 w-full"
