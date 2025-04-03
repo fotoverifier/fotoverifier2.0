@@ -19,8 +19,7 @@ import { TbZoomInArea } from 'react-icons/tb';
 import { IoMedicalSharp } from 'react-icons/io5';
 import { CiLight } from 'react-icons/ci';
 
-const monstserrat = Montserrat({ subsets: ['latin'] });
-const inter = Inter({ subsets: ['latin'] });
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +36,7 @@ export default function RootLayout({
     {
       path: '/specialized/image_ss',
       icon: <TbZoomInArea />,
-      text: 'Image enhancement',
+      text: 'Image Upscale',
     },
     {
       path: '/specialized/magnifier',

@@ -21,10 +21,11 @@ import { BsFillGeoAltFill } from 'react-icons/bs';
 import { useSearchParams } from 'next/navigation';
 import { MdDescription } from 'react-icons/md';
 import Image from 'next/image';
-import { IoInformation } from 'react-icons/io5';
+import { IoInformation, IoInformationCircle } from 'react-icons/io5';
 import { IoMdPerson } from 'react-icons/io';
 import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { TbZoomInArea } from 'react-icons/tb';
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 const helperData = [
@@ -138,19 +139,20 @@ const Specialized_Information = () => {
   }, [wsUrls]);
 
   return (
-    <div className="h-full w-full bg-white flex">
-      <div className={styles.home_first_half}>
+    <div className="h-full w-full bg-white">
+       <div className={styles.header}>
         <div className={styles.helper_title}>
-          <div
-            className={`${inter.className} flex items-center h-fit w-fit p-2 rounded-full border-2 border-green-800 font-bold text-xl`}
-          >
-            <div className={`${styles.circle} mr-4 `}>
-              {' '}
-              <FaInfoCircle />{' '}
+          <div className={`${inter.className} ${styles.title_badge}`}>
+            <div className={styles.circle}>
+              <IoInformationCircle />
             </div>
             General Information
           </div>
         </div>
+        {}
+      </div>
+        <div className='flex p-5 h-full w-full'>
+      <div className={styles.home_first_half}>
         <div className={styles.image_container}>
           <div className={styles.change_image_section}>
             <div className={`mr-5 ${inter.className} font-bold text-[#03564a]`}>
@@ -159,14 +161,13 @@ const Specialized_Information = () => {
             </div>
             <FaExchangeAlt className={styles.title_button} />
           </div>
-          <div className={styles.horizontal_line}></div>
           <div className={styles.show_container}>
             <div className="flex mr-auto">
               <div className={styles.circle_2}>
                 <FaImage />
               </div>
               <div
-                className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}
+                className={`font-bold text-lg ml-2 mb-2  ${montserrat.className}`}
               >
                 {' '}
                 Image{' '}
@@ -178,12 +179,13 @@ const Specialized_Information = () => {
                   src={imgSrc || default_img}
                   alt="Selected image"
                   style={{ objectFit: 'cover' }}
+                  width={400}
+                  height={400}
                   className={styles.image}
                 />
               </div>
             </div>
           </div>
-          <div className={styles.horizontal_line}></div>
           <div className={styles.tagging_container}>
             <div className="flex mr-auto">
               <div className={styles.circle_2}>
@@ -207,21 +209,7 @@ const Specialized_Information = () => {
         </div>
       </div>
       <div className={styles.home_second_half}>
-        {helperData.map((item, index) => (
-          <div className={styles.helper_title_2} key={index}>
-            <div
-              className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}
-            >
-              {item.title}
-            </div>
-            {item.description && (
-              <div className={`font-normal text-base ml-4 ${inter.className}`}>
-                {' '}
-                {item.description}
-              </div>
-            )}
-          </div>
-        ))}
+       
 
         <div className={styles.result_container}>
           <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
@@ -338,6 +326,7 @@ const Specialized_Information = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

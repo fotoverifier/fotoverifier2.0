@@ -27,13 +27,10 @@ const ImageSuperResolution = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.helper_title}>
-          {}
           <div className={`${inter.className} ${styles.title_badge}`}>
             <div className={styles.circle}>
-              {}
               <TbZoomInArea />
             </div>
-            {}
             Image Super Resolution
           </div>
         </div>

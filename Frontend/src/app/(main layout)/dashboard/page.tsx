@@ -2,14 +2,11 @@
 import React from 'react';
 import styles from '@/app/(main layout)/dashboard/dashboard.module.css';
 import { Inter, Poppins } from 'next/font/google';
-import AppIcon from '@/assets/icon.png';
 import Image from 'next/image';
 import { Montserrat } from 'next/font/google';
 import Card_Cate from '@/components/card/card_category';
 import Image_Aessment from '@/assets/Image_Asessment.svg';
 import Tutorial from '@/assets/Tutorial.svg';
-import { TiThLarge } from 'react-icons/ti';
-import { IoIosInformationCircleOutline } from 'react-icons/io';
 import { useLanguage } from '@/context/LanguageContext';
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,6 +28,7 @@ const Dashboard = () => {
         />
       ),
       titleIcon: 1,
+      href: "/upload",
     },
   ];
 
@@ -40,6 +38,7 @@ const Dashboard = () => {
       description: t('tutorial_description'),
       icon: <Image src={Tutorial} alt="Tutorial" width={200} height={200} />,
       titleIcon: 2,
+      href: "/library",
     },
   ];
 
@@ -59,6 +58,7 @@ const Dashboard = () => {
               title={category.title}
               titleIcon={category.titleIcon}
               description={category.description}
+              href={category.href}
             />
           ))}
         </div>
@@ -83,6 +83,7 @@ const Dashboard = () => {
               svgIcon={tutorial.icon}
               title={tutorial.title}
               description={tutorial.description}
+              href={tutorial.href}
             />
           ))}
         </div>

@@ -5,15 +5,16 @@ import { Inter } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { VscSymbolMethod } from 'react-icons/vsc';
-
+import JPEG_1 from "@/assets/jpg1.jpg";
+import JPEG_2 from "@/assets/jpg2.jpg";
 interface Reference {
   title: string;
   url: string;
 }
 
 const Specialized_dif_ghost = () => {
-  const [activeTab, setActiveTab] = useState<'definition' | 'example'>(
-    'definition'
+  const [activeTab, setActiveTab] = useState<'definition' | 'example' | 'showcase'>(
+    'example'
   );
 
   const references: Reference[] = [
@@ -56,22 +57,24 @@ const Specialized_dif_ghost = () => {
 
       <div className="flex mb-6">
         <button
-          onClick={() => setActiveTab('definition')}
+          onClick={() => setActiveTab('showcase')}
           className={`
-            px-4 py-2 mr-2 rounded-lg transition-all
+            px-4 py-2 rounded-lg transition-all
             ${
-              activeTab === 'definition'
+              activeTab === 'showcase'
                 ? 'bg-teal-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }
           `}
         >
-          Definition
+          Showcase
         </button>
+
+        
         <button
           onClick={() => setActiveTab('example')}
           className={`
-            px-4 py-2 rounded-lg transition-all
+            px-4 py-2 ml-2 rounded-lg transition-all
             ${
               activeTab === 'example'
                 ? 'bg-teal-600 text-white'
@@ -81,9 +84,122 @@ const Specialized_dif_ghost = () => {
         >
           Example
         </button>
+
+        <button
+          onClick={() => setActiveTab('definition')}
+          className={`
+            px-4 py-2 ml-2 rounded-lg transition-all
+            ${
+              activeTab === 'definition'
+                ? 'bg-teal-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }
+          `}
+        >
+          Definition
+        </button>
       </div>
 
       <AnimatePresence mode="wait">
+
+
+        {activeTab === 'example' && (
+          <motion.div
+            key="example"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="bg-white shadow-md rounded-lg p-6 flex-grow"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Input Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src= {JPEG_1}
+                    alt="Input image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Output Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src={JPEG_2}
+                    alt="Output image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 bg-gray-100 p-4 rounded-lg text-center">
+              <p className="text-gray-700 italic">
+                Note: A square in the middle of the image was cropped and saved
+                with lower quality.
+              </p>
+            </div>
+          </motion.div>
+        )}
+
+
+        {activeTab === 'showcase' && (
+          <motion.div
+            key="example"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="bg-white shadow-md rounded-lg p-6 flex-grow"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Input Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src= '/yourimage'
+                    alt="Input image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold mb-4 text-teal-800">
+                  Output Picture
+                </h3>
+                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src='/processedimg'
+                    alt="Output image"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 bg-gray-100 p-4 rounded-lg text-center">
+              <p className="text-gray-700 italic">
+                Note: A square in the middle of the image was cropped and saved
+                with lower quality.
+              </p>
+            </div>
+          </motion.div>
+        )}
+
         {activeTab === 'definition' && (
           <motion.div
             key="definition"
@@ -94,7 +210,6 @@ const Specialized_dif_ghost = () => {
             className="bg-white shadow-md rounded-lg p-6 flex-grow"
           >
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Definition */}
               <div>
                 <h2 className="text-xl font-bold text-teal-800 mb-4">
                   What is JPEG Ghost?
@@ -135,53 +250,7 @@ const Specialized_dif_ghost = () => {
           </motion.div>
         )}
 
-        {activeTab === 'example' && (
-          <motion.div
-            key="example"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="bg-white shadow-md rounded-lg p-6 flex-grow"
-          >
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="flex flex-col items-center">
-                <h3 className="text-lg font-semibold mb-4 text-teal-800">
-                  Input Picture
-                </h3>
-                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                    src="/path/to/jpg1.jpg"
-                    alt="Input image"
-                    width={400}
-                    height={400}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col items-center">
-                <h3 className="text-lg font-semibold mb-4 text-teal-800">
-                  Output Picture
-                </h3>
-                <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                    src="/path/to/jpg2.jpg"
-                    alt="Output image"
-                    width={400}
-                    height={400}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 bg-gray-100 p-4 rounded-lg text-center">
-              <p className="text-gray-700 italic">
-                Note: A square in the middle of the image was cropped and saved
-                with lower quality.
-              </p>
-            </div>
-          </motion.div>
-        )}
+        
       </AnimatePresence>
     </div>
   );
