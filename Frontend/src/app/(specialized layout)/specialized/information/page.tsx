@@ -140,7 +140,7 @@ const Specialized_Information = () => {
 
   return (
     <div className="h-full w-full bg-white">
-       <div className={styles.header}>
+      <div className={styles.header}>
         <div className={styles.helper_title}>
           <div className={`${inter.className} ${styles.title_badge}`}>
             <div className={styles.circle}>
@@ -151,182 +151,186 @@ const Specialized_Information = () => {
         </div>
         {}
       </div>
-        <div className='flex p-5 h-full w-full'>
-      <div className={styles.home_first_half}>
-        <div className={styles.image_container}>
-          <div className={styles.change_image_section}>
-            <div className={`mr-5 ${inter.className} font-bold text-[#03564a]`}>
-              {' '}
-              Change your image
-            </div>
-            <FaExchangeAlt className={styles.title_button} />
-          </div>
-          <div className={styles.show_container}>
-            <div className="flex mr-auto">
-              <div className={styles.circle_2}>
-                <FaImage />
-              </div>
+      <div className="flex p-5 h-full w-full">
+        <div className={styles.home_first_half}>
+          <div className={styles.image_container}>
+            <div className={styles.change_image_section}>
               <div
-                className={`font-bold text-lg ml-2 mb-2  ${montserrat.className}`}
+                className={`mr-5 ${inter.className} font-bold text-[#03564a]`}
               >
                 {' '}
-                Image{' '}
+                Change your image
               </div>
+              <FaExchangeAlt className={styles.title_button} />
             </div>
-            <div className="flex justify-center items-center h-full w-full">
-              <div className={styles.image_container2}>
-                <Image
-                  src={imgSrc || default_img}
-                  alt="Selected image"
-                  style={{ objectFit: 'cover' }}
-                  width={400}
-                  height={400}
-                  className={styles.image}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.tagging_container}>
-            <div className="flex mr-auto">
-              <div className={styles.circle_2}>
-                <FaTags />
-              </div>
-              <div
-                className={`font-bold text-lg ml-2 mb-2  ${montserrat.className} text-[#03564a]`}
-              >
-                Tagging{' '}
-              </div>
-            </div>
-
-            <div className="flex flex-wrap">
-              {splitResult.map((item, index) => (
-                <span key={index} className="mr-2 mb-2 p-2 border rounded">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.home_second_half}>
-       
-
-        <div className={styles.result_container}>
-          <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
-
-          <div className={`${styles.content_area} ${inter.className}`}>
-            {activeTab === 'Exif Data' && (
-              <div className="h-full w-full p-2 flex flex-col justify-evenly">
-                {exifDataSections.map((section, index) => (
-                  <div key={index} className="h-1/2 w-full p-2">
-                    <div className="flex">
-                      <div className={styles.circle_2}>{section.icon}</div>
-                      <div
-                        className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}
-                      >
-                        {section.title}
-                      </div>
-                      <div
-                        className={`font-base text-base ml-2 mb-2 self-center ${inter.className}`}
-                      >
-                        {section.description}
-                      </div>
-                    </div>
-                    {section.fields.map((field, idx) => {
-                      let value;
-                      switch (field.label) {
-                        case 'Make':
-                          value = exifResult?.camera_information?.make;
-                          break;
-                        case 'Model':
-                          value = exifResult?.camera_information?.model;
-                          break;
-                        case 'Exposure':
-                          value = exifResult?.camera_information?.exposure;
-                          break;
-                        case 'Aperture':
-                          value = exifResult?.camera_information?.aperture;
-                          break;
-                        case 'Focal Length':
-                          value = exifResult?.camera_information?.focal_length;
-                          break;
-                        case 'ISO Speed':
-                          value = exifResult?.camera_information?.iso_speed;
-                          break;
-                        case 'Flash':
-                          value = exifResult?.camera_information?.flash;
-                          break;
-                        case 'Software Modified':
-                          value = exifResult?.software_modify;
-                          break;
-                        case 'Modification Date':
-                          value = exifResult?.modify_date;
-                          break;
-                        case 'Original Date':
-                          value = exifResult?.original_date?.original_date;
-                          break;
-                        case 'Create Date':
-                          value = exifResult?.original_date?.create_date;
-                          break;
-                        case 'Author':
-                          value = exifResult?.author_copyright?.author;
-                          break;
-                        case 'Copyright Tag':
-                          value = exifResult?.author_copyright?.copyright_tag;
-                          break;
-                        case 'Profile Copyright':
-                          value =
-                            exifResult?.author_copyright?.profile_copyright;
-                          break;
-                        default:
-                          value = 'N/A';
-                      }
-                      return (
-                        <div key={idx} className="flex">
-                          <div className="font-semibold">{field.label}:</div>
-                          <div className="ml-2 text-gray-600">
-                            {value || 'N/A'}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {activeTab === 'Geo Tags' && (
-              <div className="h-full w-full p-2 flex flex-col justify-evenly">
-                {GeoTag.map((section, index) => (
-                  <div key={index} className="h-1/3 w-full p-2">
-                    <div className="flex">
-                      <div className={styles.circle_2}>
-                        <BsFillGeoAltFill />
-                      </div>
-                      <div className="font-bold text-lg text ml-2 mb-2">
-                        {section.title}
-                      </div>
-                    </div>
-                    {section.fields.map((field, idx) => (
-                      <div key={idx}>
-                        <div className="font-semibold">{field.label}:</div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-                <div className="h-2/3 w-full p-2">
-                  <div className="flex">
-                    <div className={styles.circle_2}>
-                      <FaMap />
-                    </div>
-                    <div className="font-bold text-lg text ml-2 mb-2"> Map</div>
-                  </div>
+            <div className={styles.show_container}>
+              <div className="flex mr-auto">
+                <div className={styles.circle_2}>
+                  <FaImage />
+                </div>
+                <div
+                  className={`font-bold text-lg ml-2 mb-2  ${montserrat.className}`}
+                >
+                  {' '}
+                  Image{' '}
                 </div>
               </div>
-            )}
+              <div className="flex justify-center items-center h-full w-full">
+                <div className={styles.image_container2}>
+                  <Image
+                    src={imgSrc || default_img}
+                    alt="Selected image"
+                    style={{ objectFit: 'cover' }}
+                    width={400}
+                    height={400}
+                    className={styles.image}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={styles.tagging_container}>
+              <div className="flex mr-auto">
+                <div className={styles.circle_2}>
+                  <FaTags />
+                </div>
+                <div
+                  className={`font-bold text-lg ml-2 mb-2  ${montserrat.className} text-[#03564a]`}
+                >
+                  Tagging{' '}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap">
+                {splitResult.map((item, index) => (
+                  <span key={index} className="mr-2 mb-2 p-2 border rounded">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <div className={styles.home_second_half}>
+          <div className={styles.result_container}>
+            <TabArea activeTab={activeTab} onTabChange={setActiveTab} />
+
+            <div className={`${styles.content_area} ${inter.className}`}>
+              {activeTab === 'Exif Data' && (
+                <div className="h-full w-full p-2 flex flex-col justify-evenly">
+                  {exifDataSections.map((section, index) => (
+                    <div key={index} className="h-1/2 w-full p-2">
+                      <div className="flex">
+                        <div className={styles.circle_2}>{section.icon}</div>
+                        <div
+                          className={`font-bold text-lg ml-2 mb-2 border-b-2 border-black ${montserrat.className}`}
+                        >
+                          {section.title}
+                        </div>
+                        <div
+                          className={`font-base text-base ml-2 mb-2 self-center ${inter.className}`}
+                        >
+                          {section.description}
+                        </div>
+                      </div>
+                      {section.fields.map((field, idx) => {
+                        let value;
+                        switch (field.label) {
+                          case 'Make':
+                            value = exifResult?.camera_information?.make;
+                            break;
+                          case 'Model':
+                            value = exifResult?.camera_information?.model;
+                            break;
+                          case 'Exposure':
+                            value = exifResult?.camera_information?.exposure;
+                            break;
+                          case 'Aperture':
+                            value = exifResult?.camera_information?.aperture;
+                            break;
+                          case 'Focal Length':
+                            value =
+                              exifResult?.camera_information?.focal_length;
+                            break;
+                          case 'ISO Speed':
+                            value = exifResult?.camera_information?.iso_speed;
+                            break;
+                          case 'Flash':
+                            value = exifResult?.camera_information?.flash;
+                            break;
+                          case 'Software Modified':
+                            value = exifResult?.software_modify;
+                            break;
+                          case 'Modification Date':
+                            value = exifResult?.modify_date;
+                            break;
+                          case 'Original Date':
+                            value = exifResult?.original_date?.original_date;
+                            break;
+                          case 'Create Date':
+                            value = exifResult?.original_date?.create_date;
+                            break;
+                          case 'Author':
+                            value = exifResult?.author_copyright?.author;
+                            break;
+                          case 'Copyright Tag':
+                            value = exifResult?.author_copyright?.copyright_tag;
+                            break;
+                          case 'Profile Copyright':
+                            value =
+                              exifResult?.author_copyright?.profile_copyright;
+                            break;
+                          default:
+                            value = 'N/A';
+                        }
+                        return (
+                          <div key={idx} className="flex">
+                            <div className="font-semibold">{field.label}:</div>
+                            <div className="ml-2 text-gray-600">
+                              {value || 'N/A'}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === 'Geo Tags' && (
+                <div className="h-full w-full p-2 flex flex-col justify-evenly">
+                  {GeoTag.map((section, index) => (
+                    <div key={index} className="h-1/3 w-full p-2">
+                      <div className="flex">
+                        <div className={styles.circle_2}>
+                          <BsFillGeoAltFill />
+                        </div>
+                        <div className="font-bold text-lg text ml-2 mb-2">
+                          {section.title}
+                        </div>
+                      </div>
+                      {section.fields.map((field, idx) => (
+                        <div key={idx}>
+                          <div className="font-semibold">{field.label}:</div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                  <div className="h-2/3 w-full p-2">
+                    <div className="flex">
+                      <div className={styles.circle_2}>
+                        <FaMap />
+                      </div>
+                      <div className="font-bold text-lg text ml-2 mb-2">
+                        {' '}
+                        Map
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

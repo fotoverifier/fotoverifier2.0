@@ -31,12 +31,13 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
     <div className="w-full h-full p-5 flex flex-col">
       <div className={styles.title_container}>
         <div className="flex justify-between">
-          <div className="flex">
-            <div className="circle_2">
-              <SiJpeg />
+          <div className="flex items-center mb-3">
+            <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+              <SiJpeg size={18} />
             </div>
-            <div className={styles.title}>JPEG Ghost</div>
+            <h3 className="font-bold text-lg ml-3 text-teal-800">JPEG Ghost</h3>
           </div>
+
           <div
             id="jpeg-specific"
             className="focus:outline-none ml-auto"

@@ -43,13 +43,15 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full">
       <div className="flex items-center justify-between">
-        <div className="flex">
-          <div className="circle_2">
-            <IoIosReverseCamera />
+        <div className="flex items-center mb-3">
+          <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+            <IoIosReverseCamera size={18} />
           </div>
-          <div className="font-bold text-lg ml-2">Reversed Search</div>
+          <h3 className="font-bold text-lg ml-3 text-teal-800">
+            Reversed Image Search
+          </h3>
         </div>
 
         <div onClick={openModal} className="focus:outline-none ml-auto">
@@ -58,12 +60,7 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
       </div>
 
       {loading ? (
-        <div className={styles.image_container}>
-          <div className={styles.loadingBox}>
-            <div className={styles.spinner}></div>
-            <p className={styles.loadingText}>Please wait</p>
-          </div>
-        </div>
+        <></>
       ) : searchResult?.length !== 0 ? (
         <div className="mt-4 p-2">
           {searchResult?.splice(0, 3).map((result, index) => (

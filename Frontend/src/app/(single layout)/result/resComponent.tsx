@@ -23,6 +23,8 @@ const inter = Inter({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
 import HeaderReport from '@/components/head/head_result';
 import { TabProvider } from '@/context/tabContext';
+import FakeShieldApp from './technique/fakeshieldapi';
+import LocationSection from './technique/locationSection';
 
 const Res = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -34,7 +36,7 @@ const Res = () => {
   const img = searchParams.get('image');
   const taskId = searchParams.get('task_id');
 
-  const [results, setResults] = useState<any[]>([]); // Store received responses
+  const [results, setResults] = useState<any[]>([]);
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
@@ -149,109 +151,92 @@ const Res = () => {
           description:
             'Related to information of the camera or who takes the picture',
           content: (
-            <div className="h-full w-full flex">
-              <div className="w-1/3 h-full">
-                <div
-                  id="MetaDataArea"
-                  className="h-1/6 w-full bg-white rounded-full"
-                >
-                  <MetaData_Result
-                    cameraInformation={
-                      exifResult?.camera_information || undefined
-                    }
-                    original_date={exifResult?.original_date || undefined}
-                    modify_date={exifResult?.modify_date || undefined}
-                    software_modify={exifResult?.software_modify || undefined}
-                    author_copyright={exifResult?.author_copyright || undefined}
-                    gps_location={exifResult?.gps_location}
-                    loading={loadingExifCheck}
-                  />
-                </div>
-                <div
-                  id="CameraArea"
-                  className="h-5/6 w-full bg-white rounded-md"
-                >
-                  <div className="flex p-5 h-1/6">
-                    <div className={styles.circle_2}>
-                      <FaCamera />
+            <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-gradient-to-br from-teal-50 to-yellow-50 p-6 rounded-xl shadow-lg border border-yellow-200">
+              <div className="w-full md:w-1/3 h-full flex flex-col gap-4">
+                <div className="bg-white rounded-xl shadow-sm p-4">
+                  <div className="flex items-center mb-3">
+                    <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+                      <FaCamera size={18} />
                     </div>
-                    <div className="font-bold text-lg ml-2 border-black">
-                      {' '}
-                      Camera information
-                    </div>
+                    <h3 className="font-bold text-lg ml-3 text-teal-800">
+                      Camera Information
+                    </h3>
                   </div>
 
-                  <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
+                  <div className="border border-gray-200 rounded-xl p-4 flex items-center justify-center bg-gray-50 h-64">
                     <Image
                       src={
                         exifResult?.camera_information?.camera_image
                           ?.image_results?.[0].original || unknown_author
                       }
                       alt="Camera Image"
-                      width={210}
-                      height={210}
+                      width={180}
+                      height={180}
+                      className="object-contain"
                     />
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+                    <div className="text-gray-500">Make:</div>
+                    <div className="font-medium text-teal-800">
+                      {exifResult?.camera_information?.make || 'Unknown'}
+                    </div>
+
+                    <div className="text-gray-500">Model:</div>
+                    <div className="font-medium text-teal-800">
+                      {exifResult?.camera_information?.model || 'Unknown'}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
-              <div className="w-1/3 h-full">
-                <div
-                  id="AuthorArea"
-                  className="h-5/6 w-full  bg-white rounded-md"
-                >
-                  <div className="flex p-5 h-1/6">
-                    <div className={styles.circle_2}>
-                      <FaUser />
+              <div className="w-full md:w-1/3 flex flex-col gap-4">
+                <div className="bg-white rounded-xl shadow-sm p-4 flex-grow">
+                  <div className="flex items-center mb-3">
+                    <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+                      <FaUser size={18} />
                     </div>
-                    <div className="font-bold text-lg ml-2 border-black">
-                      {' '}
+                    <h3 className="font-bold text-lg ml-3 text-teal-800">
                       Author Information
-                    </div>
+                    </h3>
                   </div>
-                  <div className="h-5/6 border-2 rounded-xl w-full flex items-center justify-center">
+
+                  <div className="border border-gray-200 rounded-xl p-4 flex items-center justify-center bg-gray-50 h-64">
                     <Image
                       src={
                         exifResult?.author_copyright?.author_image
                           ?.image_results?.[0].original || unknown_author
                       }
-                      alt="Camera Image"
-                      width={200}
-                      height={200}
-                      objectFit="contain"
+                      alt="Author Image"
+                      width={180}
+                      height={180}
+                      className="object-contain"
                     />
                   </div>
-                </div>
-                <div className="h-1/6 w-full py-2">
-                  <div className="flex p-5 border-2 rounded-xl">
-                    <div className={styles.circle_2}>
-                      <PiAppWindowFill />
-                    </div>
-                    <div className="font-bold text-lg ml-2 border-black">
-                      {' '}
-                      Software Modification
+
+                  <div className="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+                    <div className="text-sm">
+                      <span className="font-medium text-teal-800">
+                        Copyright:{' '}
+                      </span>
+                      <span className="text-gray-700">
+                        {exifResult?.author_copyright?.profile_copyright ||
+                          'Not specified'}
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
-
-              <div className="w-1/3 h-full">
-                <div
-                  id="ReverseArea"
-                  className="h-1/2 bg-white w-full rounded-md"
-                >
+              <div className="w-full md:w-1/3 flex flex-col gap-4">
+                <div className="bg-white rounded-xl shadow-sm p-4 flex-1">
                   <ReverseImgResult
                     searchResult={SearchResult}
                     loading={loadingReverseImageSearch}
                   />
                 </div>
-                <div
-                  id="ImageTaggingArea"
-                  className="h-1/2 bg-white w-full rounded-md"
-                >
+
+                <div className="bg-white rounded-xl shadow-sm p-4 flex-1">
                   <ImgTagging_Result
                     Tag={tagResult}
                     loading={loadingTagResult}
@@ -265,59 +250,14 @@ const Res = () => {
           key: 'Location',
           title: 'Location',
           description: 'Maps and GPS coordinates of the photos location.',
-          content: (
-            <div className={`h-full w-full flex`}>
-              <div className="h-[90%] w-2/3">
-                <MapComponent
-                  coordinate={[
-                    Number(exifResult?.gps_location?.latitude),
-                    Number(exifResult?.gps_location?.longitude),
-                  ]}
-                />
-              </div>
-              <div className="h-full w-[0.5px] bg-slate-300 mx-5"></div>
-              <div className="h-full w-1/3 p-4 border rounded-lg shadow-md bg-gray-50">
-                <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
-                  <div className="mr-2 flex items-center justify-center bg-green-200 text-green-900 rounded-full w-8 h-8">
-                    <FiMapPin size={16} />
-                  </div>
-                  Detecting Image Location
-                </h3>
-                <ul className="space-y-3 text-sm text-gray-700">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">✔</span>
-                    Extract location from EXIF metadata.
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">✔</span>
-                    Use image matching algorithms (e.g., SIFT) for comparative
-                    analysis.
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">✔</span>
-                    Analyze visual features (e.g., landmarks) with AI models
-                    trained on geotagged data.
-                  </li>
-                </ul>
-
-                {/* Additional Task */}
-                <div className="mt-4 text-sm text-gray-600">
-                  Reverse geolocation can convert coordinates into readable
-                  addresses.
-                </div>
-              </div>
-            </div>
-          ),
+          content: <LocationSection exifResult={exifResult}></LocationSection>,
         },
         {
           key: 'Forensic',
           title: 'Forensic',
-          description: 'When this picture is taken',
-          content: (
-            <div>
-              <p>Date and time extracted from photo metadata.</p>
-            </div>
-          ),
+          description:
+            'Apply state-of-the-art AI to assist the verification process.',
+          content: <FakeShieldApp />,
         },
       ],
     };

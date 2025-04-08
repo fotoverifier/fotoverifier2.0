@@ -173,8 +173,8 @@ export default function SubcategoryPage() {
     : params.subcategory;
 
   const formattedSubcategory = subcategory
-    ? subcategory.replace(/_/g, " ")
-    : "Unknown Subcategory";
+    ? subcategory.replace(/_/g, ' ')
+    : 'Unknown Subcategory';
 
   const content = subcategoryContents[subcategory as string] || {
     overview: 'No specific content available for this subcategory.',

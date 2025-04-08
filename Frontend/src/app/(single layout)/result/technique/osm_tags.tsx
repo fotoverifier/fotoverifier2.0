@@ -11,13 +11,12 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
     'Nature|Animals|Landscape|Sunset|Water|Mountains|Sky|Beach|Forest';
   const sampleTagsplit = sampleTag ? sampleTag.split('|') : [];
   return (
-    <div className="striped-background w-full h-full p-5">
-      <div className="flex">
-        <div className="circle_2">
-          {' '}
-          <IoIosPricetag />{' '}
+    <div className="striped-background w-full h-full">
+      <div className="flex items-center mb-3">
+        <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+          <IoIosPricetag size={18} />
         </div>
-        <div className="font-bold text-lg ml-2 mb-5">Image Tagging</div>
+        <h3 className="font-bold text-lg ml-3 text-teal-800">Image Tagging</h3>
       </div>
 
       <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40">

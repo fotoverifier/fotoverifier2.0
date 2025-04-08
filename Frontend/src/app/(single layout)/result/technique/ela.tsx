@@ -14,13 +14,13 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
   return (
     <div className="w-full h-full p-5 flex flex-col">
       <div className={styles.title_container}>
-        <div className="flex justify-between">
-          <div className="flex">
-            <div className="circle_2">
-              <FaLayerGroup />
-            </div>
-            <div className={styles.title}>Error Level Analysis</div>
+        <div className="flex items-center mb-3">
+          <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+            <FaLayerGroup size={18} />
           </div>
+          <h3 className="font-bold text-lg ml-3 text-teal-800">
+            Error Level Analysis
+          </h3>
         </div>
       </div>
       <div
