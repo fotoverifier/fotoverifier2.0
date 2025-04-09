@@ -53,7 +53,7 @@ const Res = () => {
     if (!img || !taskId) return;
 
     const eventSource = new EventSource(
-      `api/quick-scan-stream/?task_id=${taskId}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
     );
 
     eventSource.onmessage = (event) => {

@@ -88,7 +88,7 @@ const Upload = () => {
         // Single API call wrapped in a Promise
 
         const response = await fetch(
-          '/api/quick-scan',
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan`,
           {
             method: 'POST',
             body: formData,
