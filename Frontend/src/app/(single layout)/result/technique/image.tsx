@@ -8,12 +8,13 @@ interface ImageResultProps {
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
   return (
     <div className="w-full h-full p-5">
-      <div className="flex">
-        <div className="circle_2">
-          {' '}
-          <FaImage />{' '}
+      <div className="flex items-center mb-3">
+        <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+          <FaImage size={18} />
         </div>
-        <div className="font-bold text-lg ml-2 mb-5">Image</div>
+        <h3 className="font-bold text-lg ml-3 text-teal-800">
+          Image Information
+        </h3>
       </div>
       {img ? (
         <div

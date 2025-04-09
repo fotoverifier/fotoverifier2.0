@@ -5,17 +5,17 @@ import { Inter } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { VscSymbolMethod } from 'react-icons/vsc';
-import JPEG_1 from "@/assets/jpg1.jpg";
-import JPEG_2 from "@/assets/jpg2.jpg";
+import JPEG_1 from '@/assets/jpg1.jpg';
+import JPEG_2 from '@/assets/jpg2.jpg';
 interface Reference {
   title: string;
   url: string;
 }
 
 const Specialized_dif_ghost = () => {
-  const [activeTab, setActiveTab] = useState<'definition' | 'example' | 'showcase'>(
-    'example'
-  );
+  const [activeTab, setActiveTab] = useState<
+    'definition' | 'example' | 'showcase'
+  >('example');
 
   const references: Reference[] = [
     {
@@ -70,7 +70,6 @@ const Specialized_dif_ghost = () => {
           Showcase
         </button>
 
-        
         <button
           onClick={() => setActiveTab('example')}
           className={`
@@ -101,8 +100,6 @@ const Specialized_dif_ghost = () => {
       </div>
 
       <AnimatePresence mode="wait">
-
-
         {activeTab === 'example' && (
           <motion.div
             key="example"
@@ -119,7 +116,7 @@ const Specialized_dif_ghost = () => {
                 </h3>
                 <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src= {JPEG_1}
+                    src={JPEG_1}
                     alt="Input image"
                     width={400}
                     height={400}
@@ -151,7 +148,6 @@ const Specialized_dif_ghost = () => {
           </motion.div>
         )}
 
-
         {activeTab === 'showcase' && (
           <motion.div
             key="example"
@@ -168,7 +164,7 @@ const Specialized_dif_ghost = () => {
                 </h3>
                 <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src= '/yourimage'
+                    src="/yourimage"
                     alt="Input image"
                     width={400}
                     height={400}
@@ -182,7 +178,7 @@ const Specialized_dif_ghost = () => {
                 </h3>
                 <div className="border-2 border-teal-100 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src='/processedimg'
+                    src="/processedimg"
                     alt="Output image"
                     width={400}
                     height={400}
@@ -249,8 +245,6 @@ const Specialized_dif_ghost = () => {
             </div>
           </motion.div>
         )}
-
-        
       </AnimatePresence>
     </div>
   );

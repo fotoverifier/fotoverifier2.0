@@ -28,7 +28,7 @@ const Dashboard = () => {
         />
       ),
       titleIcon: 1,
-      href: "/upload",
+      href: '/upload',
     },
   ];
 
@@ -38,7 +38,7 @@ const Dashboard = () => {
       description: t('tutorial_description'),
       icon: <Image src={Tutorial} alt="Tutorial" width={200} height={200} />,
       titleIcon: 2,
-      href: "/library",
+      href: '/library',
     },
   ];
 

@@ -10,9 +10,7 @@ import {
   FaStar,
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Modal_PReport from '../modal/PReport_modal';
-import pattern2 from '@/assets/Group 52.svg';
 import styles from '@/styles/head/head_result.module.css';
 
 import '@/components/head/test.css';
@@ -61,38 +59,29 @@ const steps = [
     description: 'Click here to run JPEG Ghost',
     tab: 'Tampering Detection',
   },
-
-  {
-    id: 'MetaDataArea',
-    description:
-      'Exif Data: Timeline verification, editing software detection, geolocation consistency checks. Missing metadata often signals manipulation.',
-
-    tab: 'Originality',
-  },
   {
     id: 'CameraArea',
     description: 'Image of camera models extracted from the EXIF Data',
 
     tab: 'Originality',
   },
+
   {
     id: 'AuthorArea',
-    description: 'Image of author extracted from the EXIF Data',
+    description: 'Image of camera models extracted from the EXIF Data',
 
     tab: 'Originality',
   },
 
   {
-    id: 'ReverseArea',
-    description:
-      'Search across multiple platforms to find earliest appearances; compare against claimed date and examine visual differences between versions.',
+    id: 'ReversedImg',
+    description: 'Image of camera models extracted from the EXIF Data',
 
     tab: 'Originality',
   },
   {
-    id: 'ImageTaggingArea',
-    description:
-      "Analyze AI-generated tags to quickly understand the image's key visual elements and potential inconsistencies.",
+    id: 'ImgTagging',
+    description: 'Image of camera models extracted from the EXIF Data',
 
     tab: 'Originality',
   },

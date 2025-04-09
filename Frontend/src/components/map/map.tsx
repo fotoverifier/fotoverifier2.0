@@ -2,7 +2,6 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix for marker icons (optional, resolves default icon issues)
 import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -17,9 +16,8 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Define props interface
 interface MapComponentProps {
-  coordinate: [number, number]; // Accepts a tuple with latitude and longitude
+  coordinate: [number, number];
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
@@ -43,7 +41,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
         center={coordinate}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
-        key={coordinate.toString()} // Use coordinate as key
+        key={coordinate.toString()}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

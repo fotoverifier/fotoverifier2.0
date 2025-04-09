@@ -121,12 +121,12 @@ const Method_Box: React.FC<MethodBoxProps> = ({
                 <h2 className="text-lg font-bold text-white">
                   List of Algorithms
                 </h2>
-                <button
+                <div
                   className="ml-auto text-white bg-opacity-20 hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-colors duration-200"
                   onClick={toggleModal}
                 >
                   <IoIosCloseCircle size={24} />
-                </button>
+                </div>
               </div>
 
               <div className="px-6 py-4">

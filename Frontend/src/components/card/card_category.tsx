@@ -1,16 +1,14 @@
 import React, { ReactNode } from 'react';
-import styles from './card_category.module.css'; 
-import {
-
-} from 'react-icons/io';
+import styles from './card_category.module.css';
+import {} from 'react-icons/io';
 import Link from 'next/link';
 
 interface CardProps {
-  svgIcon: ReactNode; 
-  title: string; 
+  svgIcon: ReactNode;
+  title: string;
   description: string;
   titleIcon: ReactNode;
-  href?: string; 
+  href?: string;
 }
 
 const Card_Cate: React.FC<CardProps> = ({
@@ -18,7 +16,7 @@ const Card_Cate: React.FC<CardProps> = ({
   title,
   description,
   titleIcon,
-  href, 
+  href,
 }) => {
   return (
     <div className={styles.card}>
@@ -37,7 +35,7 @@ const Card_Cate: React.FC<CardProps> = ({
         <p className={styles.card__description}>{description}</p>
 
         {}
-         {href && (
+        {href && (
           <Link href={href} className={styles.start_button}>
             Start Now →
           </Link>

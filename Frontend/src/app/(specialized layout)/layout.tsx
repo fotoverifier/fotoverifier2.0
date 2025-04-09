@@ -19,7 +19,6 @@ import { TbZoomInArea } from 'react-icons/tb';
 import { IoMedicalSharp } from 'react-icons/io5';
 import { CiLight } from 'react-icons/ci';
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
