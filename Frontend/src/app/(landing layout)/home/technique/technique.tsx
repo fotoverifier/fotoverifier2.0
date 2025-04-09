@@ -205,10 +205,10 @@ const Technique_Landing = () => {
           transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
           viewport={{ amount: 0.2 }}
         >
-          <button className={styles.ctaButton}>
+          <div className={styles.ctaButton}>
             {' '}
             {t('View_all_features')}
-          </button>
+          </div>
         </motion.div>
       </div>
     </>

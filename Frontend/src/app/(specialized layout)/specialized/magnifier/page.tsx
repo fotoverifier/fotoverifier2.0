@@ -84,6 +84,10 @@ const Magnifier = () => {
   const imageUrl =
     'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE1fHxwbGFudCUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNjE5NzgxOTA0&ixlib=rb-1.2.1&q=80&w=800';
 
+  // Calculate position for the magnifier so the cursor appears at the bottom left
+  const magnifierLeft = x;
+  const magnifierTop = y - lensSizePixels;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -95,9 +99,9 @@ const Magnifier = () => {
             Magnifier
           </div>
         </div>
-        <button onClick={handleReset} className={styles.reset_button}>
+        <div onClick={handleReset} className={styles.reset_button}>
           Reset All
-        </button>
+        </div>
       </div>
       <div className={styles.content_area}>
         <div className={styles.content_area_magnifier}>
@@ -132,13 +136,13 @@ const Magnifier = () => {
                 <label className={styles.control_label}>Magnifier Size</label>
                 <div className={styles.button_group}>
                   {['Small', 'Medium', 'Large'].map((size) => (
-                    <button
+                    <div
                       key={size}
                       className={`${styles.option_button} ${magnifierSize === size ? styles.active : ''}`}
                       onClick={() => handleMagnifierSizeChange(size)}
                     >
                       {size}
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -147,13 +151,13 @@ const Magnifier = () => {
                 <label className={styles.control_label}>Magnifier Shape</label>
                 <div className={styles.button_group}>
                   {['Circle', 'Square'].map((shape) => (
-                    <button
+                    <div
                       key={shape}
                       className={`${styles.option_button} ${magnifierShape === shape ? styles.active : ''}`}
                       onClick={() => handleMagnifierShapeChange(shape)}
                     >
                       {shape}
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -189,8 +193,8 @@ const Magnifier = () => {
               <div
                 style={{
                   display: showMagnifier ? 'block' : 'none',
-                  top: `${y - lensSizePixels / 2}px`,
-                  left: `${x - lensSizePixels / 2}px`,
+                  top: `${magnifierTop}px`,
+                  left: `${magnifierLeft}px`,
                   width: `${lensSizePixels}px`,
                   height: `${lensSizePixels}px`,
                   backgroundImage: `url(${imageUrl})`,

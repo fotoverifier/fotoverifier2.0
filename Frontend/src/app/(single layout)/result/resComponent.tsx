@@ -151,8 +151,11 @@ const Res = () => {
           description:
             'Related to information of the camera or who takes the picture',
           content: (
-            <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-gradient-to-br from-teal-50 to-yellow-50 p-6 rounded-xl shadow-lg border border-yellow-200">
-              <div className="w-full md:w-1/3 h-full flex flex-col gap-4">
+            <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-gradient-to-br from-teal-50 to-yellow-50 p-6 rounded-xl shadow-lg border">
+              <div
+                className="w-full md:w-1/3 h-full flex flex-col gap-4"
+                id="CameraArea"
+              >
                 <div className="bg-white rounded-xl shadow-sm p-4">
                   <div className="flex items-center mb-3">
                     <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
@@ -190,7 +193,10 @@ const Res = () => {
                 </div>
               </div>
 
-              <div className="w-full md:w-1/3 flex flex-col gap-4">
+              <div
+                className="w-full md:w-1/3 flex flex-col gap-4"
+                id="AuthorArea"
+              >
                 <div className="bg-white rounded-xl shadow-sm p-4 flex-grow">
                   <div className="flex items-center mb-3">
                     <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
@@ -229,14 +235,20 @@ const Res = () => {
               </div>
 
               <div className="w-full md:w-1/3 flex flex-col gap-4">
-                <div className="bg-white rounded-xl shadow-sm p-4 flex-1">
+                <div
+                  className="bg-white rounded-xl shadow-sm p-4 flex-1"
+                  id="ReversedImg"
+                >
                   <ReverseImgResult
                     searchResult={SearchResult}
                     loading={loadingReverseImageSearch}
                   />
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm p-4 flex-1">
+                <div
+                  className="bg-white rounded-xl shadow-sm p-4 flex-1"
+                  id="ImgTagging"
+                >
                   <ImgTagging_Result
                     Tag={tagResult}
                     loading={loadingTagResult}
@@ -257,7 +269,11 @@ const Res = () => {
           title: 'Forensic',
           description:
             'Apply state-of-the-art AI to assist the verification process.',
-          content: <FakeShieldApp />,
+          content: (
+            <div className="overflow-hidden h-full">
+              <FakeShieldApp></FakeShieldApp>
+            </div>
+          ),
         },
       ],
     };

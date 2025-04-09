@@ -42,7 +42,7 @@ export default function CategoryPage() {
         <ul className="mt-4">
           {category.subcategories.map((subcategory) => (
             <li key={subcategory}>
-              <button
+              <div
                 className="text-blue-600 hover:underline"
                 onClick={() =>
                   router.push(
@@ -51,7 +51,7 @@ export default function CategoryPage() {
                 }
               >
                 {subcategory}
-              </button>
+              </div>
             </li>
           ))}
         </ul>

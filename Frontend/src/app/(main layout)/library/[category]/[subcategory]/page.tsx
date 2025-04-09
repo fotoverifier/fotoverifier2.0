@@ -197,7 +197,7 @@ export default function SubcategoryPage() {
             {Object.entries(content.tabs).map(([key, tabContent]) => {
               const Tab = tabContent.icon;
               return (
-                <button
+                <div
                   key={key}
                   onClick={() =>
                     setActiveTab(
@@ -215,7 +215,7 @@ export default function SubcategoryPage() {
                 >
                   <Tab />
                   <span>{tabContent.title}</span>
-                </button>
+                </div>
               );
             })}
           </div>

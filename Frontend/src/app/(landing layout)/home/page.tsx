@@ -72,14 +72,14 @@ const LandingPage2 = () => {
             {t('engaging_way')}
           </h1>
           <p className={`${styles.description}`}>{displayedText}</p>
-          <motion.button
+          <motion.div
             className={styles.cta_button}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6, duration: 0.4 }}
           >
             {t('verify_now')}
-          </motion.button>
+          </motion.div>
           <VerificationStepsAnimation className={styles.verification} />
         </motion.div>
 
@@ -150,9 +150,9 @@ const LandingPage2 = () => {
                       <div className={styles.change_text}>
                         Change your image
                       </div>
-                      <button onClick={removeImg}>
+                      <div onClick={removeImg}>
                         <TbExchange size={20} />
-                      </button>
+                      </div>
                     </div>
                     <hr className={styles.separator} />
                     <div className={styles.image_preview_container}>
