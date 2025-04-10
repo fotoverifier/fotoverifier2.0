@@ -15,9 +15,7 @@ export interface ExifData {
     iso_speed: string | undefined;
     flash: string | undefined;
     camera_image: {
-      image_results: {
-        original: string;
-      }[];
+      image_url: string;
     };
   };
   gps_location: {

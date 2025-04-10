@@ -4,12 +4,13 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.reverse_search import reverse_image_search
+from algorithms.reverse_search import google_lens_search
 import io
 import redis
 import os
 import json
 from dotenv import load_dotenv
+import asyncio
 
 load_dotenv()
 
@@ -41,8 +42,11 @@ def process_jpeg_ghost(image_bytes):
 
 @celery_app.task
 def process_reverse_search(image_bytes):
-    file_stream = io.BytesIO(image_bytes)
-    return {"reverse_search": reverse_image_search(file_stream), "method": "reverse_search"}
+    try:
+        results = asyncio.run(google_lens_search(image_bytes))
+        return {"reverse_search": str(results), "method": "reverse_search"}
+    except Exception as e:
+        return {"reverse_search": f"Error: {str(e)}", "method": "reverse_search"}
 
 @celery_app.task
 def process_quick_scan(image_bytes):

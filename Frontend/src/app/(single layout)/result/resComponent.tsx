@@ -170,7 +170,7 @@ const Res = () => {
                     <Image
                       src={
                         exifResult?.camera_information?.camera_image
-                          ?.image_results?.[0].original || unknown_author
+                          ?.image_url || unknown_author
                       }
                       alt="Camera Image"
                       width={180}

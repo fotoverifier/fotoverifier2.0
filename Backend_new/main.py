@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from concurrent.futures import ProcessPoolExecutor
@@ -6,7 +6,7 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.reverse_search import reverse_image_search
+from algorithms.reverse_search import google_lens_search
 import io
 import asyncio
 import json
@@ -27,7 +27,7 @@ redis_client = redis.from_url(redis_url)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:9000",
+        "http://localhost:9002",
         os.getenv("FRONTEND_URL"),
         ],  # ✅ Change this to your frontend URL
     allow_credentials=True,
@@ -80,12 +80,11 @@ async def get_jpeg_ghost(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/reverse-image-search")
-async def get_reverse_search(file: UploadFile = File(...)):
+async def get_reverse_search(file: UploadFile = File(...), query: str = Form(...)):
     try:
         image_bytes = await file.read()
-        file_stream = io.BytesIO(image_bytes)
-        search_result = reverse_image_search(file_stream)
-        return {"search_result": search_result}
+        results = google_lens_search(image_bytes)
+        return {"results": str(results)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

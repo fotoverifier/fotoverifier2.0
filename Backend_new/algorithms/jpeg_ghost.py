@@ -1,10 +1,9 @@
-import os
 import cv2
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
-import cloudinary.uploader
+from .utility import upload_to_cloudinary
 from io import BytesIO
 
 def jpeg_ghost(image_bytes):
@@ -59,22 +58,20 @@ def process_ghostmap(ghostmap, ydim, xdim, nQ, Qmin, Qstep):
 
 def generate_images(blkE, Qmin, Qstep, nQ):
     image_urls = []
-    os.makedirs("media", exist_ok=True)
 
     for c in range(nQ):
         quality = Qmin + c * Qstep
         if 30 <= quality <= 80:
             plt.imshow(blkE[:, :, c], cmap="gray", vmin=0, vmax=1)
             plt.axis("off")
-            img_path = f"media/jpeg_ghost_quality_{quality}.png"
-            plt.savefig(img_path, format="png", dpi=200)
+            buffer = BytesIO()
+            plt.savefig(buffer, format="png", dpi=200, bbox_inches='tight', pad_inches=0)
             plt.close()
+            buffer.seek(0)
             
             try:
-                response = cloudinary.uploader.upload(img_path)
-                image_urls.append(response["secure_url"])
-            finally:
-                os.remove(img_path)  # ✅ Deletes the file after uploading
-    
-    print(image_urls)
+                url = upload_to_cloudinary(buffer.getvalue(), filename=f"jpeg_ghost_quality_{quality}")
+                image_urls.append(url)
+            except Exception as e:
+                print(f"Upload failed for quality {quality}: {e}")
     return image_urls

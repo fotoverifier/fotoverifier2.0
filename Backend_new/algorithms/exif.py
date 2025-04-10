@@ -2,9 +2,9 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 import exifread
 import io
-from serpapi import GoogleSearch
 import os
 from dotenv import load_dotenv
+from duckduckgo_search import DDGS
 
 load_dotenv()
 
@@ -78,6 +78,10 @@ def check_original_date(info):
 
 
 def check_camera_information(info):
+    model = get_if_exist(info, "Model")
+    print(f"Extracted Camera Model before image_search: {model}")  # Debugging
+    if model is None:
+        print("Model is None before calling image_search!")
     return {
         "make": str(get_if_exist(info, "Make")),
         "model": str(get_if_exist(info, "Model")),
@@ -86,7 +90,7 @@ def check_camera_information(info):
         "focal_length": str(get_if_exist(info, "FocalLength")),
         "iso_speed": str(get_if_exist(info, "ISOSpeedRatings")),
         "flash": str(get_if_exist(info, "Flash")),
-        "camera_image": image_search(str(get_if_exist(info, 'Image Make')))
+        "camera_image": image_search(str(get_if_exist(info, "Model")))
     }
 
 
@@ -129,15 +133,16 @@ def get_if_exist(data, key):
     return data.get(key) if isinstance(data, dict) else None
 
 def image_search(model):
-    params = {
-        "engine": "google_images",
-        "q": f"{model}",
-        "api_key": serpapi_secret_key
-    }
-    search = GoogleSearch(params)
-    results = search.get_dict()
+    if not model:
+        return {"error": "Query is empty"}
+    try:
+        # Use DuckDuckGo to search for images
+        results = DDGS().images(keywords=model, region="wt-wt", safesearch="off", max_results=1)
+        
+        if results and len(results) > 0:
+            return {"image_url": results[0]["image"]}
+        else:
+            return {"error": "No image results found"}
     
-    result = {
-        "image_results": results.get("images_results", []),
-    }
-    return result
+    except Exception as e:
+        return {"error": f"DuckDuckGo search failed: {str(e)}"}
