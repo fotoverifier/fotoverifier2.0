@@ -9,7 +9,7 @@ import {
   FaClipboardList,
   FaLink,
 } from 'react-icons/fa';
-
+import detailedContent from "@/terminologies/lib.json"
 interface SectionContent {
   title: string;
   description: string;
@@ -31,135 +31,166 @@ interface SubcategoryContent {
 }
 
 const subcategoryContents: { [key: string]: SubcategoryContent } = {
-  exif_data: {
-    title: 'EXIF Data',
-    overview:
-      "EXIF (Exchangeable Image File Format) data is a metadata standard that allows digital cameras and software to record and store information about an image, providing valuable insights into the photo's technical and contextual details.",
-    methodology:
-      'EXIF data extraction involves parsing the metadata embedded within image files, capturing details such as camera make and model, date and time of capture, GPS coordinates, camera settings, and other technical specifications.',
-    relatedWork:
-      'Research in digital forensics and image analysis has extensively utilized EXIF metadata for authentication, geolocation tracking, device identification, and understanding the provenance of digital images.',
+  exif_data:{
+    title: detailedContent.exif_data.title,
+    overview: detailedContent.exif_data.overview,
+    methodology: detailedContent.exif_data.methodology,
+    relatedWork: detailedContent.exif_data.relatedWork,
     tabs: {
-      definition: {
-        title: 'Definition',
-        description:
-          'EXIF (Exchangeable Image File Format) is a standard specification for image metadata that captures detailed information about digital images, including camera settings, timestamps, and geolocation data.',
+      definition :{
+        title: detailedContent.exif_data.tabs.definition.title,
+        description: detailedContent.exif_data.tabs.definition.description,
         icon: FaBookOpen,
-        content: `
-          EXIF (Exchangeable Image File Format) is a standard specification for image metadata embedded within digital image files. This metadata provides comprehensive information about the image's creation, technical specifications, and contextual details. 
-
-          Key components of EXIF data include:
-          - Camera Make and Model
-          - Date and Time of Image Capture
-          - Camera Settings:
-            * Aperture (f-number)
-            * Shutter Speed
-            * ISO Sensitivity
-            * Focal Length
-          - GPS Coordinates (if available)
-          - Image Dimensions
-          - Color Space Information
-          - Software Used for Image Processing
-
-          EXIF metadata plays a crucial role in digital forensics, photography, and image analysis by providing a detailed digital fingerprint of an image's origin and characteristics.`,
+        content: detailedContent.exif_data.tabs.definition.content,
       },
-      example: {
-        title: 'Example',
-        description:
-          'Demonstration of EXIF data extraction, showcasing the types of information that can be retrieved from a digital image file.',
+      example:{
+        title: detailedContent.exif_data.tabs.example.title,
+        description: detailedContent.exif_data.tabs.example.description,
         icon: FaChartLine,
-        content: `
-          Example of EXIF Data Extraction:
-
-          Image: Landscape Photograph
-          Camera: Canon EOS 5D Mark IV
-          Capture Date: 2023-07-15 14:30:22
-
-          Technical Details:
-          - Aperture: f/8.0
-          - Shutter Speed: 1/250 sec
-          - ISO: 100
-          - Focal Length: 24mm
-          - GPS Coordinates: 40.7128° N, 74.0060° W (New York City)
-
-          Demonstration of parsing EXIF data using different tools:
-          1. Metadata Extraction Libraries
-          2. Command-line Tools
-          3. Forensic Analysis Software
-
-          Potential Use Cases:
-          - Verifying image authenticity
-          - Understanding photographic techniques
-          - Tracking image geolocation
-          - Digital forensics investigations`,
+        content: detailedContent.exif_data.tabs.example.content,
       },
       details: {
-        title: 'Technical Details',
-        description:
-          'In-depth exploration of EXIF metadata structure, parsing techniques, and the significance of different metadata fields in digital image forensics.',
-        icon: FaClipboardList,
-        content: `
-          Technical Architecture of EXIF Metadata:
-
-          1. Metadata Structure
-          - Stored in JPEG, TIFF, and RIFF file formats
-          - Uses Tagged Image File Format (TIFF) headers
-          - Organized as a series of tags with specific identifiers
-
-          2. Parsing Techniques
-          - Binary metadata extraction
-          - Specialized libraries and tools
-          - Handling different image file formats
-
-          3. Metadata Tags Categories
-          - Image Data Tags
-          - Camera Settings Tags
-          - Geolocation Tags
-          - Thumbnail Information Tags
-
-          4. Challenges in EXIF Data Analysis
-          - Metadata can be deliberately modified
-          - Inconsistent implementation across devices
-          - Privacy and information leakage concerns
-
-          5. Forensic Significance
-          - Provenance tracking
-          - Authentication verification
-          - Detecting image manipulation`,
+        title: detailedContent.exif_data.tabs.details.title,
+        description: detailedContent.exif_data.tabs.details.description,
+        icon: FaFilePdf,
+        content: detailedContent.exif_data.tabs.details.content,
       },
       relatedWork: {
-        title: 'Related Work',
-        description:
-          'Research and academic publications exploring EXIF metadata in digital forensics and image analysis.',
+        title: detailedContent.exif_data.tabs.relatedWork.title,
+        description: detailedContent.exif_data.tabs.relatedWork.description,
         icon: FaLink,
-        content: `
-          Significant Research and Publications in EXIF Metadata Analysis:
-
-          1. Academic Publications:
-          - "Forensic Analysis of Digital Images Using EXIF Metadata" - Journal of Digital Forensics, 2019
-          - "Geolocation Privacy Risks in Image Metadata" - ACM Conference on Computer and Communications Security, 2020
-
-          2. Key Research Areas:
-          - Image Authentication Techniques
-          - Metadata Forensics
-          - Privacy Implications of Embedded Metadata
-
-          3. Notable Research Institutions:
-          - Digital Forensics Research Lab, University of California
-          - Cybersecurity and Forensics Research Center, MIT
-          - Image Forensics Group, Stanford University
-
-          4. Emerging Research Directions:
-          - AI-powered EXIF data analysis
-          - Machine learning for metadata anomaly detection
-          - Cross-platform metadata standardization
-
-          5. Recommended References:
-          - "Digital Image Forensics: There is More to a Picture Than Meets the Eye"
-          - "Metadata Extraction and Analysis: Techniques and Applications"`,
+        content: detailedContent.exif_data.tabs.relatedWork.content,
       },
-    },
+    }
   },
+    jpeg_ghost: {
+    title: detailedContent.jpeg_ghost.title,
+    overview: detailedContent.jpeg_ghost.overview,
+    methodology: detailedContent.jpeg_ghost.methodology,
+    relatedWork: detailedContent.jpeg_ghost.relatedWork,
+    tabs: {
+      definition: {
+        title: detailedContent.jpeg_ghost.tabs.definition.title,
+        description: detailedContent.jpeg_ghost.tabs.definition.description,
+        icon: FaBookOpen,
+        content: detailedContent.jpeg_ghost.tabs.definition.content,
+      },
+      example: {
+        title: detailedContent.jpeg_ghost.tabs.example.title,
+        description: detailedContent.jpeg_ghost.tabs.example.description,
+        icon: FaChartLine,
+        content: detailedContent.jpeg_ghost.tabs.example.content,
+      },
+      details: {
+        title: detailedContent.jpeg_ghost.tabs.details.title,
+        description: detailedContent.jpeg_ghost.tabs.details.description,
+         icon: FaFilePdf,
+        content: detailedContent.jpeg_ghost.tabs.details.content,
+      },
+      relatedWork: {
+        title: detailedContent.jpeg_ghost.tabs.relatedWork.title,
+        description: detailedContent.jpeg_ghost.tabs.relatedWork.description,
+        icon: FaLink,
+        content: detailedContent.jpeg_ghost.tabs.relatedWork.content,
+      },
+    }
+  },
+  ela: {
+  title: detailedContent.ela.title,
+  overview: detailedContent.ela.overview,
+  methodology: detailedContent.ela.methodology,
+  relatedWork: detailedContent.ela.relatedWork,
+  tabs: {
+    definition: {
+      title: detailedContent.ela.tabs.definition.title,
+      description: detailedContent.ela.tabs.definition.description,
+      icon: FaBookOpen,
+      content: detailedContent.ela.tabs.definition.content,
+    },
+    example: {
+      title: detailedContent.ela.tabs.example.title,
+      description: detailedContent.ela.tabs.example.description,
+      icon: FaChartLine,
+      content: detailedContent.ela.tabs.example.content,
+    },
+    details: {
+      title: detailedContent.ela.tabs.details.title,
+      description: detailedContent.ela.tabs.details.description,
+      icon: FaFilePdf,
+      content: detailedContent.ela.tabs.details.content,
+    },
+    relatedWork: {
+      title: detailedContent.ela.tabs.relatedWork.title,
+      description: detailedContent.ela.tabs.relatedWork.description,
+      icon: FaLink,
+      content: detailedContent.ela.tabs.relatedWork.content,
+    },
+  }
+},
+luminance_gradient: {
+  title: detailedContent.luminance_gradient.title,
+  overview: detailedContent.luminance_gradient.overview,
+  methodology: detailedContent.luminance_gradient.methodology,
+  relatedWork: detailedContent.luminance_gradient.relatedWork,
+  tabs: {
+    definition: {
+      title: detailedContent.luminance_gradient.tabs.definition.title,
+      description: detailedContent.luminance_gradient.tabs.definition.description,
+      icon: FaBookOpen,
+      content: detailedContent.luminance_gradient.tabs.definition.content,
+    },
+    example: {
+      title: detailedContent.luminance_gradient.tabs.example.title,
+      description: detailedContent.luminance_gradient.tabs.example.description,
+      icon: FaChartLine,
+      content: detailedContent.luminance_gradient.tabs.example.content,
+    },
+    details: {
+      title: detailedContent.luminance_gradient.tabs.details.title,
+      description: detailedContent.luminance_gradient.tabs.details.description,
+      icon: FaFilePdf,
+      content: detailedContent.luminance_gradient.tabs.details.content,
+    },
+    relatedWork: {
+      title: detailedContent.luminance_gradient.tabs.relatedWork.title,
+      description: detailedContent.luminance_gradient.tabs.relatedWork.description,
+      icon: FaLink,
+      content: detailedContent.luminance_gradient.tabs.relatedWork.content,
+    },
+  }
+},
+noise_modification: {
+  title: detailedContent.noise_modification.title,
+  overview: detailedContent.noise_modification.overview,
+  methodology: detailedContent.noise_modification.methodology,
+  relatedWork: detailedContent.noise_modification.relatedWork,
+  tabs: {
+    definition: {
+      title: detailedContent.noise_modification.tabs.definition.title,
+      description: detailedContent.noise_modification.tabs.definition.description,
+      icon: FaBookOpen,
+      content: detailedContent.noise_modification.tabs.definition.content,
+    },
+    example: {
+      title: detailedContent.noise_modification.tabs.example.title,
+      description: detailedContent.noise_modification.tabs.example.description,
+      icon: FaChartLine,
+      content: detailedContent.noise_modification.tabs.example.content,
+    },
+    details: {
+      title: detailedContent.noise_modification.tabs.details.title,
+      description: detailedContent.noise_modification.tabs.details.description,
+      icon: FaFilePdf,
+      content: detailedContent.noise_modification.tabs.details.content,
+    },
+    relatedWork: {
+      title: detailedContent.noise_modification.tabs.relatedWork.title,
+      description: detailedContent.noise_modification.tabs.relatedWork.description,
+      icon: FaLink,
+      content: detailedContent.noise_modification.tabs.relatedWork.content,
+    },
+  }
+}
 };
 
 export default function SubcategoryPage() {
@@ -172,15 +203,17 @@ export default function SubcategoryPage() {
     ? params.subcategory[0]
     : params.subcategory;
 
-  const formattedSubcategory = subcategory
-    ? subcategory.replace(/_/g, ' ')
-    : 'Unknown Subcategory';
+  const normalizedSubcategory = subcategory
+    ? subcategory.toLowerCase().replace(/\s+/g, '_')
+    : 'unknown';
 
-  const content = subcategoryContents[subcategory as string] || {
+  const content = subcategoryContents[normalizedSubcategory] || {
     overview: 'No specific content available for this subcategory.',
     methodology: 'Methodology details are pending.',
     relatedWork: 'Related work information is not yet available.',
   };
+
+  const formattedSubcategory = content.title || normalizedSubcategory.replace(/_/g, ' ');
 
   return (
     <div className="max-w-full mx-auto p-6 h-full bg-gray-50">
@@ -233,38 +266,34 @@ export default function SubcategoryPage() {
                 <h3 className="text-xl font-bold text-[#03564a] mb-4">
                   {content.tabs[activeTab]?.title}
                 </h3>
-                <div
-                  className="text-gray-700 prose max-w-none"
-                  dangerouslySetInnerHTML={{
-                    __html: content.tabs[activeTab]?.content
-                      ? content.tabs[activeTab]?.content
-                          .split('\n')
-                          .map((line) => `<p>${line.trim()}</p>`)
-                          .join('')
-                      : '',
-                  }}
-                />
+                 <div
+    className="text-gray-700 prose max-w-none"
+    dangerouslySetInnerHTML={{
+      __html: content.tabs[activeTab]?.content
+        ? content.tabs[activeTab].content
+            .split('\n')
+            .map((line) => {
+              const trimmedLine = line.trim();
+                // Replace **...** with <strong>...</strong>
+                const processedLine = trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                if (/^\d+\.\s+/.test(trimmedLine)) {
+                  // Numbered bullet points with border and bold
+                  return `<div class="border border-gray-300 p-2 mb-2 rounded-xl my-5"><strong>${processedLine}</strong></div>`;
+                } else if (/^-\s+/.test(trimmedLine)) {
+                  return `<p class="ml-6">${processedLine}</p>`;
+                }
+                return `<div>${processedLine}</div>`;
+            })
+            .join('')
+        : '',
+    }}
+  />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       )}
-      <hr className="border-t-2 border-[#03564a] my-8" />
-      <section>
-        <h2 className="text-2xl font-bold text-[#03564a] mb-4">
-          Paper - Related Work
-        </h2>
-        <p className="text-gray-700">{content.relatedWork}</p>
-        <div className="mt-6 flex space-x-4">
-          <a
-            href="#"
-            className="flex items-center space-x-2 bg-[#03564a] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
-          >
-            <FaFilePdf />
-            <span>Download Research Paper</span>
-          </a>
-        </div>
-      </section>
+      
     </div>
   );
 }

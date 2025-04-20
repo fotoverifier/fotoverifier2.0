@@ -8,27 +8,28 @@ import { MdAnalytics, MdOutlineFindInPage } from 'react-icons/md';
 import { FaCamera } from 'react-icons/fa';
 import { BiAtom } from 'react-icons/bi';
 import { Montserrat, Open_Sans, Source_Code_Pro } from 'next/font/google';
+import Link from 'next/link';
 const montserrat = Montserrat({ subsets: ['latin'] });
 const opensand = Open_Sans({ subsets: ['latin'] });
 const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] });
 const categories = [
   {
     name: 'Meta-data Analysis',
-    slug: 'meta-data_analysis',
+    slug: 'meta_data_analysis',
     icon: <MdAnalytics size={20} />,
-    subcategories: ['JPEG Ghost', 'EXIF Data'],
+    subcategories: ['EXIF Data'],
   },
   {
     name: 'Computational Photography',
     slug: 'computational_photography',
     icon: <FaCamera size={20} />,
-    subcategories: ['Lesson 3', 'Lesson 4'],
+    subcategories: ['Noise Modification', 'Luminance Gradient'],
   },
   {
     name: 'Tampering Detection',
     slug: 'tampering_detection',
     icon: <MdOutlineFindInPage size={20} />,
-    subcategories: [],
+    subcategories: ['JPEG Ghost', 'ELA'],
   },
   {
     name: 'Optical/Physical',
@@ -129,25 +130,24 @@ export default function LibraryLayout({
                   )}
                 </div>
 
-                {isSidebarOpen &&
-                  expandedCategory === category.slug &&
-                  category.subcategories.length > 0 && (
-                    <div className="ml-6 mt-2 space-y-2">
-                      {category.subcategories.map((subcategory) => (
-                        <div
-                          key={subcategory}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            console.log(
-                              `Maps to /library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`
-                            );
-                          }}
-                          className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100"
-                        >
-                          {subcategory}
-                        </div>
-                      ))}
-                    </div>
+                 {isSidebarOpen &&
+        expandedCategory === category.slug &&
+        category.subcategories.length > 0 && (
+          <div className="ml-6 mt-2 space-y-2">
+            {category.subcategories.map((subcategory) => {
+              const targetUrl = `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`;
+              return (
+                <Link
+                  key={subcategory}
+                  href={targetUrl}
+                  className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 block"
+                  onClick={(e) => e.stopPropagation()} 
+                >
+                  {subcategory}
+                </Link>
+              );
+            })}
+          </div>
                   )}
               </div>
             ))}

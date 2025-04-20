@@ -4,8 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 const categories = [
   {
     name: 'Meta-data Analysis',
-    slug: 'meta-data_analysis',
-    subcategories: ['JPEG Ghost', 'EXIF Data'],
+    slug: 'meta_data_analysis',
+    subcategories: ['EXIF Data'],
   },
   {
     name: 'Computational  Photography',
@@ -15,7 +15,7 @@ const categories = [
   {
     name: 'Tampering Detection',
     slug: 'tampering_detection',
-    subcategories: [],
+    subcategories: ['JPEG Ghost, ELA'],
   },
   {
     name: 'Optical/Physical',
@@ -40,20 +40,27 @@ export default function CategoryPage() {
 
       {category.subcategories.length > 0 && (
         <ul className="mt-4">
-          {category.subcategories.map((subcategory) => (
-            <li key={subcategory}>
-              <div
-                className="text-blue-600 hover:underline"
-                onClick={() =>
-                  router.push(
-                    `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`
-                  )
-                }
-              >
-                {subcategory}
-              </div>
-            </li>
-          ))}
+          {category.subcategories.map((subcategory) => {
+            const targetUrl = `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`;
+            console.log(`Navigating to: ${targetUrl}`);
+            return (
+              <li key={subcategory}>
+                <div
+                  className="text-blue-600 hover:underline"
+                  onClick={() => {
+                    try {
+                      router.push(targetUrl);
+                      console.log('Navigation attempted successfully');
+                    } catch (error) {
+                      console.error('Navigation failed:', error);
+                    }
+                  }}
+                >
+                  {subcategory}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
