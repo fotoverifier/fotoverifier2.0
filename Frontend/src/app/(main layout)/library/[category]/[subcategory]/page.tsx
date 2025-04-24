@@ -28,6 +28,9 @@ interface SubcategoryContent {
     details?: SectionContent;
     relatedWork?: SectionContent;
   };
+  example_img?: {
+    example_1: string;
+  }
 }
 
 const subcategoryContents: { [key: string]: SubcategoryContent } = {
@@ -61,7 +64,8 @@ const subcategoryContents: { [key: string]: SubcategoryContent } = {
         icon: FaLink,
         content: detailedContent.exif_data.tabs.relatedWork.content,
       },
-    }
+    },
+
   },
     jpeg_ghost: {
     title: detailedContent.jpeg_ghost.title,
@@ -274,10 +278,8 @@ export default function SubcategoryPage() {
             .split('\n')
             .map((line) => {
               const trimmedLine = line.trim();
-                // Replace **...** with <strong>...</strong>
                 const processedLine = trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 if (/^\d+\.\s+/.test(trimmedLine)) {
-                  // Numbered bullet points with border and bold
                   return `<div class="border border-gray-300 p-2 mb-2 rounded-xl my-5"><strong>${processedLine}</strong></div>`;
                 } else if (/^-\s+/.test(trimmedLine)) {
                   return `<p class="ml-6">${processedLine}</p>`;

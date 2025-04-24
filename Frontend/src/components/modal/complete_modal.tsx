@@ -11,7 +11,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({
 }) => {
   return (
     <div className={styles.modal}>
-      <div className="w-fit h-fit bg-white p-5 rounded-md flex flex-col items-center z-50">
+      <div className="w-fit h-fit bg-white p-5 rounded-md flex flex-col items-center">
         <div className="text-black">{message}</div>
         <div className={styles.resultButton}>Go to result page</div>
       </div>
