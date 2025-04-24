@@ -32,7 +32,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
       <div className={styles.title_container}>
         <div className="flex justify-between">
           <div className="flex items-center mb-3">
-            <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+            <div className="flex items-center justify-center bg-slate-200 text-teal-800 rounded-full w-10 h-10 shadow-sm">
               <SiJpeg size={18} />
             </div>
             <h3 className="font-bold text-lg ml-3 text-teal-800">JPEG Ghost</h3>
@@ -59,12 +59,12 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
           </div>
 
           {!loading && images && images.length > 0 && (
-            <button
+            <div
               onClick={() => setIsModalOpen(true)}
               className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white border-white shadow-md ml-3"
             >
               <FaInfoCircle size={20} />
-            </button>
+            </div>
           )}
         </div>
       </div>

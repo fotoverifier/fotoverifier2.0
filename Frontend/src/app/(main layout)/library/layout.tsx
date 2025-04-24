@@ -68,7 +68,7 @@ export default function LibraryLayout({
               <IoLibrary size={24} />
             </div>
             {isSidebarOpen && (
-              <h1 className="text-xl font-bold text-green-800 overflow-hidden text-ellipsis whitespace-nowrap">
+              <h1 className="text-lg font-bold text-green-800 overflow-hidden text-ellipsis whitespace-nowrap">
                 Forensic Techniques
               </h1>
             )}
@@ -104,15 +104,15 @@ export default function LibraryLayout({
                       category.subcategories.length > 0
                     )
                   }
-                  className={`px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center ${
+                  className={`px-4 py-1 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center ${
                     isSidebarOpen ? 'justify-between' : 'justify-center'
                   }`}
                 >
                   <span className="flex items-center min-w-0">
-                    <span className="mr-2 flex-shrink-0">{category.icon}</span>
+                    <span className="mr-2 flex-shrink-0 border-2 rounded-full p-1">{category.icon}</span>
                     {isSidebarOpen && (
                       <span
-                        className={`ml-2 overflow-hidden text-ellipsis whitespace-nowrap ${opensand.className}`}
+                        className={`ml-2 overflow-hidden text-base text-ellipsis whitespace-nowrap ${montserrat.className}`}
                       >
                         {category.name}
                       </span>

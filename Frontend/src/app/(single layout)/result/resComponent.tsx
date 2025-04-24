@@ -25,6 +25,7 @@ import HeaderReport from '@/components/head/head_result';
 import { TabProvider } from '@/context/tabContext';
 import FakeShieldApp from './technique/fakeshieldapi';
 import LocationSection from './technique/locationSection';
+import MetaDataPage from './technique/metadata';
 
 const Res = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -151,7 +152,7 @@ const Res = () => {
           description:
             'Related to information of the camera or who takes the picture',
           content: (
-            <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-gradient-to-br from-teal-50 to-yellow-50 p-6 rounded-xl shadow-lg border">
+            <div className="w-full h-full flex flex-col md:flex-row gap-6  bg-yellow-50 p-6 rounded-xl">
               <div
                 className="w-full md:w-1/3 h-full flex flex-col gap-4"
                 id="CameraArea"
@@ -179,22 +180,28 @@ const Res = () => {
                     />
                   </div>
 
-                  <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+                  
+                  <div className="mt-4 grid grid-cols-2 gap-2  text-sm">
                     <div className="text-gray-500">Make:</div>
-                    <div className="font-medium text-teal-800">
+                    <div className="font-bold text-teal-800">
                       {exifResult?.camera_information?.make || 'Unknown'}
                     </div>
 
                     <div className="text-gray-500">Model:</div>
-                    <div className="font-medium text-teal-800">
+                    <div className="font-bold text-teal-800">
                       {exifResult?.camera_information?.model || 'Unknown'}
+                    </div>
+
+                    <div className="text-gray-500">Software modify:</div>
+                    <div className="font-bold text-teal-800">
+                      {(exifResult?.software_modify?.replace(/^Image edited with:\s*/i, '') || 'Unknown')}
                     </div>
                   </div>
                 </div>
               </div>
 
               <div
-                className="w-full md:w-1/3 flex flex-col gap-4"
+                className="w-full md:w-1/3 h-full flex flex-col gap-4"
                 id="AuthorArea"
               >
                 <div className="bg-white rounded-xl shadow-sm p-4 flex-grow">
@@ -296,8 +303,23 @@ const Res = () => {
                   {selectedTab.title}
                 </div>
               </div>
-              <div className={styles.description}>
+              <div className={`${styles.description} flex items-center`}>
                 {selectedTab.description}
+              {(() => {
+                switch (selectedTab.title) {
+                  case "Originality":
+                    return <div className='ml-auto'> <MetaDataPage cameraInformation ={exifResult?.camera_information} software_modify={exifResult?.software_modify}
+                    modify_date={exifResult?.modify_date}
+                    original_date={exifResult?.original_date}
+                    author_copyright={exifResult?.author_copyright}
+                    gps_location={exifResult?.gps_location}
+                    loading ={false}
+                    ></MetaDataPage></div>;
+                  default:
+                    return null;
+                }
+              })()}
+
               </div>
             </div>
             <div className={styles.content}>{selectedTab.content}</div>

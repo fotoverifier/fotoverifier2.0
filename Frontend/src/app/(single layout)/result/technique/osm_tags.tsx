@@ -19,7 +19,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
         <h3 className="font-bold text-lg ml-3 text-teal-800">Image Tagging</h3>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40">
+      <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40 scrollbar-hide">
         {tags.map((tag, index) => (
           <div
             key={index}

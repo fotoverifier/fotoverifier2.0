@@ -58,6 +58,7 @@
   position: relative;
   transition-property: color, background-color;
   transition-duration: 300ms;
+  z-index: 40;
 }
 
 .navLinkActive {

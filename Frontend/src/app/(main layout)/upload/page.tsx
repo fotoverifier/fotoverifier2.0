@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLanguage } from '@/context/LanguageContext';
 import LoadingModal from '@/components/modal/loading_modal';
+import ImageRepository from '@/components/button/image_repo_button/image_repo_button';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -177,6 +178,23 @@ const Upload = () => {
       }
     }
   };
+    const handleImageSelect = async (image: any) => {
+        try {
+        const response = await fetch(image.src);
+        console.log("Response:", response);
+
+        if (!response.ok) throw new Error("Image not found");
+
+        const blob = await response.blob();
+        const file = new File([blob], image.alt, { type: blob.type });
+
+        setImageSrc(URL.createObjectURL(file));
+        setImageFile(file);
+      } catch (err) {
+        console.error("Error converting image to file:", err);
+      }
+    };
+
 
   return (
     <div className={styles.main_up_container}>
@@ -187,6 +205,8 @@ const Upload = () => {
               <div className={`${styles.circle} mr-4`}>1.</div>
               {t('upload_photo_input')}
             </div>
+
+             <ImageRepository onImageSelect={handleImageSelect} />
           </div>
           <div className={styles.input_link}>
             <input

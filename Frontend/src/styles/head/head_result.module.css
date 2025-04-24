@@ -84,12 +84,11 @@
 
 .dropdown_button {
   border-width: 2px;
-  border-color: #d1faf1;
   padding: 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: 90px;
   cursor: pointer;
   background-color: white;
-  color: #036672;
+  color: black;
   transition-property: all;
   transition-duration: 300ms;
   display: flex;

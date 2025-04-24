@@ -103,7 +103,6 @@ export default function Sidebar_Alt() {
       </ul>
 
       <div className={styles.footerContainer}>
-        {/* Theme Toggle Button */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           className={styles.themeToggle}

@@ -28,19 +28,9 @@ const ModelToggleComponent = () => {
     },
   };
 
-  const [activeModel, setActiveModel] = useState('forgeryGPT');
+  const [activeModel, setActiveModel] = useState('fakeShield');
 
   const modelData = [
-    {
-      id: 'forgeryGPT',
-      name: 'Forgery GPT',
-      icon: FiAlertTriangle,
-      color: 'red',
-      insight:
-        'Forgery GPT excels at detecting sophisticated AI manipulations by analyzing pixel-level patterns and inconsistencies.',
-      suggestion: 'Comment of ForgeryGPT',
-      image: 'Forgery GPT Analysis Preview',
-    },
     {
       id: 'fakeShield',
       name: 'FakeShield',
@@ -56,7 +46,7 @@ const ModelToggleComponent = () => {
   const currentModel = modelData.find((model) => model.id === activeModel);
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-teal-50 to-yellow-50 p-4 rounded-xl shadow-lg border">
+    <div className="w-full h-full bg-gradient-to-br from-teal-50 to-yellow-50 p-4 rounded-xl border">
       <div className="flex space-x-2 mb-4 h-[10%]">
         {modelData.map((model) => (
           <div

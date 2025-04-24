@@ -164,48 +164,6 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
         </div>
 
         <div className={styles.divider}></div>
-
-        <div className={styles.dropdown_container}>
-          <div
-            onClick={() => setIsOpen(!isOpen)}
-            className={styles.dropdown_button}
-          >
-            <span className={styles.dropdown_text}>{selectedMethod}</span>
-            <div className={styles.dropdown_icon_container}>
-              {isOpen ? (
-                <FaSortUp size={18} className={styles.dropdown_up_icon} />
-              ) : (
-                <FaSortDown size={18} className={styles.dropdown_down_icon} />
-              )}
-            </div>
-          </div>
-
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2, ease: 'easeInOut' }}
-                className={styles.dropdown_menu}
-              >
-                {methods.map((method) => (
-                  <button
-                    key={method.name}
-                    className={styles.dropdown_menu_item}
-                    onClick={() => {
-                      setSelectedMethod(method.name);
-                      setIsOpen(false);
-                    }}
-                  >
-                    {method.icon}
-                    {method.name}
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
       </div>
 
       <div className={styles.action_buttons_container}>

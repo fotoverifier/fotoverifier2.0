@@ -62,149 +62,94 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
 
   return (
     <div className={`w-full h-full p-5`}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between" onClick={openModal}>
         <div className="flex items-center">
           <div className="circle_2">
             <BsFillInfoCircleFill />
           </div>
           <div className="font-bold text-lg ml-2">Metadata</div>
         </div>
-        <div onClick={openModal} className="focus:outline-none ml-auto">
-          <InfoButton></InfoButton>
-        </div>
+       
       </div>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-11/12 max-w-lg p-6">
-            <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
-            {loading ? (
-              <div className="p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-md flex flex-col items-center gap-4">
-                <Spin
-                  indicator={
-                    <LoadingOutlined
-                      style={{ fontSize: 48, color: '#00000' }}
-                      spin
-                    />
-                  }
-                />
-                <p className="text-gray-700 text-lg font-medium">
-                  Loading... Please wait
-                </p>
+  <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div className="bg-white rounded-xl w-11/12 max-w-2xl p-8 shadow-xl">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Metadata Information</h2>
+
+      {loading ? (
+        <div className="flex flex-col items-center gap-4 p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-inner">
+          <Spin
+            indicator={
+              <LoadingOutlined style={{ fontSize: 48, color: '#000000' }} spin />
+            }
+          />
+          <p className="text-gray-700 text-lg font-semibold">Loading... Please wait</p>
+        </div>
+      ) : (
+        <>
+          {/* Camera Info */}
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">1</div>
+              <h3 className="font-bold text-lg text-gray-700">Camera Information</h3>
+            </div>
+            <div className="text-sm text-gray-700 space-y-1 pl-9">
+              <p><strong>Make:</strong> {cameraInformation?.make || 'N/A'}</p>
+              <p><strong>Model:</strong> {cameraInformation?.model || 'N/A'}</p>
+              <p><strong>Exposure:</strong> {cameraInformation?.exposure || 'N/A'}</p>
+              <p><strong>Aperture:</strong> {cameraInformation?.aperture || 'N/A'}</p>
+              <p><strong>Focal Length:</strong> {cameraInformation?.focal_length || 'N/A'}</p>
+              <p><strong>ISO Speed:</strong> {cameraInformation?.iso_speed || 'N/A'}</p>
+              <p><strong>Flash:</strong> {cameraInformation?.flash || 'N/A'}</p>
+            </div>
+          </div>
+
+          {/* Software Info */}
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">2</div>
+              <h3 className="font-bold text-lg text-gray-700">Software Information</h3>
+            </div>
+            <div className="text-sm text-gray-700 space-y-1 pl-9">
+              <p><strong>Software Modified:</strong> {software_modify || 'N/A'}</p>
+              <p><strong>Modification Date:</strong> {modify_date || 'N/A'}</p>
+              <p><strong>Original Date:</strong> {original_date?.original_date || 'N/A'}</p>
+              <p><strong>Create Date:</strong> {original_date?.create_date || 'N/A'}</p>
+              <p><strong>Author:</strong> {author_copyright?.author || 'N/A'}</p>
+              <p><strong>Copyright Tag:</strong> {author_copyright?.copyright_tag || 'N/A'}</p>
+              <p><strong>Profile Copyright:</strong> {author_copyright?.profile_copyright || 'N/A'}</p>
+            </div>
+          </div>
+
+          {/* Geo Tag */}
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">3</div>
+              <h3 className="font-bold text-lg text-gray-700">Geo Tag</h3>
+            </div>
+            {gps_location ? (
+              <div className="text-sm text-gray-700 space-y-1 pl-9">
+                <p><strong>Latitude:</strong> {gps_location.latitude}</p>
+                <p><strong>Longitude:</strong> {gps_location.longitude}</p>
               </div>
             ) : (
-              <>
-                <div className="mb-4">
-                  <div className="flex">
-                    <div className="circle_2">1.</div>
-                    <h3 className="font-bold text-lg">Camera Information</h3>
-                  </div>
-                  {cameraInformation ? (
-                    <>
-                      <p>
-                        <strong>Make:</strong>{' '}
-                        {cameraInformation?.make || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Model:</strong>{' '}
-                        {cameraInformation?.model || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Exposure:</strong>{' '}
-                        {cameraInformation?.exposure || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Aperture:</strong>{' '}
-                        {cameraInformation?.aperture || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Focal Length:</strong>{' '}
-                        {cameraInformation?.focal_length || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>ISO Speed:</strong>{' '}
-                        {cameraInformation?.iso_speed || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Flash:</strong>{' '}
-                        {cameraInformation?.flash || 'N/A'}
-                      </p>
-                    </>
-                  ) : (
-                    <p>No camera information available.</p>
-                  )}
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex">
-                    <div className="circle_2">2.</div>
-                    <h3 className="font-bold text-lg">Software Information</h3>
-                  </div>
-                  {software_modify ? (
-                    <>
-                      <p>
-                        <strong>Software Modified:</strong>{' '}
-                        {software_modify || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Modification Date:</strong>{' '}
-                        {modify_date || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Original Date:</strong>{' '}
-                        {original_date?.original_date || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Create Date:</strong>{' '}
-                        {original_date?.create_date || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Author:</strong>{' '}
-                        {author_copyright?.author || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Copyright Tag:</strong>{' '}
-                        {author_copyright?.copyright_tag || 'N/A'}
-                      </p>
-                      <p>
-                        <strong>Profile Copyright:</strong>{' '}
-                        {author_copyright?.profile_copyright || 'N/A'}
-                      </p>
-                    </>
-                  ) : (
-                    <p>No software information available.</p>
-                  )}
-                </div>
-
-                {/* Geo Tag Section */}
-                <div className="mb-4">
-                  <div className="flex">
-                    <div className="circle_2">3.</div>
-                    <h3 className="font-bold text-lg">Geo Tag</h3>
-                  </div>
-                  {gps_location ? (
-                    <div className="gps-location-container">
-                      <p>
-                        <strong>Latitude:</strong> {gps_location.latitude}
-                      </p>
-                      <p>
-                        <strong>Longitude:</strong> {gps_location.longitude}
-                      </p>
-                    </div>
-                  ) : (
-                    <p>No GPS location available.</p>
-                  )}
-                </div>
-              </>
+              <p className="pl-9 text-sm text-gray-500">No GPS location available.</p>
             )}
-            <button
-              onClick={closeModal}
-              className="mt-4 bg-blue-500 text-white p-2 rounded"
-            >
-              Close
-            </button>
           </div>
-        </div>
+        </>
       )}
+
+      <div className="flex justify-end">
+        <button
+          onClick={closeModal}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

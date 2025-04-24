@@ -17,7 +17,7 @@ const DashBoard_Banner = () => {
   return (
     <div className={`${styles.banner_container} flex-col ${poppins.className}`}>
       <nav className={styles.nav}>
-        <button
+        <div
           className={styles.nav_link}
           onClick={(e) => {
             e.preventDefault();
@@ -25,7 +25,7 @@ const DashBoard_Banner = () => {
           }}
         >
           {t('feedback')}
-        </button>
+        </div>
 
         {openModal && (
           <FeedBackModal closeModal={() => setIsModalOpen(false)} />
