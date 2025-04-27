@@ -1,12 +1,10 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from concurrent.futures import ProcessPoolExecutor
 from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.reverse_search import google_lens_search
 import io
 import asyncio
 import json
@@ -79,14 +77,14 @@ async def get_jpeg_ghost(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/reverse-image-search")
-async def get_reverse_search(file: UploadFile = File(...), query: str = Form(...)):
-    try:
-        image_bytes = await file.read()
-        results = google_lens_search(image_bytes)
-        return {"results": str(results)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/reverse-image-search")
+# async def get_reverse_search(file: UploadFile = File(...), query: str = Form(...)):
+#     try:
+#         image_bytes = await file.read()
+#         results = reverse_image_search(image_bytes)
+#         return {"results": str(results)}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/quick-scan")
