@@ -1,3 +1,4 @@
+import { useLanguage } from "@/context/LanguageContext";
 import React, { useState } from "react";
 import { FaImage } from "react-icons/fa";
 type ImageType = {
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
+  const {t} = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
 
@@ -45,7 +47,7 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
             <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4V5h12v10z" clipRule="evenodd" />
             <path d="M8 7a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
           </svg>
-          Sample Image Repo
+          {t('Sample_Image_Repo')}
         </button>
       </div>
       
@@ -56,7 +58,7 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
               <h3 className="text-xl font-semibold text-gray-800 border-2 p-2 rounded-xl gap-4 flex items-center font-bold">
                 <FaImage />
 
-                Select an Image
+                {t('Select_image')}
                 </h3>
               <button 
                 onClick={closeModal}

@@ -20,7 +20,6 @@ const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
   { name: 'Upload', slug: '/upload', icon: <FaUpload size={20} /> },
   { name: 'Library', slug: '/library', icon: <IoLibrary size={20} /> },
-  { name: 'Policy', slug: '/privacy', icon: <MdPolicy size={20} /> },
   { name: 'GitHub', slug: 'https://github.com', icon: <FaGithub size={20} /> },
 ];
 
@@ -38,8 +37,7 @@ export default function Sidebar_Alt() {
     { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
     { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
     { name: t('Library'), slug: '/library', icon: <IoLibrary size={20} /> },
-    { name: t('Policy'), slug: '/privacy', icon: <MdPolicy size={20} /> },
-    {
+      {
       name: 'GitHub',
       slug: 'https://github.com',
       icon: <FaGithub size={20} />,

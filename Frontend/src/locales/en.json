@@ -76,5 +76,7 @@
   "Tampering Detection": "Tampering Detection",
   "Originality": "Originality",
   "Location": "Location",
-  "Forensic": "Forensic"
+  "Forensic": "Forensic",
+  "Sample_Image_Repo": "Sample Image Repo",
+  "Select_image": "Select image"
 }

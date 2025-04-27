@@ -29,7 +29,7 @@ interface HeaderReportProps {
   jpegResult?: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
-  loadingJpegGhost?: boolean;
+  loadingJpegGhost: boolean;
   loadingEla: boolean;
   loadingTagResult: boolean;
 }

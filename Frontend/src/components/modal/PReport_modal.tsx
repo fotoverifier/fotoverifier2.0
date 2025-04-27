@@ -4,6 +4,7 @@ import JpegGhostResult from '@/app/(single layout)/result/technique/jpegGhost';
 import ElaResult from '@/app/(single layout)/result/technique/ela';
 import ImgTagging_Result from '@/app/(single layout)/result/technique/osm_tags';
 import { FiEdit } from 'react-icons/fi';
+import Image_Result from '@/app/(single layout)/result/technique/image';
 
 interface ModalPReportProps {
   isOpen: boolean;
@@ -11,7 +12,7 @@ interface ModalPReportProps {
   jpegResult?: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
-  loadingJpegGhost?: boolean;
+  loadingJpegGhost: boolean;
   loadingEla: boolean;
   loadingTagResult: boolean;
 }
@@ -49,7 +50,7 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
     <>
       {isOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen text-black">
-          <div className="bg-white rounded-lg w-[80%] h-[90%] p-6 flex flex-col">
+          <div className="bg-white rounded-lg w-[95%] h-[90%] p-6 flex flex-col">
             {}
             <div className="flex items-center text-base mb-4">
               <div className="text-large font-bold border-2 border-green-800 rounded-lg px-4 py-2 text-black self-center">
@@ -87,10 +88,23 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               ref={contentRef}
             >
               {}
-              <div className="flex-1 p-4 border-r border-gray-200 text-base"></div>
+              <div className="flex-1 border-r border-gray-200 text-base">
+                             <JpegGhostResult
+                images={jpegResult ?? null}
+                loading={loadingJpegGhost}
+              />
+              </div>
+
+               <div className="flex-1 border-r border-gray-200 text-base">
+                             <JpegGhostResult
+                images={jpegResult ?? null}
+                loading={loadingJpegGhost}
+              />
+              </div>
+
 
               {}
-              <div className="flex-1 p-4 border-r border-gray-200 text-base">
+              <div className="flex-1 border-r border-gray-200 text-base">
                 <ElaResult
                   img={`data:image/jpeg;base64,${elaResult}`}
                   loading={loadingEla}
@@ -98,7 +112,7 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
               </div>
 
               {}
-              <div className="flex-1 p-2 ">
+              <div className="flex-1 p-5 ">
                 <div className="flex items-center justify-center h-full">
                   <div className="flex flex-col gap-2 h-full w-full text-base">
                     {}

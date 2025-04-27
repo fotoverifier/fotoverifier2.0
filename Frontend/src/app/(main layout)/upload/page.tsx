@@ -76,10 +76,12 @@ const Upload = () => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
     if (!imageFile) {
       alert('Please select an image before submitting.');
       return;
+    }
+    if (imageFile){
+          setLoading(true);
     }
 
     if (selectedMethod === 'normal') {
@@ -141,7 +143,10 @@ const Upload = () => {
         setLoading(false);
       }
     } else if (selectedMethod === 'specialized') {
-      router.push(
+        alert('This method is currently in development.');
+        setLoading(false);
+
+      /*router.push(
         `/specialized/information?image=${encodeURIComponent(imageSrc)}`
       );
       try {
@@ -175,7 +180,7 @@ const Upload = () => {
         console.log('Upload complete');
         setUploadComplete(true);
         setLoading(false);
-      }
+      }*/
     }
   };
     const handleImageSelect = async (image: any) => {

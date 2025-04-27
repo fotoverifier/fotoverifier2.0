@@ -60,5 +60,7 @@
   "Tampering Detection": "改ざん検出",
   "Originality": "独自性",
   "Location": "位置情報",
-  "Forensic": "法科学的検証"
+  "Forensic": "法科学的検証",
+  "Sample_Image_Repo": "サンプル画像リポジトリ",
+  "Select_image": "画像を選択"
 }

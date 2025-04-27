@@ -338,6 +338,7 @@ const Res = () => {
           elaResult={elaResult}
           tagResult={tagResult}
           loadingEla={loadingEla}
+          loadingJpegGhost={loadingJpegGhost}
           loadingTagResult={loadingTagResult}
         />
         <div className={` ${styles.res_body_container} ${inter.className}`}>

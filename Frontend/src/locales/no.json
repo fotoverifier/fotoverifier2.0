@@ -75,5 +75,7 @@
   "Tampering Detection": "Manipulasjonsoppdagelse",
   "Originality": "Originalitet",
   "Location": "Plassering",
-  "Forensic": "Rettsmedisinsk"
+  "Forensic": "Rettsmedisinsk",
+  "Sample_Image_Repo": "Eksempelbildearkiv",
+  "Select_image": "Velg bilde"
 }
