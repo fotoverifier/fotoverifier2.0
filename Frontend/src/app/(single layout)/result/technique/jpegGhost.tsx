@@ -5,6 +5,7 @@ import styles from '@/app/(single layout)/result/technique/categories.module.css
 import placeholder from '@/assets/placeholder.png';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';
+import { useLanguage } from '@/context/LanguageContext';
 interface ImageResultProps {
   images: string[] | null;
   loading: boolean;
@@ -12,7 +13,7 @@ interface ImageResultProps {
 
 const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const {t} = useLanguage();
   const [isRunning, setIsRunning] = useState(false);
   const qualities = [
     { title: 'Quality 30', img: images?.[0] ?? placeholder },
@@ -98,8 +99,8 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                 JPEG Ghost
               </div>
               <div className="ml-2">
-                <span className="text-red-500">* </span>The tampered region is
-                highlighted with dark color.
+                <span className="text-red-500">* </span>
+                {t('Tampered_Region_Dark')}
               </div>
               <div
                 onClick={() => setIsModalOpen(false)}
@@ -127,7 +128,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                       </div>
                     ) : (
                       <div className="h-3/4 flex justify-center items-center">
-                        No image available
+                        {t('No_Image_Available')}
                       </div>
                     )}
                   </div>
@@ -141,7 +142,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
       <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
         <MdWarning className="text-red-600" size={20} />
         <p className="text-red-700 text-sm font-medium">
-          The tampered region is highlighted with a dark color.
+          {t('Tampered_Region_Dark')}
         </p>
       </div>
     </div>

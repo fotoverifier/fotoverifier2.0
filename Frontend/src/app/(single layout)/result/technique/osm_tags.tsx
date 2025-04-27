@@ -1,3 +1,4 @@
+import { useLanguage } from '@/context/LanguageContext';
 import React from 'react';
 import { IoIosPricetag } from 'react-icons/io';
 interface TagResultProps {
@@ -7,6 +8,7 @@ interface TagResultProps {
 
 const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
   const tags = Tag ? Tag.split('|') : [];
+  const {t} = useLanguage();
   const sampleTag =
     'Nature|Animals|Landscape|Sunset|Water|Mountains|Sky|Beach|Forest';
   const sampleTagsplit = sampleTag ? sampleTag.split('|') : [];
@@ -16,7 +18,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
         <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
           <IoIosPricetag size={18} />
         </div>
-        <h3 className="font-bold text-lg ml-3 text-teal-800">Image Tagging</h3>
+        <h3 className="font-bold text-lg ml-3 text-teal-800"> {t('image_Tags.title')}</h3>
       </div>
 
       <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40 scrollbar-hide">

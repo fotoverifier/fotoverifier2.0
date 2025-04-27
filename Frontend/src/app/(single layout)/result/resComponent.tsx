@@ -26,6 +26,7 @@ import { TabProvider } from '@/context/tabContext';
 import FakeShieldApp from './technique/fakeshieldapi';
 import LocationSection from './technique/locationSection';
 import MetaDataPage from './technique/metadata';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Res = () => {
   const location: [number, number] = [51.505, -0.09];
@@ -51,7 +52,7 @@ const Res = () => {
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
-
+  const {t} = useLanguage();
   useEffect(() => {
     if (!img || !taskId) return;
 
@@ -148,9 +149,9 @@ const Res = () => {
       OtherTabs: [
         {
           key: 'Originality',
-          title: 'Originality',
+          title: t('Originality'),
           description:
-            'Related to information of the camera or who takes the picture',
+            t('Author_Information_Description'),
           content: (
             <div className="w-full h-full flex flex-col md:flex-row gap-6  bg-yellow-50 p-6 rounded-xl">
               <div
@@ -163,7 +164,7 @@ const Res = () => {
                       <FaCamera size={18} />
                     </div>
                     <h3 className="font-bold text-lg ml-3 text-teal-800">
-                      Camera Information
+                      {t('Camera_Information')}
                     </h3>
                   </div>
 
@@ -182,17 +183,17 @@ const Res = () => {
 
                   
                   <div className="mt-4 grid grid-cols-2 gap-2  text-sm">
-                    <div className="text-gray-500">Make:</div>
+                    <div className="text-gray-500">{t('Make')}:</div>
                     <div className="font-bold text-teal-800">
                       {exifResult?.camera_information?.make || 'Unknown'}
                     </div>
 
-                    <div className="text-gray-500">Model:</div>
+                    <div className="text-gray-500">{t('Model')}:</div>
                     <div className="font-bold text-teal-800">
                       {exifResult?.camera_information?.model || 'Unknown'}
                     </div>
 
-                    <div className="text-gray-500">Software modify:</div>
+                    <div className="text-gray-500">{t('Software_Modified')}:</div>
                     <div className="font-bold text-teal-800">
                       {(exifResult?.software_modify?.replace(/^Image edited with:\s*/i, '') || 'Unknown')}
                     </div>
@@ -210,7 +211,7 @@ const Res = () => {
                       <FaUser size={18} />
                     </div>
                     <h3 className="font-bold text-lg ml-3 text-teal-800">
-                      Author Information
+                      {t('Author_Information')}
                     </h3>
                   </div>
 
@@ -230,7 +231,7 @@ const Res = () => {
                   <div className="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
                     <div className="text-sm">
                       <span className="font-medium text-teal-800">
-                        Copyright:{' '}
+                        {t('Copyright_Tag')}:{' '}
                       </span>
                       <span className="text-gray-700">
                         {exifResult?.author_copyright?.profile_copyright ||
@@ -267,15 +268,15 @@ const Res = () => {
         },
         {
           key: 'Location',
-          title: 'Location',
-          description: 'Maps and GPS coordinates of the photos location.',
+          title: t('Location'),
+          description:t('GPS_Location_Description'),
           content: <LocationSection exifResult={exifResult}></LocationSection>,
         },
         {
           key: 'Forensic',
-          title: 'Forensic',
+          title: t('Forensic'),
           description:
-            'Apply state-of-the-art AI to assist the verification process.',
+            t('AI_Verification_Description'),
           content: (
             <div className="overflow-hidden h-full">
               <FakeShieldApp></FakeShieldApp>
@@ -296,11 +297,13 @@ const Res = () => {
           <div className={styles.container}>
             <div className={styles.header}>
               <div className={styles.circleWrapper}>
-                <div className={styles.circle}>
+                <div className='p-2 rounded-full border-2'>
                   <BiSolidCategory />
                 </div>
+                <div className='w-full flex justify-center'>
                 <div className={`${styles.title} ${inter.className}`}>
                   {selectedTab.title}
+                </div>
                 </div>
               </div>
               <div className={`${styles.description} flex items-center`}>

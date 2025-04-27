@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './feedback_modal.module.css';
-import { MdFeedback } from 'react-icons/md';
+import { MdFeedback, MdLink } from 'react-icons/md';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { MdOutlineDesignServices, MdOutlineVerifiedUser } from 'react-icons/md';
 import { BiUser } from 'react-icons/bi';
-import CircleRating from '@/components/Rating/rating_circle';
+import CircleRating from '@/components/rating/rating_circle';
 
 const predefinedFeedback = [
   'UI is sleek',
@@ -59,12 +59,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
           <div className={styles.modalHeader}>
             <MdFeedback size={30} />
             <div className={styles.title}>Feedback</div>
-            <div
-              className={styles.detailButton}
-              onClick={() => setIsExpanded(!isExpanded)}
-            >
-              {isExpanded ? 'Less Details' : 'More Details'}
-            </div>
+          
             <div className={styles.closeIcon} onClick={closeModal}>
               <IoIosCloseCircle size={30} />
             </div>
@@ -73,110 +68,34 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
           <div className={styles.dash}></div>
 
           <div className={styles.subHeader}>
-            <MdFeedback size={20} />
+            <MdOutlineDesignServices size={20} />
             How would you grade your experience?
           </div>
           <CircleRating onSelect={setRating} />
 
-          {isExpanded && (
-            <>
-              {/* UI Rating */}
-              <div className={styles.subHeader}>
-                <MdOutlineDesignServices size={20} />
-                Rate UI
-              </div>
-              <CircleRating onSelect={setUiRating} />
 
-              <div className={styles.subHeader}>
-                <BiUser size={20} />
-                Rate UX
-              </div>
-              <CircleRating onSelect={setUxRating} />
-
-              <div className={styles.subHeader}>
-                <MdOutlineVerifiedUser size={20} />
-                Verification Score
-              </div>
-              <CircleRating onSelect={setVerificationRating} />
-            </>
-          )}
-
-          <div id="tags_title" className={styles.subHeader}>
-            <MdFeedback size={20} />
-            Your Feedback
+            <div className={styles.subHeader}>
+            <MdLink size={20} />
+              Thank you for using our app, please fill this google form
           </div>
 
-          <div className={styles.feedbackTags}>
-            {predefinedFeedback.map((tag) => (
-              <div
-                key={tag}
-                className={`${styles.feedbackTag} ${
-                  selectedTags.includes(tag) ? styles.selected : ''
-                }`}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-              </div>
-            ))}
+          <div className="w-full p-4 bg-gray-100 border border-gray-200 rounded-lg mt-2 flex items-center justify-between">
+            <span className="text-gray-700 text-sm">
+              Click this link to get to Google Form
+            </span>
+            <a 
+              href="https://forms.gle/yourGoogleFormLink" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium"
+            >
+              Open Form
+            </a>
           </div>
-          <div className={styles.resultButton}>Send</div>
-        </div>
+          
 
-        {isExpanded && (
-          <div className={styles.modalRight}>
-            <div className={styles.modalHeader}>
-              <div className={styles.title}> Fotoverifier</div>
-
-              <div className={styles.closeIcon} onClick={closeModal}>
-                <IoIosCloseCircle size={30} />
-              </div>
-            </div>
-
-            <div className={styles.dash}></div>
-
-            <div className={styles.feedbackTags}>
-              {predefinedFeedback.map((tag) => (
-                <div
-                  key={tag}
-                  className={`${styles.feedbackTag} ${
-                    selectedTags.includes(tag) ? styles.selected : ''
-                  }`}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </div>
-              ))}
-            </div>
-            <textarea
-              className={styles.textInput}
-              placeholder="Write additional feedback here..."
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            />
-            <label htmlFor="imageUpload" className={styles.imageUpload}>
-              Click to Upload Images
-              <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                multiple
-                hidden
-                onChange={handleImageUpload}
-              />
-            </label>
-
-            {/* Display Uploaded Images */}
-            {uploadedImages.length > 0 && (
-              <div className={styles.uploadedImages}>
-                {uploadedImages.map((imgSrc, index) => (
-                  <img key={index} src={imgSrc} alt="Uploaded" />
-                ))}
-              </div>
-            )}
-            <div className={styles.resultButton}>Send</div>
           </div>
-        )}
-      </div>
+          </div>
     </>
   );
 };

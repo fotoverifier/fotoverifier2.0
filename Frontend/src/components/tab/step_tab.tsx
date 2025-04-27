@@ -30,7 +30,7 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
         {tabs.map((tab, index) => (
           <React.Fragment key={tab}>
             <div
-              className={`${styles.tab} ${activeTab === tab ? styles.active : ''}`}
+              className={`${styles.tab} ${t(activeTab) === tab ? styles.active : ''}`}
               onClick={() => setActiveTab(tab)}
             >
               {tab}

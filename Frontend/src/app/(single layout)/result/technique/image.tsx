@@ -1,11 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaImage } from 'react-icons/fa';
+import { useLanguage } from '@/context/LanguageContext';
 interface ImageResultProps {
   img: string | null;
 }
 
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
+  const {t} = useLanguage();
   return (
     <div className="w-full h-full p-5">
       <div className="flex items-center mb-3">
@@ -13,7 +15,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
           <FaImage size={18} />
         </div>
         <h3 className="font-bold text-lg ml-3 text-teal-800">
-          Image Information
+          {t('Image_Information')}
         </h3>
       </div>
       {img ? (
@@ -38,7 +40,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
           />
         </div>
       ) : (
-        <div>No image available</div> // Fallback message
+        <div>{t('No_Image_Available')}</div> // Fallback message
       )}
     </div>
   );

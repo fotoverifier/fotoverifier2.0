@@ -5,6 +5,7 @@ import { Inter, Montserrat } from 'next/font/google';
 import InfoButton from '@/components/button/info_button/info_button';
 import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useLanguage } from '@/context/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 const monstserrat = Montserrat({ subsets: ['latin'] });
@@ -57,7 +58,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
+  const {t} = useLanguage();
   console.log(gps_location);
 
   return (
@@ -74,7 +75,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
       {isModalOpen && (
   <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
     <div className="bg-white rounded-xl w-11/12 max-w-2xl p-8 shadow-xl">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Metadata Information</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">{t('Metadata_Information')}</h2>
 
       {loading ? (
         <div className="flex flex-col items-center gap-4 p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-inner">
@@ -83,7 +84,7 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
               <LoadingOutlined style={{ fontSize: 48, color: '#000000' }} spin />
             }
           />
-          <p className="text-gray-700 text-lg font-semibold">Loading... Please wait</p>
+          <p className="text-gray-700 text-lg font-semibold">{t('Loading_Please_Wait')}</p>
         </div>
       ) : (
         <>
@@ -91,16 +92,16 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">1</div>
-              <h3 className="font-bold text-lg text-gray-700">Camera Information</h3>
+              <h3 className="font-bold text-lg text-gray-700">{t('Camera_Information')}</h3>
             </div>
             <div className="text-sm text-gray-700 space-y-1 pl-9">
-              <p><strong>Make:</strong> {cameraInformation?.make || 'N/A'}</p>
-              <p><strong>Model:</strong> {cameraInformation?.model || 'N/A'}</p>
-              <p><strong>Exposure:</strong> {cameraInformation?.exposure || 'N/A'}</p>
-              <p><strong>Aperture:</strong> {cameraInformation?.aperture || 'N/A'}</p>
-              <p><strong>Focal Length:</strong> {cameraInformation?.focal_length || 'N/A'}</p>
-              <p><strong>ISO Speed:</strong> {cameraInformation?.iso_speed || 'N/A'}</p>
-              <p><strong>Flash:</strong> {cameraInformation?.flash || 'N/A'}</p>
+                <p><strong>{t('Make')}:</strong> {cameraInformation?.make || 'N/A'}</p>
+                <p><strong>{t('Model')}:</strong> {cameraInformation?.model || 'N/A'}</p>
+                <p><strong>{t('Exposure')}:</strong> {cameraInformation?.exposure || 'N/A'}</p>
+                <p><strong>{t('Aperture')}:</strong> {cameraInformation?.aperture || 'N/A'}</p>
+                <p><strong>{t('Focal_Length')}:</strong> {cameraInformation?.focal_length || 'N/A'}</p>
+                <p><strong>{t('ISO_Speed')}:</strong> {cameraInformation?.iso_speed || 'N/A'}</p>
+                <p><strong>{t('Flash')}:</strong> {cameraInformation?.flash || 'N/A'}</p>
             </div>
           </div>
 
@@ -108,16 +109,16 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">2</div>
-              <h3 className="font-bold text-lg text-gray-700">Software Information</h3>
+              <h3 className="font-bold text-lg text-gray-700">{t('Software_Information')}</h3>
             </div>
             <div className="text-sm text-gray-700 space-y-1 pl-9">
-              <p><strong>Software Modified:</strong> {software_modify || 'N/A'}</p>
-              <p><strong>Modification Date:</strong> {modify_date || 'N/A'}</p>
-              <p><strong>Original Date:</strong> {original_date?.original_date || 'N/A'}</p>
-              <p><strong>Create Date:</strong> {original_date?.create_date || 'N/A'}</p>
-              <p><strong>Author:</strong> {author_copyright?.author || 'N/A'}</p>
-              <p><strong>Copyright Tag:</strong> {author_copyright?.copyright_tag || 'N/A'}</p>
-              <p><strong>Profile Copyright:</strong> {author_copyright?.profile_copyright || 'N/A'}</p>
+            <p><strong>{t('Software_Modified')}:</strong> {software_modify || 'N/A'}</p>
+                <p><strong>{t('Modification_Date')}:</strong> {modify_date || 'N/A'}</p>
+                <p><strong>{t('Original_Date')}:</strong> {original_date?.original_date || 'N/A'}</p>
+                <p><strong>{t('Create_Date')}:</strong> {original_date?.create_date || 'N/A'}</p>
+                <p><strong>{t('Author')}:</strong> {author_copyright?.author || 'N/A'}</p>
+                <p><strong>{t('Copyright_Tag')}:</strong> {author_copyright?.copyright_tag || 'N/A'}</p>
+                <p><strong>{t('Profile_Copyright')}:</strong> {author_copyright?.profile_copyright || 'N/A'}</p>
             </div>
           </div>
 
@@ -125,15 +126,15 @@ const MetaDataPage: React.FC<MetaDataProps> = ({
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="circle_2 text-sm font-bold text-white bg-teal-600 w-6 h-6 rounded-full flex items-center justify-center">3</div>
-              <h3 className="font-bold text-lg text-gray-700">Geo Tag</h3>
+              <h3 className="font-bold text-lg text-gray-700">{t('Geo_Tag')}</h3>
             </div>
             {gps_location ? (
               <div className="text-sm text-gray-700 space-y-1 pl-9">
-                <p><strong>Latitude:</strong> {gps_location.latitude}</p>
-                <p><strong>Longitude:</strong> {gps_location.longitude}</p>
+                <p><strong>{t('Latitude')}</strong> {gps_location.latitude}</p>
+                <p><strong>{t('Longitude')}</strong> {gps_location.longitude}</p>
               </div>
             ) : (
-              <p className="pl-9 text-sm text-gray-500">No GPS location available.</p>
+              <p className="pl-9 text-sm text-gray-500">{t('No_GPS_Location_Available')}</p>
             )}
           </div>
         </>

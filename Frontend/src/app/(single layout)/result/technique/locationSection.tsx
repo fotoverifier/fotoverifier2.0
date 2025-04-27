@@ -2,14 +2,15 @@ import MapComponent from '@/components/map/map';
 import { useState } from 'react';
 import { FiMapPin, FiCompass, FiNavigation2, FiMap } from 'react-icons/fi';
 import { ExifData } from '@/interface/interface';
+import { useLanguage } from '@/context/LanguageContext';
 
 const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
   const [activeTab, setActiveTab] = useState('map');
-
-  const tabData = [
+  const {t} = useLanguage();
+    const tabData = [
     {
       id: 'map',
-      name: 'Map View',
+      name: t('location_Tagging.tab.mapView'),
       icon: FiMap,
       colorClasses: {
         active: 'bg-teal-800 text-white shadow-md',
@@ -18,7 +19,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
     },
     {
       id: 'analysis',
-      name: 'Analysis',
+      name: t('location_Tagging.tab.analysis'),
       icon: FiCompass,
       colorClasses: {
         active: 'bg-yellow-500 text-white shadow-md',
@@ -29,46 +30,46 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
 
   const analysisData = [
     {
-      title: 'EXIF Analysis',
+      title: t('location_Tagging.analysisData.exifAnalysis.title'),
       bgColor: 'bg-teal-50',
       borderColor: 'border-teal-500',
       titleColor: 'text-teal-800',
       content: exifResult?.gps_location
-        ? 'Location data found in image metadata'
-        : 'No EXIF location data available',
+        ? t('location_Tagging.analysisData.exifAnalysis.locationFound')
+        : t('location_Tagging.analysisData.exifAnalysis.noLocation'),
     },
     {
-      title: 'Visual Analysis',
+      title: t('location_Tagging.analysisData.visualAnalysis.title'),
       bgColor: 'bg-yellow-50',
       borderColor: 'border-yellow-500',
       titleColor: 'text-yellow-800',
-      content: `AI landmark detection suggests ${
+      content: `${t('location_Tagging.analysisData.visualAnalysis.title')} ${
         exifResult?.gps_location
-          ? 'image location consistent with metadata'
-          : 'potential match with multiple locations'
+          ? t('location_Tagging.analysisData.visualAnalysis.consistentLocation')
+          : t('location_Tagging.analysisData.visualAnalysis.multipleLocations')
       }`,
     },
     {
-      title: 'Cross-Reference',
+      title: t('location_Tagging.analysisData.crossReference.title'),
       bgColor: 'bg-gray-50',
       borderColor: 'border-gray-400',
       titleColor: 'text-gray-800',
-      content: 'Image features cross-referenced with geographical database',
+      content: t('location_Tagging.analysisData.crossReference.description'),
     },
   ];
 
   const detectionMethods = [
     {
-      title: 'EXIF Extraction',
-      description: 'Parsing embedded GPS coordinates and timestamps',
+      title: t('location_Tagging.detectionMethods.exifExtraction.title'),
+      description: t('location_Tagging.detectionMethods.exifExtraction.description'),
     },
     {
-      title: 'Visual Feature Analysis',
-      description: 'SIFT algorithms for landmark matching',
+      title: t('location_Tagging.detectionMethods.visualFeature.title'),
+      description: t('location_Tagging.detectionMethods.visualFeature.description'),
     },
     {
-      title: 'Neural Network Processing',
-      description: 'Training on millions of geotagged images',
+      title: t('location_Tagging.detectionMethods.neuralNetwork.title'),
+      description: t('location_Tagging.detectionMethods.neuralNetwork.description'),
     },
   ];
 
@@ -91,7 +92,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
                   {exifResult.gps_location.longitude}
                 </>
               ) : (
-                'No GPS data available'
+               t('No_GPS_Location_Available')
               )}
             </div>
           </div>
@@ -101,7 +102,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
       return (
         <div className="w-full h-[90%] md:w-2/3 bg-white rounded-lg shadow-md p-4 flex flex-col justify-evenly">
           <h3 className="font-semibold text-teal-800 mb-2">
-            Detection Results
+            {t('location_Tagging.detectionResults')}
           </h3>
           <div className="flex-1 overflow-auto">
             <div className="space-y-3">
@@ -148,7 +149,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
         <div className="w-full h-[90%] md:w-1/3 bg-white rounded-lg shadow-md p-4">
           <h3 className="font-semibold text-teal-800 mb-3 flex items-center">
             <FiNavigation2 className="mr-2 text-yellow-500" size={20} />
-            Detection Methods
+            {t('location_Tagging.detectionMethods')}
           </h3>
 
           <ul className="space-y-3 text-base">
@@ -169,12 +170,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
             ))}
           </ul>
 
-          <div className="mt-4 p-2 bg-gradient-to-r from-teal-50 to-yellow-50 rounded-lg text-xs text-teal-800 border border-yellow-200">
-            <span className="font-semibold block mb-1">Forensic Insight:</span>
-            Location inconsistencies can reveal digital forgeries and
-            AI-generated content. Our system verifies both metadata and visual
-            consistency.
-          </div>
+
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, usePathname } from 'next/navigation';
 import { IoLibrary } from 'react-icons/io5';
-import { MdPolicy } from 'react-icons/md';
+import { MdFeedback, MdPolicy } from 'react-icons/md';
 import {
   FaUpload,
   FaHome,
@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './sidebar_alt.module.css';
+import FeedBackModal from '../modal/feedback_modal/feedback_modal';
 
 const categories = [
   { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
@@ -54,6 +55,9 @@ export default function Sidebar_Alt() {
   );
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
 
   useEffect(() => {
     const matchedLang = languages.find((lang) => lang.code === locale);
@@ -101,7 +105,24 @@ export default function Sidebar_Alt() {
       </ul>
 
       <div className={styles.footerContainer}>
-        <button
+  
+       <button
+          className={styles.languageButton}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsModalOpen(true);
+          }}
+        >
+          <MdFeedback size={25}></MdFeedback>
+        </button>
+
+          {isModalOpen && (
+          <FeedBackModal closeModal={() => setIsModalOpen(false)} />
+        )}
+
+              <div className={styles.divider}></div>
+
+  <button
           onClick={() => setDarkMode(!darkMode)}
           className={styles.themeToggle}
         >

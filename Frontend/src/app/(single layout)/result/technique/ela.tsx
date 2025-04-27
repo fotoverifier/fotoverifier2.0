@@ -4,13 +4,15 @@ import { FaLayerGroup } from 'react-icons/fa';
 import Result from '@/assets/Group 79.svg';
 import styles from '@/app/(single layout)/result/technique/categories.module.css';
 import { MdWarning } from 'react-icons/md';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ElaResultProp {
-  img: string | null; // Accept the image as a prop
+  img: string | null; 
   loading: boolean;
 }
 
 const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
+  const {t} = useLanguage();
   return (
     <div className="w-full h-full p-5 flex flex-col">
       <div className={styles.title_container}>
@@ -19,7 +21,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
             <FaLayerGroup size={18} />
           </div>
           <h3 className="font-bold text-lg ml-3 text-teal-800">
-            Error Level Analysis
+            {t('Error_Level_Analysis')}
           </h3>
         </div>
       </div>
@@ -55,14 +57,14 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
             />
           </div>
         ) : (
-          <p>No image available</p>
+          <p>{t('No_Image_Available')}</p>
         )}
       </div>
 
       <div className="mt-auto mb-2 flex items-center gap-2 p-3 border-l-4 border-red-500 bg-red-100 rounded-md shadow-sm">
         <MdWarning className="text-red-600" size={20} />
         <p className="text-red-700 text-sm font-medium">
-          The tampered region is highlighted with a bright color.
+          {t('Tampered_Region_Bright')}
         </p>
       </div>
     </div>
