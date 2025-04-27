@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 export const metadata: Metadata = {
   title: 'Fotoverifier 2.0',
@@ -15,7 +17,17 @@ export default function RootLayout({
   return (
     <LanguageProvider>
       <html lang="en">
-        <body className="h-screen w-full flex">{children}</body>
+        <body className="h-screen w-full flex">
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar
+            newestOnTop
+            closeButton
+            rtl={false}
+          />
+        </body>
       </html>
     </LanguageProvider>
   );

@@ -83,7 +83,7 @@ const Dashboard = () => {
               svgIcon={tutorial.icon}
               title={tutorial.title}
               description={tutorial.description}
-              href={tutorial.href}
+              href={''}
             />
           ))}
         </div>
