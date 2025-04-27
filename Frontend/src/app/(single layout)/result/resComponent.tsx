@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState, Suspense, useRef, act } from 'react';
-import { Inter, Montserrat } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import styles from '@/app/(single layout)/result/res.module.css';
 import Tabs from '@/components/tab/step_tab';
 import Image from 'next/image';
@@ -8,17 +8,11 @@ import { ExifData, SearchResult } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
 import Image_Result from './technique/image';
 import ImgTagging_Result from './technique/osm_tags';
-import MetaData_Result from './technique/metadata';
 import JpegGhostResult from './technique/jpegGhost';
 import ElaResult from './technique/ela';
-import ReverseImgResult from './technique/reverse_img';
 
 import { FaCamera, FaUser } from 'react-icons/fa';
-import { PiAppWindowFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
-import MapComponent from '@/components/map/map';
-
-import { FiMapPin } from 'react-icons/fi';
 const inter = Inter({ subsets: ['latin'] });
 import unknown_author from '@/assets/unknown_author.jpg';
 import HeaderReport from '@/components/head/head_result';
@@ -29,10 +23,6 @@ import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
 
 const Res = () => {
-  const location: [number, number] = [51.505, -0.09];
-  {
-    /* SERVER AREA */
-  }
 
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
@@ -41,14 +31,12 @@ const Res = () => {
   const [results, setResults] = useState<any[]>([]);
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
-  const [SearchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
   const [jpegGhostResult, setJpegGhostResult] = useState<string[] | null>(null);
 
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
-  const [loadingReverseImageSearch, setLoadingReverseImageSearch] =
-    useState<boolean>(true);
+
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
@@ -88,10 +76,6 @@ const Res = () => {
           case 'ram':
             setTagResult(data.result.result.recognized_objects);
             setLoadingTagResult(false);
-            break;
-          case 'reverse_search':
-            setSearchResult(data.result.result.reverse_search.image_results);
-            setLoadingReverseImageSearch(false);
             break;
           case 'ela':
             setElaResult(data.result.result.ela_image);
@@ -243,7 +227,7 @@ const Res = () => {
               </div>
 
               <div className="w-full md:w-1/3 flex flex-col gap-4">
-                <div
+                {/* <div
                   className="bg-white rounded-xl shadow-sm p-4 flex-1"
                   id="ReversedImg"
                 >
@@ -251,7 +235,7 @@ const Res = () => {
                     searchResult={SearchResult}
                     loading={loadingReverseImageSearch}
                   />
-                </div>
+                </div> */}
 
                 <div
                   className="bg-white rounded-xl shadow-sm p-4 flex-1"
