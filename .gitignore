@@ -119,7 +119,7 @@ Backend/media/*.png
 media/*/*.jpg
 
 # Large models
-Backend/algorithms/*.pth
+*.pth
 
 # Docker
 .dockerignore
