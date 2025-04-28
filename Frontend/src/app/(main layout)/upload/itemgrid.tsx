@@ -34,7 +34,7 @@ const Method_Box: React.FC<MethodBoxProps> = ({
   const { t } = useLanguage();
   const scanTypes: Record<string, ScanType> = {
     normal: {
-      list_of_algo: ['JPEG Ghost', 'DCA/LCA', 'JPEG Alignment'],
+      list_of_algo: ['JPEG Ghost', 'Error Level Analysis', 'Metadata', 'Image Tagging', 'Location Information', 'AI support with Forgery'],
       description: t('upload_normal_description'),
     },
     specialized: {

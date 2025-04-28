@@ -84,7 +84,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
               Click this link to get to Google Form
             </span>
             <a 
-              href="https://forms.gle/yourGoogleFormLink" 
+              href= "https://docs.google.com/forms/d/e/1FAIpQLSe6GdagHfef9ocg10RdL56pUf8nZWRwwK8Bbde3T0_fH4xZ4w/viewform?usp=dialog"
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium"
