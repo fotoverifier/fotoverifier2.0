@@ -4,13 +4,11 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.reverse_search import google_lens_search
 import io
 import redis
 import os
 import json
 from dotenv import load_dotenv
-import asyncio
 
 load_dotenv()
 
@@ -40,13 +38,13 @@ def process_jpeg_ghost(image_bytes):
     file_stream = io.BytesIO(image_bytes)
     return {"jpeg_ghost": jpeg_ghost(file_stream), "method": "jpeg_ghost"}
 
-@celery_app.task
-def process_reverse_search(image_bytes):
-    try:
-        results = asyncio.run(google_lens_search(image_bytes))
-        return {"reverse_search": str(results), "method": "reverse_search"}
-    except Exception as e:
-        return {"reverse_search": f"Error: {str(e)}", "method": "reverse_search"}
+# @celery_app.task
+# def process_reverse_search(image_bytes):
+#     try:
+#         results = asyncio.run(reverse_image_search(image_bytes))
+#         return {"reverse_search": str(results), "method": "reverse_search"}
+#     except Exception as e:
+#         return {"reverse_search": f"Error: {str(e)}", "method": "reverse_search"}
 
 @celery_app.task
 def process_quick_scan(image_bytes):
@@ -55,7 +53,6 @@ def process_quick_scan(image_bytes):
         process_ela.s(image_bytes),
         process_ram.s(image_bytes),
         process_jpeg_ghost.s(image_bytes),
-        process_reverse_search.s(image_bytes)
     )
     results = task_group.apply_async()
     # Save only child task IDs
