@@ -59,31 +59,20 @@ const steps = [
     description: 'Click here to run JPEG Ghost',
     tab: 'Tampering Detection',
   },
-  {
+   {
     id: 'CameraArea',
-    description: 'Image of camera models extracted from the EXIF Data',
-
-    tab: 'Originality',
+    description: 'Camera technical details from EXIF metadata',
+    tab: 'Originality'
   },
-
   {
     id: 'AuthorArea',
-    description: 'Image of camera models extracted from the EXIF Data',
-
-    tab: 'Originality',
-  },
-
-  {
-    id: 'ReversedImg',
-    description: 'Image of camera models extracted from the EXIF Data',
-
-    tab: 'Originality',
+    description: 'Photographer information and attribution',
+    tab: 'Originality'
   },
   {
     id: 'ImgTagging',
-    description: 'Image of camera models extracted from the EXIF Data',
-
-    tab: 'Originality',
+    description: 'Image categorization and metadata tags using AI',
+    tab: 'Originality'
   },
 ];
 
