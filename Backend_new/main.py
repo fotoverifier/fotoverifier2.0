@@ -3,7 +3,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.exif import exif_check
 from algorithms.ela import ela
-from algorithms.ram import recognize_objects
+from algorithms.ram import recognize_objects, load_model
 from algorithms.jpeg_ghost import jpeg_ghost
 import io
 import asyncio
@@ -32,6 +32,11 @@ app.add_middleware(
     allow_methods=["*"],  # ✅ Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # ✅ Allow all headers
 )
+
+@app.on_event("startup")
+async def startup_event():
+    # This will load and cache the model in memory at server startup
+    load_model()
 
 @app.get("/")
 async def read_root():
