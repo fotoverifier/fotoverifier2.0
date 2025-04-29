@@ -80,8 +80,8 @@ const Upload = () => {
       alert('Please select an image before submitting.');
       return;
     }
-    if (imageFile){
-          setLoading(true);
+    if (imageFile) {
+      setLoading(true);
     }
 
     if (selectedMethod === 'normal') {
@@ -143,8 +143,8 @@ const Upload = () => {
         setLoading(false);
       }
     } else if (selectedMethod === 'specialized') {
-        alert('This method is currently in development.');
-        setLoading(false);
+      alert('This method is currently in development.');
+      setLoading(false);
 
       /*router.push(
         `/specialized/information?image=${encodeURIComponent(imageSrc)}`
@@ -183,23 +183,22 @@ const Upload = () => {
       }*/
     }
   };
-    const handleImageSelect = async (image: any) => {
-        try {
-        const response = await fetch(image.src);
-        console.log("Response:", response);
+  const handleImageSelect = async (image: any) => {
+    try {
+      const response = await fetch(image.src);
+      console.log('Response:', response);
 
-        if (!response.ok) throw new Error("Image not found");
+      if (!response.ok) throw new Error('Image not found');
 
-        const blob = await response.blob();
-        const file = new File([blob], image.alt, { type: blob.type });
+      const blob = await response.blob();
+      const file = new File([blob], image.alt, { type: blob.type });
 
-        setImageSrc(URL.createObjectURL(file));
-        setImageFile(file);
-      } catch (err) {
-        console.error("Error converting image to file:", err);
-      }
-    };
-
+      setImageSrc(URL.createObjectURL(file));
+      setImageFile(file);
+    } catch (err) {
+      console.error('Error converting image to file:', err);
+    }
+  };
 
   return (
     <div className={styles.main_up_container}>
@@ -211,7 +210,7 @@ const Upload = () => {
               {t('upload_photo_input')}
             </div>
 
-             <ImageRepository onImageSelect={handleImageSelect} />
+            <ImageRepository onImageSelect={handleImageSelect} />
           </div>
           <div className={styles.input_link}>
             <input

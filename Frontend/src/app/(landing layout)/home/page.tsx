@@ -10,24 +10,152 @@ import { IoImagesOutline } from 'react-icons/io5';
 import Card from '@/components/card/card';
 import { useLanguage } from '@/context/LanguageContext';
 import VerificationStepsAnimation from '@/components/5steps/VerificationStepsAnimation';
-import FloatingFlippingImage from '@/components/flipping_img/flipping_img';
+import LoadingModal from '@/components/modal/loading_modal';
+import CompletionModal from '@/components/modal/complete_modal';
+import { toast } from 'react-toastify';
 
 const LandingPage2 = () => {
   const { t } = useLanguage();
+  const [taskId, setTaskId] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [url, setUrl] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState<string>('normal'); // default method
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setImageSrc(reader.result as string);
-      reader.readAsDataURL(file);
+  const handleSubmit = async () => {
+    if (!imageFile) {
+      alert('Please select an image before submitting.');
+      return;
+    }
+    if (imageFile) {
+      setLoading(true);
+    }
+
+    if (selectedMethod === 'normal') {
+      try {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        // Single API call wrapped in a Promise
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan`,
+          {
+            method: 'POST',
+            body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        );
+
+        // Handle response
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const { task_id } = await response.json();
+        setTaskId(task_id);
+      } catch (error: any) {
+        console.error('Error fetching data:', error);
+        alert(`Error: ${error.message}`);
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
+      }
+    } else if (selectedMethod === 'deep') {
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const response = await fetch('http://fotoverifier.eu:9001/api/image/', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Image uploaded successfully:', data);
+      } catch (error) {
+        console.log('Error submitting image:', error);
+        alert('There was an error submitting the image. Please try again.');
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
+      }
+    } else if (selectedMethod === 'specialized') {
+      alert('This method is currently in development.');
+      setLoading(false);
+
+      /*router.push(
+        `/specialized/information?image=${encodeURIComponent(imageSrc)}`
+      );
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const urls = [
+          'http://localhost:8000/api/exif-check/',
+          'http://localhost:8000/api/recognize-objects/',
+        ];
+
+        const fetchPromises = urls.map((url) =>
+          fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              Accept: 'application/json',
+            },
+          })
+        );
+
+        const responses = await Promise.all(fetchPromises);
+
+        const results = await Promise.all(
+          responses.map((response) => response.json())
+        );
+
+        console.log('Results:', results);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        console.log('Upload complete');
+        setUploadComplete(true);
+        setLoading(false);
+      }*/
     }
   };
 
-  const removeImg = () => setImageSrc(null);
+  const imageChange = (e: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      if (
+        file.type === 'image/png' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/jpg'
+      ) {
+        setImageSrc(URL.createObjectURL(file));
+        setImageFile(file);
+      } else {
+        toast.error('Please upload a valid image file (PNG, JPEG).', {
+          theme: 'colored',
+        });
+      }
+    }
+  };
+
+  const removeImg = () => {
+    setImageSrc(null);
+    setImageFile(null); // ✅ Reset file too when removing image
+  };
 
   const [displayedText, setDisplayedText] = useState('');
 
@@ -78,7 +206,7 @@ const LandingPage2 = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6, duration: 0.4 }}
           >
-            {t('verify_now')}
+            <Link href={'/dashboard'}>{t('verify_now')}</Link>
           </motion.div>
           <VerificationStepsAnimation className={styles.verification} />
         </motion.div>
@@ -182,9 +310,9 @@ const LandingPage2 = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
               >
-                <Link href="/result" className={styles.verify_button}>
+                <div className={styles.verify_button} onClick={handleSubmit}>
                   {t('verify_now')}
-                </Link>
+                </div>
                 <div className={styles.agree_section}>
                   {t('terms_agreement_text')}
                 </div>
@@ -193,6 +321,20 @@ const LandingPage2 = () => {
           </div>
         </motion.div>
       </motion.main>
+      {loading && <LoadingModal message={t('upload_uploading')} />}
+      {!loading && uploadComplete && (
+        <Link
+          href={{
+            pathname: '/result',
+            query: {
+              image: imageSrc,
+              task_id: taskId,
+            },
+          }}
+        >
+          <CompletionModal message={t('upload_complete')} />
+        </Link>
+      )}
     </div>
   );
 };
