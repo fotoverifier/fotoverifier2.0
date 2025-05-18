@@ -21,8 +21,7 @@ import FakeShieldApp from './technique/fakeshieldapi';
 import LocationSection from './technique/locationSection';
 import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
-import ImageSuperResolution from '@/app/(specialized layout)/specialized/image_ss/page';
-import ImageSuperResolution_2 from '@/app/(specialized layout)/specialized/image_ss copy/page';
+import ImageSuperResolution_2 from './technique/image_ss copy/page';
 
 const Res = () => {
   const searchParams = useSearchParams();
@@ -133,7 +132,7 @@ const Res = () => {
       ),
       Superesolution: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <ImageSuperResolution_2 img={img}></ImageSuperResolution_2>
+          <ImageSuperResolution_2 img = {img}></ImageSuperResolution_2>
         </div>
       ),
       OtherTabs: [
