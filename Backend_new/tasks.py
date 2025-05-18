@@ -48,12 +48,13 @@ def process_jpeg_ghost(image_bytes):
 #         return {"reverse_search": f"Error: {str(e)}", "method": "reverse_search"}
 
 @celery_app.task
-def process_super_resolution(image_bytes):
+def process_super_resolution(image_bytes, scale):
     try:
-        result = super_resolution(image_bytes)
+        result = super_resolution(image_bytes, scale)
         return {"super_resolution": result, "method": "super_resolution"}
     except Exception as e:
         return {"super_resolution": f"Error: {str(e)}", "method": "super_resolution"}
+
 
 @celery_app.task
 def process_quick_scan(image_bytes):

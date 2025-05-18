@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.exif import exif_check
@@ -9,7 +9,7 @@ from algorithms.super_resolution import load_esrgan, super_resolution
 import io
 import asyncio
 import json
-from tasks import process_quick_scan
+from tasks import process_quick_scan, process_super_resolution
 import redis
 import os
 from dotenv import load_dotenv
@@ -38,8 +38,8 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     # This will load and cache the model in memory at server startup
-    # load_model()
-    load_esrgan()
+    load_model()
+    # load_esrgan()
 
 @app.get("/")
 async def read_root():
@@ -95,19 +95,48 @@ async def get_jpeg_ghost(file: UploadFile = File(...)):
 #         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/super-resolution")
-async def get_super_resolution(file: UploadFile = File(...)):
+async def get_super_resolution(
+    file: UploadFile = File(...),
+    scale: int = Query(4, description="Upscale factor (e.g., 2, 4)")
+):
     try:
         image_bytes = await file.read()
-        enhanced_image_bytes = super_resolution(image_bytes)
-
-        if enhanced_image_bytes is None:
-            raise HTTPException(status_code=500, detail="Failed to process image")
-
-        buffer = io.BytesIO(enhanced_image_bytes)
-        return StreamingResponse(buffer, media_type="image/png")
-
+        task = process_super_resolution.delay(image_bytes, scale)
+        return {"message": "Task submitted", "task_id": task.id}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error submitting task: {str(e)}")
+    
+import base64
+
+@app.get("/super-resolution-stream/")
+async def super_resolution_stream(task_id: str, scale: int = 4):
+    async def event_stream():
+        seen = False
+
+        while True:
+            task_meta = redis_client.get(f"celery-task-meta-{task_id}")
+            if task_meta:
+                data = json.loads(task_meta)
+
+                if not seen:
+                    yield f"data: {json.dumps({'status': data['status']})}\n\n"
+                    seen = True
+
+                if data["status"] in ["SUCCESS", "FAILURE"]:
+                    result = data["result"]
+
+                    if isinstance(result, dict) and not result["super_resolution"].startswith("Error"):
+                        img_bytes = result["super_resolution"]
+                        encoded = base64.b64encode(img_bytes).decode("utf-8")
+                        yield f"data: {json.dumps({'status': 'done', 'image': encoded})}\n\n"
+                    else:
+                        yield f"data: {json.dumps({'status': 'error', 'detail': str(result)})}\n\n"
+                    break
+
+            await asyncio.sleep(1)
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
 
 
 @app.post("/quick-scan")
