@@ -13,7 +13,7 @@ interface ImageResultProps {
 
 const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {t} = useLanguage();
+  const { t } = useLanguage();
   const [isRunning, setIsRunning] = useState(false);
   const qualities = [
     { title: 'Quality 30', img: images?.[0] ?? placeholder },
@@ -60,8 +60,11 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
           </div>
 
           {!loading && images && images.length > 0 && (
-              <FaInfoCircle  size={30}  onClick={() => setIsModalOpen(true)}
-              className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md ml-3"/>
+            <FaInfoCircle
+              size={30}
+              onClick={() => setIsModalOpen(true)}
+              className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md ml-3"
+            />
           )}
         </div>
       </div>

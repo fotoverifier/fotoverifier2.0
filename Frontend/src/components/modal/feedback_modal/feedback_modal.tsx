@@ -59,7 +59,7 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
           <div className={styles.modalHeader}>
             <MdFeedback size={30} />
             <div className={styles.title}>Feedback</div>
-          
+
             <div className={styles.closeIcon} onClick={closeModal}>
               <IoIosCloseCircle size={30} />
             </div>
@@ -73,29 +73,26 @@ const FeedBackModal: React.FC<FeedBackModalProps> = ({ closeModal }) => {
           </div>
           <CircleRating onSelect={setRating} />
 
-
-            <div className={styles.subHeader}>
+          <div className={styles.subHeader}>
             <MdLink size={20} />
-              Thank you for using our app, please fill this google form
+            Thank you for using our app, please fill this google form
           </div>
 
           <div className="w-full p-4 bg-gray-100 border border-gray-200 rounded-lg mt-2 flex items-center justify-between">
             <span className="text-gray-700 text-sm">
               Click this link to get to Google Form
             </span>
-            <a 
-              href= "https://docs.google.com/forms/d/e/1FAIpQLSe6GdagHfef9ocg10RdL56pUf8nZWRwwK8Bbde3T0_fH4xZ4w/viewform?usp=dialog"
-              target="_blank" 
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSe6GdagHfef9ocg10RdL56pUf8nZWRwwK8Bbde3T0_fH4xZ4w/viewform?usp=dialog"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium"
             >
               Open Form
             </a>
           </div>
-          
-
-          </div>
-          </div>
+        </div>
+      </div>
     </>
   );
 };

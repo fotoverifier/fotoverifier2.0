@@ -42,8 +42,15 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('locale', locale);
   }, [locale]);
 
-  const t = (key: TranslationKeys): string =>
-    translations[locale]?.[key] || translations['en'][key] || key;
+  const t = (key: TranslationKeys): string => {
+    const translation = translations[locale]?.[key];
+    if (translation) return translation;
+
+    const fallback = translations['en']?.[key];
+    if (fallback) return fallback;
+
+    return key;
+  };
 
   return (
     <LanguageContext.Provider value={{ locale, t, setLocale }}>

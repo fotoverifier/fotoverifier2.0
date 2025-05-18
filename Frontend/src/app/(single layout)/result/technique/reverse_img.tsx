@@ -39,13 +39,13 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
   searchResult,
   loading,
 }) => {
-  const {t} = useLanguage();
+  const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   return (
-   <div className="w-full h-full">
+    <div className="w-full h-full">
       <div className="flex items-center justify-between">
         <div className="flex items-center mb-3">
           <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
@@ -73,14 +73,16 @@ const ReverseImgResult: React.FC<ReverseImgProp> = ({
             </div>
           ))}
         </div>
-    ) : (
+      ) : (
         <div>{t('reverse_imageSearch.noResults')}</div>
       )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-11/12 max-w-lg p-6">
-            <h2 className="text-xl font-bold mb-4">{t('reverse_imageSearch.modal.title')}</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {t('reverse_imageSearch.modal.title')}
+            </h2>
             {loading ? (
               <div className="p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-md flex flex-col items-center gap-4">
                 <Spin

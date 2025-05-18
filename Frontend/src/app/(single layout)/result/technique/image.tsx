@@ -7,7 +7,7 @@ interface ImageResultProps {
 }
 
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
-  const {t} = useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="w-full h-full p-5">
       <div className="flex items-center mb-3">

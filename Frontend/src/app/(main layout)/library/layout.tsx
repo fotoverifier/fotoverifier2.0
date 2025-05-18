@@ -76,7 +76,7 @@ export default function LibraryLayout({
 
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all cursor-pointer"
+            className="absolute top-1/2 right-[-12px] transform -translate-y-1/2 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md transition-all cursor-pointer hidden"
           >
             {isSidebarOpen ? (
               <FiChevronLeft size={20} />
@@ -86,7 +86,7 @@ export default function LibraryLayout({
           </div>
         </div>
 
-        <div className="flex-grow overflow-y-auto">
+        <div className="flex-grow overflow-y-auto bg-white">
           <h2
             className={`text-lg font-bold mb-3 ${
               isSidebarOpen ? 'block' : 'hidden'
@@ -109,7 +109,9 @@ export default function LibraryLayout({
                   }`}
                 >
                   <span className="flex items-center min-w-0">
-                    <span className="mr-2 flex-shrink-0 border-2 rounded-full p-1">{category.icon}</span>
+                    <span className="mr-2 flex-shrink-0 border-2 rounded-full p-1">
+                      {category.icon}
+                    </span>
                     {isSidebarOpen && (
                       <span
                         className={`ml-2 overflow-hidden text-base text-ellipsis whitespace-nowrap ${montserrat.className}`}
@@ -130,24 +132,24 @@ export default function LibraryLayout({
                   )}
                 </div>
 
-                 {isSidebarOpen &&
-        expandedCategory === category.slug &&
-        category.subcategories.length > 0 && (
-          <div className="ml-6 mt-2 space-y-2">
-            {category.subcategories.map((subcategory) => {
-              const targetUrl = `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`;
-              return (
-                <Link
-                  key={subcategory}
-                  href={targetUrl}
-                  className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 block"
-                  onClick={(e) => e.stopPropagation()} 
-                >
-                  {subcategory}
-                </Link>
-              );
-            })}
-          </div>
+                {isSidebarOpen &&
+                  expandedCategory === category.slug &&
+                  category.subcategories.length > 0 && (
+                    <div className="ml-6 mt-2 space-y-2">
+                      {category.subcategories.map((subcategory) => {
+                        const targetUrl = `/library/${category.slug}/${subcategory.toLowerCase().replace(/\s+/g, '_')}`;
+                        return (
+                          <Link
+                            key={subcategory}
+                            href={targetUrl}
+                            className="px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 block"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {subcategory}
+                          </Link>
+                        );
+                      })}
+                    </div>
                   )}
               </div>
             ))}
@@ -155,7 +157,9 @@ export default function LibraryLayout({
         </div>
       </div>
 
-      <section className="flex-1 overflow-y-auto">{children}</section>
+      <section className="flex-1 overflow-y-auto bg-gray-50">
+        {children}
+      </section>
     </div>
   );
 }

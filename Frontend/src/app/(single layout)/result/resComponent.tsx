@@ -21,9 +21,10 @@ import FakeShieldApp from './technique/fakeshieldapi';
 import LocationSection from './technique/locationSection';
 import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
+import ImageSuperResolution from '@/app/(specialized layout)/specialized/image_ss/page';
+import ImageSuperResolution_2 from '@/app/(specialized layout)/specialized/image_ss copy/page';
 
 const Res = () => {
-
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
   const taskId = searchParams.get('task_id');
@@ -40,7 +41,7 @@ const Res = () => {
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
-  const {t} = useLanguage();
+  const { t } = useLanguage();
   useEffect(() => {
     if (!img || !taskId) return;
 
@@ -130,12 +131,16 @@ const Res = () => {
           </div>
         </div>
       ),
+      Superesolution: (
+        <div className={`h-full w-full ${styles.striped_background}`}>
+          <ImageSuperResolution_2 img={img}></ImageSuperResolution_2>
+        </div>
+      ),
       OtherTabs: [
         {
           key: 'Originality',
           title: t('Originality'),
-          description:
-            t('Author_Information_Description'),
+          description: t('Author_Information_Description'),
           content: (
             <div className="w-full h-full flex flex-col md:flex-row gap-6  bg-yellow-50 p-6 rounded-xl">
               <div
@@ -165,7 +170,6 @@ const Res = () => {
                     />
                   </div>
 
-                  
                   <div className="mt-4 grid grid-cols-2 gap-2  text-sm">
                     <div className="text-gray-500">{t('Make')}:</div>
                     <div className="font-bold text-teal-800">
@@ -177,9 +181,14 @@ const Res = () => {
                       {exifResult?.camera_information?.model || 'Unknown'}
                     </div>
 
-                    <div className="text-gray-500">{t('Software_Modified')}:</div>
+                    <div className="text-gray-500">
+                      {t('Software_Modified')}:
+                    </div>
                     <div className="font-bold text-teal-800">
-                      {(exifResult?.software_modify?.replace(/^Image edited with:\s*/i, '') || 'Unknown')}
+                      {exifResult?.software_modify?.replace(
+                        /^Image edited with:\s*/i,
+                        ''
+                      ) || 'Unknown'}
                     </div>
                   </div>
                 </div>
@@ -253,14 +262,13 @@ const Res = () => {
         {
           key: 'Location',
           title: t('Location'),
-          description:t('GPS_Location_Description'),
+          description: t('GPS_Location_Description'),
           content: <LocationSection exifResult={exifResult}></LocationSection>,
         },
         {
           key: 'Forensic',
           title: t('Forensic'),
-          description:
-            t('AI_Verification_Description'),
+          description: t('AI_Verification_Description'),
           content: (
             <div className="overflow-hidden h-full">
               <FakeShieldApp></FakeShieldApp>
@@ -276,37 +284,47 @@ const Res = () => {
       const selectedTab = tabData.OtherTabs.find(
         (tab) => tab.key === activeTab
       );
+
+      if (activeTab === 'Superesolution') {
+        return tabData.Superesolution;
+      }
       if (selectedTab) {
         return (
           <div className={styles.container}>
             <div className={styles.header}>
               <div className={styles.circleWrapper}>
-                <div className='p-2 rounded-full border-2'>
+                <div className="p-2 rounded-full border-2">
                   <BiSolidCategory />
                 </div>
-                <div className='w-full flex justify-center'>
-                <div className={`${styles.title} ${inter.className}`}>
-                  {selectedTab.title}
-                </div>
+                <div className="w-full flex justify-center">
+                  <div className={`${styles.title} ${inter.className}`}>
+                    {selectedTab.title}
+                  </div>
                 </div>
               </div>
               <div className={`${styles.description} flex items-center`}>
                 {selectedTab.description}
-              {(() => {
-                switch (selectedTab.title) {
-                  case "Originality":
-                    return <div className='ml-auto'> <MetaDataPage cameraInformation ={exifResult?.camera_information} software_modify={exifResult?.software_modify}
-                    modify_date={exifResult?.modify_date}
-                    original_date={exifResult?.original_date}
-                    author_copyright={exifResult?.author_copyright}
-                    gps_location={exifResult?.gps_location}
-                    loading ={false}
-                    ></MetaDataPage></div>;
-                  default:
-                    return null;
-                }
-              })()}
-
+                {(() => {
+                  switch (selectedTab.title) {
+                    case 'Originality':
+                      return (
+                        <div className="ml-auto">
+                          {' '}
+                          <MetaDataPage
+                            cameraInformation={exifResult?.camera_information}
+                            software_modify={exifResult?.software_modify}
+                            modify_date={exifResult?.modify_date}
+                            original_date={exifResult?.original_date}
+                            author_copyright={exifResult?.author_copyright}
+                            gps_location={exifResult?.gps_location}
+                            loading={false}
+                          ></MetaDataPage>
+                        </div>
+                      );
+                    default:
+                      return null;
+                  }
+                })()}
               </div>
             </div>
             <div className={styles.content}>{selectedTab.content}</div>

@@ -7,12 +7,12 @@ import { MdWarning } from 'react-icons/md';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface ElaResultProp {
-  img: string | null; 
+  img: string | null;
   loading: boolean;
 }
 
 const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
-  const {t} = useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="w-full h-full p-5 flex flex-col">
       <div className={styles.title_container}>

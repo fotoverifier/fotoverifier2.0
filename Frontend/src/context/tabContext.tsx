@@ -3,7 +3,12 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { useLanguage } from './LanguageContext';
 
-type TabType = 'Tampering Detection' | 'Originality' | 'Location' | 'Forensic';
+type TabType =
+  | 'Tampering Detection'
+  | 'Superesolution'
+  | 'Originality'
+  | 'Location'
+  | 'Forensic';
 
 interface TabContextType {
   activeTab: TabType;
@@ -21,6 +26,7 @@ export const TabProvider: React.FC<{ children: ReactNode }> = ({
   const setActiveTabSafe = (tab: string) => {
     const tabOptions: TabType[] = [
       'Tampering Detection',
+      'Superesolution',
       'Originality',
       'Location',
       'Forensic',

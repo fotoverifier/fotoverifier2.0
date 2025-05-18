@@ -31,7 +31,7 @@ export default function Sidebar_Alt() {
     { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
     { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
     { name: t('Library'), slug: '/library', icon: <IoLibrary size={20} /> },
-      {
+    {
       name: 'GitHub',
       slug: 'https://github.com',
       icon: <FaGithub size={20} />,
@@ -49,8 +49,6 @@ export default function Sidebar_Alt() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  
 
   useEffect(() => {
     const matchedLang = languages.find((lang) => lang.code === locale);
@@ -98,8 +96,7 @@ export default function Sidebar_Alt() {
       </ul>
 
       <div className={styles.footerContainer}>
-  
-       <button
+        <button
           className={styles.languageButton}
           onClick={(e) => {
             e.preventDefault();
@@ -109,13 +106,13 @@ export default function Sidebar_Alt() {
           <MdFeedback size={25}></MdFeedback>
         </button>
 
-          {isModalOpen && (
+        {isModalOpen && (
           <FeedBackModal closeModal={() => setIsModalOpen(false)} />
         )}
 
-              <div className={styles.divider}></div>
+        <div className={styles.divider}></div>
 
-  <button
+        <button
           onClick={() => setDarkMode(!darkMode)}
           className={styles.themeToggle}
         >

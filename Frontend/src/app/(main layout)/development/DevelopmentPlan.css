@@ -94,21 +94,21 @@ h1 {
   .timeline {
     height: 400px;
   }
-  
+
   .timeline-step {
     position: relative;
     left: 0 !important;
     margin: 30px 0;
     transform: none;
   }
-  
+
   .timeline-line {
     height: 80%;
     width: 4px;
     left: 20px;
     top: 0;
   }
-  
+
   .step-details {
     left: 60px;
     top: 0;

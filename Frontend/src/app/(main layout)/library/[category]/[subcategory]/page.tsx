@@ -9,7 +9,8 @@ import {
   FaClipboardList,
   FaLink,
 } from 'react-icons/fa';
-import detailedContent from "@/terminologies/lib.json"
+import detailedContent from '@/terminologies/lib.json';
+import { useLanguage } from '@/context/LanguageContext';
 interface SectionContent {
   title: string;
   description: string;
@@ -30,23 +31,23 @@ interface SubcategoryContent {
   };
   example_img?: {
     example_1: string;
-  }
+  };
 }
 
 const subcategoryContents: { [key: string]: SubcategoryContent } = {
-  exif_data:{
+  exif_data: {
     title: detailedContent.exif_data.title,
     overview: detailedContent.exif_data.overview,
     methodology: detailedContent.exif_data.methodology,
     relatedWork: detailedContent.exif_data.relatedWork,
     tabs: {
-      definition :{
+      definition: {
         title: detailedContent.exif_data.tabs.definition.title,
         description: detailedContent.exif_data.tabs.definition.description,
         icon: FaBookOpen,
         content: detailedContent.exif_data.tabs.definition.content,
       },
-      example:{
+      example: {
         title: detailedContent.exif_data.tabs.example.title,
         description: detailedContent.exif_data.tabs.example.description,
         icon: FaChartLine,
@@ -65,9 +66,8 @@ const subcategoryContents: { [key: string]: SubcategoryContent } = {
         content: detailedContent.exif_data.tabs.relatedWork.content,
       },
     },
-
   },
-    jpeg_ghost: {
+  jpeg_ghost: {
     title: detailedContent.jpeg_ghost.title,
     overview: detailedContent.jpeg_ghost.overview,
     methodology: detailedContent.jpeg_ghost.methodology,
@@ -88,7 +88,7 @@ const subcategoryContents: { [key: string]: SubcategoryContent } = {
       details: {
         title: detailedContent.jpeg_ghost.tabs.details.title,
         description: detailedContent.jpeg_ghost.tabs.details.description,
-         icon: FaFilePdf,
+        icon: FaFilePdf,
         content: detailedContent.jpeg_ghost.tabs.details.content,
       },
       relatedWork: {
@@ -97,108 +97,119 @@ const subcategoryContents: { [key: string]: SubcategoryContent } = {
         icon: FaLink,
         content: detailedContent.jpeg_ghost.tabs.relatedWork.content,
       },
-    }
+    },
   },
   ela: {
-  title: detailedContent.ela.title,
-  overview: detailedContent.ela.overview,
-  methodology: detailedContent.ela.methodology,
-  relatedWork: detailedContent.ela.relatedWork,
-  tabs: {
-    definition: {
-      title: detailedContent.ela.tabs.definition.title,
-      description: detailedContent.ela.tabs.definition.description,
-      icon: FaBookOpen,
-      content: detailedContent.ela.tabs.definition.content,
+    title: detailedContent.ela.title,
+    overview: detailedContent.ela.overview,
+    methodology: detailedContent.ela.methodology,
+    relatedWork: detailedContent.ela.relatedWork,
+    tabs: {
+      definition: {
+        title: detailedContent.ela.tabs.definition.title,
+        description: detailedContent.ela.tabs.definition.description,
+        icon: FaBookOpen,
+        content: detailedContent.ela.tabs.definition.content,
+      },
+      example: {
+        title: detailedContent.ela.tabs.example.title,
+        description: detailedContent.ela.tabs.example.description,
+        icon: FaChartLine,
+        content: detailedContent.ela.tabs.example.content,
+      },
+      details: {
+        title: detailedContent.ela.tabs.details.title,
+        description: detailedContent.ela.tabs.details.description,
+        icon: FaFilePdf,
+        content: detailedContent.ela.tabs.details.content,
+      },
+      relatedWork: {
+        title: detailedContent.ela.tabs.relatedWork.title,
+        description: detailedContent.ela.tabs.relatedWork.description,
+        icon: FaLink,
+        content: detailedContent.ela.tabs.relatedWork.content,
+      },
     },
-    example: {
-      title: detailedContent.ela.tabs.example.title,
-      description: detailedContent.ela.tabs.example.description,
-      icon: FaChartLine,
-      content: detailedContent.ela.tabs.example.content,
+  },
+  luminance_gradient: {
+    title: detailedContent.luminance_gradient.title,
+    overview: detailedContent.luminance_gradient.overview,
+    methodology: detailedContent.luminance_gradient.methodology,
+    relatedWork: detailedContent.luminance_gradient.relatedWork,
+    tabs: {
+      definition: {
+        title: detailedContent.luminance_gradient.tabs.definition.title,
+        description:
+          detailedContent.luminance_gradient.tabs.definition.description,
+        icon: FaBookOpen,
+        content: detailedContent.luminance_gradient.tabs.definition.content,
+      },
+      example: {
+        title: detailedContent.luminance_gradient.tabs.example.title,
+        description:
+          detailedContent.luminance_gradient.tabs.example.description,
+        icon: FaChartLine,
+        content: detailedContent.luminance_gradient.tabs.example.content,
+      },
+      details: {
+        title: detailedContent.luminance_gradient.tabs.details.title,
+        description:
+          detailedContent.luminance_gradient.tabs.details.description,
+        icon: FaFilePdf,
+        content: detailedContent.luminance_gradient.tabs.details.content,
+      },
+      relatedWork: {
+        title: detailedContent.luminance_gradient.tabs.relatedWork.title,
+        description:
+          detailedContent.luminance_gradient.tabs.relatedWork.description,
+        icon: FaLink,
+        content: detailedContent.luminance_gradient.tabs.relatedWork.content,
+      },
     },
-    details: {
-      title: detailedContent.ela.tabs.details.title,
-      description: detailedContent.ela.tabs.details.description,
-      icon: FaFilePdf,
-      content: detailedContent.ela.tabs.details.content,
+  },
+  noise_modification: {
+    title: detailedContent.noise_modification.title,
+    overview: detailedContent.noise_modification.overview,
+    methodology: detailedContent.noise_modification.methodology,
+    relatedWork: detailedContent.noise_modification.relatedWork,
+    tabs: {
+      definition: {
+        title: detailedContent.noise_modification.tabs.definition.title,
+        description:
+          detailedContent.noise_modification.tabs.definition.description,
+        icon: FaBookOpen,
+        content: detailedContent.noise_modification.tabs.definition.content,
+      },
+      example: {
+        title: detailedContent.noise_modification.tabs.example.title,
+        description:
+          detailedContent.noise_modification.tabs.example.description,
+        icon: FaChartLine,
+        content: detailedContent.noise_modification.tabs.example.content,
+      },
+      details: {
+        title: detailedContent.noise_modification.tabs.details.title,
+        description:
+          detailedContent.noise_modification.tabs.details.description,
+        icon: FaFilePdf,
+        content: detailedContent.noise_modification.tabs.details.content,
+      },
+      relatedWork: {
+        title: detailedContent.noise_modification.tabs.relatedWork.title,
+        description:
+          detailedContent.noise_modification.tabs.relatedWork.description,
+        icon: FaLink,
+        content: detailedContent.noise_modification.tabs.relatedWork.content,
+      },
     },
-    relatedWork: {
-      title: detailedContent.ela.tabs.relatedWork.title,
-      description: detailedContent.ela.tabs.relatedWork.description,
-      icon: FaLink,
-      content: detailedContent.ela.tabs.relatedWork.content,
-    },
-  }
-},
-luminance_gradient: {
-  title: detailedContent.luminance_gradient.title,
-  overview: detailedContent.luminance_gradient.overview,
-  methodology: detailedContent.luminance_gradient.methodology,
-  relatedWork: detailedContent.luminance_gradient.relatedWork,
-  tabs: {
-    definition: {
-      title: detailedContent.luminance_gradient.tabs.definition.title,
-      description: detailedContent.luminance_gradient.tabs.definition.description,
-      icon: FaBookOpen,
-      content: detailedContent.luminance_gradient.tabs.definition.content,
-    },
-    example: {
-      title: detailedContent.luminance_gradient.tabs.example.title,
-      description: detailedContent.luminance_gradient.tabs.example.description,
-      icon: FaChartLine,
-      content: detailedContent.luminance_gradient.tabs.example.content,
-    },
-    details: {
-      title: detailedContent.luminance_gradient.tabs.details.title,
-      description: detailedContent.luminance_gradient.tabs.details.description,
-      icon: FaFilePdf,
-      content: detailedContent.luminance_gradient.tabs.details.content,
-    },
-    relatedWork: {
-      title: detailedContent.luminance_gradient.tabs.relatedWork.title,
-      description: detailedContent.luminance_gradient.tabs.relatedWork.description,
-      icon: FaLink,
-      content: detailedContent.luminance_gradient.tabs.relatedWork.content,
-    },
-  }
-},
-noise_modification: {
-  title: detailedContent.noise_modification.title,
-  overview: detailedContent.noise_modification.overview,
-  methodology: detailedContent.noise_modification.methodology,
-  relatedWork: detailedContent.noise_modification.relatedWork,
-  tabs: {
-    definition: {
-      title: detailedContent.noise_modification.tabs.definition.title,
-      description: detailedContent.noise_modification.tabs.definition.description,
-      icon: FaBookOpen,
-      content: detailedContent.noise_modification.tabs.definition.content,
-    },
-    example: {
-      title: detailedContent.noise_modification.tabs.example.title,
-      description: detailedContent.noise_modification.tabs.example.description,
-      icon: FaChartLine,
-      content: detailedContent.noise_modification.tabs.example.content,
-    },
-    details: {
-      title: detailedContent.noise_modification.tabs.details.title,
-      description: detailedContent.noise_modification.tabs.details.description,
-      icon: FaFilePdf,
-      content: detailedContent.noise_modification.tabs.details.content,
-    },
-    relatedWork: {
-      title: detailedContent.noise_modification.tabs.relatedWork.title,
-      description: detailedContent.noise_modification.tabs.relatedWork.description,
-      icon: FaLink,
-      content: detailedContent.noise_modification.tabs.relatedWork.content,
-    },
-  }
-}
+  },
 };
 
 export default function SubcategoryPage() {
   const params = useParams();
+  const { t } = useLanguage();
+  console.log(t);
+
   const [activeTab, setActiveTab] = useState<
     keyof NonNullable<SubcategoryContent['tabs']> | null
   >(null);
@@ -217,7 +228,8 @@ export default function SubcategoryPage() {
     relatedWork: 'Related work information is not yet available.',
   };
 
-  const formattedSubcategory = content.title || normalizedSubcategory.replace(/_/g, ' ');
+  const formattedSubcategory =
+    content.title || normalizedSubcategory.replace(/_/g, ' ');
 
   return (
     <div className="max-w-full mx-auto p-6 h-full bg-gray-50">
@@ -270,32 +282,34 @@ export default function SubcategoryPage() {
                 <h3 className="text-xl font-bold text-[#03564a] mb-4">
                   {content.tabs[activeTab]?.title}
                 </h3>
-                 <div
-    className="text-gray-700 prose max-w-none"
-    dangerouslySetInnerHTML={{
-      __html: content.tabs[activeTab]?.content
-        ? content.tabs[activeTab].content
-            .split('\n')
-            .map((line) => {
-              const trimmedLine = line.trim();
-                const processedLine = trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                if (/^\d+\.\s+/.test(trimmedLine)) {
-                  return `<div class="border border-gray-300 p-2 mb-2 rounded-xl my-5"><strong>${processedLine}</strong></div>`;
-                } else if (/^-\s+/.test(trimmedLine)) {
-                  return `<p class="ml-6">${processedLine}</p>`;
-                }
-                return `<div>${processedLine}</div>`;
-            })
-            .join('')
-        : '',
-    }}
-  />
+                <div
+                  className="text-gray-700 prose max-w-none"
+                  dangerouslySetInnerHTML={{
+                    __html: content.tabs[activeTab]?.content
+                      ? content.tabs[activeTab].content
+                          .split('\n')
+                          .map((line) => {
+                            const trimmedLine = line.trim();
+                            const processedLine = trimmedLine.replace(
+                              /\*\*(.*?)\*\*/g,
+                              '<strong>$1</strong>'
+                            );
+                            if (/^\d+\.\s+/.test(trimmedLine)) {
+                              return `<div class="border border-gray-300 p-2 mb-2 rounded-xl my-5"><strong>${processedLine}</strong></div>`;
+                            } else if (/^-\s+/.test(trimmedLine)) {
+                              return `<p class="ml-6">${processedLine}</p>`;
+                            }
+                            return `<div>${processedLine}</div>`;
+                          })
+                          .join('')
+                      : '',
+                  }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       )}
-      
     </div>
   );
 }

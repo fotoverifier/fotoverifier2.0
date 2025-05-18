@@ -6,25 +6,25 @@
     "relatedWork": "Research in digital forensics and image analysis has extensively utilized EXIF metadata for authentication, geolocation tracking, device identification, and understanding the provenance of digital images.",
     "tabs": {
       "definition": {
-        "title": "Definition",
+        "title": "I. Definition",
         "description": "EXIF (Exchangeable Image File Format) is a standard specification for image metadata that captures detailed information about digital images, including camera settings, timestamps, and geolocation data.",
         "icon": "FaBookOpen",
         "content": "EXIF (Exchangeable Image File Format) is a standard specification for image metadata embedded within digital image files. This metadata provides comprehensive information about the image's creation, technical specifications, and contextual details. \n\nKey components of EXIF data include:\n- Camera Make and Model\n- Date and Time of Image Capture\n- Camera Settings:\n- Aperture (f-number)\n- Shutter Speed\n- ISO Sensitivity\n- Focal Length\n- GPS Coordinates (if available)\n- Image Dimensions\n- Color Space Information\n- Software Used for Image Processing\n\nEXIF metadata plays a crucial role in digital forensics, photography, and image analysis by providing a detailed digital fingerprint of an image's origin and characteristics."
       },
       "example": {
-        "title": "Example",
+        "title": "II. Example",
         "description": "Demonstration of EXIF data extraction, showcasing the types of information that can be retrieved from a digital image file.",
         "icon": "FaChartLine",
         "content": "Example of EXIF Data Extraction:\n\nImage: Landscape Photograph\nCamera: Canon EOS 5D Mark IV\nCapture Date: 2023-07-15 14:30:22\n\nTechnical Details:\n- Aperture: f/8.0\n- Shutter Speed: 1/250 sec\n- ISO: 100\n- Focal Length: 24mm\n- GPS Coordinates: 40.7128° N, 74.0060° W (New York City)\n\nDemonstration of parsing EXIF data using different tools:\n1. Metadata Extraction Libraries\n2. Command-line Tools\n3. Forensic Analysis Software\n\nPotential Use Cases:\n- Verifying image authenticity\n- Understanding photographic techniques\n- Tracking image geolocation\n- Digital forensics investigations"
       },
       "details": {
-        "title": "Technical Details",
+        "title": "III. Technical Details",
         "description": "In-depth exploration of EXIF metadata structure, parsing techniques, and the significance of different metadata fields in digital image forensics.",
         "icon": "FaClipboardList",
         "content": "Technical Architecture of EXIF Metadata:\n\n1. Metadata Structure\n- Stored in JPEG, TIFF, and RIFF file formats\n- Uses Tagged Image File Format (TIFF) headers\n- Organized as a series of tags with specific identifiers\n\n2. Parsing Techniques\n- Binary metadata extraction\n- Specialized libraries and tools\n- Handling different image file formats\n\n3. Metadata Tags Categories\n- Image Data Tags\n- Camera Settings Tags\n- Geolocation Tags\n- Thumbnail Information Tags\n\n4. Challenges in EXIF Data Analysis\n- Metadata can be deliberately modified\n- Inconsistent implementation across devices\n- Privacy and information leakage concerns\n\n5. Forensic Significance\n- Provenance tracking\n- Authentication verification\n- Detecting image manipulation"
       },
       "relatedWork": {
-        "title": "Related Work",
+        "title": "IV. Related Work",
         "description": "Research and academic publications exploring EXIF metadata in digital forensics and image analysis.",
         "icon": "FaLink",
         "content": "Significant Research and Publications in EXIF Metadata Analysis:\n\n1. Academic Publications \n- \"Forensic Analysis of Digital Images Using EXIF Metadata\" - Journal of Digital Forensics, 2019\n- \"Geolocation Privacy Risks in Image Metadata\" - ACM Conference on Computer and Communications Security, 2020\n\n2. Key Research Areas:\n- Image Authentication Techniques\n- Metadata Forensics\n- Privacy Implications of Embedded Metadata\n\n3. Notable Research Institutions \n- Digital Forensics Research Lab, University of California\n- Cybersecurity and Forensics Research Center, MIT\n- Image Forensics Group, Stanford University\n\n4. Emerging Research Directions:\n- AI-powered EXIF data analysis\n- Machine learning for metadata anomaly detection\n- Cross-platform metadata standardization\n\n5. Recommended References \n- \"Digital Image Forensics: There is More to a Picture Than Meets the Eye\"\n- \"Metadata Extraction and Analysis: Techniques and Applications\""
@@ -127,7 +127,7 @@
       }
     }
   },
-   "luminance_gradient": {
+  "luminance_gradient": {
     "title": "Luminance Gradient",
     "overview": "Luminance Gradient refers to the variation in brightness across a digital image, manipulated through brightness, contrast, or gradient map adjustments, often analyzed in forensics to detect tampering or verify authenticity.",
     "methodology": "Luminance gradient analysis involves examining brightness, contrast, and gradient map modifications using histogram analysis, edge detection, and statistical tools to identify inconsistencies indicative of image manipulation.",

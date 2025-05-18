@@ -6,8 +6,8 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
   const [activeTab, setActiveTab] = useState('map');
-  const {t} = useLanguage();
-    const tabData = [
+  const { t } = useLanguage();
+  const tabData = [
     {
       id: 'map',
       name: t('location_Tagging.tab.mapView'),
@@ -61,15 +61,21 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
   const detectionMethods = [
     {
       title: t('location_Tagging.detectionMethods.exifExtraction.title'),
-      description: t('location_Tagging.detectionMethods.exifExtraction.description'),
+      description: t(
+        'location_Tagging.detectionMethods.exifExtraction.description'
+      ),
     },
     {
       title: t('location_Tagging.detectionMethods.visualFeature.title'),
-      description: t('location_Tagging.detectionMethods.visualFeature.description'),
+      description: t(
+        'location_Tagging.detectionMethods.visualFeature.description'
+      ),
     },
     {
       title: t('location_Tagging.detectionMethods.neuralNetwork.title'),
-      description: t('location_Tagging.detectionMethods.neuralNetwork.description'),
+      description: t(
+        'location_Tagging.detectionMethods.neuralNetwork.description'
+      ),
     },
   ];
 
@@ -92,7 +98,7 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
                   {exifResult.gps_location.longitude}
                 </>
               ) : (
-               t('No_GPS_Location_Available')
+                t('No_GPS_Location_Available')
               )}
             </div>
           </div>
@@ -169,8 +175,6 @@ const LocationSection = ({ exifResult }: { exifResult: ExifData | null }) => {
               </li>
             ))}
           </ul>
-
-
         </div>
       </div>
     </div>

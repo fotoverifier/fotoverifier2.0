@@ -89,19 +89,18 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
             >
               {}
               <div className="flex-1 border-r border-gray-200 text-base">
-                             <JpegGhostResult
-                images={jpegResult ?? null}
-                loading={loadingJpegGhost}
-              />
+                <JpegGhostResult
+                  images={jpegResult ?? null}
+                  loading={loadingJpegGhost}
+                />
               </div>
 
-               <div className="flex-1 border-r border-gray-200 text-base">
-                             <JpegGhostResult
-                images={jpegResult ?? null}
-                loading={loadingJpegGhost}
-              />
+              <div className="flex-1 border-r border-gray-200 text-base">
+                <JpegGhostResult
+                  images={jpegResult ?? null}
+                  loading={loadingJpegGhost}
+                />
               </div>
-
 
               {}
               <div className="flex-1 border-r border-gray-200 text-base">
