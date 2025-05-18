@@ -17,13 +17,6 @@ import { useLanguage } from '@/context/LanguageContext';
 import styles from './sidebar_alt.module.css';
 import FeedBackModal from '../modal/feedback_modal/feedback_modal';
 
-const categories = [
-  { name: 'Home', slug: '/dashboard', icon: <FaHome size={20} /> },
-  { name: 'Upload', slug: '/upload', icon: <FaUpload size={20} /> },
-  { name: 'Library', slug: '/library', icon: <IoLibrary size={20} /> },
-  { name: 'GitHub', slug: 'https://github.com', icon: <FaGithub size={20} /> },
-];
-
 const languages = [
   { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
   { code: 'vi', name: 'Tiếng Việt', flag: 'https://flagcdn.com/w40/vn.png' },

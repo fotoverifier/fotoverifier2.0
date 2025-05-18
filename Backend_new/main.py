@@ -5,6 +5,7 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects, load_model
 from algorithms.jpeg_ghost import jpeg_ghost
+from algorithms.super_resolution import load_esrgan, super_resolution
 import io
 import asyncio
 import json
@@ -12,6 +13,7 @@ from tasks import process_quick_scan
 import redis
 import os
 from dotenv import load_dotenv
+import threading
 
 load_dotenv()
 
@@ -36,7 +38,8 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     # This will load and cache the model in memory at server startup
-    load_model()
+    # load_model()
+    load_esrgan()
 
 @app.get("/")
 async def read_root():
@@ -90,6 +93,21 @@ async def get_jpeg_ghost(file: UploadFile = File(...)):
 #         return {"results": str(results)}
 #     except Exception as e:
 #         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/super-resolution")
+async def get_super_resolution(file: UploadFile = File(...)):
+    try:
+        image_bytes = await file.read()
+        enhanced_image_bytes = super_resolution(image_bytes)
+
+        if enhanced_image_bytes is None:
+            raise HTTPException(status_code=500, detail="Failed to process image")
+
+        buffer = io.BytesIO(enhanced_image_bytes)
+        return StreamingResponse(buffer, media_type="image/png")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
 
 
 @app.post("/quick-scan")

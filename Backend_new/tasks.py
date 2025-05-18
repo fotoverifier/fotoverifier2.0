@@ -1,3 +1,4 @@
+from algorithms.super_resolution import super_resolution
 from celery_config import celery_app
 from celery import group
 from algorithms.exif import exif_check
@@ -45,6 +46,14 @@ def process_jpeg_ghost(image_bytes):
 #         return {"reverse_search": str(results), "method": "reverse_search"}
 #     except Exception as e:
 #         return {"reverse_search": f"Error: {str(e)}", "method": "reverse_search"}
+
+@celery_app.task
+def process_super_resolution(image_bytes):
+    try:
+        result = super_resolution(image_bytes)
+        return {"super_resolution": result, "method": "super_resolution"}
+    except Exception as e:
+        return {"super_resolution": f"Error: {str(e)}", "method": "super_resolution"}
 
 @celery_app.task
 def process_quick_scan(image_bytes):
