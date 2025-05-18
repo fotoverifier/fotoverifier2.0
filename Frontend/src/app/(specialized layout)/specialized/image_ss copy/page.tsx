@@ -140,8 +140,7 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
               Enhanced Image
             </h2>
           </div>
-
-          {img ? (
+          { img ? (
             <div
               className="flex items-center justify-center relative p-2 w-full"
               style={{ height: '90%' }}
@@ -163,7 +162,12 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
               />
             </div>
           ) : (
-            <div>{t('No_Image_Available')}</div> // Fallback message
+            <div className='h-full w-full'>   <div className={styles.preview_placeholder}>
+                  <div className={styles.placeholder_text}>
+                    Upscale: {upscaleFactor} | Model: {modelType}
+                  </div>
+                </div> 
+                </div> // Fallback message
           )}
         </div>
       </div>
