@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
+import MagnifierImage from './maginifier_image';
 interface ImageResultProps {
   img: string | null;
 }
@@ -29,6 +30,9 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
     setModelType('ESRGAN');
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
   return (
     <div className={styles.container}>
       <div className={styles.content_area}>
@@ -106,31 +110,60 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
           </div>
 
           {img ? (
-            <div
-              className="flex items-center justify-center relative p-2 w-full"
-              style={{ height: '90%' }}
-            >
-              <Image
-                src={img}
-                alt="Result"
-                className="image-preview"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                  width: 'auto',
-                  maxWidth: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  position: 'relative',
-                }}
-              />
+             <>
+             <div
+            className="relative flex items-center justify-center p-2 w-full cursor-pointer group"
+            style={{ height: '90%' }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            <Image
+              src={img}
+              alt="Result"
+              className="image-preview"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{
+                width: 'auto',
+                maxWidth: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                position: 'relative',
+              }}
+            />
+
+            <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              Click to expand full screen and zoom in.
             </div>
+          </div>
+              
+             {isModalOpen && (
+               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                 <div
+                   className="relative bg-white rounded-lg overflow-hidden"
+                   style={{ width: '80vw', height: '80vh' }}
+                 >
+                   <button
+                     onClick={() => setIsModalOpen(false)}
+                     className="absolute top-2 right-2 text-black text-xl font-bold z-10"
+                   >
+                     &times;
+                   </button>
+       
+                   <div className="w-full h-full flex items-center justify-center">
+                   <MagnifierImage src={img} zoom={2} width="100%" height="100%" />
+
+                   </div>
+                 </div>
+               </div>
+             )}
+           </>
           ) : (
-            <div>{t('No_Image_Available')}</div> // Fallback message
+            <div>{t('No_Image_Available')}</div> 
           )}
         </div>
 
+        
         <div className={styles.image_preview_container}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
