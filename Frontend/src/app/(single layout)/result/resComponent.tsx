@@ -21,7 +21,7 @@ import FakeShieldApp from './technique/fakeshieldapi';
 import LocationSection from './technique/locationSection';
 import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
-import ImageSuperResolution_2 from './technique/image_ss copy/page';
+import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 
 const Res = () => {
   const searchParams = useSearchParams();
@@ -132,7 +132,7 @@ const Res = () => {
       ),
       Superesolution: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <ImageSuperResolution_2 img = {img}></ImageSuperResolution_2>
+          <ImageSuperResolution_2 img={img}></ImageSuperResolution_2>
         </div>
       ),
       OtherTabs: [
@@ -305,7 +305,7 @@ const Res = () => {
                 {selectedTab.description}
                 {(() => {
                   switch (selectedTab.title) {
-                    case 'Originality':
+                    case t('Originality'):
                       return (
                         <div className="ml-auto">
                           {' '}

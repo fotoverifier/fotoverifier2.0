@@ -1,18 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './image_ss.module.css';
-import { TbZoomInArea } from 'react-icons/tb';
 import { IoGitNetworkOutline } from 'react-icons/io5';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
-interface ImageResultProps {
+interface ImageSuperResolution_2Props {
   img: string | null;
 }
 
-const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
+const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
