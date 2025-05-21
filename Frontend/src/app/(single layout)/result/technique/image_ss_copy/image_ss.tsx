@@ -7,30 +7,30 @@ const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
+
 interface ImageSuperResolution_2Props {
-  img: string | null;
+  file: File | null; // ⬅️ CHANGE: Use File instead of blob URL
+  previewUrl: string | null; // for image display
 }
 
-const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) => {
+const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({
+  file,
+  previewUrl,
+}) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
   const [enhancedImg, setEnhancedImg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEnhance = async () => {
-    if (!img) return;
+    if (!file) return;
 
     try {
       setLoading(true);
       setEnhancedImg(null);
 
-      // Convert image URL to Blob
-      const response = await fetch(img);
-      const blob = await response.blob();
-      const file = new File([blob], 'image.jpg', { type: blob.type });
-
-      // Submit the task
       const formData = new FormData();
       formData.append('file', file);
 
@@ -45,7 +45,6 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
 
       const { task_id } = await res.json();
 
-      // Listen for stream updates
       const eventSource = new EventSource(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
       );
@@ -87,9 +86,6 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
     setUpscaleFactor('4x');
     setModelType('ESRGAN');
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div className={styles.container}>
       <div className={styles.content_area}>
@@ -173,7 +169,7 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
             </h2>
           </div>
 
-          {img ? (
+          {previewUrl ? (
             <>
               <div
                 className="relative flex items-center justify-center p-2 w-full cursor-pointer group"
@@ -181,7 +177,7 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
                 onClick={() => setIsModalOpen(true)}
               >
                 <Image
-                  src={img}
+                  src={previewUrl}
                   alt="Result"
                   className="image-preview"
                   width={0}
@@ -216,7 +212,7 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
 
                     <div className="w-fit h-fit flex items-center justify-center">
                       <MagnifierImage
-                        src={img}
+                        src={previewUrl}
                         zoom={2}
                         width="100%"
                         height="100%"

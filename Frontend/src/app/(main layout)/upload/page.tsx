@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useLanguage } from '@/context/LanguageContext';
 import LoadingModal from '@/components/modal/loading_modal';
 import ImageRepository from '@/components/button/image_repo_button/image_repo_button';
+import { useImageUpload } from '@/context/imageUploadContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ const Upload = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [taskId, setTaskId] = useState<string>('');
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
+  const { setFile } = useImageUpload();
   const router = useRouter();
 
   const imageChange = (e: any) => {
@@ -37,8 +39,10 @@ const Upload = () => {
         file.type === 'image/jpeg' ||
         file.type === 'image/jpg'
       ) {
-        setImageSrc(URL.createObjectURL(file));
+        const preview = URL.createObjectURL(file);
+        setImageSrc(preview);
         setImageFile(file);
+        setFile(file, preview);
       } else {
         toast.error('Please upload a valid image file (PNG, JPEG).', {
           theme: 'colored',

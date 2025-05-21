@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { ImageUploadProvider } from '@/context/imageUploadContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
@@ -16,19 +17,21 @@ export default function RootLayout({
 }>) {
   return (
     <LanguageProvider>
-      <html lang="en">
-        <body className="h-screen w-full flex">
-          {children}
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar
-            newestOnTop
-            closeButton
-            rtl={false}
-          />
-        </body>
-      </html>
+      <ImageUploadProvider>
+        <html lang="en">
+          <body className="h-screen w-full flex">
+            {children}
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar
+              newestOnTop
+              closeButton
+              rtl={false}
+            />
+          </body>
+        </html>
+      </ImageUploadProvider>
     </LanguageProvider>
   );
 }
