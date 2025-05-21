@@ -132,6 +132,8 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
                 </div>
               </div>
 
+              <div className="my-4 border-t border-gray-300 w-full" />
+
               <div className={styles.control_group}>
                 <label className={styles.control_label}>Model Type</label>
                 <div className={styles.button_group}>
@@ -146,6 +148,8 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
                   ))}
                 </div>
               </div>
+
+              <div className="my-4 border-t border-gray-300 w-full" />
 
               <div className="flex">
                 <button
@@ -210,7 +214,7 @@ const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({ img }) 
                       &times;
                     </button>
 
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-fit h-fit flex items-center justify-center">
                       <MagnifierImage
                         src={img}
                         zoom={2}

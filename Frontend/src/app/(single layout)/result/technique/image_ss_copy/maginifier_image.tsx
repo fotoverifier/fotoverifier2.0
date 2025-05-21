@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useRef, useState } from 'react';
 
 interface MagnifierImageProps {
@@ -24,8 +25,8 @@ const MagnifierImage: React.FC<MagnifierImageProps> = ({
 
     setMagnifierStyle({
       display: 'block',
-      top: `${y - 50}px`,
-      left: `${x - 50}px`,
+      top: `${y }px`,
+      left: `${x }px`,
       backgroundImage: `url(${src})`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: `-${x * zoom - 50}px -${y * zoom - 50}px`,
@@ -52,8 +53,8 @@ const MagnifierImage: React.FC<MagnifierImageProps> = ({
           style={{
             position: 'absolute',
             pointerEvents: 'none',
-            width: 100,
-            height: 100,
+            width: 200,
+            height: 200,
             border: '2px solid #000',
             borderRadius: '50%',
             ...magnifierStyle,
