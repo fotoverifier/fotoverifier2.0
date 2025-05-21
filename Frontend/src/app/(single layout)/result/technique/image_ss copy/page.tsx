@@ -16,6 +16,65 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
+  const [enhancedImg, setEnhancedImg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleEnhance = async () => {
+    if (!img) return;
+
+    try {
+      setLoading(true);
+      setEnhancedImg(null);
+
+      // Convert image URL to Blob
+      const response = await fetch(img);
+      const blob = await response.blob();
+      const file = new File([blob], 'image.jpg', { type: blob.type });
+
+      // Submit the task
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const scale = parseInt(upscaleFactor.replace('x', ''), 10);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution?scale=${scale}`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const { task_id } = await res.json();
+
+      // Listen for stream updates
+      const eventSource = new EventSource(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
+      );
+
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.status === 'done' && data.image) {
+          setEnhancedImg(`data:image/png;base64,${data.image}`);
+          setLoading(false);
+          eventSource.close();
+        } else if (data.status === 'error') {
+          console.error(data.detail);
+          setLoading(false);
+          eventSource.close();
+        }
+      };
+
+      eventSource.onerror = (err) => {
+        console.error('SSE Error', err);
+        setLoading(false);
+        eventSource.close();
+      };
+    } catch (error) {
+      console.error('Enhancement failed:', error);
+      setLoading(false);
+    }
+  };
 
   const handleUpscaleFactorChange = (factor: string) => {
     setUpscaleFactor(factor);
@@ -32,7 +91,6 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
   return (
     <div className={styles.container}>
       <div className={styles.content_area}>
@@ -91,8 +149,11 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
               </div>
 
               <div className="flex">
-                <button className={styles.enhance_button}>
-                  Enhance image
+                <button
+                  className={styles.enhance_button}
+                  onClick={handleEnhance}
+                >
+                  {loading ? 'Processing...' : 'Enhance image'}
                 </button>{' '}
               </div>
             </div>
@@ -110,77 +171,80 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
           </div>
 
           {img ? (
-             <>
-             <div
-            className="relative flex items-center justify-center p-2 w-full cursor-pointer group"
-            style={{ height: '90%' }}
-            onClick={() => setIsModalOpen(true)}
-          >
-            <Image
-              src={img}
-              alt="Result"
-              className="image-preview"
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{
-                width: 'auto',
-                maxWidth: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                position: 'relative',
-              }}
-            />
+            <>
+              <div
+                className="relative flex items-center justify-center p-2 w-full cursor-pointer group"
+                style={{ height: '90%' }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                <Image
+                  src={img}
+                  alt="Result"
+                  className="image-preview"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{
+                    width: 'auto',
+                    maxWidth: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    position: 'relative',
+                  }}
+                />
 
-            <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              Click to expand full screen and zoom in.
-            </div>
-          </div>
-              
-             {isModalOpen && (
-               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-                 <div
-                   className="relative bg-white rounded-lg overflow-hidden"
-                   style={{ width: '80vw', height: '80vh' }}
-                 >
-                   <button
-                     onClick={() => setIsModalOpen(false)}
-                     className="absolute top-2 right-2 text-black text-xl font-bold z-10"
-                   >
-                     &times;
-                   </button>
-       
-                   <div className="w-full h-full flex items-center justify-center">
-                   <MagnifierImage src={img} zoom={2} width="100%" height="100%" />
+                <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Click to expand full screen and zoom in.
+                </div>
+              </div>
 
-                   </div>
-                 </div>
-               </div>
-             )}
-           </>
+              {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                  <div
+                    className="relative bg-white rounded-lg overflow-hidden"
+                    style={{ width: '80vw', height: '80vh' }}
+                  >
+                    <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="absolute top-2 right-2 text-black text-xl font-bold z-10"
+                    >
+                      &times;
+                    </button>
+
+                    <div className="w-full h-full flex items-center justify-center">
+                      <MagnifierImage
+                        src={img}
+                        zoom={2}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
-            <div>{t('No_Image_Available')}</div> 
+            <div>{t('No_Image_Available')}</div>
           )}
         </div>
 
-        
         <div className={styles.image_preview_container}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
               <IoGitNetworkOutline />
             </div>
             <h2 className={`${styles.section_title} ${inter.className}`}>
-              Enhanced Image
+              Enhance image
             </h2>
           </div>
-          { img ? (
+          {enhancedImg ? (
             <div
               className="flex items-center justify-center relative p-2 w-full"
               style={{ height: '90%' }}
             >
               <Image
-                src={img}
-                alt="Result"
+                src={enhancedImg}
+                alt="Enhanced Result"
                 className="image-preview"
                 width={0}
                 height={0}
@@ -195,12 +259,15 @@ const ImageSuperResolution_2: React.FC<ImageResultProps> = ({ img }) => {
               />
             </div>
           ) : (
-            <div className='h-full w-full'>   <div className={styles.preview_placeholder}>
-                  <div className={styles.placeholder_text}>
-                    Upscale: {upscaleFactor} | Model: {modelType}
-                  </div>
-                </div> 
-                </div> // Fallback message
+            <div className="h-full w-full">
+              <div className={styles.preview_placeholder}>
+                <div className={styles.placeholder_text}>
+                  {loading
+                    ? 'Processing...'
+                    : `Upscale: ${upscaleFactor} | Model: ${modelType}`}
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
