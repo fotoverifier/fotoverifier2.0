@@ -27,6 +27,7 @@ const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
   const taskId = searchParams.get('task_id');
+  
 
   const [results, setResults] = useState<any[]>([]);
 
@@ -132,7 +133,7 @@ const Res = () => {
       ),
       Superesolution: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <ImageSuperResolution_2 img={img}></ImageSuperResolution_2>
+          <ImageSuperResolution_2/>
         </div>
       ),
       OtherTabs: [

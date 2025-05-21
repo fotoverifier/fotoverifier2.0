@@ -7,16 +7,11 @@ const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
+import { useImageUpload } from '@/context/imageUploadContext';
 
-interface ImageSuperResolution_2Props {
-  file: File | null; // ⬅️ CHANGE: Use File instead of blob URL
-  previewUrl: string | null; // for image display
-}
-
-const ImageSuperResolution_2: React.FC<ImageSuperResolution_2Props> = ({
-  file,
-  previewUrl,
-}) => {
+const ImageSuperResolution_2 = () => {
+  
+    const { file, previewUrl } = useImageUpload();
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
