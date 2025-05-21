@@ -3,7 +3,7 @@ from celery_config import celery_app
 from celery import group
 from algorithms.exif import exif_check
 from algorithms.ela import ela
-from algorithms.ram import recognize_objects
+from algorithms.ram import recognize_objects, load_model
 from algorithms.jpeg_ghost import jpeg_ghost
 import io
 import redis
@@ -12,6 +12,8 @@ import json
 from dotenv import load_dotenv
 
 load_dotenv()
+
+load_model()
 
 redis_url = os.getenv("REDIS_URL")
 

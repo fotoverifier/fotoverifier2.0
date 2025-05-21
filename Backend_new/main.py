@@ -35,12 +35,6 @@ app.add_middleware(
     allow_headers=["*"],  # ✅ Allow all headers
 )
 
-@app.on_event("startup")
-async def startup_event():
-    # This will load and cache the model in memory at server startup
-    load_model()
-    # load_esrgan()
-
 @app.get("/")
 async def read_root():
     return {"message": "Hello World"}
