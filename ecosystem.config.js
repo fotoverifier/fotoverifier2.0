@@ -15,7 +15,7 @@ module.exports = {
   {
     name   : "celery",
     script: "celery",
-    args: "-A tasks worker --loglevel=info -c 4",
+    args: "-A tasks worker --loglevel=info -c 1",
     interpreter: "python3",
     cwd: "./Backend_new",
     watch: false,
