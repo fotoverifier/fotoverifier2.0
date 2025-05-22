@@ -57,8 +57,10 @@ const Upload = () => {
       const file = e.dataTransfer.files[0];
       const fileType = file.type;
       if (fileType === 'image/png' || fileType === 'image/jpeg') {
-        setImageSrc(URL.createObjectURL(file));
+        const preview = URL.createObjectURL(file);
+        setImageSrc(preview);
         setImageFile(file);
+        setFile(file, preview);
       } else {
         toast.error('Please upload a valid image file (PNG, JPEG).', {
           theme: 'colored',
@@ -196,9 +198,10 @@ const Upload = () => {
 
       const blob = await response.blob();
       const file = new File([blob], image.alt, { type: blob.type });
-
-      setImageSrc(URL.createObjectURL(file));
+      const preview = URL.createObjectURL(file);
+      setImageSrc(preview);
       setImageFile(file);
+      setFile(file, preview); // ✅ ADD THIS
     } catch (err) {
       console.error('Error converting image to file:', err);
     }
