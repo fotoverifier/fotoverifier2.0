@@ -1,5 +1,6 @@
 from algorithms.super_resolution import super_resolution
 from celery_config import celery_app
+from celery.signals import worker_process_init
 from celery import group
 from algorithms.exif import exif_check
 from algorithms.ela import ela
@@ -13,7 +14,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-load_model()
+@worker_process_init.connect
+def init_worker(**kwargs):
+    load_model()
 
 redis_url = os.getenv("REDIS_URL")
 

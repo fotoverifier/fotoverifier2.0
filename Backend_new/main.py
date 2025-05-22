@@ -3,9 +3,8 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.exif import exif_check
 from algorithms.ela import ela
-from algorithms.ram import recognize_objects, load_model
+from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.super_resolution import load_esrgan, super_resolution
 import io
 import asyncio
 import json
