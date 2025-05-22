@@ -30,8 +30,8 @@ def super_resolution(image_bytes: bytes, scale) -> str:
             scale=scale,
             model_path=model_path,
             model=model,
-            tile=50,
-            tile_pad=3,
+            tile=200,
+            tile_pad=5,
             pre_pad=0,
             half=torch.cuda.is_available(),  # ✅ half precision on GPU
             gpu_id=None if device.type == "cpu" else 0
@@ -52,7 +52,7 @@ def super_resolution(image_bytes: bytes, scale) -> str:
 
         # Convert to bytes
         buffer = BytesIO()
-        result_image.save(buffer, format="PNG")
+        result_image.save(buffer, format="PNG", optimize=True)
         buffer.seek(0)
 
         # Upload to Cloudinary
