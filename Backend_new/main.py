@@ -97,8 +97,6 @@ async def get_super_resolution(
         return {"message": "Task submitted", "task_id": task.id}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error submitting task: {str(e)}")
-    
-import base64
 
 @app.get("/super-resolution-stream/")
 async def super_resolution_stream(task_id: str, scale: int = 4):
@@ -107,6 +105,7 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
 
         while True:
             task_meta = redis_client.get(f"celery-task-meta-{task_id}")
+            print("task_meta", task_meta)
             if task_meta:
                 data = json.loads(task_meta)
                 

@@ -61,6 +61,7 @@ def super_resolution(image_bytes: bytes, scale) -> str:
 
         # Upload to Cloudinary
         url = upload_to_cloudinary(buffer.getvalue(), filename="super_resolution_result")
+        print("Returning URL:", url)
         return url
 
     except Exception as e:
