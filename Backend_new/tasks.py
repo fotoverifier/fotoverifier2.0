@@ -55,8 +55,7 @@ def process_jpeg_ghost(image_bytes):
 @celery_app.task
 def process_super_resolution(image_bytes, scale):
     try:
-        result = super_resolution(image_bytes, scale)
-        return {"super_resolution": result, "method": "super_resolution"}
+        return {"super_resolution": super_resolution(image_bytes, scale), "method": "super_resolution"}
     except Exception as e:
         return {"super_resolution": f"Error: {str(e)}", "method": "super_resolution"}
 

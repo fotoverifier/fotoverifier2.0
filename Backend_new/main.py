@@ -12,7 +12,6 @@ from tasks import process_quick_scan, process_super_resolution
 import redis
 import os
 from dotenv import load_dotenv
-import threading
 
 load_dotenv()
 
@@ -119,9 +118,7 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
                     result = data["result"]
 
                     if isinstance(result, dict) and not result["super_resolution"].startswith("Error"):
-                        img_bytes = result["super_resolution"]
-                        encoded = base64.b64encode(img_bytes).decode("utf-8")
-                        yield f"data: {json.dumps({'status': 'done', 'image': encoded})}\n\n"
+                        yield f"data: {json.dumps({'status': 'done', 'image_url': result['super_resolution']})}\n\n"
                     else:
                         yield f"data: {json.dumps({'status': 'error', 'detail': str(result)})}\n\n"
                     break
