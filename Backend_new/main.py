@@ -109,6 +109,8 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
             task_meta = redis_client.get(f"celery-task-meta-{task_id}")
             if task_meta:
                 data = json.loads(task_meta)
+                
+                print(data)
 
                 if not seen:
                     yield f"data: {json.dumps({'status': data['status']})}\n\n"
