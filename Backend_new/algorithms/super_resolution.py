@@ -30,7 +30,7 @@ def super_resolution(image_bytes: bytes, scale) -> str:
             scale=scale,
             model_path=model_path,
             model=model,
-            tile=200,
+            tile=100,
             tile_pad=5,
             pre_pad=0,
             half=torch.cuda.is_available(),  # ✅ half precision on GPU
