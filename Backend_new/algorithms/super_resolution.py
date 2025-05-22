@@ -1,5 +1,6 @@
 import os
 from io import BytesIO
+from .utility import upload_to_cloudinary
 from PIL import Image
 import torch
 import numpy as np
@@ -38,7 +39,7 @@ def load_esrgan(scale):
     print("🔄 Loaded ESRGAN model...")
     return upscaler
 
-def super_resolution(image_bytes: bytes, scale) -> bytes:
+def super_resolution(image_bytes: bytes, scale) -> str:
     try:
         upscaler = load_esrgan(scale)
 
@@ -56,7 +57,12 @@ def super_resolution(image_bytes: bytes, scale) -> bytes:
         # Convert to bytes
         buffer = BytesIO()
         result_image.save(buffer, format="PNG")
-        return buffer.getvalue()
+        buffer.seek(0)
+
+        # Upload to Cloudinary
+        url = upload_to_cloudinary(buffer.getvalue(), filename="super_resolution_result")
+        return url
 
     except Exception as e:
         raise ValueError(f"Error during image enhancement: {str(e)}")
+
