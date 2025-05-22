@@ -47,8 +47,8 @@ const ImageSuperResolution_2 = () => {
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
 
-        if (data.status === 'done' && data.image) {
-          setEnhancedImg(`data:image/png;base64,${data.image}`);
+        if (data.status === 'done' && data.image_url) {
+          setEnhancedImg(data.image_url);
           setLoading(false);
           eventSource.close();
         } else if (data.status === 'error') {
