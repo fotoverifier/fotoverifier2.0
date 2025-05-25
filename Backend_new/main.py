@@ -133,13 +133,13 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
 @app.post("/ai-validation")
 async def ai_validation(
     original: UploadFile = File(...),
-    ela_base64: str = Form(...)
+    ela_url: str = Form(...)
 ):
     try:
         original_bytes = await original.read()
         original_base64 = base64.b64encode(original_bytes).decode("utf-8")
 
-        result = analyze_images_with_base64(original_base64, ela_base64)
+        result = analyze_images_with_base64(original_base64, ela_url)
         return {"analysis": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing AI validation: {str(e)}")

@@ -2,8 +2,7 @@ import cv2
 import base64
 import numpy as np
 from io import BytesIO
-import cloudinary.uploader
-from .utility import create_lut
+from .utility import create_lut, upload_to_cloudinary
 
 def ela(image_bytes, quality=75, scale=50, contrast=20):
     contrast = int(contrast / 100 * 128)
@@ -29,10 +28,18 @@ def ela(image_bytes, quality=75, scale=50, contrast=20):
     ela = cv2.convertScaleAbs(cv2.sqrt(difference) * 255, None, scale / 20)
     ela = cv2.LUT(ela, create_lut(contrast, contrast))
 
-    # Encode processed ELA image as base64
-    _, buffer = cv2.imencode('.png', ela)
-    img_base64 = base64.b64encode(buffer).decode('utf-8')
+    # Encode processed ELA image as PNG bytes
+    success, png_buffer = cv2.imencode('.png', ela)
+    if not success:
+        return {"ela_error": "Failed to encode ELA image"}
+
+    # Convert to bytes for upload
+    ela_bytes = png_buffer.tobytes()
+
+    # Upload to Cloudinary
+    cloudinary_url = upload_to_cloudinary(ela_bytes, filename="ela_image")
     
-    return img_base64
+    # Return both URL and base64 (or just URL if preferred)
+    return cloudinary_url
         
     
