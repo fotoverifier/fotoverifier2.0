@@ -1,15 +1,14 @@
 from openai import OpenAI
-import base64
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
 client = OpenAI(
-  api_key=os.getenv("OPENAI_API_KEY"),
+    api_key=os.getenv("OPENAI_API_KEY"),
 )
 
-def analyze_images_with_urls(original_url: str, ela_url: str) -> str:
+def analyze_images_with_base64(original_base64: str, ela_base64: str) -> str:
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -23,13 +22,13 @@ def analyze_images_with_urls(original_url: str, ela_url: str) -> str:
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": original_url
+                            "url": f"data:image/jpeg;base64,{original_base64}"
                         }
                     },
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": ela_url
+                            "url": f"data:image/jpeg;base64,{ela_base64}"
                         }
                     },
                     {

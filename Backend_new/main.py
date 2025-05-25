@@ -1,11 +1,12 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Query
+import base64
+from fastapi import FastAPI, UploadFile, Form, File, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.ai_validation import analyze_images_with_urls
+from algorithms.ai_validation import analyze_images_with_base64
 import io
 import asyncio
 import json
@@ -130,13 +131,18 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
 @app.post("/ai-validation")
-async def ai_validation(original_url: str,ela_url: str):
+async def ai_validation(
+    original: UploadFile = File(...),
+    ela_base64: str = Form(...)
+):
     try:
-        result = analyze_images_with_urls(original_url, ela_url)
+        original_bytes = await original.read()
+        original_base64 = base64.b64encode(original_bytes).decode("utf-8")
+
+        result = analyze_images_with_base64(original_base64, ela_base64)
         return {"analysis": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing AI validation: {str(e)}")
-
 
 @app.post("/quick-scan")
 async def quick_scan(file: UploadFile = File(...)):
