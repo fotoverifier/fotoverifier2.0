@@ -41,8 +41,17 @@ def super_resolution(image_bytes: bytes, scale) -> str:
 
         # Read image
         image = Image.open(BytesIO(image_bytes)).convert("RGB")
-        # Resize to 512x512 using Lanczos
-        image = image.resize((512, 512), Image.LANCZOS)
+        # Resize to smaller image with aspect ratio preserved
+        max_size = 512  # You can change this value
+        original_width, original_height = image.size
+
+        # Calculate scaling factor
+        scale_ratio = min(max_size / original_width, max_size / original_height)
+        new_width = int(original_width * scale_ratio)
+        new_height = int(original_height * scale_ratio)
+
+        # Resize with aspect ratio
+        image = image.resize((new_width, new_height), Image.LANCZOS)
 
         img_np = np.array(image)[:, :, ::-1]  # RGB to BGR for OpenCV
         # Super-resolve
