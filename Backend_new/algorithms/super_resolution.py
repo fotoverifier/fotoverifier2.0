@@ -41,8 +41,10 @@ def super_resolution(image_bytes: bytes, scale) -> str:
 
         # Read image
         image = Image.open(BytesIO(image_bytes)).convert("RGB")
-        img_np = np.array(image)[:, :, ::-1]  # RGB to BGR for OpenCV
+        # Resize to 512x512 using Lanczos
+        image = image.resize((512, 512), Image.LANCZOS)
 
+        img_np = np.array(image)[:, :, ::-1]  # RGB to BGR for OpenCV
         # Super-resolve
         output, _ = upscaler.enhance(img_np, outscale=scale)
 
