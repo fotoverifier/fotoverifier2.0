@@ -60,8 +60,6 @@ const ImageSuperResolution_2 = () => {
 
       eventSource.onerror = (err) => {
         console.error('SSE Error', err);
-        setLoading(false);
-        eventSource.close();
       };
     } catch (error) {
       console.error('Enhancement failed:', error);

@@ -93,7 +93,6 @@ const Res = () => {
     };
 
     eventSource.onerror = (error) => {
-      console.log(eventSource.readyState);
       if (
         eventSource.readyState === EventSource.CLOSED ||
         eventSource.readyState == 0
