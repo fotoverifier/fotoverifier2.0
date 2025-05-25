@@ -22,12 +22,13 @@ import LocationSection from './technique/locationSection';
 import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
+import { useImageUpload } from '@/context/imageUploadContext';
 
 const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
   const taskId = searchParams.get('task_id');
-  
+  const { file, previewUrl } = useImageUpload();
 
   const [results, setResults] = useState<any[]>([]);
 
@@ -35,12 +36,17 @@ const Res = () => {
   const [tagResult, setTagResult] = useState<string | null>(null);
   const [elaResult, setElaResult] = useState<string | null>(null);
   const [jpegGhostResult, setJpegGhostResult] = useState<string[] | null>(null);
+  const [superResolutionResult, setSuperResolutionResult] = useState<
+    string | null
+  >(null);
 
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
 
   const [loadingTagResult, setLoadingTagResult] = useState<boolean>(true);
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
+  const [loadingSuperResolution, setLoadingSuperResolution] =
+    useState<boolean>(true);
   const { t } = useLanguage();
   useEffect(() => {
     if (!img || !taskId) return;
@@ -107,6 +113,54 @@ const Res = () => {
     };
   }, []);
 
+  const handleEnhance = async (upscaleFactor: string) => {
+    if (!file) return;
+
+    try {
+      setLoadingSuperResolution(true);
+      setSuperResolutionResult(null);
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const scale = parseInt(upscaleFactor.replace('x', ''), 10);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution?scale=${scale}`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const { task_id } = await res.json();
+
+      const eventSource = new EventSource(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
+      );
+
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.status === 'done' && data.image_url) {
+          setSuperResolutionResult(data.image_url);
+          setLoadingSuperResolution(false);
+          eventSource.close();
+        } else if (data.status === 'error') {
+          console.error(data.detail);
+          setLoadingSuperResolution(false);
+          eventSource.close();
+        }
+      };
+
+      eventSource.onerror = (err) => {
+        console.error('SSE Error', err);
+      };
+    } catch (error) {
+      console.error('Enhancement failed:', error);
+      setLoadingSuperResolution(false);
+    }
+  };
+
   const renderContent = (activeTab: string) => {
     const tabData = {
       Tampering: (
@@ -132,7 +186,12 @@ const Res = () => {
       ),
       Superesolution: (
         <div className={`h-full w-full ${styles.striped_background}`}>
-          <ImageSuperResolution_2/>
+          <ImageSuperResolution_2
+            previewUrl={previewUrl}
+            handleEnhance={handleEnhance}
+            superResolutionResult={superResolutionResult}
+            loading={loadingSuperResolution}
+          />
         </div>
       ),
       OtherTabs: [

@@ -7,65 +7,22 @@ const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
-import { useImageUpload } from '@/context/imageUploadContext';
 
-const ImageSuperResolution_2 = () => {
-  
-    const { file, previewUrl } = useImageUpload();
+interface ImageSuperResolutionProps {
+  previewUrl: string | null;
+  handleEnhance: (upscaleFactor: string) => Promise<void>;
+  superResolutionResult: string | null;
+  loading: boolean;
+}
+
+const ImageSuperResolution_2 = ({previewUrl, handleEnhance, superResolutionResult, loading}: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
-  const [enhancedImg, setEnhancedImg] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-  const handleEnhance = async () => {
-    if (!file) return;
-
-    try {
-      setLoading(true);
-      setEnhancedImg(null);
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const scale = parseInt(upscaleFactor.replace('x', ''), 10);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution?scale=${scale}`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
-
-      const { task_id } = await res.json();
-
-      const eventSource = new EventSource(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
-      );
-
-      eventSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-
-        if (data.status === 'done' && data.image_url) {
-          setEnhancedImg(data.image_url);
-          setLoading(false);
-          eventSource.close();
-        } else if (data.status === 'error') {
-          console.error(data.detail);
-          setLoading(false);
-          eventSource.close();
-        }
-      };
-
-      eventSource.onerror = (err) => {
-        console.error('SSE Error', err);
-      };
-    } catch (error) {
-      console.error('Enhancement failed:', error);
-      setLoading(false);
-    }
-  };
+  
 
   const handleUpscaleFactorChange = (factor: string) => {
     setUpscaleFactor(factor);
@@ -143,7 +100,7 @@ const ImageSuperResolution_2 = () => {
               <div className="flex">
                 <button
                   className={styles.enhance_button}
-                  onClick={handleEnhance}
+                  onClick={() => handleEnhance(upscaleFactor)}
                 >
                   {loading ? 'Processing...' : 'Enhance image'}
                 </button>{' '}
@@ -229,27 +186,57 @@ const ImageSuperResolution_2 = () => {
               Enhance image
             </h2>
           </div>
-          {enhancedImg ? (
-            <div
-              className="flex items-center justify-center relative p-2 w-full"
-              style={{ height: '90%' }}
-            >
-              <Image
-                src={enhancedImg}
-                alt="Enhanced Result"
-                className="image-preview"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                  width: 'auto',
-                  maxWidth: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  position: 'relative',
-                }}
-              />
-            </div>
+          {superResolutionResult ? (
+            <>
+              <div
+                className="flex items-center justify-center relative p-2 w-full"
+                style={{ height: '90%' }}
+                onClick={() => setIsModalOpen2(true)}
+              >
+                <Image
+                  src={superResolutionResult}
+                  alt="Enhanced Result"
+                  className="image-preview"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{
+                    width: 'auto',
+                    maxWidth: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    position: 'relative',
+                  }}
+                />
+                <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Click to expand full screen and zoom in.
+                </div>
+              </div>
+              {isModalOpen2 && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                  <div
+                    className="relative bg-white rounded-lg overflow-hidden"
+                    style={{ width: '80vw', height: '80vh' }}
+                  >
+                    <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="absolute top-2 right-2 text-black text-xl font-bold z-10"
+                    >
+                      &times;
+                    </button>
+
+                    <div className="w-fit h-fit flex items-center justify-center">
+                      <MagnifierImage
+                        src={superResolutionResult}
+                        zoom={2}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
             <div className="h-full w-full">
               <div className={styles.preview_placeholder}>

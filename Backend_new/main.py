@@ -5,6 +5,7 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
+from algorithms.ai_validation import analyze_images_with_urls
 import io
 import asyncio
 import json
@@ -128,6 +129,13 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
+@app.post("/ai-validation")
+async def ai_validation(original_url: str,ela_url: str):
+    try:
+        result = analyze_images_with_urls(original_url, ela_url)
+        return {"analysis": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing AI validation: {str(e)}")
 
 
 @app.post("/quick-scan")
