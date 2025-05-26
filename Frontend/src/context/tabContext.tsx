@@ -6,6 +6,7 @@ import { useLanguage } from './LanguageContext';
 type TabType =
   | 'Tampering Detection'
   | 'Superesolution'
+  | 'AI_Investigators'
   | 'Originality'
   | 'Location'
   | 'Forensic';
@@ -27,6 +28,7 @@ export const TabProvider: React.FC<{ children: ReactNode }> = ({
     const tabOptions: TabType[] = [
       'Tampering Detection',
       'Superesolution',
+      'AI_Investigators',
       'Originality',
       'Location',
       'Forensic',

@@ -144,6 +144,6 @@
   "location_Tagging.forensicInsight.description": "Stedavvik kan avsløre digitale forfalskninger og AI-generert innhold. Vårt system verifiserer både metadata og visuell konsistens.",
 
   "image_Tags.title": "Bilde Merkelapper",
-    "Superesolution": "super-oppløsning"
-
+  "Superesolution": "super-oppløsning",
+  "AI_Investigators": "AI_Investigators"
 }

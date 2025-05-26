@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 
 interface MagnifierImageProps {
   src: string;
-  zoom?: number; 
+  zoom?: number;
   width?: number | string;
   height?: number | string;
 }
@@ -19,14 +19,15 @@ const MagnifierImage: React.FC<MagnifierImageProps> = ({
   const [magnifierStyle, setMagnifierStyle] = useState<React.CSSProperties>({});
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
 
     setMagnifierStyle({
       display: 'block',
-      top: `${y }px`,
-      left: `${x }px`,
+      top: `${y}px`,
+      left: `${x}px`,
       backgroundImage: `url(${src})`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: `-${x * zoom - 50}px -${y * zoom - 50}px`,

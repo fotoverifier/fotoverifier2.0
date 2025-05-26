@@ -194,6 +194,14 @@ const Res = () => {
           />
         </div>
       ),
+      AI_Investigators: (
+        <div className="w-full h-full">
+          <FakeShieldApp
+            img={img}
+            img2={`data:image/jpeg;base64,${elaResult}`}
+          ></FakeShieldApp>
+        </div>
+      ),
       OtherTabs: [
         {
           key: 'Originality',
@@ -329,7 +337,10 @@ const Res = () => {
           description: t('AI_Verification_Description'),
           content: (
             <div className="overflow-hidden h-full">
-              <FakeShieldApp></FakeShieldApp>
+              <FakeShieldApp
+                img={img}
+                img2={`data:image/jpeg;base64,${elaResult}`}
+              ></FakeShieldApp>
             </div>
           ),
         },
@@ -346,6 +357,11 @@ const Res = () => {
       if (activeTab === 'Superesolution') {
         return tabData.Superesolution;
       }
+
+      if (activeTab === 'AI_Investigators') {
+        return tabData.AI_Investigators;
+      }
+
       if (selectedTab) {
         return (
           <div className={styles.container}>

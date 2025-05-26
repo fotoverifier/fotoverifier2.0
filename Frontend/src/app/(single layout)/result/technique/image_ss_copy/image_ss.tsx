@@ -15,14 +15,17 @@ interface ImageSuperResolutionProps {
   loading: boolean;
 }
 
-const ImageSuperResolution_2 = ({previewUrl, handleEnhance, superResolutionResult, loading}: ImageSuperResolutionProps) => {
+const ImageSuperResolution_2 = ({
+  previewUrl,
+  handleEnhance,
+  superResolutionResult,
+  loading,
+}: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [modelType, setModelType] = useState('ESRGAN');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-
-  
 
   const handleUpscaleFactorChange = (factor: string) => {
     setUpscaleFactor(factor);
@@ -102,7 +105,7 @@ const ImageSuperResolution_2 = ({previewUrl, handleEnhance, superResolutionResul
                   className={styles.enhance_button}
                   onClick={() => handleEnhance(upscaleFactor)}
                 >
-                  {loading ? 'Processing...' : 'Enhance image'}
+                  Enhance image
                 </button>{' '}
               </div>
             </div>

@@ -5,9 +5,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full bg-white flex overflow-hidden">
+    <div className="w-full bg-white flex">
       <Sidebar_Alt />
-      <div className="w-full">{children}</div>
+      <div className="w-full h-screen overflow-y-scroll scrollbar-hide">
+        {children}
+      </div>
     </div>
   );
 }
