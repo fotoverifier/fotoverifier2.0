@@ -4,7 +4,7 @@ import { MdFeedback, MdLink } from 'react-icons/md';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { MdOutlineDesignServices, MdOutlineVerifiedUser } from 'react-icons/md';
 import { BiUser } from 'react-icons/bi';
-import CircleRating from '@/components/Rating/rating_circle';
+import CircleRating from '@/components/rating/rating_circle';
 
 const predefinedFeedback = [
   'UI is sleek',

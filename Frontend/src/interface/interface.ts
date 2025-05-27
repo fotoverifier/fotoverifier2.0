@@ -48,3 +48,37 @@ export interface Result {
 export interface Tagging {
   tag: string;
 }
+
+export interface AI_Validation {
+  img: string | null;
+  img2: string | null;
+  submitted: boolean;
+  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface InvestigatorResult {
+  Summary: string;
+  'Lighting inconsistencies': string;
+  'Edge artifacts': string;
+  'Semantic anomalies': string;
+  'Political Relevancy': string;
+  'Confidence level': string;
+}
+
+export interface SharedJudgment {
+  'Consensus Summary': string;
+  'Political Relevancy (agreed)': string;
+  'Overall Confidence': string;
+}
+
+export interface UserQuestionResponse {
+  Relevance: string;
+  Response?: string;
+}
+
+export interface AnalysisResult {
+  investigator_A: InvestigatorResult;
+  investigator_B: InvestigatorResult;
+  shared_judgment: SharedJudgment;
+  user_question_response: UserQuestionResponse;
+}

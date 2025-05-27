@@ -21,7 +21,6 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
     t('AI_Investigators'),
     t('Originality'),
     t('Location'),
-    t('Forensic'),
   ];
 
   return (

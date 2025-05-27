@@ -48,6 +48,9 @@ const Res = () => {
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(true);
   const { t } = useLanguage();
+
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     if (!img || !taskId) return;
 
@@ -199,6 +202,8 @@ const Res = () => {
           <FakeShieldApp
             img={img}
             img2={`data:image/jpeg;base64,${elaResult}`}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
           ></FakeShieldApp>
         </div>
       ),
@@ -330,19 +335,6 @@ const Res = () => {
           title: t('Location'),
           description: t('GPS_Location_Description'),
           content: <LocationSection exifResult={exifResult}></LocationSection>,
-        },
-        {
-          key: 'Forensic',
-          title: t('Forensic'),
-          description: t('AI_Verification_Description'),
-          content: (
-            <div className="overflow-hidden h-full">
-              <FakeShieldApp
-                img={img}
-                img2={`data:image/jpeg;base64,${elaResult}`}
-              ></FakeShieldApp>
-            </div>
-          ),
         },
       ],
     };
