@@ -1,0 +1,27 @@
+{
+  "investigator_A": {
+    "Summary": "画像には不自然な部分があると認識され、特に背景の木々やバットのエッジに異常が見られる。",
+    "Lighting inconsistencies": "画像全体的に光の当たり方に不自然さがあり、特にバットの部分で不均等な照明が顕著に見える。",
+    "Edge artifacts": "バットの周辺に明らかなエッジアーチファクトが見つかり、合成の可能性を示唆している。",
+    "Semantic anomalies": "被写体のポーズは自然だが、背景の要素との統一感が欠けており、不協和音を感じさせる。",
+    "Political Relevancy": "Low",
+    "Confidence level": "Medium"
+  },
+  "investigator_B": {
+    "Summary": "画像には加工の兆候があり、特にバットの露出と質感が他の要素と明らかに異なる。",
+    "Lighting inconsistencies": "バットの照明が他の部分と一致せず、明らかに不均衡である。",
+    "Edge artifacts": "バットのエッジ部分には明瞭なアーチファクトが確認でき、合成の可能性が高いことを示している。",
+    "Semantic anomalies": "背景の自然な雰囲気に対してバットの存在が不自然であり、全体的な調和が欠けている。",
+    "Political Relevancy": "Low",
+    "Confidence level": "Medium"
+  },
+  "shared_judgment": {
+    "Consensus Summary": "両者ともに画像には加工の可能性があり、特にバットの部分が他の要素と一致していない点で合意している。",
+    "Political Relevancy (agreed)": "Low",
+    "Overall Confidence": "Medium"
+  },
+  "user_question_response": {
+    "Relevance": "Not relevant",
+    "Response": "Not relevant"
+  }
+}

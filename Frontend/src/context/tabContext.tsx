@@ -6,9 +6,9 @@ import { useLanguage } from './LanguageContext';
 type TabType =
   | 'Tampering Detection'
   | 'Superesolution'
+  | 'AI_Investigators'
   | 'Originality'
-  | 'Location'
-  | 'Forensic';
+  | 'Location';
 
 interface TabContextType {
   activeTab: TabType;
@@ -27,9 +27,9 @@ export const TabProvider: React.FC<{ children: ReactNode }> = ({
     const tabOptions: TabType[] = [
       'Tampering Detection',
       'Superesolution',
+      'AI_Investigators',
       'Originality',
       'Location',
-      'Forensic',
     ];
 
     const matchingTab = tabOptions.find((option) => t(option) === tab);

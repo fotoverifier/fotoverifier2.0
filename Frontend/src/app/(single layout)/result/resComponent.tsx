@@ -48,6 +48,9 @@ const Res = () => {
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(true);
   const { t } = useLanguage();
+
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     if (!img || !taskId) return;
 
@@ -194,6 +197,16 @@ const Res = () => {
           />
         </div>
       ),
+      AI_Investigators: (
+        <div className="w-full h-full">
+          <FakeShieldApp
+            img={img}
+            img2={`data:image/jpeg;base64,${elaResult}`}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
+          ></FakeShieldApp>
+        </div>
+      ),
       OtherTabs: [
         {
           key: 'Originality',
@@ -323,16 +336,6 @@ const Res = () => {
           description: t('GPS_Location_Description'),
           content: <LocationSection exifResult={exifResult}></LocationSection>,
         },
-        {
-          key: 'Forensic',
-          title: t('Forensic'),
-          description: t('AI_Verification_Description'),
-          content: (
-            <div className="overflow-hidden h-full">
-              <FakeShieldApp></FakeShieldApp>
-            </div>
-          ),
-        },
       ],
     };
 
@@ -346,6 +349,11 @@ const Res = () => {
       if (activeTab === 'Superesolution') {
         return tabData.Superesolution;
       }
+
+      if (activeTab === 'AI_Investigators') {
+        return tabData.AI_Investigators;
+      }
+
       if (selectedTab) {
         return (
           <div className={styles.container}>

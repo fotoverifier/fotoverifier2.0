@@ -7,10 +7,13 @@ interface ImageUploadContextType {
   setFile: (file: File | null, previewUrl: string | null) => void;
 }
 
+const ImageUploadContext = createContext<ImageUploadContextType | undefined>(
+  undefined
+);
 
-const ImageUploadContext = createContext<ImageUploadContextType | undefined>(undefined);
-
-export const ImageUploadProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ImageUploadProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [file, setFileState] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -29,7 +32,9 @@ export const ImageUploadProvider: React.FC<{ children: React.ReactNode }> = ({ c
 export const useImageUpload = () => {
   const context = useContext(ImageUploadContext);
   if (!context) {
-    throw new Error('useImageUpload must be used within an ImageUploadProvider');
+    throw new Error(
+      'useImageUpload must be used within an ImageUploadProvider'
+    );
   }
   return context;
 };
