@@ -1,12 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './image_ss.module.css';
-import { IoGitNetworkOutline } from 'react-icons/io5';
+import { IoGitNetworkOutline, IoImage, IoImageSharp } from 'react-icons/io5';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
+import { MdCameraEnhance } from 'react-icons/md';
 
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
@@ -43,14 +44,7 @@ const ImageSuperResolution_2 = ({
     <div className={styles.container}>
       <div className={styles.content_area}>
         <div className={styles.section}>
-          {/*<div className={styles.helper_title}>
-          <div className={${inter.className} ${styles.title_badge}}>
-            <div className={styles.circle}>
-              <TbZoomInArea />
-            </div>
-            Image Super Resolution
-          </div>
-        </div>*/}
+    
 
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
@@ -112,10 +106,14 @@ const ImageSuperResolution_2 = ({
           </div>
         </div>
 
-        <div className={` ${styles.image_preview_container}`}>
-          <div className={styles.section_header}>
+
+
+        <div className={styles.section}>
+    
+
+        <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
-              <IoGitNetworkOutline />
+              <IoImage />
             </div>
             <h2 className={`${styles.section_title} ${inter.className}`}>
               Original Image
@@ -131,6 +129,7 @@ const ImageSuperResolution_2 = ({
               >
                 <Image
                   src={previewUrl}
+                  key={previewUrl}
                   alt="Result"
                   className="image-preview"
                   width={0}
@@ -151,10 +150,9 @@ const ImageSuperResolution_2 = ({
               </div>
 
               {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
                   <div
-                    className="relative bg-white rounded-lg overflow-hidden"
-                    style={{ width: '80vw', height: '80vh' }}
+                    className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4"
                   >
                     <button
                       onClick={() => setIsModalOpen(false)}
@@ -163,7 +161,7 @@ const ImageSuperResolution_2 = ({
                       &times;
                     </button>
 
-                    <div className="w-fit h-fit flex items-center justify-center">
+                    <div className="w-fit h-fit">
                       <MagnifierImage
                         src={previewUrl}
                         zoom={2}
@@ -178,13 +176,17 @@ const ImageSuperResolution_2 = ({
           ) : (
             <div>{t('No_Image_Available')}</div>
           )}
+      
         </div>
+
+
+    
 
         <div className={styles.image_preview_container}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
-              <IoGitNetworkOutline />
-            </div>
+            <MdCameraEnhance />
+            </div>  
             <h2 className={`${styles.section_title} ${inter.className}`}>
               Enhance image
             </h2>
@@ -216,28 +218,27 @@ const ImageSuperResolution_2 = ({
                 </div>
               </div>
               {isModalOpen2 && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-                  <div
-                    className="relative bg-white rounded-lg overflow-hidden"
-                    style={{ width: '80vw', height: '80vh' }}
-                  >
-                    <button
-                      onClick={() => setIsModalOpen(false)}
-                      className="absolute top-2 right-2 text-black text-xl font-bold z-10"
-                    >
-                      &times;
-                    </button>
+               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
+               <div
+                 className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4"
+               >
+                 <button
+                   onClick={() => setIsModalOpen2(false)}
+                   className="absolute top-2 right-2 text-black text-xl font-bold z-10"
+                 >
+                   &times;
+                 </button>
 
-                    <div className="w-fit h-fit flex items-center justify-center">
-                      <MagnifierImage
-                        src={superResolutionResult}
-                        zoom={2}
-                        width="100%"
-                        height="100%"
-                      />
-                    </div>
-                  </div>
-                </div>
+                  <div className="w-[90%] h-[90%]">
+                   <MagnifierImage
+                     src={superResolutionResult}
+                     zoom={2}
+                     width="100%"
+                     height="100%"
+                   />
+                 </div>
+               </div>
+             </div>
               )}
             </>
           ) : (

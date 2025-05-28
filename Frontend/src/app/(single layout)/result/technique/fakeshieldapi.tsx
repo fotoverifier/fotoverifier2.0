@@ -78,7 +78,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
       {!submitted ? (
         <div className="w-full h-full bg-gradient-to-br from-teal-50 to-yellow-50 p-4 rounded-xl border">
           <div className={styles.header}>
-            <div className={styles.circleWrapper}>
+            <div className={`${styles.circleWrapper} border-black`}>
               <div className="p-2 rounded-full border-2">
                 <BiSolidCategory />
               </div>
@@ -87,15 +87,15 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
             </div>
             <div className={`${styles.description} flex items-center`}>
-              State-of-the-art
+              From the inputs, two AI Investigators will validate the images, and share the final summary afterward.
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row h-[90%] gap-4 mt-5">
             <div className="w-full md:w-2/3 h-[90%] bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-full w-full flex">
-                <div className="w-1/2 h-full bg-gray-50 p-4 flex flex-col justify-center">
-                  <h2 className="text-lg font-semibold text-gray-700 mb-auto">
+                <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
+                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
                     Details
                   </h2>
 
@@ -120,8 +120,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   )}
                 </div>
 
-                <div className="w-1/2 h-full bg-gray-50 p-4 flex flex-col justify-center">
-                  <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                <div className="w-1/2 h-full  bg-white p-4 flex flex-col justify-center">
+                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-auto p-2 border-2 rounded-full border-black flex justify-center items-center">
                     ELA
                   </h2>
                   {img2 ? (
@@ -267,7 +267,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
           </div>
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-4 gap-4 auto-rows-max">
+        <div className="grid grid-cols-4 gap-4 auto-rows-max">
           {analysisResult && (
             <>
               <div>
@@ -284,12 +284,13 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               <div>
                 <div className="row-span-2 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col max-h-[820px]">
                   <div className="p-4 border-b border-gray-100">
-                    <h2 className="text-lg font-bold text-gray-700">
+                    <h2  className="text-lg font-bold text-gray-700">
                       🧩 Shared Judgment
                     </h2>
                   </div>
-                  <div className="p-4 overflow-y-auto flex-1 space-y-2">
-                    Rating
+                  <div className="p-4 overflow-y-auto flex flex-col flex-1 space-y-2 justify-center items-center">
+                    <div className='mr-auto text-base text-black flex'>
+                       How good is the result? </div>
                     <CircleRating onSelect={setRating} />
                     Return
                   </div>
@@ -320,10 +321,10 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
   color,
 }) => (
   <div
-    className={`col-span-3 bg-white border border-${color}-200 rounded-lg shadow-sm flex flex-col mb-4`}
+    className={`col-span-3 bg-white border border-gray-400 rounded-lg shadow-sm flex flex-col mb-4`}
   >
-    <div className={`p-4 border-b border-${color}-100`}>
-      <h2 className={`text-lg font-bold text-${color}-700`}>{title}</h2>
+    <div className={`p-4 border-b border-gray-400`}>
+      <h2 className={`text-lg font-bold text-black`}>{title}</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1">
       <div className="grid grid-cols-2 gap-4 items-stretch">
@@ -357,8 +358,8 @@ interface SharedJudgmentCardProps {
 }
 
 const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => (
-  <div className="row-span-2 bg-white border border-green-200 rounded-lg shadow-sm flex flex-col max-h-[820px]">
-    <div className="p-4 border-b border-green-100">
+  <div className="row-span-2 bg-white border  border-green-800 rounded-lg shadow-sm flex flex-col max-h-[820px]">
+    <div className="p-4 border-b border-green-800">
       <h2 className="text-lg font-bold text-green-700">🧩 Shared Judgment</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">

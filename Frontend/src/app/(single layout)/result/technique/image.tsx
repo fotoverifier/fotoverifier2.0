@@ -26,6 +26,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
         >
           <Image
             src={img}
+            key={img}
             alt="Result"
             className="image-preview"
             width={0}

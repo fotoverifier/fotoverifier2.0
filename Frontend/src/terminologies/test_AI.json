@@ -1,27 +1,26 @@
 {
   "investigator_A": {
-    "Summary": "画像には不自然な部分があると認識され、特に背景の木々やバットのエッジに異常が見られる。",
-    "Lighting inconsistencies": "画像全体的に光の当たり方に不自然さがあり、特にバットの部分で不均等な照明が顕著に見える。",
-    "Edge artifacts": "バットの周辺に明らかなエッジアーチファクトが見つかり、合成の可能性を示唆している。",
-    "Semantic anomalies": "被写体のポーズは自然だが、背景の要素との統一感が欠けており、不協和音を感じさせる。",
+    "Summary": "The original image displays a ferry in a harbor setting, with a clear view of the water and surroundings. The ELA image shows significant noise and irregularities, suggesting potential alteration.",
+    "Lighting inconsistencies": "The lighting appears consistent in the original image, with natural daylight illuminating the ferry and surroundings. However, the ELA image shows uneven lighting, particularly toward the ferry's hull, indicating potential tampering in those areas.",
+    "Edge artifacts": "There are noticeable edge artifacts around the ferry in the ELA image, suggesting that specific sections may be more compressed than others, indicative of manipulation.",
+    "Semantic anomalies": "The overall scene is logically coherent. However, if the ferry's positioning or size seems unnatural in the context of the harbor, this could imply manipulation.",
     "Political Relevancy": "Low",
     "Confidence level": "Medium"
   },
   "investigator_B": {
-    "Summary": "画像には加工の兆候があり、特にバットの露出と質感が他の要素と明らかに異なる。",
-    "Lighting inconsistencies": "バットの照明が他の部分と一致せず、明らかに不均衡である。",
-    "Edge artifacts": "バットのエッジ部分には明瞭なアーチファクトが確認でき、合成の可能性が高いことを示している。",
-    "Semantic anomalies": "背景の自然な雰囲気に対してバットの存在が不自然であり、全体的な調和が欠けている。",
+    "Summary": "The original image appears authentic at first glance, depicting a typical harbor scene. The ELA reveals disturbing alterations, particularly noticeable by the high noise level and inconsistencies around the ferry.",
+    "Lighting inconsistencies": "The original maintains a uniform light source, while the ELA shows discrepancies, particularly near the waterline and the ferry's sides, suggesting possible edits.",
+    "Edge artifacts": "The ferry exhibits sudden changes in edge clarity in the ELA, indicating sections might have been altered or replaced. This could suggest a focused manipulation on the vessel.",
+    "Semantic anomalies": "While the overall content is plausible, any unusual scaling or texture differences near the ferry may warrant further investigation.",
     "Political Relevancy": "Low",
     "Confidence level": "Medium"
   },
   "shared_judgment": {
-    "Consensus Summary": "両者ともに画像には加工の可能性があり、特にバットの部分が他の要素と一致していない点で合意している。",
+    "Consensus Summary": "Both investigators agree that the ELA indicates potential manipulation, particularly regarding edge artifacts and lighting inconsistencies surrounding the ferry. The original image appears to have been edited but is not definitively manipulated.",
     "Political Relevancy (agreed)": "Low",
     "Overall Confidence": "Medium"
   },
   "user_question_response": {
-    "Relevance": "Not relevant",
-    "Response": "Not relevant"
+    "Relevance": "Not relevant"
   }
 }

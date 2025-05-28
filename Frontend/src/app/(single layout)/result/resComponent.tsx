@@ -170,7 +170,7 @@ const Res = () => {
         <div className={`h-full w-full ${styles.striped_background}`}>
           <div className={styles.Seven_content_container}>
             <div id="img" className={styles.Result_container}>
-              <Image_Result img={img} />
+              <Image_Result img={img} key={img} />
             </div>
             <div id="jpeg_ghost" className={styles.Result_container}>
               <JpegGhostResult
@@ -201,7 +201,7 @@ const Res = () => {
         <div className="w-full h-full">
           <FakeShieldApp
             img={img}
-            img2={`data:image/jpeg;base64,${elaResult}`}
+            img2={elaResult}
             submitted={submitted}
             setSubmitted={setSubmitted}
           ></FakeShieldApp>
