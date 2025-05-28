@@ -177,7 +177,7 @@ const Res = () => {
             </div>
             <div id="ela" className={styles.Result_container}>
               <ElaResult
-                img={`data:image/jpeg;base64,${elaResult}`}
+                img={elaResult}
                 loading={loadingEla}
               />
             </div>
