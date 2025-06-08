@@ -174,21 +174,44 @@ const Res = () => {
     }
   };
 
-  const handleAISubmit = (
+  const handleAISubmit = async (
     insight: string,
     selectedSuggestion: 'professional' | 'casual' | null,
     selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
   ) => {
+    if (!file || !elaResult || !selectedSuggestion || !selectedLanguage) {
+      console.error('Missing required input(s)');
+      return;
+    }
     setAISubmitted(true);
-    const payload = {
-      img,
-      elaResult,
-      insight,
-      suggestion: selectedSuggestion,
-      language: selectedLanguage,
-    };
+    const formData = new FormData();
+    formData.append('original', file); // `img` should be a File object
+    formData.append('ela_url', elaResult); // `elaResult` should be a URL string
+    formData.append('question', insight);
+    formData.append('suggestion', selectedSuggestion || 'professional'); // fallback if null
+    formData.append('language', selectedLanguage || 'EN');
 
-    console.log('Sending payload:', payload);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ai-validation`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.detail || 'AI validation failed');
+      }
+
+      console.log('AI validation result:', result);
+      setAnalysisResult(result);
+      // Optionally handle result here
+    } catch (err) {
+      console.error('Submission failed:', err);
+    }
   };
 
   const renderContent = (activeTab: string) => {
