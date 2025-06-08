@@ -10,6 +10,7 @@ import Image_Result from './technique/image';
 import ImgTagging_Result from './technique/osm_tags';
 import JpegGhostResult from './technique/jpegGhost';
 import ElaResult from './technique/ela';
+import TestData from '@/terminologies/test_AI.json';
 
 import { FaCamera, FaUser } from 'react-icons/fa';
 import { BiSolidCategory } from 'react-icons/bi';
@@ -24,6 +25,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
+
+import { AnalysisResult } from '@/interface/interface';
 
 const Res = () => {
   const searchParams = useSearchParams();
@@ -40,6 +43,9 @@ const Res = () => {
   const [superResolutionResult, setSuperResolutionResult] = useState<
     string | null
   >(null);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
+    null
+  );
 
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
 
@@ -50,7 +56,11 @@ const Res = () => {
     useState<boolean>(true);
   const { t } = useLanguage();
 
-  const [submitted, setSubmitted] = useState(false);
+  const [AIsubmitted, setAISubmitted] = useState(false);
+
+  useEffect(() => {
+    setAnalysisResult(TestData);
+  }, []);
 
   useEffect(() => {
     if (!img || !taskId) return;
@@ -165,6 +175,46 @@ const Res = () => {
     }
   };
 
+  const handleAISubmit = async (
+    insight: string,
+    selectedSuggestion: 'professional' | 'casual' | null,
+    selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
+  ) => {
+    if (!file || !elaResult || !selectedSuggestion || !selectedLanguage) {
+      console.error('Missing required input(s)');
+      return;
+    }
+    setAISubmitted(true);
+    const formData = new FormData();
+    formData.append('original', file); // `img` should be a File object
+    formData.append('ela_url', elaResult); // `elaResult` should be a URL string
+    formData.append('question', insight);
+    formData.append('suggestion', selectedSuggestion || 'professional'); // fallback if null
+    formData.append('language', selectedLanguage || 'EN');
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ai-validation`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.detail || 'AI validation failed');
+      }
+
+      console.log('AI validation result:', result);
+      setAnalysisResult(result);
+      // Optionally handle result here
+    } catch (err) {
+      console.error('Submission failed:', err);
+    }
+  };
+
   const renderContent = (activeTab: string) => {
     const tabData = {
       Tampering: (
@@ -180,10 +230,7 @@ const Res = () => {
               />
             </div>
             <div id="ela" className={styles.Result_container}>
-              <ElaResult
-                img={elaResult}
-                loading={loadingEla}
-              />
+              <ElaResult img={elaResult} loading={loadingEla} />
             </div>
           </div>
         </div>
@@ -203,8 +250,9 @@ const Res = () => {
           <FakeShieldApp
             img={img}
             img2={elaResult}
-            submitted={submitted}
-            setSubmitted={setSubmitted}
+            submitted={AIsubmitted}
+            analysisResult={analysisResult}
+            handleSubmit={handleAISubmit}
           ></FakeShieldApp>
         </div>
       ),

@@ -16,23 +16,24 @@ def analyze_images_from_base64_and_url(
     suggestion: str,
     language: str
 ) -> dict:
-    # Tone instructions
     tone_instruction = {
-        "professional": "Write in a detailed and analytical tone suitable for a forensic professional.",
+        "professional": "Write in a detsailed and analytical tone suitable for a forensic professional.",
         "casual": "Write in a simplified, accessible tone suitable for casual readers."
     }.get(suggestion, "")
 
-    # Language instructions
     language_instruction = {
-        "EN": "Respond fully in English.",
-        "VN": "Translate only the analysis content (text after the dash '-') into Vietnamese. Keep the section headers (👤 Investigator A:, etc.) in English. All summaries and explanations must be written in Vietnamese.",
-        "NO": "Translate only the analysis content (text after the dash '-') into Norwegian. Keep the section headers (👤 Investigator A:, etc.) in English. All summaries and explanations must be written in Norwegian.",
-        "JP": "Translate only the analysis content (text after the dash '-') into Japanese. Keep the section headers (👤 Investigator A:, etc.) in English. All summaries and explanations must be written in Japanese.",
-    }.get(language.upper(), "Respond fully in English.")
+    "EN": "Respond fully in English.",
+    "VN": "Translate only the analysis content (text after the dash '-') into Vietnamese. Keep the section headers (👤 Investigator A:, etc.) in English."
+    " All summaries and explanations must be written in Vietnamese.",
+    "NO": "Translate only the analysis content (text after the dash '-') into Norwegian. Keep the section headers (👤 Investigator A:, etc.) in English."
+    " All summaries and explanations must be written in Norwegian.",
+    "JP": "Translate only the analysis content (text after the dash '-') into Japanese. Keep the section headers (👤 Investigator A:, etc.) in English."
+    " All summaries and explanations must be written in Japanese.",
+}.get(language, "Respond fully in English.")
 
-    # ChatGPT API call
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
+        temperature=0.8,
         messages=[
             {
                 "role": "system",
@@ -57,13 +58,14 @@ def analyze_images_from_base64_and_url(
                         "type": "text",
                         "text": (
                             f"{tone_instruction}\n"
-                            f"{'Below is an optional user-provided question. If it is irrelevant to the forensic analysis, ignore it. ' + question}\n"
                             "You are simulating two digital forensic investigators.\n\n"
-                            "The first image is the *original photograph*.\n"
-                            "The second image is the *Error Level Analysis (ELA)* result.\n\n"
+                            "The first image is the original photograph.\n"
+                            "The second image is the Error Level Analysis (ELA) result.\n\n"
                             "Each investigator should independently assess whether the original image has been manipulated, using ELA to guide detection of abnormal compression, edge irregularities, lighting inconsistencies, and semantic anomalies.\n"
                             "Zoom in on suspicious regions and report any tampering signs.\n\n"
-                            "Each should also assess whether the content has *political relevancy* (i.e., may influence public opinion, contain symbols, figures, or scenarios with political meaning).\n\n"
+                            f"{'Below is an optional user-provided question. Put it into the output if it is relevant, If it is irrelevant to the forensic analysis, ignore it' + question}"
+                            "Each should also assess whether the content has political relevancy (i.e., may influence public opinion, contain symbols, figures, or scenarios with political meaning).\n\n"
+                            f"Below is your output format. Please follow it strictly.\n"
                             f"{language_instruction}\n\n"
                             "**Output format:**\n\n"
                             "👤 Investigator A:\n"
@@ -83,7 +85,7 @@ def analyze_images_from_base64_and_url(
                             "🧩 Shared Judgment:\n"
                             "- Consensus Summary: [Agreed judgment or note of disagreement]\n"
                             "- Political Relevancy (agreed): [High/Medium/Low]\n"
-                            "- Overall Confidence: [High/Medium/Low]\n\n"
+                            "- Overall Confidence: [High/Medium/Low]"
                             "🗣️ User question Response:\n"
                             "- Relevance: [Relevant/Not relevant]\n"
                             "- Response: [Answer to the question if applicable, otherwise say 'Not relevant']"
@@ -94,25 +96,35 @@ def analyze_images_from_base64_and_url(
         ]
     )
 
-    response_text = completion.choices[0].message.content or ""
+    return completion.choices[0].message.content or ""
 
+def parse_analysis_response(text: str) -> dict:
     def extract_section(label):
         pattern = rf"{label}:\n((?:- .*\n)+)"
-        match = re.search(pattern, response_text)
+        match = re.search(pattern, text)
         if not match:
             return {}
         lines = match.group(1).strip().split('\n')
-        return {
-            line.split(":", 1)[0].strip("- ").strip(): line.split(":", 1)[1].strip()
-            for line in lines if ":" in line
-        }
+        return {line.split(":")[0].strip("- ").strip(): line.split(":", 1)[1].strip() for line in lines}
 
-    return {
-        "raw_text": response_text,
-        "parsed": {
-            "investigator_A": extract_section("👤 Investigator A"),
-            "investigator_B": extract_section("👤 Investigator B"),
-            "shared_judgment": extract_section("🧩 Shared Judgment"),
-            "user_question_response": extract_section("🗣️ User question Response")
-        }
+    result = {
+        "investigator_A": extract_section("👤 Investigator A"),
+        "investigator_B": extract_section("👤 Investigator B"),
+        "shared_judgment": extract_section("🧩 Shared Judgment"),
+        "user_question_response": extract_section("🗣️ User question Response")
     }
+
+    return result
+
+
+
+# json_result = parse_analysis_response(analyze_images_from_base64_and_url(
+#     original_base64= image1_base64,
+#     ela_url= image2_base64,
+#     question="Is the girl weird",
+#     suggestion="professional",
+#     language="EN"
+# ))
+
+# json_output = json.dumps(json_result,ensure_ascii=False, indent=2)
+# print(json_output)

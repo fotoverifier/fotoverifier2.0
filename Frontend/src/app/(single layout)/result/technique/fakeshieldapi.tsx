@@ -10,39 +10,32 @@ import { useLanguage } from '@/context/LanguageContext';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import styles from '@/app/(single layout)/result/res.module.css';
 import { BiSolidCategory } from 'react-icons/bi';
-import TestData from '@/terminologies/test_AI.json';
 
-import {
-  InvestigatorResult,
-  AnalysisResult,
-  SharedJudgment,
-} from '@/interface/interface';
 import CircleRating from '@/components/rating/rating_circle';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
+import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
 interface AI_Validation {
   img: string | null;
   img2: string | null;
   submitted: boolean;
-  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+  analysisResult: AnalysisResult | null;
+  handleSubmit: (
+    insight: string,
+    suggestion: 'professional' | 'casual' | null,
+    language: 'EN' | 'VN' | 'NO' | 'JP' | null
+  ) => void;
 }
 
 const ModelToggleComponent: React.FC<AI_Validation> = ({
   img,
   img2,
   submitted,
-  setSubmitted,
+  analysisResult,
+  handleSubmit,
 }) => {
   const { t } = useLanguage();
 
   const [insight, setInsight] = useState('');
-
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
-    null
-  );
-
-  useEffect(() => {
-    setAnalysisResult(TestData);
-  }, []);
 
   const [selectedSuggestion, setSelectedSuggestion] = useState<
     'professional' | 'casual' | null
@@ -60,19 +53,6 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
     setselectedLanguage(e.target.value as 'EN' | 'VN' | 'NO' | 'JP');
   };
   const [rating, setRating] = useState<number | null>(null);
-
-  const handleSubmit = () => {
-    setSubmitted(true);
-    const payload = {
-      img,
-      img2,
-      insight,
-      suggestion: selectedSuggestion,
-      language: selectedLanguage,
-    };
-
-    console.log('Sending payload:', payload);
-  };
 
   return (
     <>
@@ -257,7 +237,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
 
               <button
-                onClick={handleSubmit}
+                onClick={() => handleSubmit(insight, selectedSuggestion, selectedLanguage)}
                 type="button"
                 className={`mt-4 inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200`}
               >

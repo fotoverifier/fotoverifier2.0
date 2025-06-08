@@ -6,7 +6,7 @@ from algorithms.exif import exif_check
 from algorithms.ela import ela
 from algorithms.ram import recognize_objects
 from algorithms.jpeg_ghost import jpeg_ghost
-from algorithms.ai_validation import analyze_images_with_base64
+from algorithms.ai_validation import analyze_images_from_base64_and_url, parse_analysis_response
 import io
 import asyncio
 import json
@@ -133,13 +133,23 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
 @app.post("/ai-validation")
 async def ai_validation(
     original: UploadFile = File(...),
-    ela_url: str = Form(...)
+    ela_url: str = Form(...),
+    question: str = Form(...),
+    suggestion: str = Form(...),
+    language: str = Form(...)
 ):
     try:
         original_bytes = await original.read()
         original_base64 = base64.b64encode(original_bytes).decode("utf-8")
 
-        result = analyze_images_with_base64(original_base64, ela_url)
+        result = parse_analysis_response(analyze_images_from_base64_and_url(
+            original_base64=original_base64,
+            ela_url=ela_url,
+            question=question,
+            suggestion=suggestion,
+            language=language
+        ))
+        
         return {"analysis": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing AI validation: {str(e)}")
