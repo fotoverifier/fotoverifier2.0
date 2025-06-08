@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
 import { MdCameraEnhance } from 'react-icons/md';
+import { FiImage } from 'react-icons/fi';
+import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
@@ -174,7 +176,7 @@ const ImageSuperResolution_2 = ({
               )}
             </>
           ) : (
-            <div>{t('No_Image_Available')}</div>
+          <NoImagePlaceholder></NoImagePlaceholder>
           )}
       
         </div>
@@ -182,7 +184,7 @@ const ImageSuperResolution_2 = ({
 
     
 
-        <div className={styles.image_preview_container}>
+        <div className={styles.section}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
             <MdCameraEnhance />

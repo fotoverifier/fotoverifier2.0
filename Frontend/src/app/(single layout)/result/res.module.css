@@ -90,9 +90,10 @@
   width: 30%;
   padding: 0.5rem;
   border-radius: 9999px;
-  border: 2px solid #006400;
+  background-color: #01584bdd;        
+  color: white;                   
+  font-weight: 600;
 }
-
 .title {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -102,9 +103,10 @@
 
 .description {
   margin-top: 0.5rem;
-  width: 100%;
   margin-left: 10px;
-  font-size: large;
+  width: 100%;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
 }
 .content {
   width: 100%;

@@ -6,6 +6,7 @@ import placeholder from '@/assets/placeholder.png';
 import { MdOutlinePause, MdWarning } from 'react-icons/md';
 import { FaCaretRight, FaInfoCircle, FaPause } from 'react-icons/fa';
 import { useLanguage } from '@/context/LanguageContext';
+import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 interface ImageResultProps {
   images: string[] | null;
   loading: boolean;
@@ -130,9 +131,8 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                         />
                       </div>
                     ) : (
-                      <div className="h-3/4 flex justify-center items-center">
-                        {t('No_Image_Available')}
-                      </div>
+                   <NoImagePlaceholder/>
+
                     )}
                   </div>
                 ))}

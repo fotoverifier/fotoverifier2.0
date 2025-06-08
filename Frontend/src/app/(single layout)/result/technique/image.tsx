@@ -3,6 +3,10 @@ import Image from 'next/image';
 import { FaImage } from 'react-icons/fa';
 import { useLanguage } from '@/context/LanguageContext';
 import TinEye from '@/assets/tineye-seeklogo.png';
+import styles from '@/app/(single layout)/result/technique/categories.module.css';
+
+import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
+import { MdWarning } from 'react-icons/md';
 interface ImageResultProps {
   img: string | null;
 }
@@ -10,14 +14,16 @@ interface ImageResultProps {
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
   const { t } = useLanguage();
   return (
-    <div className="relative w-full h-full p-5">
-      <div className="flex items-center mb-3">
-        <div className="flex items-center justify-center bg-slate-200 text-teal-800 rounded-full w-10 h-10 shadow-sm">
-          <FaImage size={18} />
+    <div className="w-full h-full p-5 flex flex-col">
+      <div className={styles.title_container}>
+        <div className="flex items-center mb-3">
+          <div className="flex items-center justify-center bg-slate-200 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+            <FaImage size={18} />
+          </div>
+          <h3 className="font-bold text-lg ml-3 text-teal-800">
+            {t('Image_Information')}
+          </h3>
         </div>
-        <h3 className="font-bold text-lg ml-3 text-teal-800">
-          {t('Image_Information')}
-        </h3>
       </div>
       {img ? (
         <div
@@ -42,12 +48,11 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
           />
         </div>
       ) : (
-        <div>{t('No_Image_Available')}</div>
+        <NoImagePlaceholder/>
       )}
 
-      <div className="absolute bottom-6 left-0 right-0 px-5 ">
-        <ul className="flex flex-wrap gap-4 justify-center p-3 border-l-4 border-green-800 bg-green-50 rounded-md shadow-sm">
-          <li>
+       <div className="mt-auto mb-2 flex items-center justify-center gap-2 p-2 border-l-4 border-green-800 bg-green-100 rounded-md shadow-sm">
+          <div>
             <a
               href="https://images.google.com"
               target="_blank"
@@ -60,10 +65,10 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
                 className="w-6 h-6"
               />
             </a>
-          </li>
+          </div>
 
           {/* TinEye */}
-          <li>
+          <div>
             <a
               href="https://tineye.com"
               target="_blank"
@@ -72,26 +77,11 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
             >
               <Image src={TinEye} alt="TinEye" className="h-6 w-auto" />
             </a>
-          </li>
+          </div>
 
-          {/* Bing */}
-          <li>
-            <a
-              href="https://www.bing.com/images"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-white hover:bg-purple-200 text-purple-800 px-4 py-3 rounded shadow transition-colors"
-            >
-              <img
-                src="https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg.ico"
-                alt="Bing"
-                className="w-6 h-6"
-              />
-            </a>
-          </li>
+  
 
-          {/* Yandex */}
-          <li>
+          <div>
             <a
               href="https://yandex.com/images"
               target="_blank"
@@ -104,9 +94,10 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
                 className="w-6 h-6"
               />
             </a>
-          </li>
-        </ul>
-      </div>
+          </div>
+            </div>
+            
+
     </div>
   );
 };

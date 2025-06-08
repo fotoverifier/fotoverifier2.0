@@ -6,6 +6,7 @@ import styles from '@/app/(single layout)/result/technique/categories.module.css
 import { MdWarning } from 'react-icons/md';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './image_ss_copy/maginifier_image';
+import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 
 interface ElaResultProp {
   img: string | null;
@@ -91,7 +92,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
             )}
           </>
         ) : (
-          <p>{t('No_Image_Available')}</p>
+          <NoImagePlaceholder/>
         )}
       </div>
 

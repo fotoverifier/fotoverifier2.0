@@ -38,25 +38,25 @@
     "relatedWork": "Studies in image forensics have applied JPEG Ghost detection to uncover digital manipulations, often used in conjunction with other tampering detection methods.",
     "tabs": {
       "definition": {
-        "title": "Definition",
+        "title": "I. Definition",
         "description": "JPEG Ghost is a forensic method to detect tampering in JPEG images by analyzing compression artifacts.",
         "icon": "FaBookOpen",
         "content": "JPEG Ghost is a forensic technique used to identify tampering in JPEG images. It leverages the fact that JPEG compression introduces specific artifacts based on the quality level used during compression.\n\nKey aspects of JPEG Ghost:\n- JPEG images are compressed using a quality factor, which affects the visibility of compression artifacts.\n- When an image is tampered with and resaved, the tampered region may have a different compression history.\n- By recompressing the image at various quality levels and comparing the differences, inconsistencies (or \"ghosts\") can be detected in tampered regions.\n\nThis method is widely used in digital forensics to detect manipulations such as copy-paste or splicing in JPEG images."
       },
       "example": {
-        "title": "Example",
+        "title": "II. Example",
         "description": "An example of applying JPEG Ghost detection to identify tampering in a JPEG image.",
         "icon": "FaChartLine",
         "content": "Example of JPEG Ghost Detection:\n\nImage: A JPEG photo of a landscape with a tampered sky region\nOriginal Compression: JPEG quality 80\nTampered Region: Resaved at JPEG quality 60\n\nSteps:\n1. Recompress the image at various quality levels (e.g., 50, 60, 70, 80, 90).\n2. Compute the difference between the original and recompressed images.\n3. Analyze the difference image for inconsistencies:\n   - The tampered region (sky) shows a stronger \"ghost\" at quality 60, indicating it was compressed differently.\n\nUse Cases:\n- Detecting image splicing in forensic investigations.\n- Verifying the authenticity of digital photographs.\n- Identifying recompression in manipulated images."
       },
       "details": {
-        "title": "Technical Details",
+        "title": "III. Technical Details",
         "description": "Technical explanation of the JPEG Ghost detection method and its application in image forensics.",
         "icon": "FaClipboardList",
         "content": "Technical Details of JPEG Ghost Detection:\n\n1. JPEG Compression Basics\n- JPEG compression uses a quality factor (1-100) to control the level of lossy compression.\n- Compression artifacts are introduced in 8x8 pixel blocks, affecting the image's frequency domain.\n\n2. JPEG Ghost Detection Method\n- Recompress the image at various quality levels.\n- Compute the squared difference between the original and recompressed images.\n- Regions with different compression histories will show varying difference magnitudes.\n\n3. Algorithm Steps\n- Convert the image to YCbCr color space (JPEG compression operates in this space).\n- Apply Discrete Cosine Transform (DCT) to 8x8 blocks.\n- Analyze quantization errors to detect inconsistencies.\n\n4. Challenges\n- Small tampered regions may be hard to detect.\n- Multiple recompressions can obscure ghosting effects.\n- Requires high computational resources for large images.\n\n5. Applications\n- Forensic analysis of digital images.\n- Authentication of photographic evidence.\n- Detection of image tampering in legal contexts."
       },
       "relatedWork": {
-        "title": "Related Work",
+        "title": "IV. Related Work",
         "description": "Academic research and publications on JPEG Ghost detection and its role in image forensics.",
         "icon": "FaLink",
         "content": "Related Work in JPEG Ghost Detection:\n\n1. Academic Publications:\n- \"JPEG Ghost: A New Approach to Detect Tampering in JPEG Images\" - IEEE Transactions on Information Forensics and Security, 2015\n- \"Advanced Techniques in JPEG Forensics\" - Journal of Digital Investigation, 2018\n\n2. Key Research Areas \n- Compression Artifact Analysis\n- Image Tampering Detection\n- Forensic Image Authentication\n\n3. Notable Research Institutions \n- Center for Image Forensics, University of Maryland\n- Digital Forensics Lab, Purdue University\n- Image Analysis Group, University of Oxford\n\n4. Emerging Research Directions \n- Combining JPEG Ghost with machine learning for automated tampering detection.\n- Improving detection in low-quality or heavily compressed images.\n- Real-time JPEG Ghost analysis for forensic applications.\n\n5. Recommended References:\n- \"Digital Image Forensics: Theory and Implementation\"\n- \"JPEG Compression History Estimation for Tampering Detection\""
@@ -70,25 +70,25 @@
     "relatedWork": "ELA is widely studied in digital image forensics, often used alongside other tampering detection methods like JPEG Ghost and EXIF metadata analysis to verify image authenticity.",
     "tabs": {
       "definition": {
-        "title": "Definition",
+        "title": "I. Definition",
         "description": "Error Level Analysis (ELA) is a forensic method that identifies tampering in JPEG images by analyzing differences in compression error levels across the image.",
         "icon": "FaBookOpen",
         "content": "Error Level Analysis (ELA) is a forensic technique used to detect tampering in JPEG images. It exploits the fact that JPEG compression introduces varying levels of error depending on the image content and compression quality.\n\nKey aspects of ELA:\n- JPEG compression is lossy, introducing errors that vary across the image.\n- Tampered regions, which may have been edited and resaved, often exhibit different error levels compared to the original image.\n- By resaving the image at a known quality and comparing it to the original, ELA highlights areas with inconsistent error levels, indicating potential tampering.\n\nELA is commonly used in digital forensics to detect manipulations such as splicing, cloning, or retouching in JPEG images."
       },
       "example": {
-        "title": "Example",
+        "title": "II. Example",
         "description": "An example of applying Error Level Analysis to detect tampering in a JPEG image.",
         "icon": "FaChartLine",
         "content": "Example of Error Level Analysis:\n\nImage: A JPEG portrait with a tampered background\nOriginal Compression: JPEG quality 85\nTampered Region: Edited and resaved at JPEG quality 70\n\nSteps:\n1. Resave the image at a fixed compression quality (e.g., 90).\n2. Compute the absolute difference between the original and resaved images.\n3. Amplify the differences to create an ELA map:\n   - The tampered background shows brighter or darker regions, indicating different compression errors.\n\nUse Cases:\n- Detecting image splicing in forensic investigations.\n- Verifying the authenticity of digital photographs.\n- Identifying edited regions in news or legal imagery."
       },
       "details": {
-        "title": "Technical Details",
+        "title": "III. Technical Details",
         "description": "Technical explanation of the Error Level Analysis method and its application in image forensics.",
         "icon": "FaClipboardList",
         "content": "Technical Details of Error Level Analysis:\n\n1. JPEG Compression Basics\n- JPEG compression applies lossy quantization to 8x8 pixel blocks, introducing errors based on the quality factor (1-100).\n- Different regions of an image (e.g., edges vs. smooth areas) produce varying error levels.\n\n2. ELA Methodology\n- Resave the image at a known quality level (typically high, e.g., 90).\n- Compute the pixel-wise absolute difference between the original and resaved images.\n- Scale the differences to visualize an ELA map, where brighter/darker areas indicate higher error discrepancies.\n\n3. Algorithm Steps\n- Load the JPEG image and resave it at a chosen quality.\n- Subtract the resaved image from the original in RGB or YCbCr color space.\n- Enhance the difference image to highlight tampered regions.\n\n4. Challenges\n- Subtle tampering may produce faint ELA signals, requiring careful analysis.\n- High-contrast or textured areas can mask tampering indicators.\n- Multiple compressions may reduce the effectiveness of ELA.\n\n5. Applications\n- Forensic analysis of digital images.\n- Authentication of photographic evidence in legal cases.\n- Detection of retouching or splicing in media."
       },
       "relatedWork": {
-        "title": "Related Work",
+        "title": "IV. Related Work",
         "description": "Academic research and publications on Error Level Analysis and its role in image forensics.",
         "icon": "FaLink",
         "content": "Related Work in Error Level Analysis:\n\n1. Academic Publications:\n- \"Error Level Analysis for Image Tampering Detection\" - IEEE International Conference on Image Processing, 2016\n- \"Forensic Techniques for JPEG Image Authentication\" - Journal of Visual Communication and Image Representation, 2019\n\n2. Key Research Areas\n- Compression Error Analysis\n- Image Tampering Detection\n- Digital Image Authentication\n\n3. Notable Research Institutions\n- Image Forensics Lab, University of Southern California\n- Center for Digital Forensics, University of Albany\n- Multimedia Forensics Group, Politecnico di Torino\n\n4. Emerging Research Directions\n- Combining ELA with deep learning for automated tampering detection.\n- Improving ELA robustness for low-quality or heavily compressed images.\n- Real-time ELA applications for media verification.\n\n5. Recommended References:\n- \"Handbook of Digital Image Forensics\"\n- \"Advanced Methods for Image Tampering Detection\""
@@ -102,25 +102,25 @@
     "relatedWork": "Research in digital image forensics explores noise modification for tampering detection, leveraging noise types and kernel-based filters to authenticate images, often in conjunction with EXIF metadata and compression analysis.",
     "tabs": {
       "definition": {
-        "title": "Definition",
+        "title": "I. Definition",
         "description": "Noise Modification involves altering image noise patterns, including Gaussian, Salt & Pepper, and Speckle noise, using kernel-based filters to enhance quality or mask tampering in digital images.",
         "icon": "FaBookOpen",
         "content": "Noise Modification refers to the process of altering noise patterns in digital images, either to improve visual quality (e.g., via denoising) or to manipulate evidence (e.g., via noise injection). Noise types include:\n\n- **Gaussian Noise**: Random pixel variations following a normal distribution, often due to sensor electronics or low-light conditions.\n- **Salt & Pepper Noise**: Random bright (white) or dark (black) pixels, caused by sensor faults or transmission errors.\n- **Speckle Noise**: Multiplicative noise common in coherent imaging (e.g., ultrasound), affecting pixel intensity proportionally.\n\n**Kernel Type**: Convolutional kernels (e.g., Gaussian blur, median filter) are used to modify noise by smoothing or enhancing specific patterns. For example, a Gaussian kernel reduces high-frequency noise, while a median kernel targets Salt & Pepper noise.\n\nIn digital forensics, noise modification is analyzed to detect tampering, as altered noise patterns may deviate from expected sensor or compression characteristics, complementing metadata like EXIF data."
       },
       "example": {
-        "title": "Example",
+        "title": "II. Example",
         "description": "Demonstration of noise modification techniques, showcasing Gaussian, Salt & Pepper, and Speckle noise, and kernel-based filters applied to a digital image.",
         "icon": "FaChartLine",
         "content": "Example of Noise Modification:\n\nImage: Portrait Photograph\nOriginal State: Captured with minor Gaussian noise due to high ISO\nModified State: Tampered region with added Salt & Pepper noise and denoised using a Gaussian kernel\n\nNoise Types Applied:\n- **Gaussian Noise**: Added to simulate low-light conditions, affecting pixel intensity randomly.\n- **Salt & Pepper Noise**: Introduced in a tampered region, creating sporadic bright and dark pixels.\n- **Speckle Noise**: Simulated in a section to mimic coherent imaging effects, altering texture.\n\nKernel Type Used:\n- **Gaussian Kernel**: Applied to denoise the image, smoothing Gaussian and Speckle noise but leaving faint traces detectable in forensics.\n- **Median Kernel**: Used to remove Salt & Pepper noise, altering the noise profile in the tampered region.\n\nForensic Analysis:\n1. Noise consistency analysis to detect tampered regions with inconsistent noise types.\n2. Kernel signature detection to identify filter application (e.g., Gaussian blur artifacts).\n3. Comparison with EXIF data (e.g., ISO, software) to verify noise expectations.\n\nUse Cases:\n- Detecting tampering in forensic investigations.\n- Verifying image authenticity in legal contexts.\n- Analyzing denoising effects in image processing."
       },
       "details": {
-        "title": "Technical Details",
+        "title": "III. Technical Details",
         "description": "In-depth exploration of noise modification techniques, focusing on Gaussian, Salt & Pepper, and Speckle noise, and kernel-based filters in digital image forensics.",
         "icon": "FaClipboardList",
         "content": "Technical Architecture of Noise Modification:\n\n1. Noise Types\n- **Gaussian Noise**: Modeled as additive noise with a normal distribution, affecting all pixels. Common in high-ISO captures (verifiable via EXIF ISO data).\n- **Salt & Pepper Noise**: Impulse noise with random high/low pixel values, often due to sensor defects or tampering.\n- **Speckle Noise**: Multiplicative noise, proportional to pixel intensity, prevalent in coherent imaging systems.\n\n2. Kernel Types\n- **Gaussian Kernel**: A smoothing filter that reduces high-frequency noise (e.g., Gaussian, Speckle) by averaging pixel values in a weighted neighborhood.\n- **Median Kernel**: A non-linear filter effective against Salt & Pepper noise, replacing pixel values with the median of neighboring pixels.\n- **Wavelet Kernel**: Used in advanced denoising to separate noise from image details, preserving edges.\n\n3. Modification Techniques\n- Noise Injection: Adding Gaussian, Salt & Pepper, or Speckle noise to mask tampering.\n- Denoising: Applying kernel-based filters to reduce noise, potentially obscuring forensic evidence.\n\n4. Forensic Analysis Methods\n- Statistical analysis of noise distributions to detect anomalies.\n- Kernel signature detection to identify filter types (e.g., Gaussian blur residuals).\n- Correlation with EXIF metadata (e.g., camera settings, software) to validate noise patterns.\n\n5. Challenges\n- Subtle noise modifications may evade detection.\n- Multiple kernel applications can obscure tampering evidence.\n- Privacy concerns with noise-based device fingerprinting (e.g., PRNU).\n\n6. Applications\n- Tampering detection in digital forensics.\n- Source attribution using noise profiles.\n- Authentication of photographic evidence."
       },
       "relatedWork": {
-        "title": "Related Work",
+        "title": "IV. Related Work",
         "description": "Research and academic publications on noise modification, focusing on Gaussian, Salt & Pepper, and Speckle noise, and kernel-based filters in image forensics.",
         "icon": "FaLink",
         "content": "Significant Research in Noise Modification Analysis:\n\n1. Academic Publications:\n- \"Noise Analysis for Image Forensics\" - IEEE Transactions on Information Forensics and Security, 2017\n- \"Kernel-Based Denoising and Tampering Detection\" - Journal of Visual Communication and Image Representation, 2021\n\n2. Key Research Areas:\n- Noise Type Analysis: Studying Gaussian, Salt & Pepper, and Speckle noise for tampering detection.\n- Kernel-Based Filters: Developing forensic methods to detect Gaussian, median, and wavelet kernel signatures.\n- Noise Profile Authentication: Linking noise patterns to camera sensors (complementing EXIF data).\n\n3. Notable Research Institutions:\n- Image Forensics Lab, University of Southern California\n- Digital Forensics Research Center, University of Maryland\n- Multimedia Forensics Group, Politecnico di Torino\n\n4. Emerging Research Directions \n- AI-driven noise modification detection using deep learning to identify Gaussian, Salt & Pepper, and Speckle noise anomalies.\n- Real-time kernel signature analysis for forensic applications.\n- Cross-referencing noise profiles with EXIF metadata for enhanced authentication.\n\n5. Recommended References:\n- \"Digital Image Forensics: Principles and Practices\"\n- \"Advanced Noise Analysis for Tampering Detection\""
@@ -134,25 +134,25 @@
     "relatedWork": "Research in digital image forensics leverages luminance gradient analysis to detect tampering, using brightness, contrast, and gradient map alterations alongside EXIF metadata and noise analysis for image authentication.",
     "tabs": {
       "definition": {
-        "title": "Definition",
+        "title": "I. Definition",
         "description": "Luminance Gradient describes the spatial variation in brightness within an image, altered through brightness, contrast, and gradient map techniques, often analyzed to detect manipulation in digital forensics.",
         "icon": "FaBookOpen",
         "content": "Luminance Gradient refers to the gradual or abrupt changes in brightness across a digital image, which can be modified through image processing techniques. Key methods include:\n\n- **Brightness**: Adjusts the overall light intensity, shifting luminance values uniformly or selectively.\n- **Contrast**: Enhances or reduces the difference between light and dark areas, altering the steepness of luminance gradients.\n- **Gradient Map**: Maps luminance values to specific colors or tones, often for stylistic effects or to mask tampering.\n\nIn digital forensics, luminance gradient modifications are analyzed to detect tampering, as unnatural changes in brightness, contrast, or gradient maps may indicate edited regions. These alterations can be cross-referenced with EXIF metadata (e.g., software used, timestamps) to establish an image’s provenance and authenticity."
       },
       "example": {
-        "title": "Example",
+        "title": "II. Example",
         "description": "Demonstration of luminance gradient modifications, showcasing brightness, contrast, and gradient map adjustments applied to a digital image.",
         "icon": "FaChartLine",
         "content": "Example of Luminance Gradient Modification:\n\nImage: Landscape Photograph\nOriginal State: Natural lighting with smooth luminance gradients\nModified State: Tampered region with adjusted brightness, contrast, and a gradient map\n\nModifications Applied:\n- **Brightness**: Increased in a specific region (e.g., sky) to simulate overexposure, altering luminance uniformly.\n- **Contrast**: Enhanced in a tampered area to exaggerate light-dark transitions, creating unnatural gradient steepness.\n- **Gradient Map**: Applied to a section (e.g., ground) to map luminance to unnatural colors, masking a spliced object.\n\nForensic Analysis:\n1. Histogram analysis to detect abrupt luminance shifts caused by brightness/contrast changes.\n2. Edge detection to identify unnatural gradient boundaries from contrast adjustments.\n3. Gradient map analysis to spot inconsistent color mappings.\n4. Comparison with EXIF data (e.g., software, capture time) to verify modification history.\n\nUse Cases:\n- Detecting splicing or retouching in forensic investigations.\n- Verifying image authenticity in media or legal contexts.\n- Analyzing artistic edits in photographic analysis."
       },
       "details": {
-        "title": "Technical Details",
+        "title": "III. Technical Details",
         "description": "In-depth exploration of luminance gradient modification techniques, focusing on brightness, contrast, and gradient map adjustments in digital image forensics.",
         "icon": "FaClipboardList",
         "content": "Technical Architecture of Luminance Gradient Modification:\n\n1. Luminance Gradient Components\n- **Brightness**: Adjusts pixel intensity values, shifting the luminance histogram globally or locally.\n- **Contrast**: Modifies the range of luminance values, stretching or compressing the histogram to alter gradient steepness.\n- **Gradient Map**: Remaps luminance values to a color gradient, altering visual appearance while preserving or obscuring structural details.\n\n2. Modification Techniques\n- Brightness Adjustment: Linear or non-linear scaling of pixel intensities, often applied via image editing software.\n- Contrast Adjustment: Histogram stretching or equalization to enhance or reduce luminance differences.\n- Gradient Mapping: Applying a lookup table to map luminance to colors, common in stylistic edits or tampering.\n\n3. Forensic Analysis Methods\n- Histogram Analysis: Detects unnatural luminance distributions from brightness/contrast changes.\n- Gradient Analysis: Uses edge detection (e.g., Sobel filters) to identify inconsistent luminance transitions.\n- Color Mapping Analysis: Examines gradient map artifacts to detect tampering.\n- Metadata Correlation: Cross-references EXIF data (e.g., software, timestamps) to trace modification history.\n\n4. Challenges\n- Subtle brightness/contrast adjustments may be hard to detect without reference images.\n- Gradient maps can obscure tampering evidence, requiring advanced analysis.\n- Inconsistent EXIF metadata may complicate provenance tracking.\n\n5. Applications\n- Tampering detection in digital forensics.\n- Authentication of photographic evidence in legal cases.\n- Analysis of image enhancements in media verification."
       },
       "relatedWork": {
-        "title": "Related Work",
+        "title": "IV. Related Work",
         "description": "Research and academic publications on luminance gradient analysis, focusing on brightness, contrast, and gradient map modifications in image forensics.",
         "icon": "FaLink",
         "content": "Significant Research in Luminance Gradient Analysis:\n\n1. Academic Publications:\n- \"Luminance-Based Tampering Detection in Digital Images\" - IEEE Transactions on Image Processing, 2018\n- \"Gradient Analysis for Forensic Image Authentication\" - Journal of Digital Forensics, 2020\n\n2. Key Research Areas   \n- Brightness and Contrast Analysis: Detecting unnatural luminance changes for tampering identification.\n- Gradient Map Forensics: Developing methods to uncover color mapping artifacts in manipulated images.\n- Luminance Gradient Authentication: Linking gradient patterns to capture conditions (e.g., EXIF lighting data).\n\n3. Notable Research Institutions:\n- Center for Image Forensics, University of Maryland\n- Digital Forensics Lab, Purdue University\n- Image Analysis Group, University of Oxford\n\n4. Emerging Research Directions:\n- Deep learning for detecting brightness, contrast, and gradient map anomalies in images.\n- Real-time luminance gradient analysis for media verification.\n- Integration of EXIF metadata with gradient analysis for enhanced authentication.\n\n5. Recommended References:\n- \"Digital Image Forensics: Theory and Applications\"\n- \"Advanced Techniques for Luminance-Based Tampering Detection\""

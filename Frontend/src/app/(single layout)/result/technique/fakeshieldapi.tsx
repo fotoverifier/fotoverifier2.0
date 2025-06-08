@@ -18,6 +18,7 @@ import {
   SharedJudgment,
 } from '@/interface/interface';
 import CircleRating from '@/components/rating/rating_circle';
+import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 interface AI_Validation {
   img: string | null;
   img2: string | null;
@@ -76,7 +77,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   return (
     <>
       {!submitted ? (
-        <div className="w-full h-full bg-gradient-to-br from-teal-50 to-yellow-50 p-4 rounded-xl border">
+        <div className="w-full h-full p-4 rounded-xl">
           <div className={styles.header}>
             <div className={`${styles.circleWrapper} border-black`}>
               <div className="p-2 rounded-full border-2">
@@ -92,7 +93,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
           </div>
 
           <div className="flex flex-col md:flex-row h-[90%] gap-4 mt-5">
-            <div className="w-full md:w-2/3 h-[90%] bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="w-full md:w-2/3 h-[100%] bg-white rounded-lg border-2 shadow-md overflow-hidden">
               <div className="h-full w-full flex">
                 <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
                   <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
@@ -116,7 +117,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       }}
                     ></Image>
                   ) : (
-                    <div>{t('No_Image_Available')}</div>
+                   <NoImagePlaceholder/>
                   )}
                 </div>
 
@@ -141,13 +142,13 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       }}
                     ></Image>
                   ) : (
-                    <div>{t('No_Image_Available')}</div>
+                    <NoImagePlaceholder/>
                   )}
                 </div>
               </div>
             </div>
 
-            <div className="w-full h-[90%] md:w-1/3 bg-white rounded-lg shadow-md p-4">
+            <div className="w-full h-[100%] md:w-1/3 bg-white border-2 rounded-lg shadow-md p-4">
               <h3 className="font-semibold text-teal-800 mb-3 flex items-center">
                 <FiNavigation2 className={`mr-2 text-blue-500`} size={18} />
                 AI Investigator
