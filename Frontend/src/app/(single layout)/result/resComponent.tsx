@@ -10,6 +10,7 @@ import Image_Result from './technique/image';
 import ImgTagging_Result from './technique/osm_tags';
 import JpegGhostResult from './technique/jpegGhost';
 import ElaResult from './technique/ela';
+import TestData from '@/terminologies/test_AI.json';
 
 import { FaCamera, FaUser } from 'react-icons/fa';
 import { BiSolidCategory } from 'react-icons/bi';
@@ -23,6 +24,8 @@ import MetaDataPage from './technique/metadata';
 import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
+
+import { AnalysisResult } from '@/interface/interface';
 
 const Res = () => {
   const searchParams = useSearchParams();
@@ -39,6 +42,9 @@ const Res = () => {
   const [superResolutionResult, setSuperResolutionResult] = useState<
     string | null
   >(null);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
+    null
+  );
 
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
 
@@ -49,7 +55,11 @@ const Res = () => {
     useState<boolean>(true);
   const { t } = useLanguage();
 
-  const [submitted, setSubmitted] = useState(false);
+  const [AIsubmitted, setAISubmitted] = useState(false);
+
+  useEffect(() => {
+    setAnalysisResult(TestData);
+  }, []);
 
   useEffect(() => {
     if (!img || !taskId) return;
@@ -164,6 +174,23 @@ const Res = () => {
     }
   };
 
+  const handleAISubmit = (
+    insight: string,
+    selectedSuggestion: 'professional' | 'casual' | null,
+    selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
+  ) => {
+    setAISubmitted(true);
+    const payload = {
+      img,
+      elaResult,
+      insight,
+      suggestion: selectedSuggestion,
+      language: selectedLanguage,
+    };
+
+    console.log('Sending payload:', payload);
+  };
+
   const renderContent = (activeTab: string) => {
     const tabData = {
       Tampering: (
@@ -179,10 +206,7 @@ const Res = () => {
               />
             </div>
             <div id="ela" className={styles.Result_container}>
-              <ElaResult
-                img={elaResult}
-                loading={loadingEla}
-              />
+              <ElaResult img={elaResult} loading={loadingEla} />
             </div>
           </div>
         </div>
@@ -202,8 +226,9 @@ const Res = () => {
           <FakeShieldApp
             img={img}
             img2={elaResult}
-            submitted={submitted}
-            setSubmitted={setSubmitted}
+            submitted={AIsubmitted}
+            analysisResult={analysisResult}
+            handleSubmit={handleAISubmit}
           ></FakeShieldApp>
         </div>
       ),
