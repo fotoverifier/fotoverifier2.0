@@ -14,11 +14,14 @@ import { BiSolidCategory } from 'react-icons/bi';
 import CircleRating from '@/components/rating/rating_circle';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
+import { CollapsibleDefinitionBox } from '@/components/box/CollapsibleDefinitionBox';
+import LoadingOverlay from '@/components/loading/loadinganimation';
 interface AI_Validation {
   img: string | null;
   img2: string | null;
   submitted: boolean;
   analysisResult: AnalysisResult | null;
+  loading: boolean | true;
   handleSubmit: (
     insight: string,
     suggestion: 'professional' | 'casual' | null,
@@ -32,6 +35,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   submitted,
   analysisResult,
   handleSubmit,
+  loading,
 }) => {
   const { t } = useLanguage();
 
@@ -248,47 +252,108 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4 auto-rows-max">
-          {analysisResult && (
-            <>
+
+        <>
+        {loading ? (
+          <LoadingOverlay message="Loading report data..." />
+        ) : (
+          analysisResult && (
+            <div className="grid grid-cols-4 gap-4 auto-rows-max">
               <div>
-                <SharedJudgmentCard
-                  data={analysisResult.shared_judgment}
-                ></SharedJudgmentCard>
+                <SharedJudgmentCard data={analysisResult.shared_judgment} />
               </div>
               <InvestigatorCard
                 title="👤 Investigator A"
                 data={analysisResult.investigator_A}
                 color="blue"
               />
-
               <div>
-                <div className="row-span-2 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col max-h-[820px]">
-                  <div className="p-4 border-b border-gray-100">
-                    <h2  className="text-lg font-bold text-gray-700">
-                      🧩 Shared Judgment
-                    </h2>
-                  </div>
-                  <div className="p-4 overflow-y-auto flex flex-col flex-1 space-y-2 justify-center items-center">
-                    <div className='mr-auto text-base text-black flex'>
-                       How good is the result? </div>
-                    <CircleRating onSelect={setRating} />
-                    Return
-                  </div>
-                </div>
+                <FeedbackSection
+                  onSubmit={(data) => {
+                    console.log('Submitted Feedback:', data);
+                  }}
+                />
               </div>
               <InvestigatorCard
                 title="👤 Investigator B"
                 data={analysisResult.investigator_B}
                 color="purple"
               />
-            </>
-          )}
-        </div>
+            </div>
+          )
+        )}
+        </>
+
       )}
     </>
   );
 };
+type FeedbackSectionProps = {
+  title?: string;
+  onSubmit: (data: { rating: number | null; imageAssessment: string | null }) => void;
+};
+
+const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps) => {
+  const [rating, setRating] = useState<number | null>(null);
+  const [imageAssessment, setImageAssessment] = useState<string | null>(null);
+
+  const options = ['TP', 'FP', 'TN', 'FN'];
+
+  const handleSubmit = () => {
+    onSubmit({ rating, imageAssessment });
+  };
+
+  return (
+    <div className="row-span-2 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col max-h-[820px]">
+      <div className="relative p-4 border-b border-gray-100 flex justify-center items-center overflow-hidden">
+        <h2 className="relative z-10 text-lg font-bold text-gray-700">{title}</h2>
+      </div>
+
+      <div className="p-4 overflow-y-auto flex flex-col flex-1 space-y-4 justify-center items-center">
+        <div className="w-full text-base text-black">How good is the text assessment?</div>
+        <CircleRating onSelect={setRating} />
+
+        <div className="w-full text-base text-black">How good is the image assessment?</div>
+
+        <div className="grid grid-cols-2 gap-2 w-full">
+          {options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={`py-2 px-4 border rounded-lg text-sm font-medium shadow-sm transition-colors
+                ${
+                  imageAssessment === option
+                    ? 'bg-green-800 text-white border-green-900'
+                    : 'bg-gray-50 text-gray-800 border-gray-300 hover:bg-gray-100'
+                }`}
+              onClick={() => setImageAssessment(option)}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+
+        <CollapsibleDefinitionBox
+          definitions={`TP (True Positive): Correctly identified as positive\nFP (False Positive): Incorrectly identified as positive\nTN (True Negative): Correctly identified as negative\nFN (False Negative): Incorrectly identified as negative`}
+           />
+
+
+        <button
+          onClick={handleSubmit}
+          disabled={rating === null || imageAssessment === null}
+          className={`mt-4 w-full py-2 px-4 rounded-lg text-white font-medium transition
+            ${rating === null || imageAssessment === null
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-green-600 hover:bg-green-700'}
+          `}
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  );
+};
+
 
 interface InvestigatorCardProps {
   title: string;
@@ -302,32 +367,37 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
   color,
 }) => (
   <div
-    className={`col-span-3 bg-white border border-gray-400 rounded-lg shadow-sm flex flex-col mb-4`}
+    className={`col-span-3 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
   >
-    <div className={`p-4 border-b border-gray-400`}>
+    <div className={`p-4 border-b border-gray-400 flex items-center justify-center`}>
       <h2 className={`text-lg font-bold text-black`}>{title}</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1">
       <div className="grid grid-cols-2 gap-4 items-stretch">
         <div className="space-y-2">
-          <Section title="(1.) Summary" color={color}>
+        <Section title="Summary" color={color} prefix={1}>
             {data.Summary}
           </Section>
-          <Section title="(2.) Lighting inconsistencies" color={color}>
+          <Section title="Lighting inconsistencies" color={color} prefix={2}>
             {data['Lighting inconsistencies']}
           </Section>
-          <Section title="(3.) Edge artifacts" color={color}>
+          <Section title="Edge artifacts" color={color} prefix={3}>
             {data['Edge artifacts']}
           </Section>
         </div>
         <div className="space-y-2 self-stretch flex flex-col justify-between">
-          <Section title="(4.) Semantic anomalies" color={color}>
+        <Section title="Semantic anomalies" color={color} prefix={4}>
             {data['Semantic anomalies']}
           </Section>
-          <Section title="(5.) Political Relevancy" color={color}>
+          <Section title="Political Relevancy" color={color} prefix={5}>
             {data['Political Relevancy']}
           </Section>
-          <ConfidenceLevel selected={data['Confidence level']} color={color} />
+
+          <Section title="Potential Location" color={color} prefix={6}>
+            Under testing for its feasibility
+          </Section>
+
+          <ConfidenceLevel selected={data['Confidence level']} label="Overall Confidence" />
         </div>
       </div>
     </div>
@@ -339,20 +409,19 @@ interface SharedJudgmentCardProps {
 }
 
 const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => (
-  <div className="row-span-2 bg-white border  border-green-800 rounded-lg shadow-sm flex flex-col max-h-[820px]">
+  <div className="row-span-2 bg-white border-[2px] rounded-3xl  shadow-sm flex flex-col max-h-[820px]">
     <div className="p-4 border-b border-green-800">
       <h2 className="text-lg font-bold text-green-700">🧩 Shared Judgment</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">
-      <Section title="Consensus Summary" color="green">
+    <Section title="Consensus Summary" color="green" prefix={1}>
         {data['Consensus Summary']}
       </Section>
-      <Section title="Political Relevancy (agreed)" color="green">
+      <Section title="Political Relevancy (agreed)" color="green" prefix={2}>
         {data['Political Relevancy (agreed)']}
       </Section>
       <ConfidenceLevel
         selected={data['Overall Confidence']}
-        color="green"
         label="Overall Confidence"
       />
     </div>
@@ -363,45 +432,65 @@ const Section = ({
   title,
   children,
   color,
+  prefix,
 }: {
   title: string;
   children: React.ReactNode;
   color: string;
+  prefix: number;
 }) => (
-  <div className="mb-2">
-    <p className="text-large text-gray-700 font-semibold my-2">{title}</p>
-    <div className={`bg-gray-50 p-2 rounded text-base text-gray-800 border`}>
-      {children}
+  <div className="mb-2 flex items-start">
+    <div className="flex-1">
+      <div className='flex items-center'>
+    <div className="w-7 h-7 flex-shrink-0 rounded-full bg-teal-800 text-white flex items-center justify-center font-bold mr-2">
+      {prefix}
+    </div>
+      <p className="text-large text-gray-700 font-semibold my-2">{title}</p>
+      </div>
+      <div className="border-l-4 border-teal-500   bg-gray-50 p-2 rounded text-base text-gray-800 border">
+        {children}
+      </div>
     </div>
   </div>
 );
 
 const ConfidenceLevel = ({
   selected,
-  color,
   label = 'Confidence level',
 }: {
   selected: string;
-  color: string;
   label?: string;
 }) => {
   const levels = ['Low', 'Medium', 'High'];
+
+  const levelConfig: Record<typeof levels[number], { width: string; color: string }> = {
+    Low: { width: '33%', color: 'bg-red-500' },
+    Medium: { width: '66%', color: 'bg-yellow-500' },
+    High: { width: '100%', color: 'bg-green-500' },
+  };
+
+  const isValidLevel = (val: string): val is typeof levels[number] =>
+    levels.includes(val as typeof levels[number]);
+
+  const { width, color } = isValidLevel(selected)
+    ? levelConfig[selected]
+    : levelConfig.Low;
+
   return (
-    <div className="mt-2">
-      <p className="text-large text-gray-700 font-semibold mb-1">{label}</p>
-      <div className="flex gap-2 text-base font-medium">
-        {levels.map((level) => (
-          <span
-            key={level}
-            className={`px-2 py-1 rounded border ${
-              level === selected
-                ? `border-${color}-600 bg-${color}-100 text-${color}-700`
-                : 'border-gray-300 bg-gray-100'
-            }`}
-          >
-            {level}
-          </span>
-        ))}
+    <div className="my-5">
+      <p className="text-large text-gray-700 font-semibold mb-2">{label}</p>
+      <div className="relative w-full h-4 bg-gray-200 rounded-full mt-10">
+        <div
+          className={`absolute top-0 left-0 h-4 rounded-full transition-all duration-300 ${color}`}
+          style={{ width }}
+        />
+        <div className="absolute inset-0 flex justify-between text-sm text-gray-700 font-medium">
+          {levels.map((level) => (
+            <div key={level} className="relative -top-6 w-1/3 text-center">
+              {level}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

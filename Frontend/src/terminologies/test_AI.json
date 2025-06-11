@@ -13,12 +13,12 @@
     "Edge artifacts": "The ferry exhibits sudden changes in edge clarity in the ELA, indicating sections might have been altered or replaced. This could suggest a focused manipulation on the vessel.",
     "Semantic anomalies": "While the overall content is plausible, any unusual scaling or texture differences near the ferry may warrant further investigation.",
     "Political Relevancy": "Low",
-    "Confidence level": "Medium"
+    "Confidence level": "High"
   },
   "shared_judgment": {
     "Consensus Summary": "Both investigators agree that the ELA indicates potential manipulation, particularly regarding edge artifacts and lighting inconsistencies surrounding the ferry. The original image appears to have been edited but is not definitively manipulated.",
     "Political Relevancy (agreed)": "Low",
-    "Overall Confidence": "Medium"
+    "Overall Confidence": "Low"
   },
   "user_question_response": {
     "Relevance": "Not relevant"

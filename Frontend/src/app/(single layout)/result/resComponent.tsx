@@ -54,15 +54,15 @@ const Res = () => {
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(true);
+  const [loadingAI, setLoadingAI] = useState<boolean>(true);
   const { t } = useLanguage();
 
   const [AIsubmitted, setAISubmitted] = useState(false);
 
-  useEffect(() => {
-    setAnalysisResult(TestData);
-  }, []);
+
 
   useEffect(() => {
+
     if (!img || !taskId) return;
 
     const eventSource = new EventSource(
@@ -180,11 +180,14 @@ const Res = () => {
     selectedSuggestion: 'professional' | 'casual' | null,
     selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
   ) => {
+    console.log(file)
     if (!file || !elaResult || !selectedSuggestion || !selectedLanguage) {
+      console.log(elaResult)
       console.error('Missing required input(s)');
       return;
     }
     setAISubmitted(true);
+    setLoadingAI(true);
     const formData = new FormData();
     formData.append('original', file); // `img` should be a File object
     formData.append('ela_url', elaResult); // `elaResult` should be a URL string
@@ -200,18 +203,17 @@ const Res = () => {
           body: formData,
         }
       );
-
+      setLoadingAI(false);
       const result = await res.json();
 
       if (!res.ok) {
         throw new Error(result.detail || 'AI validation failed');
       }
-
       console.log('AI validation result:', result);
-      setAnalysisResult(result);
-      // Optionally handle result here
+      setAnalysisResult(result.analysis);
     } catch (err) {
       console.error('Submission failed:', err);
+      setLoadingAI(false);
     }
   };
 
@@ -253,6 +255,7 @@ const Res = () => {
             submitted={AIsubmitted}
             analysisResult={analysisResult}
             handleSubmit={handleAISubmit}
+            loading={loadingAI}
           ></FakeShieldApp>
         </div>
       ),

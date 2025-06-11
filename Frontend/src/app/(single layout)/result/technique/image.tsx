@@ -25,6 +25,10 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
           </h3>
         </div>
       </div>
+
+      <div
+        className={`${styles.image_container} flex-1 flex items-center justify-center`}
+      >
       {img ? (
         <div
           className="flex items-center justify-center relative p-2 w-full"
@@ -50,6 +54,8 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
       ) : (
         <NoImagePlaceholder/>
       )}
+
+      z</div>
 
        <div className="mt-auto mb-2 flex items-center justify-center gap-2 p-2 border-l-4 border-green-800 bg-green-100 rounded-md shadow-sm">
           <div>

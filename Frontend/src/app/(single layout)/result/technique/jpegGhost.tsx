@@ -72,10 +72,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
 
       {loading && isRunning ? (
         <div className={styles.image_container}>
-          <div className={styles.loadingBox}>
-            <div className={styles.spinner}></div>
-            <p className={styles.loadingText}>Please wait</p>
-          </div>
+          <NoImagePlaceholder/>
         </div>
       ) : (
         images &&
