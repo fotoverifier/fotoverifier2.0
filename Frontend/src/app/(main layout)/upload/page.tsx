@@ -74,6 +74,8 @@ const Upload = () => {
   const removeImg = () => {
     setImageSrc('');
     setImageFile(null);
+    setFile(null, '');
+    setImageUrl('');
   };
 
   const handleMethodSelect = (id: string) => {
@@ -171,34 +173,41 @@ const Upload = () => {
   };
 
   const handleImageUrlSubmit = async () => {
-  if (!imageUrl) return;
+    if (!imageUrl) {
+      removeImg();
+      return;
+    }
 
-  try {
-    const response = await fetch(imageUrl);
-    if (!response.ok) throw new Error('Image could not be fetched');
+    setLoading(true);
 
-    const blob = await response.blob();
-    const fileType = blob.type;
+    try {
+      const response = await fetch(imageUrl);
+      if (!response.ok) throw new Error('Image could not be fetched');
 
-    if (fileType === 'image/png' || fileType === 'image/jpeg') {
-      const fileName = imageUrl.split('/').pop() || 'downloaded_image';
-      const file = new File([blob], fileName, { type: fileType });
-      const preview = URL.createObjectURL(file);
-      setImageSrc(preview);
-      setImageFile(file);
-      setFile(file, preview);
-    } else {
-      toast.error('Please provide a valid image URL (PNG or JPEG).', {
+      const blob = await response.blob();
+      const fileType = blob.type;
+
+      if (fileType === 'image/png' || fileType === 'image/jpeg') {
+        const fileName = imageUrl.split('/').pop() || 'downloaded_image';
+        const file = new File([blob], fileName, { type: fileType });
+        const preview = URL.createObjectURL(file);
+        setImageSrc(preview);
+        setImageFile(file);
+        setFile(file, preview);
+      } else {
+        toast.error('Please provide a valid image URL (PNG or JPEG).', {
+          theme: 'colored',
+        });
+      }
+    } catch (error) {
+      console.error('Invalid image URL:', error);
+      toast.error('Unable to load image from URL.', {
         theme: 'colored',
       });
+    } finally {
+      setLoading(false); // ✅ Hide loading modal
     }
-  } catch (error) {
-    console.error('Invalid image URL:', error);
-    toast.error('Unable to load image from URL.', {
-      theme: 'colored',
-    });
-  }
-};
+  };
 
   return (
     <div className={styles.main_up_container}>
@@ -237,7 +246,7 @@ const Upload = () => {
             </div>
           </div>
           <div className={styles.input_image}>
-            {!imageSrc && (
+            {!imageSrc ? (
               <div
                 className={styles.viewer}
                 onDrop={handleDrop}
@@ -257,25 +266,20 @@ const Upload = () => {
                   {t('upload_choose_files')}
                 </label>
               </div>
-            )}
-            {imageSrc && (
+            ) : (
               <>
-                <div
-                  className="flex items-center align-middle p-2 justify-center ml-auto"
-                  style={{ height: '10%' }}
-                >
-                  <div className={`mr-2 ${inter.className} font-bold`}>
+                <div className="flex items-center justify-end p-2 h-[10%]">
+                  <span className={`mr-2 ${inter.className} font-bold`}>
                     {t('upload_change_image')}
-                  </div>
-                  <button>
-                    <TbExchange size={20} onClick={removeImg} />
+                  </span>
+                  <button onClick={removeImg} aria-label="Change image">
+                    <TbExchange size={20} />
                   </button>
                 </div>
+
                 <hr className="separator" />
-                <div
-                  className="flex items-center justify-center relative p-2 w-full"
-                  style={{ height: '90%' }}
-                >
+
+                <div className="flex items-center justify-center relative p-2 w-full h-[90%]">
                   <Image
                     src={imageSrc}
                     alt="Preview"
