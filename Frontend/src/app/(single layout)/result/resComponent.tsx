@@ -19,7 +19,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
-
+import TestData from '@/terminologies/test_AI.json'
 import { AnalysisResult } from '@/interface/interface';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -51,11 +51,17 @@ const Res = () => {
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(true);
-  const [loadingAI, setLoadingAI] = useState<boolean>(true);
-  const { t } = useLanguage();
 
-  const [AIsubmitted, setAISubmitted] = useState(false);
+    const { t } = useLanguage();
 
+
+  //const [loadingAI, setLoadingAI] = useState<boolean>(true);
+ // const [AIsubmitted, setAISubmitted] = useState(false);
+
+
+  //In order to test the AI result 
+  const [loadingAI, setLoadingAI] = useState<boolean>(false);
+  const [AIsubmitted, setAISubmitted] = useState(true);
 
 
   useEffect(() => {
@@ -64,6 +70,7 @@ const Res = () => {
 
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
+      
     );
 
     eventSource.onmessage = (event) => {
@@ -74,6 +81,7 @@ const Res = () => {
         if (data.status === 'done') {
           console.log('All tasks completed. Closing SSE...');
           eventSource.close();
+          setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
           return;
         }
 
@@ -128,6 +136,7 @@ const Res = () => {
     if (!file) return;
 
     try {
+      
       setLoadingSuperResolution(true);
       setSuperResolutionResult(null);
 

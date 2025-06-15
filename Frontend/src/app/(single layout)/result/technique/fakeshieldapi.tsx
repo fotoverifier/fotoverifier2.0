@@ -58,6 +58,11 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   };
   const [rating, setRating] = useState<number | null>(null);
 
+  const [page, setPage] = useState(0); 
+
+  const nextPage = () => setPage((prev) => (prev + 1) % 2);  // toggle between 0 and 1
+  const prevPage = () => setPage((prev) => (prev - 1 + 2) % 2);
+
   return (
     <>
       {!submitted ? (
@@ -273,29 +278,104 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
         {loading ? (
           <LoadingOverlay message="Loading report data..." />
         ) : (
+          
           analysisResult && (
-            <div className="grid grid-cols-4 gap-4 auto-rows-max">
-              <div>
-                <SharedJudgmentCard data={analysisResult.shared_judgment} />
-              </div>
-              <InvestigatorCard
-                title="👤 Investigator A"
-                data={analysisResult.investigator_A}
-                color="blue"
-              />
-              <div>
-                <FeedbackSection
-                  onSubmit={(data) => {
-                    console.log('Submitted Feedback:', data);
-                  }}
+            <>
+            {/* Page switcher buttons */}
+            <div className="flex justify-between items-center mb-4 px-2">
+              <button
+                onClick={prevPage}
+                className="text-lg px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                &lt;
+              </button>
+              <span className="text-sm text-gray-600">Page {page + 1}</span>
+              <button
+                onClick={nextPage}
+                className="text-lg px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                &gt;
+              </button>
+            </div>
+
+            {page === 0 && (
+              <div className="grid grid-cols-4 gap-4 auto-rows-max">
+                <div>
+                  <SharedJudgmentCard data={analysisResult.shared_judgment} />
+                </div>
+                <InvestigatorCard
+                  title="👤 Investigator A"
+                  data={analysisResult.investigator_A}
+                  color="blue"
+                />
+                <div>
+                  <FeedbackSection
+                    onSubmit={(data) => {
+                      console.log('Submitted Feedback:', data);
+                    }}
+                  />
+                </div>
+                <InvestigatorCard
+                  title="👤 Investigator B"
+                  data={analysisResult.investigator_B}
+                  color="purple"
                 />
               </div>
-              <InvestigatorCard
-                title="👤 Investigator B"
-                data={analysisResult.investigator_B}
-                color="purple"
-              />
+            )}
+
+            {page === 1 && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 border rounded-lg shadow">
+              <h3 className="text-lg font-semibold mb-4">Investigator A Summary</h3>
+
+              <div className="relative pl-10">
+  {/* Red vertical line */}
+  <div className="absolute left-3 top-0 bottom-0 w-1 bg-red-500 " />
+
+  {/* Item 1 */}
+  <div className="relative flex items-start mb-6">
+    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
+      1
+    </div>
+    <div>
+      <div className="font-bold">Where? (Location)</div>
+      <div className="font-normal text-gray-700">Text</div>
+    </div>
+  </div>
+
+  {/* Item 2 */}
+  <div className="relative flex items-start mb-6">
+    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
+      2
+    </div>
+    <div>
+      <div className="font-bold border-[1px] border-green-900 rounded-xl p-2">When? (Time)</div>
+      <div className="font-normal text-gray-700">Text</div>
+    </div>
+  </div>
+
+  {/* Item 3 with white ending line */}
+  <div className="relative flex items-start">
+    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
+      3
+    </div>
+    <div>
+      <div className="font-bold">Who? (Entities Involved)</div>
+      <div className="font-normal text-gray-700">Text</div>
+    </div>
+
+    <div className="absolute left-3 top-0 bottom-0 w-px bg-white z-[-1]" />
+  </div>
+</div>
+
+
             </div>
+                <div className="p-4 border rounded-lg shadow">
+                  <h3 className="text-lg font-semibold mb-2">Investigator B Summary</h3>
+                </div>
+              </div>
+            )}
+          </>
           )
         )}
         </>

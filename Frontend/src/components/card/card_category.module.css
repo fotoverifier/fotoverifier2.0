@@ -55,7 +55,6 @@
 
   will-change: transform;
 
-  pointer-events: none;
 }
 
 .card:hover .card__content {
