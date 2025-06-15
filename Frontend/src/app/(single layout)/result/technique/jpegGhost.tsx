@@ -15,7 +15,6 @@ interface ImageResultProps {
 const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useLanguage();
-  const [isRunning, setIsRunning] = useState(false);
   const qualities = [
     { title: 'Quality 30', img: images?.[0] ?? placeholder },
     { title: 'Quality 40', img: images?.[1] ?? placeholder },
@@ -24,10 +23,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
     { title: 'Quality 70', img: images?.[4] ?? placeholder },
     { title: 'Quality 80', img: images?.[5] ?? placeholder },
   ];
-
-  const handleDetailClick = () => {
-    console.log('Detail button clicked');
-  };
 
   return (
     <div className="w-full h-full p-5 flex flex-col">
@@ -40,26 +35,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
             <h3 className="font-bold text-lg ml-3 text-teal-800">JPEG Ghost</h3>
           </div>
 
-          <div
-            id="jpeg-specific"
-            className="focus:outline-none ml-auto"
-            onClick={() => {
-              setIsRunning(!isRunning);
-            }}
-          >
-            {isRunning ? (
-              <MdOutlinePause
-                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md"
-                size={30}
-              />
-            ) : (
-              <FaCaretRight
-                className="p-1 rounded-full border-2 flex items-center justify-center bg-[#03564a] hover:bg-[#047c63] text-white shadow-md"
-                size={30}
-              />
-            )}
-          </div>
-
           {!loading && images && images.length > 0 && (
             <FaInfoCircle
               size={30}
@@ -70,23 +45,27 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
         </div>
       </div>
 
-      {loading && isRunning ? (
+      {loading ? (
         <div className={styles.image_container}>
-          <NoImagePlaceholder/>
+          <div className={styles.loadingBox}>
+            <div className={styles.spinner}></div>
+            <p className={styles.loadingText}>Please wait</p>
+          </div>
+        </div>
+      ) : images && images.length > 0 ? (
+        <div className={styles.image_container}>
+          <Image
+            src={images[4]}
+            alt={'JPEG Ghost Image'}
+            width={500}
+            height={500}
+            className={styles.image_preview}
+          />
         </div>
       ) : (
-        images &&
-        images.length > 0 && (
-          <div className={styles.image_container}>
-            <Image
-              src={images[4]}
-              alt={'JPEG Ghost Image'}
-              width={500}
-              height={500}
-              className={styles.image_preview}
-            />
-          </div>
-        )
+        <div className={styles.image_container}>
+          <NoImagePlaceholder />
+        </div>
       )}
 
       {isModalOpen && images && images.length > 0 && (
@@ -128,8 +107,7 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                         />
                       </div>
                     ) : (
-                   <NoImagePlaceholder/>
-
+                      <NoImagePlaceholder />
                     )}
                   </div>
                 ))}

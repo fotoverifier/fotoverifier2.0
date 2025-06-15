@@ -50,7 +50,7 @@ const Res = () => {
   const [loadingEla, setLoadingEla] = useState<boolean>(true);
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingSuperResolution, setLoadingSuperResolution] =
-    useState<boolean>(true);
+    useState<boolean>(false);
   const [loadingAI, setLoadingAI] = useState<boolean>(true);
   const { t } = useLanguage();
 

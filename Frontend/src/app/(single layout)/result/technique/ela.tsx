@@ -59,6 +59,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
                   objectFit: 'contain',
                   position: 'relative',
                 }}
+                unoptimized
               />
 
               <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
