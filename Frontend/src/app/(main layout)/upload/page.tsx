@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/(main layout)/upload/upload.module.css';
 import { TbExchange } from 'react-icons/tb';
 import Image from 'next/image';
@@ -7,7 +7,6 @@ import { Montserrat, Inter, Poppins } from 'next/font/google';
 import Method_Box from './itemgrid';
 import { FaAngleDown } from 'react-icons/fa6';
 import CompletionModal from '@/components/modal/complete_modal';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLanguage } from '@/context/LanguageContext';
@@ -26,10 +25,10 @@ const Upload = () => {
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [taskId, setTaskId] = useState<string>('');
   const [selectedMethod, setSelectedMethod] = useState<string>('normal');
   const { setFile } = useImageUpload();
-  const router = useRouter();
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -151,42 +150,6 @@ const Upload = () => {
     } else if (selectedMethod === 'specialized') {
       alert('This method is currently in development.');
       setLoading(false);
-
-      /*router.push(
-        `/specialized/information?image=${encodeURIComponent(imageSrc)}`
-      );
-      try {
-        const formData = new FormData();
-        formData.append('image', imageFile);
-        const urls = [
-          'http://localhost:8000/api/exif-check/',
-          'http://localhost:8000/api/recognize-objects/',
-        ];
-
-        const fetchPromises = urls.map((url) =>
-          fetch(url, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          })
-        );
-
-        const responses = await Promise.all(fetchPromises);
-
-        const results = await Promise.all(
-          responses.map((response) => response.json())
-        );
-
-        console.log('Results:', results);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        console.log('Upload complete');
-        setUploadComplete(true);
-        setLoading(false);
-      }*/
     }
   };
   const handleImageSelect = async (image: any) => {
@@ -201,11 +164,41 @@ const Upload = () => {
       const preview = URL.createObjectURL(file);
       setImageSrc(preview);
       setImageFile(file);
-      setFile(file, preview); // ✅ ADD THIS
+      setFile(file, preview);
     } catch (err) {
       console.error('Error converting image to file:', err);
     }
   };
+
+  const handleImageUrlSubmit = async () => {
+  if (!imageUrl) return;
+
+  try {
+    const response = await fetch(imageUrl);
+    if (!response.ok) throw new Error('Image could not be fetched');
+
+    const blob = await response.blob();
+    const fileType = blob.type;
+
+    if (fileType === 'image/png' || fileType === 'image/jpeg') {
+      const fileName = imageUrl.split('/').pop() || 'downloaded_image';
+      const file = new File([blob], fileName, { type: fileType });
+      const preview = URL.createObjectURL(file);
+      setImageSrc(preview);
+      setImageFile(file);
+      setFile(file, preview);
+    } else {
+      toast.error('Please provide a valid image URL (PNG or JPEG).', {
+        theme: 'colored',
+      });
+    }
+  } catch (error) {
+    console.error('Invalid image URL:', error);
+    toast.error('Unable to load image from URL.', {
+      theme: 'colored',
+    });
+  }
+};
 
   return (
     <div className={styles.main_up_container}>
@@ -224,6 +217,9 @@ const Upload = () => {
               type="text"
               placeholder={t('upload_input_link')}
               className={`ml-2 ${inter.className}`}
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              onBlur={handleImageUrlSubmit}
             />
           </div>
           <div className={styles.helper_title}>
