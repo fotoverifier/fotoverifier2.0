@@ -2,15 +2,19 @@
 
 import React from 'react';
 import styles from '@/components/tab/step_tab.module.css';
-import { Montserrat } from 'next/font/google';
+import { Inter, Merriweather, Montserrat } from 'next/font/google';
 import { useTabContext } from '@/context/tabContext';
 import { useLanguage } from '@/context/LanguageContext';
+
+
+const inter = Inter({subsets: ['latin']});
+const montserrat = Montserrat({ subsets: ['latin'] });
+const merriweather = Merriweather({ subsets: ['latin'], weight: "700" });
 
 interface TabProps {
   renderContent: (activeTab: string) => React.ReactNode;
 }
 
-const montserrat = Montserrat({ subsets: ['latin'] });
 
 const Tabs: React.FC<TabProps> = ({ renderContent }) => {
   const { t } = useLanguage();
@@ -26,7 +30,7 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
   return (
     <div className={styles.tabs_container}>
       <div
-        className={`${styles.tabs} ${montserrat.className} font-semibold my-5`}
+        className={`${styles.tabs} ${inter.className} font-semibold my-5`}
       >
         {tabs.map((tab, index) => (
           <React.Fragment key={tab}>
@@ -42,7 +46,7 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
           </React.Fragment>
         ))}
       </div>
-      <div className={`${styles.tab_content} ${styles.stripe_1}`}>
+      <div className={`${styles.tab_content} ${styles.stripe_1} ${montserrat.className}`}>
         {renderContent(activeTab)}
       </div>
     </div>

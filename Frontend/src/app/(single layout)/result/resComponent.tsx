@@ -1,21 +1,15 @@
 'use client';
 import React, { useEffect, useState, Suspense, useRef, act } from 'react';
-import { Inter } from 'next/font/google';
+import { Inter, Merriweather, Montserrat } from 'next/font/google';
 import styles from '@/app/(single layout)/result/res.module.css';
 import Tabs from '@/components/tab/step_tab';
 import Image from 'next/image';
 import { ExifData, SearchResult } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
 import Image_Result from './technique/image';
-import ImgTagging_Result from './technique/osm_tags';
 import JpegGhostResult from './technique/jpegGhost';
 import ElaResult from './technique/ela';
-import TestData from '@/terminologies/test_AI.json';
-
-import { FaCamera, FaUser } from 'react-icons/fa';
 import { BiSolidCategory } from 'react-icons/bi';
-const inter = Inter({ subsets: ['latin'] });
-import unknown_author from '@/assets/unknown_author.jpg';
 import HeaderReport from '@/components/head/head_result';
 import { TabProvider } from '@/context/tabContext';
 import FakeShieldApp from './technique/fakeshieldapi';
@@ -28,6 +22,9 @@ import ExifImageDetails from './originality';
 
 import { AnalysisResult } from '@/interface/interface';
 
+const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
+const merriweather = Merriweather({ subsets: ['latin'], weight: "700" });
 const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
@@ -355,7 +352,7 @@ const Res = () => {
           loadingJpegGhost={loadingJpegGhost}
           loadingTagResult={loadingTagResult}
         />
-        <div className={` ${styles.res_body_container} ${inter.className}`}>
+        <div className={` ${styles.res_body_container} ${merriweather.className}`}>
           <Tabs renderContent={renderContent} />
         </div>
       </div>

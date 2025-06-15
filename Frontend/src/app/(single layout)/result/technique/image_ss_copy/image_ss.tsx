@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './image_ss.module.css';
 import { IoGitNetworkOutline, IoImage, IoImageSharp } from 'react-icons/io5';
-import { Inter } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
@@ -10,7 +10,11 @@ import MagnifierImage from './maginifier_image';
 import { MdCameraEnhance } from 'react-icons/md';
 import { FiImage } from 'react-icons/fi';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
+import Loadable from 'next/dist/shared/lib/loadable.shared-runtime';
+import LoadingOverlay from '@/components/loading/loadinganimation';
 
+
+const montserrat = Montserrat({subsets: ["latin"]})
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
   handleEnhance: (upscaleFactor: string) => Promise<void>;
@@ -43,7 +47,7 @@ const ImageSuperResolution_2 = ({
     setModelType('ESRGAN');
   };
   return (
-    <div className={styles.container}>
+    <div className={`styles.container h-full ${montserrat.className} font-bold`}>
       <div className={styles.content_area}>
         <div className={styles.section}>
     
@@ -52,7 +56,7 @@ const ImageSuperResolution_2 = ({
             <div className={styles.circle_secondary}>
               <IoGitNetworkOutline />
             </div>
-            <h2 className={`${styles.section_title} ${inter.className}`}>
+            <h2 className={`${styles.section_title} ${montserrat.className}`}>
               Resolution Enhancement
             </h2>
           </div>
@@ -117,7 +121,7 @@ const ImageSuperResolution_2 = ({
             <div className={styles.circle_secondary}>
               <IoImage />
             </div>
-            <h2 className={`${styles.section_title} ${inter.className}`}>
+            <h2 className={`${styles.section_title} ${montserrat.className}`}>
               Original Image
             </h2>
           </div>
@@ -189,7 +193,7 @@ const ImageSuperResolution_2 = ({
             <div className={styles.circle_secondary}>
             <MdCameraEnhance />
             </div>  
-            <h2 className={`${styles.section_title} ${inter.className}`}>
+            <h2  className={`${styles.section_title} ${montserrat.className}`}>
               Enhance image
             </h2>
           </div>
@@ -247,9 +251,8 @@ const ImageSuperResolution_2 = ({
             <div className="h-full w-full">
               <div className={styles.preview_placeholder}>
                 <div className={styles.placeholder_text}>
-                  {loading
-                    ? 'Processing...'
-                    : `Upscale: ${upscaleFactor} | Model: ${modelType}`}
+                  <LoadingOverlay message='Enhancing in progress'/>
+                  
                 </div>
               </div>
             </div>

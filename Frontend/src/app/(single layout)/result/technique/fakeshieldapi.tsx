@@ -10,7 +10,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import styles from '@/app/(single layout)/result/res.module.css';
 import { BiSolidCategory } from 'react-icons/bi';
-
+import styles_feedback from '@/components/modal/feedback_modal/feedback_modal.module.css'
 import CircleRating from '@/components/rating/rating_circle';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
@@ -61,7 +61,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   return (
     <>
       {!submitted ? (
-        <div className="w-full h-full p-4 rounded-xl">
+        <div className="w-full h-full p-4 rounded-xl mb-5">
           <div className={styles.header}>
             <div className={`${styles.circleWrapper} border-black`}>
               <div className="p-2 rounded-full border-2">
@@ -132,34 +132,45 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
             </div>
 
-            <div className="w-full h-[100%] md:w-1/3 bg-white border-2 rounded-lg shadow-md p-4">
+            <div className="w-full h-fit md:w-1/3 bg-white border-2 rounded-lg shadow-md p-4 mb-5">
               <h3 className="font-semibold text-teal-800 mb-3 flex items-center">
                 <FiNavigation2 className={`mr-2 text-blue-500`} size={18} />
                 AI Investigator
               </h3>
 
-              <div
-                className={`mt-4 p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
-              >
-                <label className="font-semibold block mb-1">
-                  Add extra insight:
+              <label className="font-semibold block my-3">
+                  Choose a question to explore
                 </label>
-                <textarea
-                  placeholder="Write your insight here..."
-                  className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
-                  rows={4}
-                  value={insight}
-                  onChange={(e) => setInsight(e.target.value)}
-                />
+
+              <div className=" p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border">
+                
+                <div className={styles_feedback.feedbackTags}>
+                  {[
+                    "Does this involve public figures or major events?",
+                    "What is the geographic context of this content?",
+                    "Are there inconsistencies in timestamps, weather, or location?",
+                    "What might be the motivation behind sharing this?",
+                  ].map((question, idx) => (
+                    <div
+  key={idx}
+  className={`${styles_feedback.feedbackTag} ${insight === question ? styles_feedback.selected : ""}`}
+  onClick={() => setInsight(question)}
+>
+  {question}
+</div>
+                  ))}
+                </div>
               </div>
 
-              <div
-                className={`mt-4 p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
-              >
-                <div className="font-semibold block mb-1">
-                  Model Suggestion:
+
+              <div className="font-semibold block my-3">
+                  Model Suggestion
                 </div>
-                <div className="flex gap-4">
+              <div
+                className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
+              >
+               
+                <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -185,13 +196,14 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>
 
-              <div
-                className={`mt-4 p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
-              >
-                <div className="font-semibold block mb-1">
+              <div className="font-semibold block my-3">
                   Language Output (Run-time constraint)
                 </div>
-                <div className="flex gap-4">
+              <div
+                className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
+              >
+               
+                <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -249,7 +261,11 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 Send
               </button>
             </div>
+            <div className='mb-3'> </div>
+
           </div>
+          <div className='h-2 bg-white'> </div>
+
         </div>
       ) : (
 
@@ -447,7 +463,7 @@ const Section = ({
     </div>
       <p className="text-large text-gray-700 font-semibold my-2">{title}</p>
       </div>
-      <div className="border-l-4 border-teal-500   bg-gray-50 p-2 rounded text-base text-gray-800 border">
+      <div className="border-l-4 border-teal-500 font-normal bg-gray-50 p-2 rounded text-base text-gray-800 border">
         {children}
       </div>
     </div>

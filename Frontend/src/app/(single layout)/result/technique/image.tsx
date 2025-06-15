@@ -8,7 +8,7 @@ import styles from '@/app/(single layout)/result/technique/categories.module.css
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 import { MdWarning } from 'react-icons/md';
 interface ImageResultProps {
-  img: string | null;
+  img: any;
 }
 
 const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
@@ -55,7 +55,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
         <NoImagePlaceholder/>
       )}
 
-      z</div>
+      </div>
 
        <div className="mt-auto mb-2 flex items-center justify-center gap-2 p-2 border-l-4 border-green-800 bg-green-100 rounded-md shadow-sm">
           <div>

@@ -1,6 +1,10 @@
 import { useLanguage } from '@/context/LanguageContext';
+import { Montserrat } from 'next/font/google';
 import React, { useState } from 'react';
 import { FaImage } from 'react-icons/fa';
+const montserrat = Montserrat({
+  subsets: ['latin'],
+});
 type ImageType = {
   id: number;
   src: string;
@@ -38,7 +42,7 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
 
   return (
     <>
-      <div className="ml-auto">
+      <div className={`ml-auto font-medium ${montserrat.className}`}>
         <button
           className="text-base flex items-center gap-2 bg-gradient-to-r bg-[#01584b] text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5"
           onClick={openModal}
@@ -61,7 +65,7 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className={`${montserrat.className} fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}>
           <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold text-gray-800 border-2 p-2 rounded-xl gap-4 flex items-center font-bold">

@@ -181,8 +181,6 @@
   border: 2px solid #03564a;
   background-color: transparent;
   color: #03564a;
-  white-space: nowrap;
-  overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 

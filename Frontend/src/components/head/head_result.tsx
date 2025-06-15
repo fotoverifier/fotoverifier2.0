@@ -15,6 +15,10 @@ import styles from '@/styles/head/head_result.module.css';
 
 import '@/components/head/test.css';
 import { useTabContext } from '@/context/tabContext';
+import { Montserrat } from 'next/font/google';
+
+const montserrat = Montserrat({ subsets: ['latin'] });
+
 const methods = [
   {
     name: 'Basic Method',
@@ -143,7 +147,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   }, [activeTab]);
 
   return (
-    <div className={`${styles.res_header_container}`}>
+    <div className={`${styles.res_header_container} ${montserrat.className}`}>
       <div className={styles.text_container}>
         <div className={styles.icon_text_container}>
           <div className={styles.icon_container}>

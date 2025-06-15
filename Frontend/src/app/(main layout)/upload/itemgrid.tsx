@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import '@/app/(main layout)/upload/gridcss.css';
-import { Poppins, Noto_Sans, Roboto_Mono } from 'next/font/google';
+import { Poppins, Noto_Sans, Roboto_Mono, Montserrat } from 'next/font/google';
 
 import { IoIosCloseCircle, IoMdMenu } from 'react-icons/io';
 import { FaCode } from 'react-icons/fa';
@@ -11,7 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const poppins = Poppins({ subsets: ['latin'], weight: '700' });
 const sourceCodePro = Roboto_Mono({ subsets: ['latin'], weight: '400' });
-
+const montserrat = Montserrat({ subsets: ['latin']})
 interface MethodBoxProps {
   id: string;
   label: string;
@@ -165,7 +165,7 @@ const Method_Box: React.FC<MethodBoxProps> = ({
           </div>
         )}
       </div>
-      <div className={`font-normal text-sm p-2 ${sourceCodePro.className}`}>
+      <div className={`font-normal text-sm p-2 ${montserrat.className}`}>
         {currentScan ? currentScan.description : 'No description available.'}
       </div>
     </div>
