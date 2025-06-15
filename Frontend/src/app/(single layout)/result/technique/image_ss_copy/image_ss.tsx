@@ -13,8 +13,7 @@ import NoImagePlaceholder from '@/components/exception_component/NoImagePlacehol
 import Loadable from 'next/dist/shared/lib/loadable.shared-runtime';
 import LoadingOverlay from '@/components/loading/loadinganimation';
 
-
-const montserrat = Montserrat({subsets: ["latin"]})
+const montserrat = Montserrat({ subsets: ['latin'] });
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
   handleEnhance: (upscaleFactor: string) => Promise<void>;
@@ -47,11 +46,11 @@ const ImageSuperResolution_2 = ({
     setModelType('ESRGAN');
   };
   return (
-    <div className={`styles.container h-full ${montserrat.className} font-bold`}>
+    <div
+      className={`styles.container h-full ${montserrat.className} font-bold`}
+    >
       <div className={styles.content_area}>
         <div className={styles.section}>
-    
-
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
               <IoGitNetworkOutline />
@@ -112,12 +111,8 @@ const ImageSuperResolution_2 = ({
           </div>
         </div>
 
-
-
         <div className={styles.section}>
-    
-
-        <div className={styles.section_header}>
+          <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
               <IoImage />
             </div>
@@ -157,9 +152,7 @@ const ImageSuperResolution_2 = ({
 
               {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
-                  <div
-                    className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4"
-                  >
+                  <div className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4">
                     <button
                       onClick={() => setIsModalOpen(false)}
                       className="absolute top-2 right-2 text-black text-xl font-bold z-10"
@@ -180,24 +173,28 @@ const ImageSuperResolution_2 = ({
               )}
             </>
           ) : (
-          <NoImagePlaceholder></NoImagePlaceholder>
+            <NoImagePlaceholder></NoImagePlaceholder>
           )}
-      
         </div>
-
-
-    
 
         <div className={styles.section}>
           <div className={styles.section_header}>
             <div className={styles.circle_secondary}>
-            <MdCameraEnhance />
-            </div>  
-            <h2  className={`${styles.section_title} ${montserrat.className}`}>
+              <MdCameraEnhance />
+            </div>
+            <h2 className={`${styles.section_title} ${montserrat.className}`}>
               Enhance image
             </h2>
           </div>
-          {superResolutionResult ? (
+          {loading ? (
+            <div className="h-full w-full">
+              <div className={styles.preview_placeholder}>
+                <div className={styles.placeholder_text}>
+                  <LoadingOverlay message="Enhancing in progress" />
+                </div>
+              </div>
+            </div>
+          ) : superResolutionResult ? (
             <>
               <div
                 className="flex items-center justify-center relative p-2 w-full"
@@ -224,38 +221,28 @@ const ImageSuperResolution_2 = ({
                 </div>
               </div>
               {isModalOpen2 && (
-               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
-               <div
-                 className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4"
-               >
-                 <button
-                   onClick={() => setIsModalOpen2(false)}
-                   className="absolute top-2 right-2 text-black text-xl font-bold z-10"
-                 >
-                   &times;
-                 </button>
-
-                  <div className="w-[90%] h-[90%]">
-                   <MagnifierImage
-                     src={superResolutionResult}
-                     zoom={2}
-                     width="100%"
-                     height="100%"
-                   />
-                 </div>
-               </div>
-             </div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
+                  <div className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4">
+                    <button
+                      onClick={() => setIsModalOpen2(false)}
+                      className="absolute top-2 right-2 text-black text-xl font-bold z-10"
+                    >
+                      &times;
+                    </button>
+                    <div className="w-[90%] h-[90%]">
+                      <MagnifierImage
+                        src={superResolutionResult}
+                        zoom={2}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                </div>
               )}
             </>
           ) : (
-            <div className="h-full w-full">
-              <div className={styles.preview_placeholder}>
-                <div className={styles.placeholder_text}>
-                  <LoadingOverlay message='Enhancing in progress'/>
-                  
-                </div>
-              </div>
-            </div>
+            <NoImagePlaceholder />
           )}
         </div>
       </div>

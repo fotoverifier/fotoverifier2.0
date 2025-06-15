@@ -11,7 +11,6 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
   const { t } = useLanguage();
   const sampleTag =
     'Nature|Animals|Landscape|Sunset|Water|Mountains|Sky|Beach|Forest';
-  const sampleTagsplit = sampleTag ? sampleTag.split('|') : [];
   return (
     <div className="striped-background w-full h-full">
       <div className="flex items-center mb-3">
@@ -24,7 +23,7 @@ const ImgTagging_Result: React.FC<TagResultProps> = ({ Tag, loading }) => {
         </h3>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 overflow-auto max-h-40 scrollbar-hide">
+      <div className="grid grid-cols-3 gap-4 overflow-auto scrollbar-hide">
         {tags.map((tag, index) => (
           <div
             key={index}

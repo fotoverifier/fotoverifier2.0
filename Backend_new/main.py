@@ -1,5 +1,5 @@
 import base64
-from fastapi import FastAPI, UploadFile, Form, File, HTTPException, Query
+from fastapi import FastAPI, UploadFile, Form, File, HTTPException, Query, Body
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.exif import exif_check
@@ -14,6 +14,8 @@ from tasks import process_quick_scan, process_super_resolution
 import redis
 import os
 from dotenv import load_dotenv
+from pydantic import HttpUrl
+import httpx
 
 load_dotenv()
 
@@ -155,9 +157,22 @@ async def ai_validation(
         raise HTTPException(status_code=500, detail=f"Error processing AI validation: {str(e)}")
 
 @app.post("/quick-scan")
-async def quick_scan(file: UploadFile = File(...)):
+async def quick_scan(
+    file: UploadFile = File(None), 
+    image_url: HttpUrl = Body(default=None)
+):
     try:
-        image_bytes = await file.read()
+        if file:
+            image_bytes = await file.read()
+        elif image_url:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(str(image_url))
+                if response.status_code != 200:
+                    raise HTTPException(status_code=400, detail="Failed to fetch image from URL")
+                image_bytes = response.content
+        else:
+            raise HTTPException(status_code=400, detail="No file or image URL provided")
+        
         task_id = process_quick_scan.delay(image_bytes).id  # Start parent task
         return {"message": "File uploaded successfully!", "task_id": task_id}
     except Exception as e:

@@ -104,7 +104,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                         objectFit: 'contain',
                         position: 'relative',
                       }}
-                    ></Image>
+                    />
                   ) : (
                    <NoImagePlaceholder/>
                   )}
@@ -129,7 +129,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                         objectFit: 'contain',
                         position: 'relative',
                       }}
-                    ></Image>
+                      unoptimized
+                    />
                   ) : (
                     <NoImagePlaceholder/>
                   )}
