@@ -16,6 +16,8 @@ import NoImagePlaceholder from '@/components/exception_component/NoImagePlacehol
 import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
 import { CollapsibleDefinitionBox } from '@/components/box/CollapsibleDefinitionBox';
 import LoadingOverlay from '@/components/loading/loadinganimation';
+import { FaMapLocation, FaPerson } from 'react-icons/fa6';
+import { FaTimes } from 'react-icons/fa';
 interface AI_Validation {
   img: string | null;
   img2: string | null;
@@ -104,7 +106,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                         objectFit: 'contain',
                         position: 'relative',
                       }}
-                    />
+                    ></Image>
                   ) : (
                    <NoImagePlaceholder/>
                   )}
@@ -129,8 +131,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                         objectFit: 'contain',
                         position: 'relative',
                       }}
-                      unoptimized
-                    />
+                    ></Image>
                   ) : (
                     <NoImagePlaceholder/>
                   )}
@@ -282,8 +283,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
           
           analysisResult && (
             <>
-            {/* Page switcher buttons */}
-            <div className="flex justify-between items-center mb-4 px-2">
+            <div className="flex justify-center items-center mb-4 px-2 gap-2">
               <button
                 onClick={prevPage}
                 className="text-lg px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
@@ -324,57 +324,22 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
             )}
 
+            
+
             {page === 1 && (
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4">Investigator A Summary</h3>
-
-              <div className="relative pl-10">
-  {/* Red vertical line */}
-  <div className="absolute left-3 top-0 bottom-0 w-1 bg-red-500 " />
-
-  {/* Item 1 */}
-  <div className="relative flex items-start mb-6">
-    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
-      1
-    </div>
-    <div>
-      <div className="font-bold">Where? (Location)</div>
-      <div className="font-normal text-gray-700">Text</div>
-    </div>
-  </div>
-
-  {/* Item 2 */}
-  <div className="relative flex items-start mb-6">
-    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
-      2
-    </div>
-    <div>
-      <div className="font-bold border-[1px] border-green-900 rounded-xl p-2">When? (Time)</div>
-      <div className="font-normal text-gray-700">Text</div>
-    </div>
-  </div>
-
-  {/* Item 3 with white ending line */}
-  <div className="relative flex items-start">
-    <div className="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full mr-4">
-      3
-    </div>
-    <div>
-      <div className="font-bold">Who? (Entities Involved)</div>
-      <div className="font-normal text-gray-700">Text</div>
-    </div>
-
-    <div className="absolute left-3 top-0 bottom-0 w-px bg-white z-[-1]" />
-  </div>
-</div>
-
-
+              <InvestigatorCard_5Wh
+                title="👤 Investigator A"
+                data={analysisResult.investigator_A}
+                color="blue"
+              />
+            
+              <InvestigatorCard_5Wh
+                title="👤 Investigator B"
+                data={analysisResult.investigator_B}
+                color="purple"
+              />
             </div>
-                <div className="p-4 border rounded-lg shadow">
-                  <h3 className="text-lg font-semibold mb-2">Investigator B Summary</h3>
-                </div>
-              </div>
             )}
           </>
           )
@@ -593,4 +558,81 @@ const ConfidenceLevel = ({
   );
 };
 
+
+interface InvestigatorCard_5Wh {
+  title: string;
+  data: InvestigatorResult;
+  color: string;
+}
+
+const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
+  title,
+  data,
+}) => (
+  <div
+    className={`col-span-1 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
+  >
+    <div className={`p-4 border-b border-gray-400 flex items-center justify-center`}>
+      <h2 className={`text-lg font-bold text-black`}>{title}</h2>
+    </div>
+    <div className="p-4 overflow-y-auto flex-1">
+      <div className="grid grid-cols-1 gap-4 items-stretch">
+        <div className="space-y-2">
+        <div className="relative pl-8">
+        <TimeLine prefix= {<FaPerson/>} title='Who' Subtitle='sub'>             We recommend that challenge participants submit their solutions as a Docker container, since it will make sure that we don’t get any errors resulting from software incompatibility issues or any other similar reason. In this case, we recommend them to follow the instructions given under https://github.com/detecting-cheapfakes/detecting-cheapfakes-code.easibility
+         </TimeLine>
+
+         <TimeLine prefix={<FaTimes/>} title='When' Subtitle='sub'>             Under testing for its feasibility
+         </TimeLine>
+
+
+         <TimeLine prefix={<FaMapLocation/>} title='Where'Subtitle='sub'>             Under testing for its feasibility
+         </TimeLine>
+
+         <TimeLine prefix={<FaMapLocation/>} title='Why'Subtitle='sub'>             Under testing for its feasibility
+         </TimeLine>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const TimeLine = ({
+  title,
+  children,
+  prefix,
+  Subtitle,
+}: {
+  title: string;
+  children: React.ReactNode;
+  prefix: React.ReactNode;
+  Subtitle: string;
+}) => (
+  <div className="relative mb-10">
+    <div className='flex items-center'>
+    <div className="absolute left-0 top-0 w-6 h-6 mt-2 rounded-full bg-white border-2 border-gray-500 flex items-center justify-center text-sm z-10">
+      {prefix}
+    </div>
+    <div className='ml-8 flex items-center gap-2 '>       
+      <div className="font-semibold text-black border-2 p-2 rounded-xl">{title}</div>
+      <div className="border-l-4 border-teal-500 font-normal bg-gray-50 p-2 rounded text-base text-gray-800 border">
+        {Subtitle}
+        </div>
+         </div>
+    </div>
+    <div className="absolute left-2.5 top-6 h-full w-0.5 bg-gray-400 my-4"></div>
+
+    <div className="ml-8">
+      <div className=" my-2 border-l-4 border-teal-500 font-normal bg-gray-50 p-2 rounded text-base text-gray-800 border">
+        {children}
+      </div>
+
+      
+
+      
+    </div>
+  </div>
+);
 export default ModelToggleComponent;

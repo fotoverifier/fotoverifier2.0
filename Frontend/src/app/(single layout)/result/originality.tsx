@@ -23,7 +23,6 @@ const ExifImageDetails: React.FC<ExifImageDetailsProps> = ({
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-yellow-50 p-6 rounded-xl">
-      {/* Camera Area */}
       <div className="w-full md:w-1/3 h-full flex flex-col gap-4" id="CameraArea">
         <div className="bg-white rounded-xl shadow-sm p-4">
           <div className="flex items-center mb-3">

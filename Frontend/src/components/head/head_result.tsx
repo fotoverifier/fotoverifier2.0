@@ -3,10 +3,7 @@ import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
 import { FiHelpCircle } from 'react-icons/fi';
 import {
-  FaSortUp,
-  FaSortDown,
   FaTools,
-  FaSearch,
   FaStar,
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,6 +13,7 @@ import styles from '@/styles/head/head_result.module.css';
 import '@/components/head/test.css';
 import { useTabContext } from '@/context/tabContext';
 import { Montserrat } from 'next/font/google';
+import { GiArchiveResearch } from 'react-icons/gi';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -238,6 +236,16 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
             </div>
           </>
         )}
+      </div>
+
+      <div className={`${styles.manual_container} ml-auto`}>
+        <div className={styles.icon_text_container}>
+          <div className={styles.icon_container}>
+            <GiArchiveResearch
+            size={20} />
+          </div>
+          <div className={`${styles.title_manual_text} text-base`}>Manual Guidance</div>
+        </div>
       </div>
     </div>
   );

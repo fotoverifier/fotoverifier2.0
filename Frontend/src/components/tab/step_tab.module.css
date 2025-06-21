@@ -23,10 +23,16 @@
   cursor: pointer;
   border-radius: 30px;
   border-width: 1px;
+  border-style: solid;              /* Ensure border is visible */
+  border-color: lightgray;          /* Add border color */
   width: fit-content;
   transition: background-color 0.3s;
-  white-space: nowrap; /* Prevents wrapping to a new line */
+  white-space: nowrap;
+  flex-shrink: 0;                   /* Prevent shrinking in flex */
+  flex-grow: 0;                     /* Prevent growing in flex */
+  box-sizing: border-box;          /* Include padding in width */
 }
+
 
 .tab.active {
   background-color: #01584b;
