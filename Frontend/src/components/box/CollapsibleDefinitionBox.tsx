@@ -5,7 +5,9 @@ type CollapsibleDefinitionBoxProps = {
   definitions: string; // "TP (True Positive): Description\n..."
 };
 
-export const CollapsibleDefinitionBox = ({ definitions }: CollapsibleDefinitionBoxProps) => {
+export const CollapsibleDefinitionBox = ({
+  definitions,
+}: CollapsibleDefinitionBoxProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggle = () => setIsExpanded(!isExpanded);
 
@@ -13,14 +15,19 @@ export const CollapsibleDefinitionBox = ({ definitions }: CollapsibleDefinitionB
 
   return (
     <div className="border-l-4 border-teal-500 bg-gray-50 p-4 rounded text-base text-gray-800 border w-full">
-      <div className="flex items-center justify-between cursor-pointer" onClick={toggle}>
+      <div
+        className="flex items-center justify-between cursor-pointer"
+        onClick={toggle}
+      >
         <span className="text-sm text-gray-600 font-medium">Definition</span>
         <span className="text-gray-600 hover:text-teal-600">
           {isExpanded ? <GoChevronUp size={20} /> : <GoChevronDown size={20} />}
         </span>
       </div>
 
-      <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 mt-2' : 'max-h-0 overflow-hidden'}`}>
+      <div
+        className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 mt-2' : 'max-h-0 overflow-hidden'}`}
+      >
         <ul className="space-y-1">
           {lines.map((line, idx) => {
             const [term, desc] = line.split(':');

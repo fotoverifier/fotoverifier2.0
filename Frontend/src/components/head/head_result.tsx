@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
 import { FiHelpCircle } from 'react-icons/fi';
-import {
-  FaTools,
-  FaStar,
-} from 'react-icons/fa';
+import { FaTools, FaStar } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal_PReport from '../modal/PReport_modal';
 import styles from '@/styles/head/head_result.module.css';
@@ -241,10 +238,11 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
       <div className={`${styles.manual_container} ml-auto`}>
         <div className={styles.icon_text_container}>
           <div className={styles.icon_container}>
-            <GiArchiveResearch
-            size={20} />
+            <GiArchiveResearch size={20} />
           </div>
-          <div className={`${styles.title_manual_text} text-base`}>Manual Guidance</div>
+          <div className={`${styles.title_manual_text} text-base`}>
+            Manual Guidance
+          </div>
         </div>
       </div>
     </div>

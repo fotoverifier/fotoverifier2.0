@@ -23,7 +23,10 @@ const ExifImageDetails: React.FC<ExifImageDetailsProps> = ({
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-yellow-50 p-6 rounded-xl">
-      <div className="w-full md:w-1/3 h-full flex flex-col gap-4" id="CameraArea">
+      <div
+        className="w-full md:w-1/3 h-full flex flex-col gap-4"
+        id="CameraArea"
+      >
         <div className="bg-white rounded-xl shadow-sm p-4">
           <div className="flex items-center mb-3">
             <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
@@ -69,7 +72,10 @@ const ExifImageDetails: React.FC<ExifImageDetailsProps> = ({
         </div>
       </div>
 
-      <div className="w-full md:w-1/3 h-full flex flex-col gap-4" id="AuthorArea">
+      <div
+        className="w-full md:w-1/3 h-full flex flex-col gap-4"
+        id="AuthorArea"
+      >
         <div className="bg-white rounded-xl shadow-sm p-4 flex-grow">
           <div className="flex items-center mb-3">
             <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
@@ -112,7 +118,10 @@ const ExifImageDetails: React.FC<ExifImageDetailsProps> = ({
           <ReverseImgResult searchResult={SearchResult} loading={loadingReverseImageSearch} />
         </div> */}
 
-        <div className="bg-white rounded-xl shadow-sm p-4 flex-1" id="ImgTagging">
+        <div
+          className="bg-white rounded-xl shadow-sm p-4 flex-1"
+          id="ImgTagging"
+        >
           <ImgTagging_Result Tag={tagResult} loading={loadingTagResult} />
         </div>
       </div>

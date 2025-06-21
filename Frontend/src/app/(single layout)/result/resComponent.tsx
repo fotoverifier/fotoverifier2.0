@@ -19,12 +19,12 @@ import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
-import TestData from '@/terminologies/test_AI.json'
+import TestData from '@/terminologies/test_AI.json';
 import { AnalysisResult } from '@/interface/interface';
 
 const inter = Inter({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
-const merriweather = Merriweather({ subsets: ['latin'], weight: "700" });
+const merriweather = Merriweather({ subsets: ['latin'], weight: '700' });
 const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
@@ -52,25 +52,20 @@ const Res = () => {
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(false);
 
-    const { t } = useLanguage();
-
+  const { t } = useLanguage();
 
   //const [loadingAI, setLoadingAI] = useState<boolean>(true);
- // const [AIsubmitted, setAISubmitted] = useState(false);
+  // const [AIsubmitted, setAISubmitted] = useState(false);
 
-
-  //In order to test the AI result 
+  //In order to test the AI result
   const [loadingAI, setLoadingAI] = useState<boolean>(false);
   const [AIsubmitted, setAISubmitted] = useState(true);
 
-
   useEffect(() => {
-
     if (!img || !taskId) return;
 
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
-      
     );
 
     eventSource.onmessage = (event) => {
@@ -136,7 +131,6 @@ const Res = () => {
     if (!file) return;
 
     try {
-      
       setLoadingSuperResolution(true);
       setSuperResolutionResult(null);
 
@@ -186,9 +180,9 @@ const Res = () => {
     selectedSuggestion: 'professional' | 'casual' | null,
     selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
   ) => {
-    console.log(file)
+    console.log(file);
     if (!file || !elaResult || !selectedSuggestion || !selectedLanguage) {
-      console.log(elaResult)
+      console.log(elaResult);
       console.error('Missing required input(s)');
       return;
     }
@@ -244,7 +238,7 @@ const Res = () => {
         </div>
       ),
       Superesolution: (
-        <div className={`h-full w-full ${styles.striped_background}`}>
+        <div className={`h-full w-full`}>
           <ImageSuperResolution_2
             previewUrl={previewUrl}
             handleEnhance={handleEnhance}
@@ -271,13 +265,14 @@ const Res = () => {
           title: t('Originality'),
           description: t('Author_Information_Description'),
           content: (
-          <ExifImageDetails
-            exifResult={exifResult}
-            tagResult={tagResult}
-            loadingTagResult={loadingTagResult}
-          //  SearchResult={SearchResult}
-          //  loadingReverseImageSearch={loadingReverseImageSearch}
-          />          ),
+            <ExifImageDetails
+              exifResult={exifResult}
+              tagResult={tagResult}
+              loadingTagResult={loadingTagResult}
+              //  SearchResult={SearchResult}
+              //  loadingReverseImageSearch={loadingReverseImageSearch}
+            />
+          ),
         },
         {
           key: 'Location',
@@ -361,7 +356,9 @@ const Res = () => {
           loadingJpegGhost={loadingJpegGhost}
           loadingTagResult={loadingTagResult}
         />
-        <div className={` ${styles.res_body_container} ${merriweather.className}`}>
+        <div
+          className={` ${styles.res_body_container} ${merriweather.className}`}
+        >
           <Tabs renderContent={renderContent} />
         </div>
       </div>

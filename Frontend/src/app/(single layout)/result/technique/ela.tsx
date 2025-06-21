@@ -93,7 +93,7 @@ const ElaResult: React.FC<ElaResultProp> = ({ img, loading }) => {
             )}
           </>
         ) : (
-          <NoImagePlaceholder/>
+          <NoImagePlaceholder />
         )}
       </div>
 

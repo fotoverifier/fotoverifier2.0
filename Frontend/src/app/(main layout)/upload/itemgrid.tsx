@@ -11,7 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const poppins = Poppins({ subsets: ['latin'], weight: '700' });
 const sourceCodePro = Roboto_Mono({ subsets: ['latin'], weight: '400' });
-const montserrat = Montserrat({ subsets: ['latin']})
+const montserrat = Montserrat({ subsets: ['latin'] });
 interface MethodBoxProps {
   id: string;
   label: string;
