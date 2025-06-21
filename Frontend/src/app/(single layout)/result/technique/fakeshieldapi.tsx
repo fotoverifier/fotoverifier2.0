@@ -16,6 +16,7 @@ import NoImagePlaceholder from '@/components/exception_component/NoImagePlacehol
 import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
 import { CollapsibleDefinitionBox } from '@/components/box/CollapsibleDefinitionBox';
 import LoadingOverlay from '@/components/loading/loadinganimation';
+import { submitRating } from '@/hook/useSubmitRating';
 import { FaMapLocation, FaPerson } from 'react-icons/fa6';
 import { FaTimes } from 'react-icons/fa';
 interface AI_Validation {
@@ -312,7 +313,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 <div>
                   <FeedbackSection
                     onSubmit={(data) => {
-                      console.log('Submitted Feedback:', data);
+                      submitRating(data.rating, data.imageAssessment);
                     }}
                   />
                 </div>
@@ -352,12 +353,12 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
 };
 type FeedbackSectionProps = {
   title?: string;
-  onSubmit: (data: { rating: number | null; imageAssessment: string | null }) => void;
+  onSubmit: (data: { rating: number; imageAssessment: string}) => void;
 };
 
 const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps) => {
-  const [rating, setRating] = useState<number | null>(null);
-  const [imageAssessment, setImageAssessment] = useState<string | null>(null);
+  const [rating, setRating] = useState<number>(0);
+  const [imageAssessment, setImageAssessment] = useState<string>('');
 
   const options = ['TP', 'FP', 'TN', 'FN'];
 
