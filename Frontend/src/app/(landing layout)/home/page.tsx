@@ -13,7 +13,9 @@ import VerificationStepsAnimation from '@/components/5steps/VerificationStepsAni
 import LoadingModal from '@/components/modal/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
 import { toast } from 'react-toastify';
+import { Montserrat } from 'next/font/google';
 
+const montserrat = Montserrat({subsets:['latin']})
 const LandingPage2 = () => {
   const { t } = useLanguage();
   const [taskId, setTaskId] = useState<string>('');
@@ -182,7 +184,7 @@ const LandingPage2 = () => {
     <div className={styles.container}>
       <div className={styles.header}></div>
       <motion.main
-        className={styles.content}
+        className={`${styles.content} ${montserrat.className}}`}
         initial="hidden"
         animate="visible"
         variants={{
@@ -190,7 +192,7 @@ const LandingPage2 = () => {
         }}
       >
         <motion.div
-          className={styles.text_section}
+          className={` ${styles.text_section} ${montserrat.className}`}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -212,7 +214,7 @@ const LandingPage2 = () => {
         </motion.div>
 
         <motion.div
-          className={styles.visual_section}
+          className={`${styles.visual_section} ${montserrat.className}`}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}

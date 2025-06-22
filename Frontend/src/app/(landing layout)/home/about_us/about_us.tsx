@@ -2,11 +2,11 @@
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import styles from './aboutus.module.css';
-import { FaChevronRight, FaFacebook, FaGithub } from 'react-icons/fa';
+import { FaChevronRight, FaFacebook, FaGithub, FaShieldAlt } from 'react-icons/fa';
 import Wave from '@/animation/wave';
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-
+import Shield from '@/assets/insurance.png'
 const AboutUs = () => {
   const { t } = useLanguage();
   const text = t('About Us');
@@ -46,6 +46,7 @@ const AboutUs = () => {
   return (
     <div className={styles.aboutUsContainer}>
       <div className={styles.textContainer}>
+        <div className='w-2/3 p-10'>
         <motion.h2
           ref={ref}
           className={styles.title}
@@ -59,8 +60,8 @@ const AboutUs = () => {
         </motion.h2>
 
         <div className={styles.description}>{t('About Us Description')}</div>
-      </div>
 
+        </div>
       <motion.div
         className={styles.imageContainer}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -85,7 +86,7 @@ const AboutUs = () => {
           <FaGithub size={60} color="white" />
         </a>
       </motion.div>
-      <Wave></Wave>
+      </div>
     </div>
   );
 };

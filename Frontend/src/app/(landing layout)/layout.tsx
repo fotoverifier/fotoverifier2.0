@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Header_Home_Alt from '@/components/head/head_home_alt';
 import AboutUs from './home/about_us/about_us';
 import Technique_Landing from './home/technique/technique';
+import Technology from './home/technology/technology';
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
         <div id="librarySection">
           <Technique_Landing />
         </div>
+        <div className='w-full h-screen'> <Technology/></div>
         <div id="aboutUS">
           <AboutUs />
         </div>

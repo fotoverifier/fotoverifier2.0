@@ -42,7 +42,7 @@ const Card_Cate: React.FC<CardProps> = ({
         <p className={styles.card__description}>{description}</p>
 
         {href ? (
-          <Link href={href} className={styles.start_button}>
+          <Link href={href}  className={styles.start_button}>
             Start Now →
           </Link>
         ) : (

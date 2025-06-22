@@ -150,7 +150,7 @@ const Technique_Landing = () => {
             <h1 className={`${styles.title} ${beVietnam.className}`}>
               {t('forensic_accuracy_title')} <br />
               {t('powered_by')}
-              <span className={`text-red-300 ${styles.fotoverification}`}>
+              <span className={`mx-5 text-red-300 ${styles.fotoverification}`}>
                 Fotoverifier V2.0
               </span>
             </h1>

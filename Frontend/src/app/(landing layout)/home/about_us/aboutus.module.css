@@ -4,17 +4,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
+  padding: 3rem;
   background: linear-gradient(to bottom right, #ebf0cd, #fffed7);
   font-family: 'JetBrains Mono', monospace;
   position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+
 }
+
 
 .textContainer {
   padding: 1rem;
-  width: 70%;
-  height: 100%;
+  width: 95%;
+  height: 85%;
   z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  z-index: 1;
 }
 
 .title {
