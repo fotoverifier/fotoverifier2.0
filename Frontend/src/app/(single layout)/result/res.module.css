@@ -90,8 +90,8 @@
   width: 30%;
   padding: 0.5rem;
   border-radius: 9999px;
-  background-color: #01584bdd;
-  color: white;
+  background-color: #01584bdd;        
+  color: white;                   
   font-weight: 600;
 }
 .title {
@@ -127,5 +127,5 @@
 }
 
 .tab_slope_right {
-  clip-path: path('M 0 0 H 88 Q 100 20 95 100 H 0 Z');
+  clip-path: polygon(0% 0%, 95% 0%, 100% 100%, 0% 100%);
 }

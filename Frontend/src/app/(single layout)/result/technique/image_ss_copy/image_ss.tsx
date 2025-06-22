@@ -25,6 +25,7 @@ interface ImageSuperResolutionProps {
   handleEnhance: (upscaleFactor: string) => Promise<void>;
   superResolutionResult: string | null;
   loading: boolean;
+ 
 }
 const denoisePreviewMap: Record<string, string | null> = {
   Bilateral: A,
@@ -88,7 +89,7 @@ const ImageSuperResolution_2 = ({
             }`}
             onClick={() => setActiveTab('Computer Vision Algorithm')}
           >
-            Computer Vision Algorithm
+            {t('Computer_Vision_Algorithm')}
           </button>
           <button
             className={`px-4 py-2 font-semibold rounded-t-xl ${
@@ -98,27 +99,25 @@ const ImageSuperResolution_2 = ({
             }`}
             onClick={() => setActiveTab('AI Upscale')}
           >
-            AI Upscale
+           {t('AI_Upscale')}
           </button>
         </div>
 
         <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-t-lg w-fit border-yellow-800 border-b-2 text-right">
           {activeTab === 'Computer Vision Algorithm' ? (
             <p>
-              Traditional computer vision methods are rule-based and may
-              struggle with complex distortions.
+              Traditional computer vision methods provide consistent and interpretable results.
             </p>
           ) : (
             <p>
-              AI upscaling can introduce artifacts or hallucinated details not
-              present in the original image.
+              AI upscaling leverages deep learning to intelligently restore and enhance image details.
             </p>
           )}
         </div>
       </div>
       {activeTab === 'Computer Vision Algorithm' && (
         <div className={styles.content_area}>
-          <div className={styles.section}>
+          <div id = 'SS_CFA'className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <BiColor />
@@ -153,7 +152,7 @@ const ImageSuperResolution_2 = ({
                   />
 
                   <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Click to expand full screen and zoom in.
+                    {t('Expand_Image_Note')}
                   </div>
                 </div>
 
@@ -184,7 +183,7 @@ const ImageSuperResolution_2 = ({
             )}
           </div>
 
-          <div className={styles.section}>
+          <div id = 'SS_Denoise' className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <BsNoiseReduction />
@@ -204,7 +203,7 @@ const ImageSuperResolution_2 = ({
             <PreviewWithModal src={denoisePreviewMap[denoiseMethod]} />
           </div>
 
-          <div className={styles.section}>
+          <div  id = 'SS_Edge' className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <GiDividedSquare />
@@ -227,13 +226,13 @@ const ImageSuperResolution_2 = ({
       )}
       {activeTab === 'AI Upscale' && (
         <div className={styles.content_area}>
-          <div className={styles.section}>
+          <div  id = 'SS_ChangeFactor' className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <IoGitNetworkOutline />
               </div>
               <h2 className={`${styles.section_title} ${montserrat.className}`}>
-                Resolution Enhancement
+                {t('Resolution_Enhancement')}
               </h2>
             </div>
 
@@ -284,20 +283,20 @@ const ImageSuperResolution_2 = ({
                     className={styles.enhance_button}
                     onClick={() => handleEnhance(upscaleFactor)}
                   >
-                    Enhance image
+                    {t('Enhance_Image')}
                   </button>{' '}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={styles.section}>
+          <div id = 'SS_Original' className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <IoImage />
               </div>
               <h2 className={`${styles.section_title} ${montserrat.className}`}>
-                Original Image
+                {t('Original_Image')}
               </h2>
             </div>
 
@@ -326,7 +325,7 @@ const ImageSuperResolution_2 = ({
                   />
 
                   <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Click to expand full screen and zoom in.
+                    {t('Expand_Image_Note')}
                   </div>
                 </div>
 
@@ -357,13 +356,13 @@ const ImageSuperResolution_2 = ({
             )}
           </div>
 
-          <div className={styles.section}>
+          <div id = 'SS_Enhance' className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <MdCameraEnhance />
               </div>
               <h2 className={`${styles.section_title} ${montserrat.className}`}>
-                Enhance image
+                {t('Enhance_Image')}
               </h2>
             </div>
             {loading ? (
@@ -397,7 +396,7 @@ const ImageSuperResolution_2 = ({
                     }}
                   />
                   <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Click to expand full screen and zoom in.
+                    {t('Expand_Image_Note')}
                   </div>
                 </div>
                 {isModalOpen2 && (

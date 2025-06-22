@@ -82,7 +82,7 @@ const Res = () => {
 
         if (!data?.result?.result?.method) {
           console.warn('Unexpected SSE data format:', data);
-          return; // Skip this iteration if 'method' is missing
+          return; 
         }
 
         switch (data.result.result.method) {

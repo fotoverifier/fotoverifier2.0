@@ -143,5 +143,27 @@
 
   "image_Tags.title": "Thẻ Hình Ảnh",
   "Superesolution": "Tăng độ phân giải",
-  "AI_Investigators": "Điều tra viên AI"
+  "AI_Investigators": "Điều tra viên AI",
+
+  "Verified_Evidence": "Xác minh với phương pháp 4 bước",
+"Forensic_Analysis": "Phân tích pháp y",
+"LLM_Disclaimer": "⚠️ Mô hình ngôn ngữ có thể sai lệch. Thông tin bên dưới có thể khác so với thực tế.",
+"Confusion_Matrix_Explanation": "TP (Đúng dương tính): Nhận diện đúng là dương tính\nFP (Sai dương tính): Nhận diện sai là dương tính\nTN (Đúng âm tính): Nhận diện đúng là âm tính\nFN (Sai âm tính): Nhận diện sai là âm tính",
+"Summary": "Tóm tắt",
+"Lighting_Inconsistencies": "Không nhất quán ánh sáng",
+"Edge_Artifacts": "Tạo tác cạnh",
+"Semantic_Anomalies": "Bất thường ngữ nghĩa",
+"Political_Relevancy": "Liên quan chính trị",
+"Potential_Location": "Vị trí tiềm năng",
+"Overall_Confidence": "Độ tin cậy tổng thể",
+"Computer_Vision_Algorithm": "Thuật toán thị giác máy tính",
+"AI_Upscale": "Nâng cấp ảnh bằng AI",
+"Resolution_Enhancement": "Tăng cường độ phân giải",
+"Reset_All": "Đặt lại tất cả",
+"Enhance_Image": "Tăng cường hình ảnh",
+"Original_Image": "Hình ảnh gốc",
+"Expand_Image_Note": "Nhấp để phóng to toàn màn hình và thu phóng."
+
+
+
 }

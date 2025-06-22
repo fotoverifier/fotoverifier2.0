@@ -147,5 +147,25 @@
   "image_Tags.title": "Image Tags",
 
   "Superesolution": "Super-resolution",
-  "AI_Investigators": "AI Investigators"
+  "AI_Investigators": "AI Investigators",
+
+  "Verified_Evidence": "Verified Evidence with 4 steps approach",
+  "Forensic_Analysis": "Forensic Analysis",
+
+"LLM_Disclaimer": "⚠️ LLMs can make mistakes. The information below may deviate from real scenarios.",
+"Confusion_Matrix_Explanation": "TP (True Positive): Correctly identified as positive\nFP (False Positive): Incorrectly identified as positive\nTN (True Negative): Correctly identified as negative\nFN (False Negative): Incorrectly identified as negative",
+"Summary": "Summary",
+"Lighting_Inconsistencies": "Lighting inconsistencies",
+"Edge_Artifacts": "Edge artifacts",
+"Semantic_Anomalies": "Semantic anomalies",
+"Political_Relevancy": "Political Relevancy",
+"Potential_Location": "Potential Location",
+"Overall_Confidence": "Overall Confidence",
+"Computer_Vision_Algorithm": "Computer Vision Algorithm",
+"AI_Upscale": "AI Upscale",
+"Resolution_Enhancement": "Resolution Enhancement",
+"Reset_All": "Reset All",
+"Enhance_Image": "Enhance image",
+"Original_Image": "Original Image",
+"Expand_Image_Note": "Click to expand full screen and zoom in."
 }

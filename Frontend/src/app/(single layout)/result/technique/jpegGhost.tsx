@@ -100,8 +100,8 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading }) => {
                         <Image
                           src={quality.img}
                           alt={`Placeholder for ${quality.title}`}
-                          width={150}
-                          height={150}
+                          width={250}
+                          height={250}
                           className="mb-2"
                           unoptimized
                         />

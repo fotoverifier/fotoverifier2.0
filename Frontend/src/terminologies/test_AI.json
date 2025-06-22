@@ -5,7 +5,11 @@
     "Edge artifacts": "There are noticeable edge artifacts around the ferry in the ELA image, suggesting that specific sections may be more compressed than others, indicative of manipulation.",
     "Semantic anomalies": "The overall scene is logically coherent. However, if the ferry's positioning or size seems unnatural in the context of the harbor, this could imply manipulation.",
     "Political Relevancy": "Low",
-    "Confidence level": "Medium"
+    "Confidence level": "Medium",
+    "Where": "The image appears to be taken in a harbor, possibly a coastal or port city.",
+    "When": "Likely during the daytime based on lighting conditions; exact timeframe unclear.",
+    "Who": "No specific individuals identified; subject is a ferry vessel.",
+    "Why": "Possible intent could be to alter the visual narrative or context of the scene."
   },
   "investigator_B": {
     "Summary": "The original image appears authentic at first glance, depicting a typical harbor scene. The ELA reveals disturbing alterations, particularly noticeable by the high noise level and inconsistencies around the ferry.",
@@ -13,7 +17,11 @@
     "Edge artifacts": "The ferry exhibits sudden changes in edge clarity in the ELA, indicating sections might have been altered or replaced. This could suggest a focused manipulation on the vessel.",
     "Semantic anomalies": "While the overall content is plausible, any unusual scaling or texture differences near the ferry may warrant further investigation.",
     "Political Relevancy": "Low",
-    "Confidence level": "High"
+    "Confidence level": "High",
+    "Where": "Appears to be in a harbor environment; exact location is not determined.",
+    "When": "Captured during daylight hours; timeframe remains approximate.",
+    "Who": "No identifiable individuals; main subject is the ferry and harbor infrastructure.",
+    "Why": "Edits may be aimed at changing context or misleading interpretation of the scene."
   },
   "shared_judgment": {
     "Consensus Summary": "Both investigators agree that the ELA indicates potential manipulation, particularly regarding edge artifacts and lighting inconsistencies surrounding the ferry. The original image appears to have been edited but is not definitively manipulated.",

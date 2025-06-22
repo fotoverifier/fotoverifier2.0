@@ -53,11 +53,40 @@ const steps = [
       'Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations.',
     tab: 'Tampering Detection',
   },
+  //Superesolution
   {
-    id: 'jpeg-specific',
-    description: 'Click here to run JPEG Ghost',
-    tab: 'Tampering Detection',
+    id: 'SS_CFA',
+    description: 'Color filter array pattern analysis based on sensor characteristics',
+    tab: 'Superesolution',
   },
+  {
+    id: 'SS_Denoise',
+    description: 'Noise reduction techniques to improve image clarity while preserving detail',
+    tab: 'Superesolution',
+  },
+  {
+    id: 'SS_Edge',
+    description: 'Edge enhancement and artifact analysis to highlight structural boundaries',
+    tab: 'Superesolution',
+  },
+  {
+    id: 'SS_ChangeFactor',
+    description: 'Menu for choosing models and zoom factors',
+    tab: 'Superesolution',
+  },
+  {
+    id: 'SS_Original',
+    description: 'Displays the original unaltered image as a reference baseline',
+    tab: 'Superesolution',
+  },
+  {
+    id: 'SS_Enhance',
+    description: 'Shows the enhanced image with improved resolution and finer details',
+    tab: 'Superesolution',
+  },
+
+
+  //CameraArea
   {
     id: 'CameraArea',
     description: 'Camera technical details from EXIF metadata',

@@ -63,6 +63,10 @@ export interface InvestigatorResult {
   'Semantic anomalies': string;
   'Political Relevancy': string;
   'Confidence level': string;
+  Where: string;
+  When: string;
+  Who: string;
+  Why: string;
 }
 
 export interface SharedJudgment {
