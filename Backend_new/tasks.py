@@ -78,7 +78,7 @@ def process_quick_scan(image_bytes):
     task_group = group(
         process_exif.s(image_bytes),
         process_ela.s(image_bytes),
-        # process_ram.s(image_bytes),
+        process_ram.s(image_bytes),
         process_jpeg_ghost.s(image_bytes),
         process_cfa.s(image_bytes),
         process_edge_detection.s(image_bytes),

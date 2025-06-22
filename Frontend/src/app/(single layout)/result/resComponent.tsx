@@ -1,10 +1,9 @@
 'use client';
-import React, { useEffect, useState, Suspense, useRef, act } from 'react';
-import { Inter, Merriweather, Montserrat } from 'next/font/google';
+import React, { useEffect, useState } from 'react';
+import { Inter, Merriweather } from 'next/font/google';
 import styles from '@/app/(single layout)/result/res.module.css';
 import Tabs from '@/components/tab/step_tab';
-import Image from 'next/image';
-import { ExifData, SearchResult } from '@/interface/interface';
+import { ComputerVisionAlgoResult, ExifData } from '@/interface/interface';
 import { useSearchParams } from 'next/navigation';
 import Image_Result from './technique/image';
 import JpegGhostResult from './technique/jpegGhost';
@@ -19,31 +18,26 @@ import { useLanguage } from '@/context/LanguageContext';
 import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
-import TestData from '@/terminologies/test_AI.json';
 import { AnalysisResult } from '@/interface/interface';
 
 const inter = Inter({ subsets: ['latin'] });
-const montserrat = Montserrat({ subsets: ['latin'] });
 const merriweather = Merriweather({ subsets: ['latin'], weight: '700' });
 const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
-  
 
   const taskId = searchParams.get('task_id');
   const { file, previewUrl } = useImageUpload();
-  const isJpegFormat: boolean | null = 
-  (file && (
-    file.type === 'image/jpeg' ||
-    file.name.toLowerCase().endsWith('.jpg') ||
-    file.name.toLowerCase().endsWith('.jpeg')
-  )) ||
-  (previewUrl &&
-    (previewUrl.toLowerCase().endsWith('.jpg') ||
-     previewUrl.toLowerCase().endsWith('.jpeg')))
-    ? true
-    : false;
-  const [results, setResults] = useState<any[]>([]);
+  const isJpegFormat: boolean | null =
+    (file &&
+      (file.type === 'image/jpeg' ||
+        file.name.toLowerCase().endsWith('.jpg') ||
+        file.name.toLowerCase().endsWith('.jpeg'))) ||
+    (previewUrl &&
+      (previewUrl.toLowerCase().endsWith('.jpg') ||
+        previewUrl.toLowerCase().endsWith('.jpeg')))
+      ? true
+      : false;
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
   const [tagResult, setTagResult] = useState<string | null>(null);
@@ -55,6 +49,20 @@ const Res = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
     null
   );
+  const [cvaResult, setCvaResult] = useState<ComputerVisionAlgoResult>({
+    Denoise: {
+      Bilateral: null,
+      'Non-Local Means': null,
+    },
+    Edge: {
+      Canny: null,
+      'Marr-Hildreth': null,
+    },
+    CFA: {
+      Menon: null,
+      Malvar: null,
+    },
+  });
 
   const [loadingExifCheck, setLoadingExifCheck] = useState<boolean>(true);
 
@@ -94,7 +102,7 @@ const Res = () => {
 
         if (!data?.result?.result?.method) {
           console.warn('Unexpected SSE data format:', data);
-          return; 
+          return;
         }
 
         switch (data.result.result.method) {
@@ -114,11 +122,39 @@ const Res = () => {
             setElaResult(data.result.result.ela_image);
             setLoadingEla(false);
             break;
+          case 'edge_detection':
+            setCvaResult((prev) => ({
+              ...prev,
+              Edge: {
+                ...prev.Edge,
+                Canny: data.result.result.edge_detection.canny_edge_url,
+                'Marr-Hildreth':
+                  data.result.result.edge_detection.marr_hildreth_edge_url,
+              },
+            }));
+          case 'denoising':
+            setCvaResult((prev) => ({
+              ...prev,
+              Denoise: {
+                ...prev.Denoise,
+                Bilateral: data.result.result.denoising.bilateral__url,
+                'Non-Local Means': data.result.result.denoising.nlm_url,
+              },
+            }));
+            break;
+          case 'cfa':
+            setCvaResult((prev) => ({
+              ...prev,
+              CFA: {
+                ...prev.CFA,
+                Menon: data.result.result.cfa.menon_url,
+                Malvar: data.result.result.cfa.malvar_url,
+              },
+            }));
+            break;
           default:
             console.warn('Unknown task received:', data.task);
         }
-
-        setResults((prevResults) => [...prevResults, data]);
       } catch (error) {
         console.error('Error parsing SSE data:', error);
       }
@@ -257,6 +293,7 @@ const Res = () => {
             handleEnhance={handleEnhance}
             superResolutionResult={superResolutionResult}
             loading={loadingSuperResolution}
+            cvaResult={cvaResult}
           />
         </div>
       ),
