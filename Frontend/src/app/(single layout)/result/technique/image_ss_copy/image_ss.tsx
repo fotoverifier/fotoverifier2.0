@@ -19,6 +19,7 @@ import A from '@/assets/Frame 15.svg';
 import B from '@/assets/Group 12.svg';
 import C from '@/assets/Group 79.svg';
 import D from '@/assets/Tutorial.svg';
+import { CFAMethod, ComputerVisionAlgoResult, DenoiseMethod, EdgeMethod } from '@/interface/interface';
 const montserrat = Montserrat({ subsets: ['latin'] });
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
@@ -27,16 +28,21 @@ interface ImageSuperResolutionProps {
   loading: boolean;
  
 }
-const denoisePreviewMap: Record<string, string | null> = {
-  Bilateral: A,
-  'Non-Local Means': B,
-};
 
-const edgePreviewMap: Record<string, string | null> = {
-  Canny: C,
-  'Marr-Hildreth': D,
+const computerVisionAlgoResult: ComputerVisionAlgoResult = {
+  Denoise: {
+    Bilateral: A,
+    'Non-Local Means': B,
+  },
+  Edge: {
+    Canny: C,
+    'Marr-Hildreth': D,
+  },
+  CFA: {
+    Menon: '',
+    'Malvar':'',
+  },
 };
-
 const ImageSuperResolution_2 = ({
   previewUrl,
   handleEnhance,
@@ -45,20 +51,16 @@ const ImageSuperResolution_2 = ({
 }: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
-  const [edgeMethod, setEdgeMethod] = useState('Bilateral');
-  const [denoiseMethod, setDenoiseMethod] = useState('Canny');
+  const [cfaMethod, setCFAMethod] = useState<CFAMethod>('Menon');
+  const [edgeMethod, setEdgeMethod] = useState<EdgeMethod>('Canny');
+  const [denoiseMethod, setDenoiseMethod] = useState<DenoiseMethod>('Bilateral');
 
   const [modelType, setModelType] = useState('ESRGAN');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-  const handleDenoiseMethodChange = (noise: string) => {
-    setDenoiseMethod(noise);
-  };
 
-  const handleEdgeMethodChange = (edge: string) => {
-    setEdgeMethod(edge);
-  };
+
 
   const handleUpscaleFactorChange = (factor: string) => {
     setUpscaleFactor(factor);
@@ -127,60 +129,14 @@ const ImageSuperResolution_2 = ({
               </h2>
             </div>
 
-            {previewUrl ? (
-              <>
-                <div
-                  className="relative flex items-center justify-center p-2 w-full cursor-pointer group"
-                  style={{ height: '90%' }}
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  <Image
-                    src={previewUrl}
-                    key={previewUrl}
-                    alt="Result"
-                    className="image-preview"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{
-                      width: 'auto',
-                      maxWidth: '100%',
-                      height: '100%',
-                      objectFit: 'contain',
-                      position: 'relative',
-                    }}
-                  />
+            <MethodSelector
+              title="Method"
+              methods={['Menon', 'Malvar']}
+              selectedMethod={cfaMethod}
+              onChange={setCFAMethod}
+            />
 
-                  <div className="absolute bottom-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    {t('Expand_Image_Note')}
-                  </div>
-                </div>
-
-                {isModalOpen && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 h-screen w-screen">
-                    <div className="relative bg-white rounded-lg overflow-hidden flex items-center justify-center w-3/4 h-3/4">
-                      <button
-                        onClick={() => setIsModalOpen(false)}
-                        className="absolute top-2 right-2 text-black text-xl font-bold z-10"
-                      >
-                        &times;
-                      </button>
-
-                      <div className="w-fit h-fit">
-                        <MagnifierImage
-                          src={previewUrl}
-                          zoom={2}
-                          width="100%"
-                          height="100%"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <NoImagePlaceholder></NoImagePlaceholder>
-            )}
+            <PreviewWithModal src={computerVisionAlgoResult.CFA[cfaMethod]} />
           </div>
 
           <div id = 'SS_Denoise' className={styles.section}>
@@ -200,7 +156,7 @@ const ImageSuperResolution_2 = ({
               onChange={setDenoiseMethod}
             />
 
-            <PreviewWithModal src={denoisePreviewMap[denoiseMethod]} />
+            <PreviewWithModal src={computerVisionAlgoResult.Denoise[denoiseMethod]} />
           </div>
 
           <div  id = 'SS_Edge' className={styles.section}>
@@ -219,7 +175,7 @@ const ImageSuperResolution_2 = ({
               onChange={setEdgeMethod}
             />
 
-            <PreviewWithModal src={edgePreviewMap[edgeMethod]} />
+            <PreviewWithModal src={computerVisionAlgoResult.Edge[edgeMethod]} />
           </div>
           <div className="mt-3"></div>
         </div>
@@ -430,19 +386,20 @@ const ImageSuperResolution_2 = ({
     </div>
   );
 };
-interface MethodSelectorProps {
+interface MethodSelectorProps<T extends string> {
   title?: string;
-  methods: string[];
-  selectedMethod: string;
-  onChange: (method: string) => void;
+  methods: T[];
+  selectedMethod: T;
+  onChange: (method: T) => void;
 }
 
-const MethodSelector: React.FC<MethodSelectorProps> = ({
+
+function MethodSelector<T extends string>({
   title,
   methods,
   selectedMethod,
   onChange,
-}) => {
+}: MethodSelectorProps<T>) {
   return (
     <div className="flex flex-col gap-2 p-2 border-b-slate-200 border-b-2">
       <div className="flex items-center gap-2">

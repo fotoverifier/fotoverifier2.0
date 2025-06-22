@@ -146,6 +146,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 AI Investigator
               </h3>
 
+              {/*
               <label className="font-semibold block my-3">
                   Choose a question to explore
                 </label>
@@ -169,6 +170,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   ))}
                 </div>
               </div>
+              */}
 
 
               <div className="font-semibold block my-3">

@@ -80,7 +80,53 @@
     color 0.3s ease-in-out;
   font-family: 'Source Code Pro', monospace;
 }
+.notice_button {
+  position: relative;
+  background: linear-gradient(135deg, #f1c40f, #d3a900);
+  color: #ffffff;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-top: 1rem;
+  width: fit-content;
+  font-family: 'Source Code Pro', monospace;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    background 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
 
+.notice_button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+}
+
+.notice_button:hover::before {
+  animation: shine 1s forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
 .plan_button:hover {
   background: #7fdcc2;
   color: #013d35;

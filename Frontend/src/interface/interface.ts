@@ -86,3 +86,13 @@ export interface AnalysisResult {
   shared_judgment: SharedJudgment;
   user_question_response: UserQuestionResponse;
 }
+
+export type CFAMethod = 'Menon' | 'Malvar';
+export type DenoiseMethod = 'Bilateral' | 'Non-Local Means';
+export type EdgeMethod = 'Canny' | 'Marr-Hildreth';
+
+export interface ComputerVisionAlgoResult {
+  Denoise: Record<DenoiseMethod, string | null>;
+  Edge: Record<EdgeMethod, string | null>;
+  CFA: Record<CFAMethod, string | null>;
+}

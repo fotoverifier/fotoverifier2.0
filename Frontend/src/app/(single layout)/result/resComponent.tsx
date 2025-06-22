@@ -28,9 +28,21 @@ const merriweather = Merriweather({ subsets: ['latin'], weight: '700' });
 const Res = () => {
   const searchParams = useSearchParams();
   const img = searchParams.get('image');
+  
+
   const taskId = searchParams.get('task_id');
   const { file, previewUrl } = useImageUpload();
-
+  const isJpegFormat: boolean | null = 
+  (file && (
+    file.type === 'image/jpeg' ||
+    file.name.toLowerCase().endsWith('.jpg') ||
+    file.name.toLowerCase().endsWith('.jpeg')
+  )) ||
+  (previewUrl &&
+    (previewUrl.toLowerCase().endsWith('.jpg') ||
+     previewUrl.toLowerCase().endsWith('.jpeg')))
+    ? true
+    : false;
   const [results, setResults] = useState<any[]>([]);
 
   const [exifResult, setExifResult] = useState<ExifData | null>(null);
@@ -54,12 +66,12 @@ const Res = () => {
 
   const { t } = useLanguage();
 
-  //const [loadingAI, setLoadingAI] = useState<boolean>(true);
-  // const [AIsubmitted, setAISubmitted] = useState(false);
+  const [loadingAI, setLoadingAI] = useState<boolean>(true);
+  const [AIsubmitted, setAISubmitted] = useState(false);
 
   //In order to test the AI result
-  const [loadingAI, setLoadingAI] = useState<boolean>(false);
-  const [AIsubmitted, setAISubmitted] = useState(true);
+  // const [loadingAI, setLoadingAI] = useState<boolean>(false);
+  // const [AIsubmitted, setAISubmitted] = useState(true);
 
   useEffect(() => {
     if (!img || !taskId) return;
@@ -76,7 +88,7 @@ const Res = () => {
         if (data.status === 'done') {
           console.log('All tasks completed. Closing SSE...');
           eventSource.close();
-          setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
+          //  setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
           return;
         }
 
@@ -229,6 +241,7 @@ const Res = () => {
               <JpegGhostResult
                 images={jpegGhostResult}
                 loading={loadingJpegGhost}
+                isJpegFormat={isJpegFormat}
               />
             </div>
             <div id="ela" className={styles.Result_container}>

@@ -8,6 +8,7 @@ import styles from '@/styles/banner.module.css';
 import { LuPaperclip } from 'react-icons/lu';
 import { useLanguage } from '@/context/LanguageContext';
 import FeedBackModal from '../modal/feedback_modal/feedback_modal';
+import { MdTipsAndUpdates } from 'react-icons/md';
 
 const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
@@ -46,6 +47,8 @@ const DashBoard_Banner = () => {
               <Link href="./development"> {t('our_paper')} </Link>
               <LuPaperclip />
             </div>
+            <div className={`flex ${styles.notice_button} items-center gap-3`}> <MdTipsAndUpdates />
+            Responsive UI will be rolled out in the future! </div>
           </div>
         </div>
 

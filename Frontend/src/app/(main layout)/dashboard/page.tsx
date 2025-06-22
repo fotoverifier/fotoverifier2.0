@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/(main layout)/dashboard/dashboard.module.css';
 import { Inter, Poppins } from 'next/font/google';
 import Image from 'next/image';
@@ -14,6 +14,11 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 
 const Dashboard = () => {
   const { t } = useLanguage();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % categories.length);
+  };
 
   const categories = [
     {
@@ -30,6 +35,7 @@ const Dashboard = () => {
       titleIcon: 1,
       href: '/upload',
     },
+    
   ];
 
   const tutorials = [
