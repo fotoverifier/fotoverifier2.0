@@ -26,28 +26,14 @@ interface ImageSuperResolutionProps {
   handleEnhance: (upscaleFactor: string) => Promise<void>;
   superResolutionResult: string | null;
   loading: boolean;
- 
+  cvaResult: ComputerVisionAlgoResult;
 }
-
-const computerVisionAlgoResult: ComputerVisionAlgoResult = {
-  Denoise: {
-    Bilateral: A,
-    'Non-Local Means': B,
-  },
-  Edge: {
-    Canny: C,
-    'Marr-Hildreth': D,
-  },
-  CFA: {
-    Menon: '',
-    'Malvar':'',
-  },
-};
 const ImageSuperResolution_2 = ({
   previewUrl,
   handleEnhance,
   superResolutionResult,
   loading,
+  cvaResult
 }: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
@@ -136,7 +122,7 @@ const ImageSuperResolution_2 = ({
               onChange={setCFAMethod}
             />
 
-            <PreviewWithModal src={computerVisionAlgoResult.CFA[cfaMethod]} />
+            <PreviewWithModal src={cvaResult.CFA[cfaMethod]} />
           </div>
 
           <div id = 'SS_Denoise' className={styles.section}>
@@ -156,7 +142,7 @@ const ImageSuperResolution_2 = ({
               onChange={setDenoiseMethod}
             />
 
-            <PreviewWithModal src={computerVisionAlgoResult.Denoise[denoiseMethod]} />
+            <PreviewWithModal src={cvaResult.Denoise[denoiseMethod]} />
           </div>
 
           <div  id = 'SS_Edge' className={styles.section}>
@@ -175,7 +161,7 @@ const ImageSuperResolution_2 = ({
               onChange={setEdgeMethod}
             />
 
-            <PreviewWithModal src={computerVisionAlgoResult.Edge[edgeMethod]} />
+            <PreviewWithModal src={cvaResult.Edge[edgeMethod]} />
           </div>
           <div className="mt-3"></div>
         </div>
