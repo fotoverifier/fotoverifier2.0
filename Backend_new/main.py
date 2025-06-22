@@ -2,12 +2,7 @@ import base64
 from fastapi import FastAPI, UploadFile, Form, File, HTTPException, Query, Body
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from algorithms.exif import exif_check
-from algorithms.ela import ela
-from algorithms.ram import recognize_objects
-from algorithms.jpeg_ghost import jpeg_ghost
 from algorithms.ai_validation import analyze_images_from_base64_and_url, parse_analysis_response
-import io
 import asyncio
 import json
 from tasks import process_quick_scan, process_super_resolution
@@ -37,49 +32,49 @@ app.add_middleware(
     allow_headers=["*"],  # ✅ Allow all headers
 )
 
-@app.get("/")
-async def read_root():
-    return {"message": "Hello World"}
+# @app.get("/")
+# async def read_root():
+#     return {"message": "Hello World"}
 
-@app.post("/exif")
-async def get_exif(file: UploadFile = File(...)):
-    try:
-        image_bytes = await file.read()
-        exif_data = exif_check(image_bytes)
-        return {"filename": file.filename, "exif_data": exif_data}
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error processing file: {str(e)}")
+# @app.post("/exif")
+# async def get_exif(file: UploadFile = File(...)):
+#     try:
+#         image_bytes = await file.read()
+#         task = process_exif.delay(image_bytes)
+#         result = task.get(timeout=10)
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
 
-@app.post("/ela")
-async def get_ela(file: UploadFile = File(...)):
-    try:
-        image_bytes = await file.read()
-        file_stream = io.BytesIO(image_bytes)
-        ela_result = ela(file_stream)  # Call the imported ela function
-        if ela_result is None:
-            raise HTTPException(status_code=500, detail="Failed to process image")
-        return {"ela_image": ela_result}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing ELA: {str(e)}")
+# @app.post("/ela")
+# async def get_ela(file: UploadFile = File(...)):
+#     try:
+#         image_bytes = await file.read()
+#         task = process_ela.delay(image_bytes)
+#         result = task.get(timeout=20)
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"ELA Error: {str(e)}")
 
-@app.post("/ram")
-async def get_ram(file: UploadFile = File(...)):
-    try:
-        image_bytes = await file.read()
-        result = recognize_objects(image_bytes)
-        return {"recognized_objects": result}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/ram")
+# async def get_ram(file: UploadFile = File(...)):
+#     try:
+#         image_bytes = await file.read()
+#         task = process_ram.delay(image_bytes)
+#         result = task.get(timeout=20)
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"RAM Error: {str(e)}")
 
-@app.post("/jpeg-ghost")
-async def get_jpeg_ghost(file: UploadFile = File(...)):
-    try:
-        file_bytes = await file.read()
-        file_stream = io.BytesIO(file_bytes)
-        image_urls = jpeg_ghost(file_stream)    
-        return {"images": image_urls}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/jpeg-ghost")
+# async def get_jpeg_ghost(file: UploadFile = File(...)):
+#     try:
+#         image_bytes = await file.read()
+#         task = process_jpeg_ghost.delay(image_bytes)
+#         result = task.get(timeout=20)
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"JPEG Ghost Error: {str(e)}")
 
 # @app.post("/reverse-image-search")
 # async def get_reverse_search(file: UploadFile = File(...), query: str = Form(...)):

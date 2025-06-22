@@ -1,16 +1,19 @@
-from algorithms.super_resolution import super_resolution
 from celery_config import celery_app
 from celery.signals import worker_process_init
 from celery import group
-from algorithms.exif import exif_check
-from algorithms.ela import ela
-from algorithms.ram import recognize_objects, load_model
-from algorithms.jpeg_ghost import jpeg_ghost
-import io
+from algorithms.ram import load_model
 import redis
 import os
 import json
 from dotenv import load_dotenv
+from algorithms.exif import exif_check
+from algorithms.ela import ela
+from algorithms.edge_detection import edge_detection
+from algorithms.denoising import denoising
+from algorithms.cfa import process_demosaicing
+from algorithms.ram import recognize_objects
+from algorithms.jpeg_ghost import jpeg_ghost
+from algorithms.super_resolution import super_resolution
 
 load_dotenv()
 
@@ -32,8 +35,19 @@ def process_exif(image_bytes):
 
 @celery_app.task
 def process_ela(image_bytes):
-    file_stream = io.BytesIO(image_bytes)
-    return {"ela_image": ela(file_stream), "method": "ela"}
+    return {"ela_image": ela(image_bytes), "method": "ela"}
+
+@celery_app.task
+def process_edge_detection(image_bytes):
+    return {"edge_detection": edge_detection(image_bytes), "method": "edge_detection"}
+
+@celery_app.task
+def process_denoising(image_bytes):
+    return {"denoising": denoising(image_bytes), "method": "denoising"}
+
+@celery_app.task
+def process_cfa(image_bytes):
+    return {"demosaic": process_demosaicing(image_bytes), "method": "cfa"}
 
 @celery_app.task
 def process_ram(image_bytes):
@@ -41,8 +55,7 @@ def process_ram(image_bytes):
 
 @celery_app.task
 def process_jpeg_ghost(image_bytes):
-    file_stream = io.BytesIO(image_bytes)
-    return {"jpeg_ghost": jpeg_ghost(file_stream), "method": "jpeg_ghost"}
+    return {"jpeg_ghost": jpeg_ghost(image_bytes), "method": "jpeg_ghost"}
 
 # @celery_app.task
 # def process_reverse_search(image_bytes):
@@ -65,8 +78,11 @@ def process_quick_scan(image_bytes):
     task_group = group(
         process_exif.s(image_bytes),
         process_ela.s(image_bytes),
-        process_ram.s(image_bytes),
+        # process_ram.s(image_bytes),
         process_jpeg_ghost.s(image_bytes),
+        process_cfa.s(image_bytes),
+        process_edge_detection.s(image_bytes),
+        process_denoising.s(image_bytes),
     )
     results = task_group.apply_async()
     # Save only child task IDs
