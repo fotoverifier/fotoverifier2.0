@@ -15,7 +15,7 @@ import CompletionModal from '@/components/modal/complete_modal';
 import { toast } from 'react-toastify';
 import { Montserrat } from 'next/font/google';
 
-const montserrat = Montserrat({subsets:['latin']})
+const montserrat = Montserrat({ subsets: ['latin'] });
 const LandingPage2 = () => {
   const { t } = useLanguage();
   const [taskId, setTaskId] = useState<string>('');

@@ -11,10 +11,13 @@ interface ImageResultProps {
   images: string[] | null;
   loading: boolean;
   isJpegFormat: boolean | null;
-
 }
 
-const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading, isJpegFormat }) => {
+const JpegGhostResult: React.FC<ImageResultProps> = ({
+  images,
+  loading,
+  isJpegFormat,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useLanguage();
   const qualities = [
@@ -37,7 +40,6 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading, isJpegFo
             <h3 className="font-bold text-lg ml-3 text-teal-800">JPEG Ghost</h3>
           </div>
 
-          
           {!loading && images && images.length > 0 && isJpegFormat && (
             <FaInfoCircle
               size={30}
@@ -49,33 +51,33 @@ const JpegGhostResult: React.FC<ImageResultProps> = ({ images, loading, isJpegFo
       </div>
 
       {loading ? (
-  <div className={styles.image_container}>
-    <div className={styles.loadingBox}>
-      <div className={styles.spinner}></div>
-      <p className={styles.loadingText}>Please wait</p>
-    </div>
-  </div>
-) : images && images.length > 0 && isJpegFormat ? (
-  <div className={styles.image_container}>
-    <Image
-      src={images[4]}
-      alt={'JPEG Ghost Image'}
-      width={500}
-      height={500}
-      className={styles.image_preview}
-    />
-  </div>
-) : !isJpegFormat ? (
-  <div className={styles.image_container}>
-    <div className="bg-yellow-100 text-yellow-800 border border-yellow-300 p-4 rounded-md text-sm">
-      JPEG Ghost is only available for JPEG images.
-    </div>
-  </div>
-) : (
-  <div className={styles.image_container}>
-    <NoImagePlaceholder />
-  </div>
-)}
+        <div className={styles.image_container}>
+          <div className={styles.loadingBox}>
+            <div className={styles.spinner}></div>
+            <p className={styles.loadingText}>Please wait</p>
+          </div>
+        </div>
+      ) : images && images.length > 0 && isJpegFormat ? (
+        <div className={styles.image_container}>
+          <Image
+            src={images[4]}
+            alt={'JPEG Ghost Image'}
+            width={500}
+            height={500}
+            className={styles.image_preview}
+          />
+        </div>
+      ) : !isJpegFormat ? (
+        <div className={styles.image_container}>
+          <div className="bg-yellow-100 text-yellow-800 border border-yellow-300 p-4 rounded-md text-sm">
+            JPEG Ghost is only available for JPEG images.
+          </div>
+        </div>
+      ) : (
+        <div className={styles.image_container}>
+          <NoImagePlaceholder />
+        </div>
+      )}
 
       {isModalOpen && images && images.length > 0 && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 h-screen">

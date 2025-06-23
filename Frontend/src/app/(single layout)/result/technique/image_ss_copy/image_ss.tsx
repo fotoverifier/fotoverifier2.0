@@ -19,7 +19,12 @@ import A from '@/assets/Frame 15.svg';
 import B from '@/assets/Group 12.svg';
 import C from '@/assets/Group 79.svg';
 import D from '@/assets/Tutorial.svg';
-import { CFAMethod, ComputerVisionAlgoResult, DenoiseMethod, EdgeMethod } from '@/interface/interface';
+import {
+  CFAMethod,
+  ComputerVisionAlgoResult,
+  DenoiseMethod,
+  EdgeMethod,
+} from '@/interface/interface';
 const montserrat = Montserrat({ subsets: ['latin'] });
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
@@ -33,20 +38,18 @@ const ImageSuperResolution_2 = ({
   handleEnhance,
   superResolutionResult,
   loading,
-  cvaResult
+  cvaResult,
 }: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
   const [cfaMethod, setCFAMethod] = useState<CFAMethod>('Menon');
   const [edgeMethod, setEdgeMethod] = useState<EdgeMethod>('Canny');
-  const [denoiseMethod, setDenoiseMethod] = useState<DenoiseMethod>('Bilateral');
+  const [denoiseMethod, setDenoiseMethod] =
+    useState<DenoiseMethod>('Bilateral');
 
   const [modelType, setModelType] = useState('ESRGAN');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-
-
-
 
   const handleUpscaleFactorChange = (factor: string) => {
     setUpscaleFactor(factor);
@@ -87,25 +90,27 @@ const ImageSuperResolution_2 = ({
             }`}
             onClick={() => setActiveTab('AI Upscale')}
           >
-           {t('AI_Upscale')}
+            {t('AI_Upscale')}
           </button>
         </div>
 
         <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-t-lg w-fit border-yellow-800 border-b-2 text-right">
           {activeTab === 'Computer Vision Algorithm' ? (
             <p>
-              Traditional computer vision methods provide consistent and interpretable results.
+              Traditional computer vision methods provide consistent and
+              interpretable results.
             </p>
           ) : (
             <p>
-              AI upscaling leverages deep learning to intelligently restore and enhance image details.
+              AI upscaling leverages deep learning to intelligently restore and
+              enhance image details.
             </p>
           )}
         </div>
       </div>
       {activeTab === 'Computer Vision Algorithm' && (
         <div className={styles.content_area}>
-          <div id = 'SS_CFA'className={styles.section}>
+          <div id="SS_CFA" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <BiColor />
@@ -125,7 +130,7 @@ const ImageSuperResolution_2 = ({
             <PreviewWithModal src={cvaResult.CFA[cfaMethod]} />
           </div>
 
-          <div id = 'SS_Denoise' className={styles.section}>
+          <div id="SS_Denoise" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <BsNoiseReduction />
@@ -145,7 +150,7 @@ const ImageSuperResolution_2 = ({
             <PreviewWithModal src={cvaResult.Denoise[denoiseMethod]} />
           </div>
 
-          <div  id = 'SS_Edge' className={styles.section}>
+          <div id="SS_Edge" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <GiDividedSquare />
@@ -168,7 +173,7 @@ const ImageSuperResolution_2 = ({
       )}
       {activeTab === 'AI Upscale' && (
         <div className={styles.content_area}>
-          <div  id = 'SS_ChangeFactor' className={styles.section}>
+          <div id="SS_ChangeFactor" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <IoGitNetworkOutline />
@@ -232,7 +237,7 @@ const ImageSuperResolution_2 = ({
             </div>
           </div>
 
-          <div id = 'SS_Original' className={styles.section}>
+          <div id="SS_Original" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <IoImage />
@@ -298,7 +303,7 @@ const ImageSuperResolution_2 = ({
             )}
           </div>
 
-          <div id = 'SS_Enhance' className={styles.section}>
+          <div id="SS_Enhance" className={styles.section}>
             <div className={styles.section_header}>
               <div className={styles.circle_secondary}>
                 <MdCameraEnhance />
@@ -379,7 +384,6 @@ interface MethodSelectorProps<T extends string> {
   onChange: (method: T) => void;
 }
 
-
 function MethodSelector<T extends string>({
   title,
   methods,
@@ -407,7 +411,7 @@ function MethodSelector<T extends string>({
       </div>
     </div>
   );
-};
+}
 const PreviewWithModal: React.FC<{ src: string | null }> = ({ src }) => {
   if (!src) return <NoImagePlaceholder />;
 

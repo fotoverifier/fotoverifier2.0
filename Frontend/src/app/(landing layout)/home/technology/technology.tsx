@@ -3,31 +3,33 @@ import { Montserrat } from 'next/font/google';
 import styles from './technology.module.css';
 import Smaple from '@/assets/exif.png';
 import { useState } from 'react';
-const montserrat = Montserrat({subsets:['latin']})
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 const Technology = () => {
-    const [selectedTab, setSelectedTab] = useState<'Traditional' | 'AI'>('Traditional');
+  const [selectedTab, setSelectedTab] = useState<'Traditional' | 'AI'>(
+    'Traditional'
+  );
 
-    const content = {
-      Traditional: {
-        title: 'Trắc Nghiệm An Toàn Số',
-        features: [
-          'Tăng cường hiểu biết về chống lừa đảo trên không gian số',
-          'Nâng cao nhận thức về an toàn thông tin',
-          'Phòng chống các nguy cơ trực tuyến',
-        ],
-        image: Smaple.src,
-      },
-      AI: {
-        title: 'Ứng Dụng Trí Tuệ Nhân Tạo',
-        features: [
-          'Phân tích hành vi truy cập để phát hiện mối đe dọa',
-          'Tự động hóa xử lý sự cố bảo mật',
-          'Cải thiện độ chính xác trong phát hiện xâm nhập',
-        ],
-        image: Smaple.src,
-      },
-    };
+  const content = {
+    Traditional: {
+      title: 'Trắc Nghiệm An Toàn Số',
+      features: [
+        'Tăng cường hiểu biết về chống lừa đảo trên không gian số',
+        'Nâng cao nhận thức về an toàn thông tin',
+        'Phòng chống các nguy cơ trực tuyến',
+      ],
+      image: Smaple.src,
+    },
+    AI: {
+      title: 'Ứng Dụng Trí Tuệ Nhân Tạo',
+      features: [
+        'Phân tích hành vi truy cập để phát hiện mối đe dọa',
+        'Tự động hóa xử lý sự cố bảo mật',
+        'Cải thiện độ chính xác trong phát hiện xâm nhập',
+      ],
+      image: Smaple.src,
+    },
+  };
   return (
     <div className={`${styles.TechnologyContainer} ${montserrat.className}`}>
       <div className="h-[80%] w-[90%] flex">
@@ -66,7 +68,11 @@ const Technology = () => {
                       strokeWidth="3"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
                   <p className="text-gray-800 text-sm">{item}</p>

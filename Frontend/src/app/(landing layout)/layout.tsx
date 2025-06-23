@@ -31,7 +31,7 @@ export default function RootLayout({
         <div id="librarySection">
           <Technique_Landing />
         </div>
-        <div className='w-full h-screen'> <Technology/></div>
+        {/*<div className='w-full h-screen'> <Technology/></div>*/}
         <div id="aboutUS">
           <AboutUs />
         </div>
