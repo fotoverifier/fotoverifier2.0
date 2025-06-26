@@ -1,24 +1,18 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './image_ss.module.css';
+import techniqueStyle from '@/app/(single layout)/result/technique/categories.module.css';
 import { IoGitNetworkOutline, IoImage, IoImageSharp } from 'react-icons/io5';
-import { Inter, Montserrat } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
+import { Montserrat } from 'next/font/google';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import MagnifierImage from './maginifier_image';
 import { MdCameraEnhance } from 'react-icons/md';
-import { FiImage } from 'react-icons/fi';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
-import Loadable from 'next/dist/shared/lib/loadable.shared-runtime';
 import LoadingOverlay from '@/components/loading/loadinganimation';
 import { GiDividedSquare, GiNoseSide } from 'react-icons/gi';
 import { BsNoiseReduction } from 'react-icons/bs';
 import { BiColor } from 'react-icons/bi';
-import A from '@/assets/Frame 15.svg';
-import B from '@/assets/Group 12.svg';
-import C from '@/assets/Group 79.svg';
-import D from '@/assets/Tutorial.svg';
 import {
   CFAMethod,
   ComputerVisionAlgoResult,
@@ -32,6 +26,11 @@ interface ImageSuperResolutionProps {
   superResolutionResult: string | null;
   loading: boolean;
   cvaResult: ComputerVisionAlgoResult;
+  loadingCvaResult: {
+    Denoise: boolean;
+    CFA: boolean;
+    Edge: boolean;
+  };
 }
 const ImageSuperResolution_2 = ({
   previewUrl,
@@ -39,6 +38,7 @@ const ImageSuperResolution_2 = ({
   superResolutionResult,
   loading,
   cvaResult,
+  loadingCvaResult,
 }: ImageSuperResolutionProps) => {
   const { t } = useLanguage();
   const [upscaleFactor, setUpscaleFactor] = useState('4x');
@@ -127,7 +127,10 @@ const ImageSuperResolution_2 = ({
               onChange={setCFAMethod}
             />
 
-            <PreviewWithModal src={cvaResult.CFA[cfaMethod]} />
+            <PreviewWithModal
+              src={cvaResult.CFA[cfaMethod]}
+              loading={loadingCvaResult.CFA}
+            />
           </div>
 
           <div id="SS_Denoise" className={styles.section}>
@@ -147,7 +150,10 @@ const ImageSuperResolution_2 = ({
               onChange={setDenoiseMethod}
             />
 
-            <PreviewWithModal src={cvaResult.Denoise[denoiseMethod]} />
+            <PreviewWithModal
+              src={cvaResult.Denoise[denoiseMethod]}
+              loading={loadingCvaResult.Denoise}
+            />
           </div>
 
           <div id="SS_Edge" className={styles.section}>
@@ -166,7 +172,10 @@ const ImageSuperResolution_2 = ({
               onChange={setEdgeMethod}
             />
 
-            <PreviewWithModal src={cvaResult.Edge[edgeMethod]} />
+            <PreviewWithModal
+              src={cvaResult.Edge[edgeMethod]}
+              loading={loadingCvaResult.Edge}
+            />
           </div>
           <div className="mt-3"></div>
         </div>
@@ -412,7 +421,20 @@ function MethodSelector<T extends string>({
     </div>
   );
 }
-const PreviewWithModal: React.FC<{ src: string | null }> = ({ src }) => {
+const PreviewWithModal: React.FC<{ src: string | null; loading: boolean }> = ({
+  src,
+  loading,
+}) => {
+  if (loading)
+    return (
+      <div className={techniqueStyle.image_container}>
+        <div className={techniqueStyle.loadingBox}>
+          <div className={techniqueStyle.spinner}></div>
+          <p className={techniqueStyle.loadingText}>Please wait</p>
+        </div>
+      </div>
+    );
+
   if (!src) return <NoImagePlaceholder />;
 
   return (
@@ -422,7 +444,7 @@ const PreviewWithModal: React.FC<{ src: string | null }> = ({ src }) => {
         style={{ height: '90%' }}
       >
         <Image
-          src={src}
+          src={`data:image/png;base64,${src}`}
           alt="Result"
           className="image-preview"
           width={0}

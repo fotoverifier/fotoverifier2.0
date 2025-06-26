@@ -71,6 +71,11 @@ const Res = () => {
   const [loadingJpegGhost, setLoadingJpegGhost] = useState<boolean>(true);
   const [loadingSuperResolution, setLoadingSuperResolution] =
     useState<boolean>(false);
+  const [loadingCvaResult, setLoadingCvaResult] = useState<{
+    Denoise: boolean;
+    CFA: boolean;
+    Edge: boolean;
+  }>({ Denoise: true, CFA: true, Edge: true });
 
   const { t } = useLanguage();
 
@@ -127,19 +132,29 @@ const Res = () => {
               ...prev,
               Edge: {
                 ...prev.Edge,
-                Canny: data.result.result.edge_detection.canny_edge_url,
+                Canny: data.result.result.edge_detection.canny_edge_base64,
                 'Marr-Hildreth':
-                  data.result.result.edge_detection.marr_hildreth_edge_url,
+                  data.result.result.edge_detection.marr_hildreth_edge_base64,
               },
             }));
+            setLoadingCvaResult((prev) => ({
+              ...prev,
+              Edge: false,
+            }));
+            break;
           case 'denoising':
+            console.log('Denoising task received:', data);
             setCvaResult((prev) => ({
               ...prev,
               Denoise: {
                 ...prev.Denoise,
-                Bilateral: data.result.result.denoising.bilateral__url,
-                'Non-Local Means': data.result.result.denoising.nlm_url,
+                Bilateral: data.result.result.denoising.bilateral_base64,
+                'Non-Local Means': data.result.result.denoising.nlm_base64,
               },
+            }));
+            setLoadingCvaResult((prev) => ({
+              ...prev,
+              Denoise: false,
             }));
             break;
           case 'cfa':
@@ -147,9 +162,13 @@ const Res = () => {
               ...prev,
               CFA: {
                 ...prev.CFA,
-                Menon: data.result.result.cfa.menon_url,
-                Malvar: data.result.result.cfa.malvar_url,
+                Menon: data.result.result.demosaic.menon_base64,
+                Malvar: data.result.result.demosaic.malvar_base64,
               },
+            }));
+                        setLoadingCvaResult((prev) => ({
+              ...prev,
+              CFA: false,
             }));
             break;
           default:
@@ -294,6 +313,7 @@ const Res = () => {
             superResolutionResult={superResolutionResult}
             loading={loadingSuperResolution}
             cvaResult={cvaResult}
+            loadingCvaResult={loadingCvaResult}
           />
         </div>
       ),

@@ -24,6 +24,7 @@ import { submitRating } from '@/hook/useSubmitRating';
 import { FaMapLocation, FaPerson, FaTimeline } from 'react-icons/fa6';
 import { FaQuestion, FaTimes } from 'react-icons/fa';
 import { Inter, Poppins } from 'next/font/google';
+import { toast, ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] });
 interface AI_Validation {
   img: string | null;
@@ -360,10 +361,16 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     />
                     <div>
                       <FeedbackSection
-                        onSubmit={(data) => {
-                          submitRating(data.rating, data.imageAssessment);
+                        onSubmit={async (data) => {
+                          const success = await submitRating(data.rating, data.imageAssessment);
+                          if(success) {
+                            toast.success('Rating submitted successfully!');
+                          } else {
+                            toast.error('Failed to submit rating. Please try again.');
+                          }
                         }}
                       />
+                      <ToastContainer />
                     </div>
                     <InvestigatorCard
                       title="👤 Investigator B"
@@ -411,6 +418,7 @@ const FeedbackSection = ({
   const options = ['TP', 'FP', 'TN', 'FN'];
 
   const handleSubmit = () => {
+    console.log('Submitting feedback:', { rating, imageAssessment });
     onSubmit({ rating, imageAssessment });
   };
 

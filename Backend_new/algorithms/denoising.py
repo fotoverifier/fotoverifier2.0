@@ -1,4 +1,5 @@
 import cv2
+import base64
 import numpy as np
 from io import BytesIO
 from algorithms.utility import upload_to_cloudinary
@@ -37,11 +38,11 @@ def denoising(image_bytes):
     _, nlm_png = cv2.imencode('.png', nlm_bgr)
     _, bilateral_png = cv2.imencode('.png', bilateral_bgr)
 
-    # Upload to Cloudinary
-    nlm_url = upload_to_cloudinary(nlm_png.tobytes(), filename="denoised_nlm")
-    bilateral_url = upload_to_cloudinary(bilateral_png.tobytes(), filename="denoised_bilateral")
+    # Encode to base64
+    nlm_base64 = base64.b64encode(nlm_png.tobytes()).decode('utf-8')
+    bilateral_base64 = base64.b64encode(bilateral_png.tobytes()).decode('utf-8')
 
     return {
-        "nlm_url": nlm_url,
-        "bilateral_url": bilateral_url
+        "nlm_base64": nlm_base64,
+        "bilateral_base64": bilateral_base64
     }
