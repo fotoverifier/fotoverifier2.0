@@ -75,7 +75,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   return (
     <>
       {!submitted ? (
-        <div className="w-full h-full p-4 rounded-xl mb-5">
+        <div className="w-full h-full p-[10px] rounded-xl mb-5">
           <div className={styles.header}>
             <div className={`${styles.circleWrapper} border-black`}>
               <div className="p-2 rounded-full border-2">

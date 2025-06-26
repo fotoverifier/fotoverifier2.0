@@ -13,7 +13,6 @@ import LoadingOverlay from '@/components/loading/loadinganimation';
 import { GiDividedSquare, GiNoseSide } from 'react-icons/gi';
 import { BsNoiseReduction } from 'react-icons/bs';
 import { BiColor } from 'react-icons/bi';
-
 import {
   CFAMethod,
   ComputerVisionAlgoResult,

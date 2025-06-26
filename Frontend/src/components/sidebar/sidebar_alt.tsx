@@ -1,6 +1,6 @@
 'use client';
 import { useRouter, usePathname } from 'next/navigation';
-import { IoLibrary } from 'react-icons/io5';
+import { IoHelp, IoLibrary } from 'react-icons/io5';
 import { MdFeedback, MdPolicy } from 'react-icons/md';
 import {
   FaUpload,
@@ -36,6 +36,7 @@ export default function Sidebar_Alt() {
       slug: 'https://github.com',
       icon: <FaGithub size={20} />,
     },
+    { name: 'Guidance', slug: '/guidance', icon: <IoHelp size={20} /> },
   ];
 
   const router = useRouter();

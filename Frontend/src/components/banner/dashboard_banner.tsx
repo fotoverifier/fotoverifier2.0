@@ -47,8 +47,11 @@ const DashBoard_Banner = () => {
               <Link href="./development"> {t('our_paper')} </Link>
               <LuPaperclip />
             </div>
-            <div className={`flex ${styles.notice_button} items-center gap-3`}> <MdTipsAndUpdates />
-            Responsive UI will be rolled out in the future! </div>
+            <div className={`flex ${styles.notice_button} items-center gap-3`}>
+              {' '}
+              <MdTipsAndUpdates />
+              Responsive UI will be rolled out in the future!{' '}
+            </div>
           </div>
         </div>
 
