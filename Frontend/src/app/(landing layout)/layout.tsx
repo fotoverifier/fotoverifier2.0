@@ -24,14 +24,13 @@ export default function RootLayout({
   }, []);
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full overflow-y-auto scrollbar-hide">
       <Header_Home_Alt isScrolled={isScrolled} />
       <div className="absolute top-0 left-0 w-full h-[110vh]">
         {children}
         <div id="librarySection">
           <Technique_Landing />
         </div>
-        {/*<div className='w-full h-screen'> <Technology/></div>*/}
         <div id="aboutUS">
           <AboutUs />
         </div>

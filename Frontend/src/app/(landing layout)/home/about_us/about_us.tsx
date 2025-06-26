@@ -7,11 +7,14 @@ import {
   FaFacebook,
   FaGithub,
   FaShieldAlt,
+  FaUser,
 } from 'react-icons/fa';
 import Wave from '@/animation/wave';
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Shield from '@/assets/insurance.png';
+import { IconButton } from '@/components/button/icon_button/icon_button';
+import { IoMail } from 'react-icons/io5';
 const AboutUs = () => {
   const { t } = useLanguage();
   const text = t('About Us');
@@ -65,6 +68,15 @@ const AboutUs = () => {
           </motion.h2>
 
           <div className={styles.description}>{t('About Us Description')}</div>
+          <div className="flex gap-4 p-4 bg-white rounded-lg mt-5">
+      <IconButton icon={<IoMail className="h-5 w-5" />} href="mailto:">
+        Sample | antoanso@hcmus.edu.vn
+      </IconButton>
+
+      <IconButton icon={<FaUser className="h-5 w-5" />}>
+        Fanpage An toàn số
+      </IconButton>
+    </div>  
         </div>
         <motion.div
           className={styles.imageContainer}
