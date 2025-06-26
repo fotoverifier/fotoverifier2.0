@@ -268,7 +268,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
         )}
       </div>
 
-      <div className={`${styles.manual_container} ml-auto`}>
+      {/*<div className={`${styles.manual_container} ml-auto`}>
         <div className={styles.icon_text_container}>
           <div className={styles.icon_container}>
             <GiArchiveResearch size={20} />
@@ -277,7 +277,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
             Manual Guidance
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

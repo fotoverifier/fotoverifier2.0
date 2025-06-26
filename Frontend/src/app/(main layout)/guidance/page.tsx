@@ -153,13 +153,13 @@ const ManualGuide = () => {
             </div>
 
             {expanded[sec.id] && (
-              <div className="prose w-90% break-words overflow-x-auto">
-                <Markdown
+              <div className="prose max-w-full overflow-x-auto">
+                <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw, [rehypeSanitize, customSchema]]}
                 >
                   {content[sec.id] || 'Loading...'}
-                </Markdown>
+                </ReactMarkdown>
                 <hr className="my-6 border-gray-300" />
               </div>
             )}

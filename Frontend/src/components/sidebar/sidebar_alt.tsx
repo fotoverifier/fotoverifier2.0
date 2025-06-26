@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './sidebar_alt.module.css';
 import FeedBackModal from '../modal/feedback_modal/feedback_modal';
+import { GiArchiveResearch } from 'react-icons/gi';
 
 const languages = [
   { code: 'en', name: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
@@ -30,13 +31,8 @@ export default function Sidebar_Alt() {
   const categories = [
     { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
     { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
-    { name: t('Library'), slug: '/library', icon: <IoLibrary size={20} /> },
-    {
-      name: 'GitHub',
-      slug: 'https://github.com',
-      icon: <FaGithub size={20} />,
-    },
-    { name: 'Guidance', slug: '/guidance', icon: <IoHelp size={20} /> },
+    { name: t('Library'), slug: '/library_term', icon: <IoLibrary size={20} /> },
+    { name: t('Tutorial'), slug: '/guidance', icon: <GiArchiveResearch size={20} /> },
   ];
 
   const router = useRouter();
