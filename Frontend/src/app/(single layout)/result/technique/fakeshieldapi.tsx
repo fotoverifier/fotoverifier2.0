@@ -270,7 +270,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'VN'}
                       className="accent-blue-500"
                     />
-                    VietNam
+                    T.Việt
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -281,7 +281,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'NO'}
                       className="accent-blue-500"
                     />
-                    Norway
+                    Norsk
                   </label>
 
                   <label className="flex items-center gap-2">
@@ -293,7 +293,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'JP'}
                       className="accent-blue-500"
                     />
-                    Japan
+                    日本語
                   </label>
   </div>
 </NotchedCard>
@@ -304,7 +304,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
         <input
           type="radio"
           name="model"
-          value="GPT 4.o"
+          value="0"
           onChange={handleChangeModel}
           checked={selectedModel === 'GPT 4.o'}
           className="accent-blue-500 cursor-none"
@@ -316,7 +316,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
         <input
           type="radio"
           name="model"
-          value="Claude 3.7"
+          value="0"
           onChange={handleChangeModel}
           checked={selectedModel === 'Claude 3.7'}
           className="accent-blue-500 cursor-not-allowed"
