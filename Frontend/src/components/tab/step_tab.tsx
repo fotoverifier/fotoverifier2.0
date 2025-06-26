@@ -27,7 +27,7 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
 
   return (
     <div className={styles.tabs_container}>
-      <div className={`${styles.tabs} ${inter.className} font-semibold my-5`}>
+      <div className={`${styles.tabs} ${montserrat.className} font-semibold my-5`}>
         {tabs.map((tab, index) => (
           <React.Fragment key={tab}>
             <div

@@ -25,6 +25,7 @@ import { FaMapLocation, FaPerson, FaTimeline } from 'react-icons/fa6';
 import { FaQuestion, FaTimes } from 'react-icons/fa';
 import { Inter, Poppins } from 'next/font/google';
 import { toast, ToastContainer } from 'react-toastify';
+import { NotchedCard } from '@/components/card/notchedcard';
 const inter = Inter({ subsets: ['latin'] });
 interface AI_Validation {
   img: string | null;
@@ -57,6 +58,14 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedSuggestion(e.target.value as 'professional' | 'casual');
+  };
+
+  const [selectedModel, setSelectedModel] = useState<
+    'GPT 4.o' | 'Claude 3.7' | null
+  >(null);
+
+  const handleChangeModel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedModel(e.target.value as 'GPT 4.o' | 'Claude 3.7');
   };
 
   const [selectedLanguage, setselectedLanguage] = useState<
@@ -179,7 +188,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
               */}
 
-              <div className="font-semibold block my-3">Model Suggestion</div>
+              
+              {/* <div className="font-semibold block my-3">Model Suggestion</div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
               >
@@ -207,39 +217,118 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     Casual user
                   </label>
                 </div>
-              </div>
+              </div>*/}
 
-              <div className="font-semibold block my-3">Model Type</div>
-              <div
-                className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
-              >
-                <div className="flex gap-4 font-normal">
-                  <label className="flex items-center gap-2">
+                <NotchedCard title="Model Suggestion">
+                    <div className="flex gap-4 font-normal">
+                    <label className="flex items-center gap-2">
+                                      <input
+                                        type="radio"
+                                        name="userType"
+                                        value="professional"
+                                        onChange={handleChange}
+                                        checked={selectedSuggestion === 'professional'}
+                                        className="accent-blue-500"
+                                      />
+                                      Professional
+                                    </label>
+                                    <label className="flex items-center gap-2">
+                                      <input
+                                        type="radio"
+                                        name="userType"
+                                        value="casual"
+                                        onChange={handleChange}
+                                        checked={selectedSuggestion === 'casual'}
+                                        className="accent-blue-500"
+                                      />
+                                      Casual user
+                                    </label>
+                    </div>
+                  </NotchedCard>
+
+
+
+                  <NotchedCard title="Language Output">
+  <div className="flex gap-4 font-normal">
+  <label className="flex items-center gap-2">
                     <input
                       type="radio"
-                      name="userType"
-                      value="professional"
-                      onChange={handleChange}
-                      checked={selectedSuggestion === 'professional'}
+                      name="LangType"
+                      value="EN"
+                      onChange={handleLanguageChange}
+                      checked={selectedLanguage === 'EN'}
                       className="accent-blue-500"
                     />
-                    GPT o4-mini
+                    English
+                  </label>
+  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="LangType"
+                      value="VN"
+                      onChange={handleLanguageChange}
+                      checked={selectedLanguage === 'VN'}
+                      className="accent-blue-500"
+                    />
+                    VietNam
                   </label>
                   <label className="flex items-center gap-2">
                     <input
                       type="radio"
-                      name="userType"
-                      value="casual"
-                      onChange={handleChange}
-                      checked={selectedSuggestion === 'casual'}
+                      name="LangType"
+                      value="NO"
+                      onChange={handleLanguageChange}
+                      checked={selectedLanguage === 'NO'}
                       className="accent-blue-500"
                     />
-                    Claude 3.7
+                    Norway
                   </label>
-                </div>
-              </div>
 
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="LangType"
+                      value="JP"
+                      onChange={handleLanguageChange}
+                      checked={selectedLanguage === 'JP'}
+                      className="accent-blue-500"
+                    />
+                    Japan
+                  </label>
+  </div>
+</NotchedCard>
 
+<NotchedCard title="Model Type" rightNotch="Not Available" disabled>
+  <div className="flex gap-6 font-normal">
+  <label className="flex items-center gap-2">
+        <input
+          type="radio"
+          name="model"
+          value="GPT 4.o"
+          onChange={handleChangeModel}
+          checked={selectedModel === 'GPT 4.o'}
+          className="accent-blue-500 cursor-none"
+
+        />
+        GPT 4.o
+      </label>
+      <label className="flex items-center gap-2">
+        <input
+          type="radio"
+          name="model"
+          value="Claude 3.7"
+          onChange={handleChangeModel}
+          checked={selectedModel === 'Claude 3.7'}
+          className="accent-blue-500 cursor-not-allowed"
+        />
+        Claude 3.7
+      </label>
+        </div>
+</NotchedCard>
+
+               
+             
+`             {/*
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)
               </div>
@@ -293,8 +382,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     Japan
                   </label>
                 </div>
-              </div>
-
+              </div>*/}
+              
               <button
                 onClick={() =>
                   handleSubmit(insight, selectedSuggestion, selectedLanguage)
@@ -523,9 +612,7 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
             <Section title={t('Political_Relevancy')} color={color} prefix={5}>
               {data['Political Relevancy']}
             </Section>
-            <Section title={t('Potential_Location')} color={color} prefix={6}>
-              Under_Testing_Feasibility
-            </Section>
+           
 
             <ConfidenceLevel
               selected={data['Confidence level']}
