@@ -161,7 +161,6 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 <FiNavigation2 className={`mr-2 text-blue-500`} size={18} />
                 AI Investigator
               </h3>
-
               {/*
               <label className="font-semibold block my-3">
                   Choose a question to explore
@@ -187,8 +186,6 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>
               */}
-
-              
               {/* <div className="font-semibold block my-3">Model Suggestion</div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
@@ -218,39 +215,35 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </div>*/}
-
-                <NotchedCard title="Model Suggestion">
-                    <div className="flex gap-4 font-normal">
-                    <label className="flex items-center gap-2">
-                                      <input
-                                        type="radio"
-                                        name="userType"
-                                        value="professional"
-                                        onChange={handleChange}
-                                        checked={selectedSuggestion === 'professional'}
-                                        className="accent-blue-500"
-                                      />
-                                      Professional
-                                    </label>
-                                    <label className="flex items-center gap-2">
-                                      <input
-                                        type="radio"
-                                        name="userType"
-                                        value="casual"
-                                        onChange={handleChange}
-                                        checked={selectedSuggestion === 'casual'}
-                                        className="accent-blue-500"
-                                      />
-                                      Casual user
-                                    </label>
-                    </div>
-                  </NotchedCard>
-
-
-
-                  <NotchedCard title="Language Output">
-  <div className="flex gap-4 font-normal">
-  <label className="flex items-center gap-2">
+              <NotchedCard title="Model Suggestion">
+                <div className="flex gap-4 font-normal">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="professional"
+                      onChange={handleChange}
+                      checked={selectedSuggestion === 'professional'}
+                      className="accent-blue-500"
+                    />
+                    Professional
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="casual"
+                      onChange={handleChange}
+                      checked={selectedSuggestion === 'casual'}
+                      className="accent-blue-500"
+                    />
+                    Casual user
+                  </label>
+                </div>
+              </NotchedCard>
+              <NotchedCard title="Language Output">
+                <div className="flex gap-4 font-normal">
+                  <label className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="LangType"
@@ -261,7 +254,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     />
                     English
                   </label>
-  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="LangType"
@@ -295,95 +288,98 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     />
                     日本語
                   </label>
-  </div>
-</NotchedCard>
-
-<NotchedCard title="Model Type" rightNotch="Not Available" disabled>
-  <div className="flex gap-6 font-normal">
-  <label className="flex items-center gap-2">
-        <input
-          type="radio"
-          name="model"
-          value="0"
-          onChange={handleChangeModel}
-          checked={selectedModel === 'GPT 4.o'}
-          className="accent-blue-500 cursor-none"
-
-        />
-        GPT 4.o
-      </label>
-      <label className="flex items-center gap-2">
-        <input
-          type="radio"
-          name="model"
-          value="0"
-          onChange={handleChangeModel}
-          checked={selectedModel === 'Claude 3.7'}
-          className="accent-blue-500 cursor-not-allowed"
-        />
-        Claude 3.7
-      </label>
-        </div>
-</NotchedCard>
-
-               
-             
-`             {/*
+                </div>
+              </NotchedCard>
+              <NotchedCard
+                title="Model Type"
+                rightNotch="Not Available"
+                disabled
+              >
+                <div className="flex gap-6 font-normal">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="model"
+                      value="0"
+                      onChange={handleChangeModel}
+                      checked={selectedModel === 'GPT 4.o'}
+                      className="accent-blue-500 cursor-none"
+                    />
+                    GPT 4.o
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="model"
+                      value="0"
+                      onChange={handleChangeModel}
+                      checked={selectedModel === 'Claude 3.7'}
+                      className="accent-blue-500 cursor-not-allowed"
+                    />
+                    Claude 3.7
+                  </label>
+                </div>
+              </NotchedCard>
+              `{' '}
+              {/*
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)
               </div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
               >
-                <div className="flex gap-4 font-normal">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="EN"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'EN'}
-                      className="accent-blue-500"
-                    />
-                    English
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="VN"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'VN'}
-                      className="accent-blue-500"
-                    />
-                    Vietnamese
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="NO"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'NO'}
-                      className="accent-blue-500"
-                    />
-                    Norwegian
-                  </label>
+                <div className="flex gap-6 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="EN"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'EN'}
+                        className="accent-blue-500"
+                      />
+                      English
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="NO"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'NO'}
+                        className="accent-blue-500"
+                      />
+                      Norwegian
+                    </label>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="VN"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'VN'}
+                        className="accent-blue-500"
+                      />
+                      Vietnamese
+                    </label>
 
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="JP"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'JP'}
-                      className="accent-blue-500"
-                    />
-                    Japanese
-                  </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="JP"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'JP'}
+                        className="accent-blue-500"
+                      />
+                      Japanese
+                    </label>
+                  </div>
                 </div>
               </div>*/}
-              
               <button
                 onClick={() =>
                   handleSubmit(insight, selectedSuggestion, selectedLanguage)
@@ -451,11 +447,16 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     <div>
                       <FeedbackSection
                         onSubmit={async (data) => {
-                          const success = await submitRating(data.rating, data.imageAssessment);
-                          if(success) {
+                          const success = await submitRating(
+                            data.rating,
+                            data.imageAssessment
+                          );
+                          if (success) {
                             toast.success('Rating submitted successfully!');
                           } else {
-                            toast.error('Failed to submit rating. Please try again.');
+                            toast.error(
+                              'Failed to submit rating. Please try again.'
+                            );
                           }
                         }}
                       />
@@ -612,7 +613,6 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
             <Section title={t('Political_Relevancy')} color={color} prefix={5}>
               {data['Political Relevancy']}
             </Section>
-           
 
             <ConfidenceLevel
               selected={data['Confidence level']}
