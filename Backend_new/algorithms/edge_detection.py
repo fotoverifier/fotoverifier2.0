@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from io import BytesIO
+import base64
 from algorithms.utility import upload_to_cloudinary
 
 def edge_detection(image_bytes):
@@ -29,11 +30,11 @@ def edge_detection(image_bytes):
     _, marr_hildreth_png = cv2.imencode('.png', marr_hildreth_e)
 
 
-    # Upload to Cloudinary
-    canny_url = upload_to_cloudinary(canny_png.tobytes(), filename="canny_edge")
-    marr_url = upload_to_cloudinary(marr_hildreth_png.tobytes(), filename="marr_hildreth_edge")
+    # Convert PNG bytes to base64 strings
+    canny_base64 = base64.b64encode(canny_png.tobytes()).decode('utf-8')
+    marr_base64 = base64.b64encode(marr_hildreth_png.tobytes()).decode('utf-8')
 
     return {
-        "canny_edge_url": canny_url,
-        "marr_hildreth_edge_url": marr_url,
+        "canny_edge_base64": canny_base64,
+        "marr_hildreth_edge_base64": marr_base64,
     }

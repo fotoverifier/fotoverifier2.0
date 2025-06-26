@@ -2,6 +2,7 @@ from algorithms.utility import upload_to_cloudinary
 import colour
 import numpy as np
 import cv2
+import base64
 from io import BytesIO
 from colour_demosaicing import (
     demosaicing_CFA_Bayer_Malvar2004,
@@ -23,12 +24,9 @@ def process_demosaicing(image_bytes):
     # Convert from BGR to RGB and normalize to [0, 1]
     rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
 
-    # Apply Bayer mosaicing
-    cfa = mosaicing_CFA_Bayer(rgb)
-
-    # Apply demosaicing algorithms
-    malvar = demosaicing_CFA_Bayer_Malvar2004(cfa)
-    menon = demosaicing_CFA_Bayer_Menon2007(cfa)
+    cfa = mosaicing_CFA_Bayer(rgb).astype(np.float32)
+    malvar = demosaicing_CFA_Bayer_Malvar2004(cfa).astype(np.float32)
+    menon = demosaicing_CFA_Bayer_Menon2007(cfa).astype(np.float32)
     
     # Apply sRGB encoding (gamma correction)
     malvar_encoded = colour.cctf_encoding(malvar)
@@ -46,11 +44,11 @@ def process_demosaicing(image_bytes):
     _, malvar_png = cv2.imencode('.png', malvar_bgr)
     _, menon_png = cv2.imencode('.png', menon_bgr)
 
-    # Upload to Cloudinary
-    malvar_url = upload_to_cloudinary(malvar_png.tobytes(), filename="demosaic_malvar")
-    menon_url = upload_to_cloudinary(menon_png.tobytes(), filename="demosaic_menon")
+    # Convert PNG bytes to base64
+    malvar_base64 = base64.b64encode(malvar_png.tobytes()).decode('utf-8')
+    menon_base64 = base64.b64encode(menon_png.tobytes()).decode('utf-8')
 
     return {
-        "malvar_url": malvar_url,
-        "menon_url": menon_url,
+        "malvar_base64": malvar_base64,
+        "menon_base64": menon_base64,
     }

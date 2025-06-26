@@ -10,16 +10,21 @@ import { useLanguage } from '@/context/LanguageContext';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import styles from '@/app/(single layout)/result/res.module.css';
 import { BiSolidCategory } from 'react-icons/bi';
-import styles_feedback from '@/components/modal/feedback_modal/feedback_modal.module.css'
+import styles_feedback from '@/components/modal/feedback_modal/feedback_modal.module.css';
 import CircleRating from '@/components/rating/rating_circle';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
-import { AnalysisResult, InvestigatorResult, SharedJudgment } from '@/interface/interface';
+import {
+  AnalysisResult,
+  InvestigatorResult,
+  SharedJudgment,
+} from '@/interface/interface';
 import { CollapsibleDefinitionBox } from '@/components/box/CollapsibleDefinitionBox';
 import LoadingOverlay from '@/components/loading/loadinganimation';
 import { submitRating } from '@/hook/useSubmitRating';
 import { FaMapLocation, FaPerson, FaTimeline } from 'react-icons/fa6';
 import { FaQuestion, FaTimes } from 'react-icons/fa';
 import { Inter, Poppins } from 'next/font/google';
+import { toast, ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] });
 interface AI_Validation {
   img: string | null;
@@ -63,8 +68,9 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   };
   const [rating, setRating] = useState<number | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"forensic" | "Verified Evidence">("Verified Evidence");
-
+  const [activeTab, setActiveTab] = useState<'forensic' | 'Verified Evidence'>(
+    'Verified Evidence'
+  );
 
   return (
     <>
@@ -80,7 +86,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
             </div>
             <div className={`${styles.description} flex items-center`}>
-              From the inputs, two AI Investigators will validate the images, and share the final summary afterward.
+              From the inputs, two AI Investigators will validate the images,
+              and share the final summary afterward.
             </div>
           </div>
 
@@ -109,7 +116,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       }}
                     ></Image>
                   ) : (
-                   <NoImagePlaceholder/>
+                    <NoImagePlaceholder />
                   )}
                 </div>
 
@@ -134,7 +141,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       }}
                     ></Image>
                   ) : (
-                    <NoImagePlaceholder/>
+                    <NoImagePlaceholder />
                   )}
                 </div>
               </div>
@@ -172,14 +179,10 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
               */}
 
-
-              <div className="font-semibold block my-3">
-                  Model Suggestion
-                </div>
+              <div className="font-semibold block my-3">Model Suggestion</div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
               >
-               
                 <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
@@ -207,12 +210,11 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
 
               <div className="font-semibold block my-3">
-                  Language Output (Run-time constraint)
-                </div>
+                Language Output (Run-time constraint)
+              </div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
               >
-               
                 <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
@@ -263,7 +265,9 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
               </div>
 
               <button
-                onClick={() => handleSubmit(insight, selectedSuggestion, selectedLanguage)}
+                onClick={() =>
+                  handleSubmit(insight, selectedSuggestion, selectedLanguage)
+                }
                 type="button"
                 className={`mt-4 inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200`}
               >
@@ -271,109 +275,111 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 Send
               </button>
             </div>
-            <div className='mb-3'> </div>
-
+            <div className="mb-3"> </div>
           </div>
-          <div className='h-2 bg-white'> </div>
-
+          <div className="h-2 bg-white"> </div>
         </div>
       ) : (
-
         <>
-        {loading ? (
-          <LoadingOverlay message="Loading report data..." />
-        ) : (
-          
-          analysisResult && (
-            <>
-            <div className="flex justify-between items-center mb-4 border-b border-gray-300">
+          {loading ? (
+            <LoadingOverlay message="Loading report data..." />
+          ) : (
+            analysisResult && (
+              <>
+                <div className="flex justify-between items-center mb-4 border-b border-gray-300">
+                  <div className="flex space-x-4">
+                    <button
+                      className={`px-4 py-2 font-semibold rounded-t-xl ${
+                        activeTab === 'Verified Evidence'
+                          ? 'border-b-2 border-teal-800 text-white bg-teal-600'
+                          : 'text-gray-500 bg-gray-100'
+                      }`}
+                      onClick={() => setActiveTab('Verified Evidence')}
+                    >
+                      {t('Verified_Evidence')}
+                    </button>
 
-  <div className="flex space-x-4">
-  <button
-      className={`px-4 py-2 font-semibold rounded-t-xl ${
-        activeTab === "Verified Evidence"
-          ? "border-b-2 border-teal-800 text-white bg-teal-600"
-          : "text-gray-500 bg-gray-100"
-      }`}
-      onClick={() => setActiveTab("Verified Evidence")}
-    >
-      {t('Verified_Evidence')}
-    </button>
+                    <button
+                      className={`px-4 py-2 font-semibold rounded-t-xl ${
+                        activeTab === 'forensic'
+                          ? 'border-b-2 border-teal-800 text-white bg-teal-600'
+                          : 'text-gray-500 bg-gray-100'
+                      }`}
+                      onClick={() => setActiveTab('forensic')}
+                    >
+                      {t('Forensic_Analysis')}
+                    </button>
+                  </div>
 
-    <button
-      className={`px-4 py-2 font-semibold rounded-t-xl ${
-        activeTab === "forensic"
-          ? "border-b-2 border-teal-800 text-white bg-teal-600"
-          : "text-gray-500 bg-gray-100"
-      }`}
-      onClick={() => setActiveTab("forensic")}
-    >
-      {t('Forensic_Analysis')}
-    </button>
-    
-  </div>
+                  <div className="bg-red-100 text-red-800 px-4 py-2 rounded-t-lg w-fit border-red-800 border-b-2 text-right">
+                    {t('LLM_Disclaimer')}
+                  </div>
+                </div>
 
-  <div className="bg-red-100 text-red-800 px-4 py-2 rounded-t-lg w-fit border-red-800 border-b-2 text-right">
-    {t('LLM_Disclaimer')}
-  </div>
-</div>
+                {activeTab === 'forensic' && (
+                  <div className="grid grid-cols-4 gap-4 auto-rows-max">
+                    <div>
+                      <SharedJudgmentCard
+                        data={analysisResult.shared_judgment}
+                      />
+                    </div>
+                    <InvestigatorCard
+                      title="👤 Investigator A"
+                      data={analysisResult.investigator_A}
+                      color="blue"
+                    />
+                    <div>
+                      <FeedbackSection
+                        onSubmit={async (data) => {
+                          const success = await submitRating(data.rating, data.imageAssessment);
+                          if(success) {
+                            toast.success('Rating submitted successfully!');
+                          } else {
+                            toast.error('Failed to submit rating. Please try again.');
+                          }
+                        }}
+                      />
+                      <ToastContainer />
+                    </div>
+                    <InvestigatorCard
+                      title="👤 Investigator B"
+                      data={analysisResult.investigator_B}
+                      color="purple"
+                    />
+                  </div>
+                )}
 
-{activeTab === "forensic" && (
-  <div className="grid grid-cols-4 gap-4 auto-rows-max">
-    <div>
-      <SharedJudgmentCard data={analysisResult.shared_judgment} />
-    </div>
-    <InvestigatorCard
-      title="👤 Investigator A"
-      data={analysisResult.investigator_A}
-      color="blue"
-    />
-    <div>
-      <FeedbackSection
-        onSubmit={(data) => {
-          submitRating(data.rating, data.imageAssessment);
-        }}
-      />
-    </div>
-    <InvestigatorCard
-      title="👤 Investigator B"
-      data={analysisResult.investigator_B}
-      color="purple"
-    />
-  </div>
-)}
-
-            
-
-{activeTab === "Verified Evidence" && (
-  <div className="grid grid-cols-2 gap-4">
-    <InvestigatorCard_5Wh
-      title="👤 Investigator A"
-      data={analysisResult.investigator_A}
-      color="blue"
-    />
-    <InvestigatorCard_5Wh
-      title="👤 Investigator B"
-      data={analysisResult.investigator_B}
-      color="purple"
-    />
-  </div>
-)}
-          </>
-          )
-        )}
+                {activeTab === 'Verified Evidence' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    <InvestigatorCard_5Wh
+                      title="👤 Investigator A"
+                      data={analysisResult.investigator_A}
+                      color="blue"
+                    />
+                    <InvestigatorCard_5Wh
+                      title="👤 Investigator B"
+                      data={analysisResult.investigator_B}
+                      color="purple"
+                    />
+                  </div>
+                )}
+              </>
+            )
+          )}
         </>
-
       )}
     </>
   );
 };
 type FeedbackSectionProps = {
   title?: string;
-  onSubmit: (data: { rating: number; imageAssessment: string}) => void;
+  onSubmit: (data: { rating: number; imageAssessment: string }) => void;
 };
 
-const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps) => {
+const FeedbackSection = ({
+  title = 'Feedback',
+  onSubmit,
+}: FeedbackSectionProps) => {
   const t = useLanguage();
   const [rating, setRating] = useState<number>(0);
   const [imageAssessment, setImageAssessment] = useState<string>('');
@@ -381,14 +387,16 @@ const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps)
   const options = ['TP', 'FP', 'TN', 'FN'];
 
   const handleSubmit = () => {
+    console.log('Submitting feedback:', { rating, imageAssessment });
     onSubmit({ rating, imageAssessment });
   };
 
   return (
     <div className="row-span-2 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col max-h-[820px]">
-
       <div className="relative p-4 border-b border-gray-100 flex justify-center items-center overflow-hidden">
-        <h2 className="relative z-10 text-lg font-bold text-gray-700">{title}</h2>
+        <h2 className="relative z-10 text-lg font-bold text-gray-700">
+          {title}
+        </h2>
       </div>
 
       <div className="p-4 overflow-y-auto flex flex-col flex-1 space-y-4 justify-center items-center">
@@ -417,16 +425,17 @@ const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps)
 
         <CollapsibleDefinitionBox
           definitions={`TP (True Positive): Correctly identified as positive\nFP (False Positive): Incorrectly identified as positive\nTN (True Negative): Correctly identified as negative\nFN (False Negative): Incorrectly identified as negative`}
-           />
-
+        />
 
         <button
           onClick={handleSubmit}
           disabled={rating === null || imageAssessment === null}
           className={`mt-4 w-full py-2 px-4 rounded-lg text-white font-medium transition
-            ${rating === null || imageAssessment === null
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-green-600 hover:bg-green-700'}
+            ${
+              rating === null || imageAssessment === null
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-green-600 hover:bg-green-700'
+            }
           `}
         >
           Send
@@ -435,7 +444,6 @@ const FeedbackSection = ({ title = 'Feedback', onSubmit }: FeedbackSectionProps)
     </div>
   );
 };
-
 
 interface InvestigatorCardProps {
   title: string;
@@ -447,50 +455,56 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
   title,
   data,
   color,
-}) =>  {
+}) => {
   const { t } = useLanguage();
 
-  return(
-  <div
-    className={`col-span-3 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
-  >
-    <div className={`p-4 border-b border-gray-400 flex items-center justify-center`}>
-      <h2 className={`text-lg font-bold text-black`}>{title}</h2>
-    </div>
-    <div className="p-4 overflow-y-auto flex-1">
-      <div className="grid grid-cols-2 gap-4 items-stretch">
-        <div className="space-y-2">
-        <Section title={t("Summary")} color={color} prefix={1}>
-            {data.Summary}
-          </Section>
-          <Section title={t("Lighting_Inconsistencies")} color={color} prefix={2}>
-            {data["Lighting inconsistencies"]}
-          </Section>
-          <Section title={t("Edge_Artifacts")} color={color} prefix={3}>
-            {data["Edge artifacts"]}
-          </Section>
-        </div>
+  return (
+    <div
+      className={`col-span-3 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
+    >
+      <div
+        className={`p-4 border-b border-gray-400 flex items-center justify-center`}
+      >
+        <h2 className={`text-lg font-bold text-black`}>{title}</h2>
+      </div>
+      <div className="p-4 overflow-y-auto flex-1">
+        <div className="grid grid-cols-2 gap-4 items-stretch">
+          <div className="space-y-2">
+            <Section title={t('Summary')} color={color} prefix={1}>
+              {data.Summary}
+            </Section>
+            <Section
+              title={t('Lighting_Inconsistencies')}
+              color={color}
+              prefix={2}
+            >
+              {data['Lighting inconsistencies']}
+            </Section>
+            <Section title={t('Edge_Artifacts')} color={color} prefix={3}>
+              {data['Edge artifacts']}
+            </Section>
+          </div>
 
-        <div className="space-y-2 self-stretch flex flex-col justify-between">
-          <Section title={t("Semantic_Anomalies")} color={color} prefix={4}>
-            {data["Semantic anomalies"]}
-          </Section>
-          <Section title={t("Political_Relevancy")} color={color} prefix={5}>
-            {data["Political Relevancy"]}
-          </Section>
-          <Section title={t("Potential_Location")} color={color} prefix={6}>
-            Under_Testing_Feasibility
-          </Section>
+          <div className="space-y-2 self-stretch flex flex-col justify-between">
+            <Section title={t('Semantic_Anomalies')} color={color} prefix={4}>
+              {data['Semantic anomalies']}
+            </Section>
+            <Section title={t('Political_Relevancy')} color={color} prefix={5}>
+              {data['Political Relevancy']}
+            </Section>
+            <Section title={t('Potential_Location')} color={color} prefix={6}>
+              Under_Testing_Feasibility
+            </Section>
 
-          <ConfidenceLevel
-            selected={data["Confidence level"]}
-            label={t("Overall_Confidence")}
-          />
+            <ConfidenceLevel
+              selected={data['Confidence level']}
+              label={t('Overall_Confidence')}
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 interface SharedJudgmentCardProps {
@@ -503,7 +517,7 @@ const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => (
       <h2 className="text-lg font-bold text-green-700">🧩 Shared Judgment</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">
-    <Section title="Consensus Summary" color="green" prefix={1}>
+      <Section title="Consensus Summary" color="green" prefix={1}>
         {data['Consensus Summary']}
       </Section>
       <Section title="Political Relevancy (agreed)" color="green" prefix={2}>
@@ -530,11 +544,11 @@ const Section = ({
 }) => (
   <div className="mb-2 flex items-start">
     <div className="flex-1">
-      <div className='flex items-center'>
-    <div className="w-7 h-7 flex-shrink-0 rounded-full bg-teal-800 text-white flex items-center justify-center font-bold mr-2">
-      {prefix}
-    </div>
-      <p className="text-large text-gray-700 font-semibold my-2">{title}</p>
+      <div className="flex items-center">
+        <div className="w-7 h-7 flex-shrink-0 rounded-full bg-teal-800 text-white flex items-center justify-center font-bold mr-2">
+          {prefix}
+        </div>
+        <p className="text-large text-gray-700 font-semibold my-2">{title}</p>
       </div>
       <div className="border-l-4 border-teal-500 font-normal bg-gray-50 p-2 rounded text-base text-gray-800 border">
         {children}
@@ -552,14 +566,17 @@ const ConfidenceLevel = ({
 }) => {
   const levels = ['Low', 'Medium', 'High'];
 
-  const levelConfig: Record<typeof levels[number], { width: string; color: string }> = {
+  const levelConfig: Record<
+    (typeof levels)[number],
+    { width: string; color: string }
+  > = {
     Low: { width: '33%', color: 'bg-red-500' },
     Medium: { width: '66%', color: 'bg-yellow-500' },
     High: { width: '100%', color: 'bg-green-500' },
   };
 
-  const isValidLevel = (val: string): val is typeof levels[number] =>
-    levels.includes(val as typeof levels[number]);
+  const isValidLevel = (val: string): val is (typeof levels)[number] =>
+    levels.includes(val as (typeof levels)[number]);
 
   const { width, color } = isValidLevel(selected)
     ? levelConfig[selected]
@@ -585,7 +602,6 @@ const ConfidenceLevel = ({
   );
 };
 
-
 interface InvestigatorCard_5Wh {
   title: string;
   data: InvestigatorResult;
@@ -599,30 +615,49 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
   <div
     className={`col-span-1 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
   >
-    <div className={`p-4 border-b border-gray-400 flex items-center justify-center`}>
+    <div
+      className={`p-4 border-b border-gray-400 flex items-center justify-center`}
+    >
       <h2 className={`text-lg font-bold text-black`}>{title}</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1">
       <div className="grid grid-cols-1 gap-4 items-stretch">
         <div className="space-y-2">
-        <div className="relative pl-4 ">
-        <TimeLine prefix= {<FaPerson/>} title='Who' Subtitle=' Identify key individuals or groups.'>  {data['Who']}
+          <div className="relative pl-4 ">
+            <TimeLine
+              prefix={<FaPerson />}
+              title="Who"
+              Subtitle=" Identify key individuals or groups."
+            >
+              {' '}
+              {data['Who']}
+            </TimeLine>
 
-         </TimeLine>
+            <TimeLine
+              prefix={<FaTimeline />}
+              title="When"
+              Subtitle="Establish the accurate timeframe."
+            >
+              {' '}
+              {data['When']}
+            </TimeLine>
 
-         <TimeLine prefix={<FaTimeline/>} title='When' Subtitle='Establish the accurate timeframe.'>  {data['When']}
-         </TimeLine>
+            <TimeLine
+              prefix={<FaMapLocation />}
+              title="Where"
+              Subtitle="Determine the correct geographical context."
+            >
+              {data['Where']}
+            </TimeLine>
 
-
-         <TimeLine prefix={<FaMapLocation/>} title='Where'Subtitle='Determine the correct geographical context.'> 
-         {data['Where']}
-         </TimeLine>
-
-         <TimeLine prefix={<FaQuestion/>} title='Why'Subtitle='Provide a reasoned explanation of possible intent.'>
-         {data['Why']}
-         </TimeLine>
-</div>
-
+            <TimeLine
+              prefix={<FaQuestion />}
+              title="Why"
+              Subtitle="Provide a reasoned explanation of possible intent."
+            >
+              {data['Why']}
+            </TimeLine>
+          </div>
         </div>
       </div>
     </div>
@@ -641,17 +676,19 @@ const TimeLine = ({
   Subtitle: string;
 }) => (
   <div className="relative mb-10">
-    <div className='flex items-center'>
-    <div className="absolute left-0 top-0 w-6 h-6 mt-2 rounded-full bg-white border-2 border-gray-500 flex items-center justify-center text-sm z-10">
-      {prefix}
-    </div>
-    <div className='ml-8 flex items-center gap-2 border-2 p-2 rounded-xl'>       
-      <div className="font-semibold text-black ">{title}</div>
-      <div className="h-5 w-px bg-gray-400" />
-      <div className={`${inter.className} font-normal  text-base text-gray-800`}>
-        {Subtitle}
+    <div className="flex items-center">
+      <div className="absolute left-0 top-0 w-6 h-6 mt-2 rounded-full bg-white border-2 border-gray-500 flex items-center justify-center text-sm z-10">
+        {prefix}
+      </div>
+      <div className="ml-8 flex items-center gap-2 border-2 p-2 rounded-xl">
+        <div className="font-semibold text-black ">{title}</div>
+        <div className="h-5 w-px bg-gray-400" />
+        <div
+          className={`${inter.className} font-normal  text-base text-gray-800`}
+        >
+          {Subtitle}
         </div>
-         </div>
+      </div>
     </div>
     <div className="absolute left-2.5 top-6 h-full w-0.5 bg-gray-400 my-4"></div>
 
@@ -659,10 +696,6 @@ const TimeLine = ({
       <div className=" my-2 border-l-4 border-teal-500 font-normal bg-gray-50 p-2 rounded text-base text-gray-800 border">
         {children}
       </div>
-
-      
-
-      
     </div>
   </div>
 );

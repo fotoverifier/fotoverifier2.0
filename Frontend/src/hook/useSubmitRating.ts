@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { toast } from 'react-toastify';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,7 +15,6 @@ export const submitRating = async (
     .insert([{ text_rating, image_rating }]);
 
   if (error) {
-    console.error('Error submitting rating:', error);
     return false;
   }
 
