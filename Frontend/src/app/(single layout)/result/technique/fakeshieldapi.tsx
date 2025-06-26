@@ -209,6 +209,37 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>
 
+              <div className="font-semibold block my-3">Model Type</div>
+              <div
+                className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
+              >
+                <div className="flex gap-4 font-normal">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="professional"
+                      onChange={handleChange}
+                      checked={selectedSuggestion === 'professional'}
+                      className="accent-blue-500"
+                    />
+                    GPT o4-mini
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="casual"
+                      onChange={handleChange}
+                      checked={selectedSuggestion === 'casual'}
+                      className="accent-blue-500"
+                    />
+                    Claude 3.7
+                  </label>
+                </div>
+              </div>
+
+
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)
               </div>
