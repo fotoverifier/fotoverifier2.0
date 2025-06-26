@@ -236,7 +236,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'VN'}
                       className="accent-blue-500"
                     />
-                    VietNam
+                    Vietnamese
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -247,7 +247,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'NO'}
                       className="accent-blue-500"
                     />
-                    Norway
+                    Norwegian
                   </label>
 
                   <label className="flex items-center gap-2">
@@ -259,7 +259,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'JP'}
                       className="accent-blue-500"
                     />
-                    Japan
+                    Japanese
                   </label>
                 </div>
               </div>
