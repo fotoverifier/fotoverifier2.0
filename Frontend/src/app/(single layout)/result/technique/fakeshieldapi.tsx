@@ -239,59 +239,62 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>
 
-
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)
               </div>
               <div
                 className={`p-2 bg-gradient-to-r from-blue-50 to-blue-50 border-blue-200 rounded-lg text-sm border`}
               >
-                <div className="flex gap-4 font-normal">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="EN"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'EN'}
-                      className="accent-blue-500"
-                    />
-                    English
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="VN"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'VN'}
-                      className="accent-blue-500"
-                    />
-                    Vietnamese
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="NO"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'NO'}
-                      className="accent-blue-500"
-                    />
-                    Norwegian
-                  </label>
+                <div className="flex gap-6 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="EN"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'EN'}
+                        className="accent-blue-500"
+                      />
+                      English
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="NO"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'NO'}
+                        className="accent-blue-500"
+                      />
+                      Norwegian
+                    </label>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="VN"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'VN'}
+                        className="accent-blue-500"
+                      />
+                      Vietnamese
+                    </label>
 
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="LangType"
-                      value="JP"
-                      onChange={handleLanguageChange}
-                      checked={selectedLanguage === 'JP'}
-                      className="accent-blue-500"
-                    />
-                    Japanese
-                  </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="LangType"
+                        value="JP"
+                        onChange={handleLanguageChange}
+                        checked={selectedLanguage === 'JP'}
+                        className="accent-blue-500"
+                      />
+                      Japanese
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -362,11 +365,16 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     <div>
                       <FeedbackSection
                         onSubmit={async (data) => {
-                          const success = await submitRating(data.rating, data.imageAssessment);
-                          if(success) {
+                          const success = await submitRating(
+                            data.rating,
+                            data.imageAssessment
+                          );
+                          if (success) {
                             toast.success('Rating submitted successfully!');
                           } else {
-                            toast.error('Failed to submit rating. Please try again.');
+                            toast.error(
+                              'Failed to submit rating. Please try again.'
+                            );
                           }
                         }}
                       />
