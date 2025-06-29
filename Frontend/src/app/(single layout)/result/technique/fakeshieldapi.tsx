@@ -439,7 +439,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       />
                     </div>
                     <InvestigatorCard
-                      title="👤 Investigator A"
+                      title={t('investigator_a')}
                       data={analysisResult.investigator_A}
                       color="blue"
                     />
@@ -463,7 +463,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       <ToastContainer />
                     </div>
                     <InvestigatorCard
-                      title="👤 Investigator B"
+                      title={t('investigator_b')}
                       data={analysisResult.investigator_B}
                       color="purple"
                     />
@@ -473,12 +473,12 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 {activeTab === 'Verified Evidence' && (
                   <div className="grid grid-cols-2 gap-4">
                     <InvestigatorCard_5Wh
-                      title="👤 Investigator A"
+                      title={t('investigator_a')}
                       data={analysisResult.investigator_A}
                       color="blue"
                     />
                     <InvestigatorCard_5Wh
-                      title="👤 Investigator B"
+                      title={t('investigator_b')}
                       data={analysisResult.investigator_B}
                       color="purple"
                     />

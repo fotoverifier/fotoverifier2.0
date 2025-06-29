@@ -202,5 +202,21 @@
   "tp": "TP (Dương tính thực): Được xác định đúng là dương tính",
   "fp": "FP (Dương tính giả): Bị xác định sai là dương tính",
   "tn": "TN (Âm tính thực): Được xác định đúng là âm tính",
-  "fn": "FN (Âm tính giả): Bị xác định sai là âm tính"
+  "fn": "FN (Âm tính giả): Bị xác định sai là âm tính",
+
+  "investigator_a": "Điều tra viên An",
+  "investigator_b": "Điều tra viên Bình",
+
+  "desc_img": "Phần này hiển thị hình ảnh bạn đã tải lên. Hãy đảm bảo đó là tệp đúng trước khi tiếp tục.",
+  "desc_jpeg_ghost": "Phát hiện JPEG Ghost phân tích hiện tượng nén để xác định các chỉnh sửa tiềm năng trong hình ảnh.",
+  "desc_ela": "Phân tích mức độ lỗi (ELA) làm nổi bật sự không nhất quán trong nén ảnh, tiết lộ khả năng bị chỉnh sửa.",
+  "desc_SS_CFA": "Phân tích mẫu mảng lọc màu dựa trên đặc điểm cảm biến",
+  "desc_SS_Denoise": "Kỹ thuật khử nhiễu để cải thiện độ rõ của ảnh mà vẫn giữ chi tiết",
+  "desc_SS_Edge": "Tăng cường viền và phân tích nhiễu để làm nổi bật ranh giới cấu trúc",
+  "desc_SS_ChangeFactor": "Menu để chọn mô hình và hệ số phóng to",
+  "desc_SS_Original": "Hiển thị hình ảnh gốc chưa chỉnh sửa để tham chiếu",
+  "desc_SS_Enhance": "Hiển thị hình ảnh đã được nâng cao với độ phân giải và chi tiết tốt hơn",
+  "desc_CameraArea": "Chi tiết kỹ thuật của máy ảnh từ siêu dữ liệu EXIF",
+  "desc_AuthorArea": "Thông tin và tên tác giả của người chụp",
+  "desc_ImgTagging": "Phân loại ảnh và gắn thẻ metadata bằng AI"
 }

@@ -87,9 +87,21 @@ In a grayscale portrait:
 
 ## References
 
-- John Canny, “A Computational Approach to Edge Detection,” *IEEE Trans. Pattern Anal. Mach. Intell.*, 1986.  
-- Wikipedia: Edge Detection — <https://en.wikipedia.org/wiki/Edge_detection>  
-- OpenCV Documentation: Canny Edge Detector — <https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html>  
-- X. Zhang et al., “Holistically-Nested Edge Detection,” *ICCV* 2015.  
+## Selected Research & Literature
 
-> ✅ *Edge detection remains a foundational step in computer vision, balancing simplicity and effectiveness across diverse applications.*  
+1. [Utilizing Different Edge Detection and Preprocessing Techniques to Improve the Accuracy of Durian Cultivar Detection using Convolutional Neural Networks]  
+- Compares traditional edge detectors (Canny, Laplacian, Sobel) and binarization for image preprocessing in a CNN pipeline, finding Laplacian edge detection most effective for classification accuracy.  
+- Src: https://ieeexplore.ieee.org/document/10425315/
+
+2. [Waterline Detection and Water Level Estimation Based on HED Edge Detection]  
+- Applies deep learning-based HED (Holistically-Nested Edge Detection) and compares it to Canny, showing HED’s superior performance for real-world waterline detection in challenging environments.  
+- Src: https://ieeexplore.ieee.org/document/10613690/
+
+3. [Automated Direction Change and Edge Detection Techniques based on Fuzzy PID and Artificial Intelligence]  
+- Introduces fuzzy PID and AI-driven edge detection for automated production, achieving high accuracy and efficiency in industrial cable winding by combining sensor data with intelligent algorithms.  
+- Src: https://dl.acm.org/doi/10.1145/3653644.3658508
+
+4. [Computer-Aided Diagnosis of Cancer using Microscopic Imaging and AI Techniques – Review]  
+- Reviews both traditional and AI-based edge detection for microscopic cancer imaging, highlighting the importance of edge features in distinguishing cancerous from normal tissue.  
+- Src: http://ijzi.net/Issue/0205401044IssueMS12.pdf
+

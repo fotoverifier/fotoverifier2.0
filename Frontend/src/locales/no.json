@@ -203,5 +203,21 @@
   "tp": "TP (Sann positiv): Korrekt identifisert som positiv",
   "fp": "FP (Falsk positiv): Feilaktig identifisert som positiv",
   "tn": "TN (Sann negativ): Korrekt identifisert som negativ",
-  "fn": "FN (Falsk negativ): Feilaktig identifisert som negativ"
+  "fn": "FN (Falsk negativ): Feilaktig identifisert som negativ",
+
+   "investigator_a": "Etterforsker Anna",
+  "investigator_b": "Etterforsker Bjørn",
+
+  "desc_img": "Denne seksjonen viser bildet du lastet opp. Sørg for at det er riktig fil før du fortsetter.",
+  "desc_jpeg_ghost": "JPEG Ghost-deteksjon analyserer komprimeringsartefakter og hjelper med å identifisere mulige redigeringer i bildet.",
+  "desc_ela": "Feilnivåanalyse (ELA) fremhever inkonsistenser i bildekomprimering og avslører mulige endringer.",
+  "desc_SS_CFA": "Analyse av fargemønstre basert på sensoregenskaper",
+  "desc_SS_Denoise": "Støydempingsteknikker som forbedrer bildeklarhet uten å miste detaljer",
+  "desc_SS_Edge": "Kantforsterkning og artefaktanalyse for å fremheve strukturelle grenser",
+  "desc_SS_ChangeFactor": "Meny for valg av modeller og zoomfaktorer",
+  "desc_SS_Original": "Viser det opprinnelige uendrede bildet som referanse",
+  "desc_SS_Enhance": "Viser det forbedrede bildet med høyere oppløsning og mer detaljer",
+  "desc_CameraArea": "Kameratekniske detaljer fra EXIF-metadata",
+  "desc_AuthorArea": "Fotografens informasjon og kreditering",
+  "desc_ImgTagging": "Bildekategorisering og metadata-tagger ved hjelp av AI"
 }

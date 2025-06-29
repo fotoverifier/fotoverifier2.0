@@ -57,7 +57,24 @@
 - **Corroborate Findings**: Combine ELA with error-level clustering, PRNU (sensor noise) analysis, and metadata examination.
 
 ---
+## Selected Research & Literature on ELA (Error Level Analysis)
 
+1. [Enhancing Digital Image Forensics with Error Level Analysis (ELA)]  
+- Explains ELA fundamentals, its role in detecting digital image alterations, and integration with AI/ML to boost forensic accuracy. Highlights recent innovations and the necessity of ELA in modern digital authenticity verification.  
+- Src: https://ieeexplore.ieee.org/document/10569232/
+
+2. [Error Level Analysis Technique for Identifying JPEG Block Unique Signature for Digital Forensic Analysis]  
+- Presents a method using ELA to detect unique JPEG 8×8 block signatures, aiding investigators in identifying manipulated fragments during digital forensic analysis.  
+- Src: https://www.mdpi.com/2079-9292/11/9/1468
+
+3. [Enhanced Image Tampering Detection using Error Level Analysis and CNN]  
+- Proposes a hybrid framework combining ELA and Convolutional Neural Networks (CNN) to improve detection of image tampering, achieving high accuracy on benchmark datasets.  
+- Src: https://etasr.com/index.php/ETASR/article/view/9593
+
+4. [Error level analysis (ELA)]  
+- Reviews ELA as a forensic tool, its benefits and limitations, and its impact on determining image authenticity in criminal investigations.  
+- Src: https://scindeks.ceon.rs/Article.aspx?artid=0040-21762304445R
+---
 ## References
 
 - **Neal Krawetz**, “Error Level Analysis,” *Hacker Factor* blog  
@@ -68,5 +85,3 @@
 - **Li et al.**, “Digital Image Processing and Analysis for Image Forensics,” *IEEE Multimedia* 2016  
 
 ---
-
-> ✅ *ELA is most effective on JPEG files and should be interpreted alongside other forensic methods.*  

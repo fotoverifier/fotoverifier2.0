@@ -34,80 +34,6 @@ interface HeaderReportProps {
   loadingTagResult: boolean;
 }
 
-const steps = [
-  {
-    id: 'img',
-    description:
-      "This section displays the image you uploaded. Make sure it's the correct file before proceeding.",
-
-    tab: 'Tampering Detection',
-  },
-  {
-    id: 'jpeg_ghost',
-    description:
-      'JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image.',
-    tab: 'Tampering Detection',
-  },
-  {
-    id: 'ela',
-    description:
-      'Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations.',
-    tab: 'Tampering Detection',
-  },
-  //Superesolution
-  {
-    id: 'SS_CFA',
-    description:
-      'Color filter array pattern analysis based on sensor characteristics',
-    tab: 'Superesolution',
-  },
-  {
-    id: 'SS_Denoise',
-    description:
-      'Noise reduction techniques to improve image clarity while preserving detail',
-    tab: 'Superesolution',
-  },
-  {
-    id: 'SS_Edge',
-    description:
-      'Edge enhancement and artifact analysis to highlight structural boundaries',
-    tab: 'Superesolution',
-  },
-  {
-    id: 'SS_ChangeFactor',
-    description: 'Menu for choosing models and zoom factors',
-    tab: 'Superesolution',
-  },
-  {
-    id: 'SS_Original',
-    description:
-      'Displays the original unaltered image as a reference baseline',
-    tab: 'Superesolution',
-  },
-  {
-    id: 'SS_Enhance',
-    description:
-      'Shows the enhanced image with improved resolution and finer details',
-    tab: 'Superesolution',
-  },
-
-  //CameraArea
-  {
-    id: 'CameraArea',
-    description: 'Camera technical details from EXIF metadata',
-    tab: 'Originality',
-  },
-  {
-    id: 'AuthorArea',
-    description: 'Photographer information and attribution',
-    tab: 'Originality',
-  },
-  {
-    id: 'ImgTagging',
-    description: 'Image categorization and metadata tags using AI',
-    tab: 'Originality',
-  },
-];
 
 const HeaderReport: React.FC<HeaderReportProps> = ({
   jpegResult,
@@ -130,6 +56,85 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   } | null>(null);
 
   const { activeTab } = useTabContext();
+
+  const steps = [
+    {
+      id: 'img',
+      description:
+      t('desc_img'),
+  
+      tab: 'Tampering Detection',
+    },
+    {
+      id: 'jpeg_ghost',
+      description:
+        t('desc_jpeg_ghost'),
+      tab: 'Tampering Detection',
+    },
+    {
+      id: 'ela',
+      description:
+      t('desc_ela'),
+      tab: 'Tampering Detection',
+    },
+    //Superesolution
+    {
+      id: 'SS_CFA',
+      description:
+        t('desc_SS_CFA'),
+      tab: 'Superesolution',
+    },
+    {
+      id: 'SS_Denoise',
+      description:
+      t('desc_SS_Denoise'),
+      tab: 'Superesolution',
+    },
+    {
+      id: 'SS_Edge',
+      description:
+      t('desc_SS_Denoise'),
+      tab: 'Superesolution',
+    },
+    {
+      id: 'SS_ChangeFactor',
+      description: t('desc_SS_ChangeFactor'),
+      tab: 'Superesolution',
+    },
+    {
+      id: 'SS_Original',
+      description:
+      t('desc_SS_Original'),
+      tab: 'Superesolution',
+    },
+    {
+      id: 'SS_Enhance',
+      description:
+      t('desc_SS_Enhance'),
+      tab: 'Superesolution',
+    },
+    // AI Fakeshield
+    
+  
+  
+    //CameraArea
+    {
+      id: 'CameraArea',
+      description: t('desc_CameraArea'),
+      tab: 'Originality',
+    },
+    {
+      id: 'AuthorArea',
+      description: t('desc_AuthorArea'),
+      tab: 'Originality',
+    },
+    {
+      id: 'ImgTagging',
+      description: t('desc_ImgTagging'),
+      tab: 'Originality',
+    },
+  ];
+
 
   const highlightSection = (stepIndex: number) => {
     const currentTabSteps = steps.filter((step) => step.tab === activeTab);

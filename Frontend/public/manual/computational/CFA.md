@@ -73,12 +73,21 @@ A **Color Filter Array (CFA)** is a micro-mosaic of red, green, and blue filters
 
 ---
 
-## References
+## Selected Research & Literature
+1. [Color Filter Array Demosaicking Using Densely Connected Residual Network]  
+- Introduces a deep learning model for CFA demosaicking that eliminates the need for initial interpolation, using residual learning and densely connected networks for efficient and accurate color reconstruction.  
+- Src: https://ieeexplore.ieee.org/document/8825809/
 
-- **Bryan F. Bayer**, “Color Imaging Array”—US Patent 3892959 (1975)  
-- **Malvar, He & Cutler**, “High-Quality Linear Interpolation for Demosaicing of Bayer-Patterned Color Images,” *ICASSP* 2004  
-- **Fujifilm X-Trans** Technical Guide: <https://fujifilm-x.com/global/technology/x-trans-sensor/>  
-- **Zhang et al.**, “Deep Joint CFA Design and Demosaicing,” *CVPR* 2018  
-- **Smith & Brady**, “Coded Aperture Design for Computational Imaging,” *IEEE Trans. Image Process.* 2020  
+2. [ISP Meets Deep Learning: A Survey on Deep Learning Methods for Image Signal Processing]  
+- Surveys deep learning approaches for processing CFA sensor data in cameras, including demosaicing, denoising, and enhancement, and compares their effectiveness with traditional hardware/software methods.  
+- Src: https://dl.acm.org/doi/10.1145/3708516
 
-> **🔍 Tip:** When designing or selecting a CFA, balance spatial resolution, color fidelity, and processing demands according to your application’s needs.  
+3. [Optimized Color Filter Array for Denoising Diffusion Null-Space Model-Based Demosaicing]  
+- Proposes a CFA pattern specifically designed for deep learning-based demosaicing, demonstrating improved color reconstruction accuracy and optimal filter coefficient training.  
+- Src: https://ieeexplore.ieee.org/document/10643973/
+
+4. [A deep survey in the Applications of demosaicking]  
+- Provides a comprehensive review of demosaicking methods for various CFA patterns, highlighting key issues, differences among approaches, and applications in HDR and multispectral imaging systems.  
+- Src: https://ieeexplore.ieee.org/document/9695782/
+
+

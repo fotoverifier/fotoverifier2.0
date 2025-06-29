@@ -72,27 +72,23 @@ Effective metadata management involves:
 
 ---
 
-## Selected Research & Literature  
-1. **Systematic Review of Metadata Practices**  
-   - *“Understanding the Nature of Metadata: A Systematic Review”*  
-   - Reviews definitions across 80+ studies, harmonizes terminology, and recommends best practices.  
-   - *(e.g. https://doi.org/10.1002/asi.23456)*  
+## Selected Research & Literature
 
-2. **Metadata Maturity Models**  
-   - *“Improving Documentation and Findability of Data Services”* (ScienceDirect)  
-   - Four maturity levels from unstructured to Linked Open Data; case study in EU’s PoliVisu project.  
+1. [The Significance of Metadata and Video Compression for Investigating Video Files on Social Media Forensic]  
+- Reviews advanced forensic video analysis methods, emphasizing metadata’s role in verifying digital video authenticity for criminal investigations.  
+- Src: https://ijsrcseit.com/CSEIT2390373
 
-3. **Metadata in Data Governance**  
-   - *“The Role of Metadata Management in Data Governance”* (IJIRMPS, 2021)  
-   - Examines metadata’s function in compliance and quality assurance; presents ROI case studies.  
+2. [Forensic Analysis of Binary Structures of Video Files]  
+- Details techniques for analyzing binary structures and metadata of video files to detect editing, verify sources, and identify devices in forensic contexts.  
+- Src: https://ieeexplore.ieee.org/document/9357570/
 
-4. **FAIR Principles & Metadata**  
-   - *“Metadata Management in Scientific Research: An Overview”* (KIT, 2023)  
-   - Aligns practices with FAIR; covers schema design, controlled vocabularies, and provenance tracking.  
+3. [Multimedia Analytics for Image Collection Forensics]  
+- Explores techniques and systems for analyzing large image collections and their metadata to assist forensic investigators in managing and interpreting evidence.  
+- Src: https://onlinelibrary.wiley.com/doi/10.1002/9781118705773.ch8
 
-5. **ISO/IEC 11179 Metadata Registry**  
-   - *“Metadata Registry, ISO/IEC 11179”* (SpringerLink)  
-   - Deep dive into registry architecture, data element concepts, and value domains.  
+4. [Multimedia in Forensics, Security, and Intelligence]  
+- Provides an overview of challenges and solutions in securing, analyzing, and extracting intelligence from multimedia data, highlighting metadata’s importance.  
+- Src: http://ieeexplore.ieee.org/document/6138572/
 
 ---
 
@@ -102,11 +98,6 @@ Effective metadata management involves:
 - **Interoperability**: Bridging JSON-LD, XML, and proprietary schemas; semantic mediation remains an open research area.  
 - **Trust & Governance**: Blockchain-backed registries for authenticity; multi-tenant compliance frameworks.  
 - **User Experience**: Intuitive editors that guide non-technical users through complex ontologies.  
-
----
-
-> **✅ Takeaway:** Well-designed metadata is the backbone of modern data ecosystems—powering discovery, interoperability, governance, and analytics. Adopting proven standards, deploying robust management architectures, and leveraging ongoing research will ensure your data remains **Findable, Accessible, Interoperable, and Reusable**.  
-
 ---
 
 ## References  

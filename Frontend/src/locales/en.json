@@ -208,5 +208,23 @@
     "tp": "TP (True Positive): Correctly identified as positive",
     "fp": "FP (False Positive): Incorrectly identified as positive",
     "tn": "TN (True Negative): Correctly identified as negative",
-    "fn": "FN (False Negative): Incorrectly identified as negative"
+    "fn": "FN (False Negative): Incorrectly identified as negative",
+
+
+     "investigator_a": "Investigator Alice",
+  "investigator_b": "Investigator Bob",
+
+
+  "desc_img": "This section displays the image you uploaded. Make sure it's the correct file before proceeding.",
+  "desc_jpeg_ghost": "JPEG Ghost detection analyzes compression artifacts, helping identify potential edits in the image.",
+  "desc_ela": "Error Level Analysis (ELA) highlights inconsistencies in image compression, revealing possible alterations.",
+  "desc_SS_CFA": "Color filter array pattern analysis based on sensor characteristics",
+  "desc_SS_Denoise": "Noise reduction techniques to improve image clarity while preserving detail",
+  "desc_SS_Edge": "Edge enhancement and artifact analysis to highlight structural boundaries",
+  "desc_SS_ChangeFactor": "Menu for choosing models and zoom factors",
+  "desc_SS_Original": "Displays the original unaltered image as a reference baseline",
+  "desc_SS_Enhance": "Shows the enhanced image with improved resolution and finer details",
+  "desc_CameraArea": "Camera technical details from EXIF metadata",
+  "desc_AuthorArea": "Photographer information and attribution",
+  "desc_ImgTagging": "Image categorization and metadata tags using AI"
 }

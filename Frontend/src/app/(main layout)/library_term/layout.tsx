@@ -80,6 +80,15 @@ const Folders: Folder[] = [
             { id: 'Edge Detection', label: 'Edge Detection', file: '/manual/computational/EdgeDetection.md'},    
           ],
       },
+      {
+        id: 'img_transform',
+        label: 'Img transformation',
+        children: [
+          { id: 'Bird Eye', label: 'Bird Eye', file: '/manual/img_transform/bird_eye.md' },
+          { id: 'Panorama', label: 'Panorama', file: '/manual/img_transform/panorama.md' },
+          { id: 'Rectify', label: 'Rectify', file: '/manual/img_transform/rectify.md' }, 
+          ],
+      },
   ];
 const customSchema = {
   ...defaultSchema,
@@ -124,8 +133,8 @@ export default function Lib_Term_Layout({
     <div
       className={`flex h-screen overflow-hidden w-full scrollbar-hide ${montserrat.className}`}
     >
-      <aside className="w-fit h-full sticky top-0 overflow-y-auto border-r p-4 bg-white shrink-0">
-  <h2 className="text-xl font-bold my-4 p-2 border-2 rounded-full flex items-center justify-center text-center">
+<aside className="w-fit max-w-[20rem] h-full sticky top-0 overflow-y-auto border-r p-4 bg-white shrink-0">
+<h2 className="text-xl font-bold my-4 p-2 border-2 rounded-full flex items-center justify-center text-center">
     Table of Contents
   </h2>
   <ul className="space-y-2 border border-gray-300 p-4 rounded-xl bg-white shadow-sm">
@@ -156,6 +165,20 @@ export default function Lib_Term_Layout({
       </li>
     ))}
   </ul>
+  <div className="mt-6 p-4 bg-yellow-50 border border-yellow-300 rounded-xl text-sm text-yellow-800 shadow-sm">
+    <div className="flex items-center space-x-2">
+      <svg
+        className="w-5 h-5 text-yellow-500"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path d="M8.257 3.099c.366-.446.981-.541 1.475-.256l.093.07 6 5A1 1 0 0115 9h-1v5a1 1 0 01-.883.993L13 15H7a1 1 0 01-.993-.883L6 14V9H5a1 1 0 01-.707-1.707l6-5zM7 9v5h6V9H7z" />
+      </svg>
+      <span className="font-medium">Notice:</span>
+    </div>
+    <p className="mt-1 ml-7">Translation for this page will be implemented in the future.</p>
+  </div>
+
 </aside>
 
 

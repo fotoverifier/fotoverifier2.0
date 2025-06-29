@@ -21,31 +21,53 @@ const sections: Section[] = [
   {
     id: 'revision-history',
     label: 'Revision History',
-    file: '/manual/revision.md',
+    file: '/manual/Sections/revision.md',
   },
   {
     id: 'introduction',
     label: 'Introduction',
-    file: '/manual/Introduction.md',
+    file: '/manual/Sections/Introduction.md',
   },
   {
     id: 'interface',
     label: 'Interface',
-    file: '/manual/Interface.md',
+    file: '/manual/Sections/Interface.md',
     children: [
       { id: 'landing-page', label: '2.1 Landing Page' },
       { id: 'dashboard-page', label: '2.2 Dashboard Page' },
       { id: 'upload-page', label: '2.3 Upload Page' },
     ],
   },
-  { id: 'UseCase', label: 'Use Case', file: '/manual/UseCase.md' },
+  { id: 'UseCase', label: 'Use Case', file: '/manual/Sections/UseCase.md' },
 ];
+
 
 const customSchema = {
   ...defaultSchema,
+  tagNames: [
+    ...(defaultSchema.tagNames || []),
+    'video',
+    'source',
+  ],
   attributes: {
     ...defaultSchema.attributes,
     div: [...(defaultSchema.attributes?.div || []), ['className']],
+    video: [
+      ...(defaultSchema.attributes?.video || []),
+      'controls',
+      'width',
+      'height',
+      'class',
+      'autoplay',
+      'muted',
+      'loop',
+      'poster',
+    ],
+    source: [
+      ...(defaultSchema.attributes?.source || []),
+      'src',
+      'type',
+    ],
   },
 };
 
@@ -126,6 +148,20 @@ const ManualGuide = () => {
             </li>
           ))}
         </ul>
+        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-300 rounded-xl text-sm text-yellow-800 shadow-sm">
+    <div className="flex items-center space-x-2">
+      <svg
+        className="w-5 h-5 text-yellow-500"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path d="M8.257 3.099c.366-.446.981-.541 1.475-.256l.093.07 6 5A1 1 0 0115 9h-1v5a1 1 0 01-.883.993L13 15H7a1 1 0 01-.993-.883L6 14V9H5a1 1 0 01-.707-1.707l6-5zM7 9v5h6V9H7z" />
+      </svg>
+      <span className="font-medium">Notice:</span>
+    </div>
+    <p className="mt-1 ml-7">Translation for this page will be implemented in the future.</p>
+  </div>
+
       </aside>
 
       <main className="flex-1 overflow-y-auto overflow-x-hidden h-full p-6 bg-white items-center ">

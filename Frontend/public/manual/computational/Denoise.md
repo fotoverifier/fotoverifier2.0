@@ -65,12 +65,23 @@ In a grayscale image:
 
 ---
 
-## References
+## Selected Research & Literature
 
-- Wikipedia – Salt-and-pepper noise: <https://en.wikipedia.org/wiki/Salt-and-pepper_noise>  
-- OpenCV Docs – Image Filtering: <https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html>  
-- Scikit-Image: Noise Reduction: <https://scikit-image.org/docs/stable/auto_examples/filters/plot_rank_filters.html>
+1. [Enhancing Medical Image Quality Using Fractional Order Denoising Integrated with Transfer Learning]  
+- Introduces the ETLFOD method, combining transfer learning and fractional order denoising to improve medical image quality while preserving details; demonstrates superior accuracy compared to traditional denoising approaches.  
+- Src: https://www.mdpi.com/2504-3110/8/9/511
+
+2. [Image Denoising using Wavelet Transformer]  
+- Provides a comprehensive review of traditional (filters, statistical) and modern (machine learning) denoising methods, comparing their strengths, weaknesses, and practical applications across imaging fields.  
+- Src: https://www.ijisrt.com/image-denoising-using-wavelet-transformer
+
+3. [Learning Raw Image Denoising With Bayer Pattern Unification and Bayer Preserving Augmentation]  
+- Proposes new data pre-processing and augmentation techniques for deep neural network-based raw image denoising, achieving state-of-the-art results by unifying Bayer patterns and preserving raw image structure during augmentation.  
+- Src: https://ieeexplore.ieee.org/document/9025466/
+
+4. [Automated Denoising of Diabetic Retinopathy Images for Enhanced Medical Diagnosis]  
+- Evaluates four denoising filters (guided, Gaussian-bilateral, Gabor, Haar Wavelet) on diabetic retinopathy datasets, finding guided image filtering most effective for improving lesion visibility and overall image quality.  
+- Src: https://ieeexplore.ieee.org/document/10574928/
 
 ---
 
-> ✅ *Effective denoising improves visual clarity while preserving critical image details.*  

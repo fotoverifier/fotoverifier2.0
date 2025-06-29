@@ -62,12 +62,19 @@ Suppose an original image is saved at quality 95, and a region is later inserted
 
 ---
 
-# Source
+## Selected Research & Literature: JPEG Ghost
 
-- [JPEG Ghost Detection Paper (Hsu et al.)](https://www.cs.dartmouth.edu/farid/publications/hsu06b.pdf)
-- [OpenCV Forensics Guide](https://docs.opencv.org/)
-- [Image Forensics Blog](https://www.imageforensics.org/techniques/jpeg-ghost/)
+1. [Image Forgery Detection and Localization using Modified JPEG Ghost]  
+- Describes a technique for detecting and localizing image forgery in JPEGs by analyzing compression artifacts, especially after multiple compressions. Modified JPEG Ghost detection is used to identify and pinpoint manipulated regions based on disparities in JPEG block alignment.  
+- Src: https://www.ijitee.org/portfolio-item/I8247078919/
+
+2. [Detection of JPEG Ghost in Non-Aligned Spliced Region of JPEG Images]  
+- Explores JPEG Ghost as a forensic method for exposing image splicing, especially when copied regions have lower compression quality. Discusses challenges and recovery when spliced regions are not grid-aligned.  
+- Src: http://www.ijert.org/view-pdf/13990/detection-of-jpeg-ghost-in-non-aligned-spliced-region-of-jpeg-images
+
+3. [Error Level Analysis Technique for Identifying JPEG Block Unique Signature for Digital Forensic Analysis]  
+- Presents a technique using Error Level Analysis (ELA) to identify unique JPEG 8×8 block signatures, aiding in the detection of JPEG fragments and supporting digital forensic investigations.  
+- Src: https://www.mdpi.com/2079-9292/11/9/1468
 
 ---
 
-> ✅ *JPEG Ghost detection helps uncover hidden edits that might otherwise go unnoticed.*
