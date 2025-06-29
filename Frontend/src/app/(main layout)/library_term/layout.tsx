@@ -75,7 +75,7 @@ const Folders: Folder[] = [
         id: 'revision-history2',
         label: 'Computional',
         children: [
-            { id: 'CFA', label: 'CFA', file: '/manual/computational/cfa.md'},
+            { id: 'CFA', label: 'CFA', file: '/manual/computational/CFA.md'},
             { id: 'Denoise', label: 'Denoise', file: '/manual/computational/Denoise.md'},
             { id: 'Edge Detection', label: 'Edge Detection', file: '/manual/computational/EdgeDetection.md'},    
           ],

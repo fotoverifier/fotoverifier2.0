@@ -54,7 +54,6 @@ const Dashboard = () => {
         />
       ),
       titleIcon: 2,
-      href: '',
     },
   ];
 

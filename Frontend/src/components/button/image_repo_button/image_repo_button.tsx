@@ -25,10 +25,15 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
     { id: 2, src: '/sample_img_repo/demo2.jpg', alt: 'Sample 2' },
     { id: 3, src: '/sample_img_repo/demo3.jpg', alt: 'Sample 3' },
     { id: 4, src: '/sample_img_repo/demo4.jpg', alt: 'Sample 4' },
-    { id: 5, src: '/sample_img_repo/exif1.jpg', alt: 'Sample 5' },
-    { id: 6, src: '/sample_img_repo/exif2.jpg', alt: 'Sample 6' },
-    { id: 7, src: '/sample_img_repo/exif3.jpg', alt: 'Sample 7' },
-    { id: 8, src: '/sample_img_repo/demo5.jpg', alt: 'Sample 8' },
+    { id: 5, src: '/sample_img_repo/fog_1.png', alt: 'Sample 9' },
+    { id: 6, src: '/sample_img_repo/fog_2.png', alt: 'Sample 10' },
+    { id: 7, src: '/sample_img_repo/fog_3.png', alt: 'Sample 11' },
+    { id: 8, src: '/sample_img_repo/fog_4.png', alt: 'Sample 12' },
+
+    { id: 9, src: '/sample_img_repo/exif1.jpg', alt: 'Sample 5' },
+    { id: 10, src: '/sample_img_repo/exif2.jpg', alt: 'Sample 6' },
+    { id: 11, src: '/sample_img_repo/exif3.jpg', alt: 'Sample 7' },
+    { id: 12, src: '/sample_img_repo/demo5.jpg', alt: 'Sample 8' },
   ];
 
   const openModal = () => setIsModalOpen(true);
