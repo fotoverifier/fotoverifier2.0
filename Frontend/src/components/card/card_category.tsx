@@ -20,7 +20,6 @@ const Card_Cate: React.FC<CardProps> = ({
   href,
 }) => {
   const handleClick = (e: React.MouseEvent) => {
-    console.log('Function is still in development phase.');
     toast.warn('Function is still in development phase.', {
       position: 'top-right',
       autoClose: 3000,

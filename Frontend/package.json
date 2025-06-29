@@ -6,7 +6,7 @@
     "dev": "next dev -p 9002--turbo",
     "build": "next build",
     "start": "next start -p 9002",
-    "buildnstart": "next build&&next start -p 9002",
+    "buildnstart": "next build&&next start -H 127.0.0.1 -p 9002",
     "lint": "next lint",
     "format": "prettier --write ."
   },

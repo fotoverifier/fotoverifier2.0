@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Sidebar_Alt from '@/components/sidebar/sidebar_alt';
 import DashBoard_Banner from '@/components/banner/dashboard_banner';
+import { ToastContainer } from 'react-toastify';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,6 +17,14 @@ export default function RootLayout({
           !pathname.startsWith('/library') &&
           !pathname.startsWith('/guidance') && <DashBoard_Banner />}
         {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop
+          closeButton
+          rtl={false}
+        />
       </div>
     </div>
   );

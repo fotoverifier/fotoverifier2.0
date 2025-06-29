@@ -356,7 +356,6 @@ const Upload = () => {
           )}
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
