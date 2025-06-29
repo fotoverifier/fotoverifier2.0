@@ -219,5 +219,7 @@
   "desc_SS_Enhance": "Viser det forbedrede bildet med høyere oppløsning og mer detaljer",
   "desc_CameraArea": "Kameratekniske detaljer fra EXIF-metadata",
   "desc_AuthorArea": "Fotografens informasjon og kreditering",
-  "desc_ImgTagging": "Bildekategorisering og metadata-tagger ved hjelp av AI"
+  "desc_ImgTagging": "Bildekategorisering og metadata-tagger ved hjelp av AI",
+  "Originality_Description": "Bruker metadata for opprinnelse, men fjernes ofte av moderne plattformer."
+
 }

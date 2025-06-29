@@ -202,7 +202,8 @@
   "desc_SS_Enhance": "解像度とディテールを向上させた強化画像を表示します",
   "desc_CameraArea": "EXIFメタデータからのカメラ技術情報",
   "desc_AuthorArea": "撮影者情報および著作権帰属",
-  "desc_ImgTagging": "AIを用いた画像の分類とメタデータタグ付け"
+  "desc_ImgTagging": "AIを用いた画像の分類とメタデータタグ付け",
 
+  "Originality_Description": "メタデータで出所を示しますが、多くの新しいプラットフォームでは削除されます。"
 
 }

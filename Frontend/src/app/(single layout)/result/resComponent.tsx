@@ -333,7 +333,7 @@ const Res = () => {
         {
           key: 'Originality',
           title: t('Originality'),
-          description: t('Author_Information_Description'),
+          description: t('Originality_Description'),
           content: (
             <ExifImageDetails
               exifResult={exifResult}
@@ -388,7 +388,8 @@ const Res = () => {
                   switch (selectedTab.title) {
                     case t('Originality'):
                       return (
-                        <div className="ml-auto">
+                        <div className="ml-auto flex">
+
                           {' '}
                           <MetaDataPage
                             cameraInformation={exifResult?.camera_information}

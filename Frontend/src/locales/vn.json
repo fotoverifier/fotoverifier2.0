@@ -218,5 +218,7 @@
   "desc_SS_Enhance": "Hiển thị hình ảnh đã được nâng cao với độ phân giải và chi tiết tốt hơn",
   "desc_CameraArea": "Chi tiết kỹ thuật của máy ảnh từ siêu dữ liệu EXIF",
   "desc_AuthorArea": "Thông tin và tên tác giả của người chụp",
-  "desc_ImgTagging": "Phân loại ảnh và gắn thẻ metadata bằng AI"
+  "desc_ImgTagging": "Phân loại ảnh và gắn thẻ metadata bằng AI",
+  "Originality_Description": "Dùng siêu dữ liệu để xác minh nguồn gốc, nhưng thường bị xóa bởi các nền tảng hiện đại."
+
 }
