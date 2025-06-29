@@ -5,12 +5,11 @@ import io
 import os
 from dotenv import load_dotenv
 from duckduckgo_search import DDGS
+from serpapi import GoogleSearch
 
 load_dotenv()
 
 serpapi_secret_key = os.getenv("SERPAPI_SECRET_KEY")
-if not serpapi_secret_key:
-    raise ValueError("SERPAPI is not set! Check your .env file.")
 
 
 def exif_check(image_bytes):
@@ -145,4 +144,25 @@ def image_search(model):
             return {"error": "No image results found"}
     
     except Exception as e:
-        return {"error": f"DuckDuckGo search failed: {str(e)}"}
+        ddg_error = f"DuckDuckGo search failed: {str(e)}"
+    
+    if serpapi_secret_key is None:
+        return {"error": f"{ddg_error}. No SerpAPI key provided for fallback."}
+    
+    try:
+        params = {
+            "engine": "google_images_light",
+            "q": model,
+            "api_key": serpapi_secret_key,
+            "num": 1
+        }
+        search = GoogleSearch(params)
+        results = search.get_dict()
+        images = results.get("images_results")
+        if images and len(images) > 0:
+            return {"image_url": images[0]["thumbnail"]}
+        else:
+            return {"error": f"{ddg_error}. SerpAPI also returned no results."}
+    
+    except Exception as e:
+        return {"error": f"{ddg_error}. SerpAPI fallback failed: {str(e)}"}
