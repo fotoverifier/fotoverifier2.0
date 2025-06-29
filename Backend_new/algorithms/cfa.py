@@ -2,12 +2,12 @@ from algorithms.utility import upload_to_cloudinary
 import colour
 import numpy as np
 import cv2
-import base64
 from io import BytesIO
 from colour_demosaicing import (
     demosaicing_CFA_Bayer_Malvar2004,
     demosaicing_CFA_Bayer_Menon2007,
-    mosaicing_CFA_Bayer)
+    mosaicing_CFA_Bayer
+)
 
 def process_demosaicing(image_bytes):
     if isinstance(image_bytes, BytesIO):
@@ -44,11 +44,18 @@ def process_demosaicing(image_bytes):
     _, malvar_png = cv2.imencode('.png', malvar_bgr)
     _, menon_png = cv2.imencode('.png', menon_bgr)
 
-    # Convert PNG bytes to base64
-    malvar_base64 = base64.b64encode(malvar_png.tobytes()).decode('utf-8')
-    menon_base64 = base64.b64encode(menon_png.tobytes()).decode('utf-8')
 
+    # Upload to Cloudinary
+    malvar_url = upload_to_cloudinary(
+        malvar_png.tobytes(),
+        filename="demosaiced_malvar_result"
+    )
+    menon_url = upload_to_cloudinary(
+        menon_png.tobytes(),
+        filename="demosaiced_menon_result"
+    )
+    
     return {
-        "malvar_base64": malvar_base64,
-        "menon_base64": menon_base64,
+        "malvar_url": malvar_url,
+        "menon_url": menon_url
     }

@@ -132,9 +132,9 @@ const Res = () => {
               ...prev,
               Edge: {
                 ...prev.Edge,
-                Canny: data.result.result.edge_detection.canny_edge_base64,
+                Canny: data.result.result.edge_detection.canny_edge_url,
                 'Marr-Hildreth':
-                  data.result.result.edge_detection.marr_hildreth_edge_base64,
+                  data.result.result.edge_detection.marr_hildreth_edge_url,
               },
             }));
             setLoadingCvaResult((prev) => ({
@@ -148,8 +148,8 @@ const Res = () => {
               ...prev,
               Denoise: {
                 ...prev.Denoise,
-                Bilateral: data.result.result.denoising.bilateral_base64,
-                'Non-Local Means': data.result.result.denoising.nlm_base64,
+                Bilateral: data.result.result.denoising.bilateral_url,
+                'Non-Local Means': data.result.result.denoising.nlm_url,
               },
             }));
             setLoadingCvaResult((prev) => ({
@@ -162,8 +162,8 @@ const Res = () => {
               ...prev,
               CFA: {
                 ...prev.CFA,
-                Menon: data.result.result.demosaic.menon_base64,
-                Malvar: data.result.result.demosaic.malvar_base64,
+                Menon: data.result.result.demosaic.menon_url,
+                Malvar: data.result.result.demosaic.malvar_url,
               },
             }));
                         setLoadingCvaResult((prev) => ({

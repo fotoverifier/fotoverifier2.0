@@ -470,7 +470,7 @@ const PreviewWithModal: React.FC<{ src: string | null; loading: boolean }> = ({
         style={{ height: '90%' }}
       >
         <Image
-          src={`data:image/png;base64,${src}`}
+          src={src}
           alt="Result"
           className="image-preview"
           width={0}
