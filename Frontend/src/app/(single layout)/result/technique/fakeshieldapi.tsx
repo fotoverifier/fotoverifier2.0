@@ -140,6 +140,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       width={0}
                       height={0}
                       sizes="100vw"
+                      loading="eager"
                       style={{
                         width: 'auto',
                         maxWidth: '100%',
