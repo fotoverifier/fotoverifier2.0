@@ -1,4 +1,4 @@
-<div class="text-4xl font-bold text-black p-6 rounded mb-8">
+<div class="text-4xl font-bold text-black">
   JPEG Ghost Detection
 </div>
 

@@ -18,20 +18,10 @@ const DashBoard_Banner = () => {
   return (
     <div className={`${styles.banner_container} flex-col ${poppins.className}`}>
       <nav className={styles.nav}>
-        <div
-          className={styles.nav_link}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsModalOpen(true);
-          }}
-        >
-          {t('feedback')}
-        </div>
-
+  
         {openModal && (
           <FeedBackModal closeModal={() => setIsModalOpen(false)} />
         )}
-        <div className={styles.head_line}></div>
         <Link href="/home">
           <div className={styles.start_button}>{t('Go to Home')}</div>
         </Link>
@@ -50,7 +40,7 @@ const DashBoard_Banner = () => {
             <div className={`flex ${styles.notice_button} items-center gap-3`}>
               {' '}
               <MdTipsAndUpdates />
-              Responsive UI will be rolled out in the future!{' '}
+              {t('responsive_ui_notice')}
             </div>
           </div>
         </div>

@@ -1,10 +1,8 @@
-<div class="text-4xl font-bold text-black p-6 rounded mb-8">
-  Denoising: Salt-and-Pepper Noise
-</div>
+# Denoising: Salt-and-Pepper Noise
 
 ---
 
-# Definition
+## Definition
 
 Salt-and-pepper noise is a form of impulse noise that appears as randomly scattered black and white pixels.  
 It typically results from sensor malfunctions, transmission errors, or memory corruption during image processing.
@@ -13,68 +11,66 @@ This noise degrades image quality and is especially problematic in medical imagi
 
 ---
 
-# Example
+## Example
 
 In a grayscale image:
 
-<table style="width:100%; border-collapse: separate; border-spacing: 0.5em;">
-  <tr>
-    <th align="left">Pixel Type</th>
-    <th align="left">Intensity Value</th>
-    <th align="left">Appearance</th>
-  </tr>
-  <tr>
-    <td>Normal Pixel</td>
-    <td>0–255</td>
-    <td>Original detail</td>
-  </tr>
-  <tr>
-    <td>Salt Noise</td>
-    <td>255</td>
-    <td>Bright white speck</td>
-  </tr>
-  <tr>
-    <td>Pepper Noise</td>
-    <td>0</td>
-    <td>Dark black speck</td>
-  </tr>
-</table>
+| **Pixel Type**   | **Intensity Value** | **Appearance**        |
+|------------------|---------------------|-----------------------|
+| Normal Pixel     | 1–254               | Original detail       |
+| Salt Noise       | 255                 | Bright white speck    |
+| Pepper Noise     | 0                   | Dark black speck      |
 
 ---
 
-# Technical Details
+## Technical Details
 
-<table style="width:100%; border-collapse: separate; border-spacing: 0.5em;">
-  <tr>
-    <th align="left">Method</th>
-    <th align="left">Description</th>
-  </tr>
-  <tr>
-    <td><strong>Median Filtering</strong></td>
-    <td>Common method that replaces each pixel with the median of its neighborhood</td>
-  </tr>
-  <tr>
-    <td><strong>Adaptive Filters</strong></td>
-    <td>Adjust kernel size based on local variation and noise density</td>
-  </tr>
-  <tr>
-    <td><strong>Morphological Ops</strong></td>
-    <td>Erosion and dilation can remove isolated black or white pixels</td>
-  </tr>
-  <tr>
-    <td><strong>Trade-offs</strong></td>
-    <td>Over-filtering may blur fine details or textures</td>
-  </tr>
-</table>
+| **Method**             | **Description**                                                                 |
+|------------------------|---------------------------------------------------------------------------------|
+| **Median Filtering**   | Replaces each pixel with the median of its neighborhood to remove outliers.     |
+| **Adaptive Filters**   | Adjust window size based on local variance and estimated noise density.         |
+| **Morphological Ops**  | Use erosion followed by dilation (or vice versa) to eliminate isolated specks.  |
+| **Trade-offs**         | Over-filtering may blur fine details or textures.                               |
 
 ---
 
-# Source
+## Common Algorithms
 
-- [Wikipedia – Salt-and-pepper noise](https://en.wikipedia.org/wiki/Salt-and-pepper_noise)
-- [OpenCV Docs – Image Filtering](https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html)
-- [Scikit-Image: Noise Reduction](https://scikit-image.org/docs/stable/auto_examples/filters/plot_rank_filters.html)
+1. **Standard Median Filter**  
+   - Window sizes of 3×3, 5×5, etc.  
+   - Effective for low to moderate noise densities.
+
+2. **Adaptive Median Filter**  
+   - Dynamically grows the window until the median is not an impulse.  
+   - Handles high noise densities without excessive blurring.
+
+3. **Decision-Based Filters**  
+   - Identify noisy pixels before filtering; leave uncorrupted pixels intact.  
+   - Reduces unnecessary smoothing.
+
+4. **Switching Median Filter**  
+   - Switches between mean and median filtering based on local statistics.  
+   - Balances detail preservation with noise removal.
 
 ---
 
-> ✅ *Effective denoising improves visual clarity and preserves critical image details.*
+## Strengths & Limitations
+
+| **Aspect**             | **Notes**                                                                                  |
+|------------------------|--------------------------------------------------------------------------------------------|
+| **Effectiveness**      | Very effective at removing salt-and-pepper noise when noise density is under ~20 %.         |
+| **Detail Preservation**| Adaptive and decision-based approaches better preserve edges and textures.                 |
+| **Computational Cost** | Median and morphological filters are fast; adaptive methods incur higher per-pixel cost.   |
+| **Artifacts**          | Over-aggressive filtering can create blockiness or loss of fine patterns.                  |
+
+---
+
+## References
+
+- Wikipedia – Salt-and-pepper noise: <https://en.wikipedia.org/wiki/Salt-and-pepper_noise>  
+- OpenCV Docs – Image Filtering: <https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html>  
+- Scikit-Image: Noise Reduction: <https://scikit-image.org/docs/stable/auto_examples/filters/plot_rank_filters.html>
+
+---
+
+> ✅ *Effective denoising improves visual clarity while preserving critical image details.*  

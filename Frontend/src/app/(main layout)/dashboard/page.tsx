@@ -9,6 +9,7 @@ import Image_Aessment from '@/assets/Image_Asessment.svg';
 import Tutorial from '@/assets/Tutorial.svg';
 import { useLanguage } from '@/context/LanguageContext';
 import { AnimatePresence, motion } from 'motion/react';
+import VideoAssessment from '@/assets/video_assessment.svg';
 const inter = Inter({ subsets: ['latin'] });
 
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -41,19 +42,19 @@ const Dashboard = () => {
       href: '/upload',
     },
     {
-      title: 'Information Security',
+      title: t('title_video_assessment'),
       description:
-        '1. Digital Safety Quiz: Strengthen your cybersecurity knowledge through interactive quizzes\n',
+       t('des_video_assessment'),
       icon: (
         <Image
-          src={Tutorial}
+          src={VideoAssessment.src}
           alt="Image Assessment Icon"
           width={200}
           height={200}
         />
       ),
       titleIcon: 2,
-      href: 'https://antoanso.org/',
+      href: '',
     },
   ];
 

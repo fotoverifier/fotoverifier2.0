@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DefaultIcon = L.icon({
   iconUrl: typeof markerIcon === 'string' ? markerIcon : markerIcon.src,
@@ -21,6 +22,7 @@ interface MapComponentProps {
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
+  const {t} = useLanguage();
   const isValidCoordinate = (coordinate: [number, number]) => {
     return (
       Array.isArray(coordinate) &&
@@ -32,7 +34,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ coordinate }) => {
     );
   };
   if (!isValidCoordinate(coordinate)) {
-    return <div>No geolocation found.</div>;
+    return <div> {t('No_GPS_Location_Available')} </div>;
   }
   return (
     <div className="h-full w-full">

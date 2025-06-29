@@ -11,6 +11,7 @@ import '@/components/head/test.css';
 import { useTabContext } from '@/context/tabContext';
 import { Montserrat } from 'next/font/google';
 import { GiArchiveResearch } from 'react-icons/gi';
+import { useLanguage } from '@/context/LanguageContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -116,6 +117,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   loadingEla,
   loadingTagResult,
 }) => {
+  const {t} = useLanguage();
   const [selectedMethod, setSelectedMethod] = useState('Basic Method');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -181,7 +183,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           <div className={styles.icon_container}>
             <TbReportSearch size={28} />
           </div>
-          <div className={styles.title_text}>General Report</div>
+          <div className={styles.title_text}>{t('general_report')}</div>
         </div>
 
         <div className={styles.divider}></div>
@@ -207,7 +209,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
             loadingTagResult={loadingTagResult}
           />
 
-          <span className={styles.tooltip}>Generate a portable report</span>
+          <span className={styles.tooltip}>{t('generate_portable_report')}</span>
         </div>
 
         <div className={styles.tooltip_container}>
@@ -217,7 +219,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           >
             <FiHelpCircle size={20} />
           </button>
-          <span className={styles.tooltip}>Need Help?</span>
+          <span className={styles.tooltip}>{t('need_help')}</span>
         </div>
 
         {helpBox && (

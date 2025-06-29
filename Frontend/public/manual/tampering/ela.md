@@ -1,63 +1,72 @@
-<div class="text-4xl font-bold text-black  p-6 rounded mb-8">
-  Error Level Analysis (ELA)
-</div>
+#  Error Level Analysis (ELA)
+
 
 ---
 
-# Definition
+## Definition
 
-Error Level Analysis (ELA) is a digital image forensics technique that identifies regions with different levels of compression error.  
-It is useful for detecting image manipulations such as pasting or cloning objects.
-
----
-
-# Example
-
-If a JPEG image is saved multiple times, the compression error across regions should be consistent. Edited areas will typically show higher or lower error levels, making them stand out in an ELA heatmap.
-
-<table style="width:100%; border-collapse: separate; border-spacing: 0.5em;">
-  <tr><th align="left">Region</th><th align="left">Compression Error Level</th><th align="left">Interpretation</th></tr>
-  <tr><td>Uniform Background</td><td>Low</td><td>Likely untouched</td></tr>
-  <tr><td>Inserted Object</td><td>High</td><td>Possible manipulation</td></tr>
-  <tr><td>Text Overlay</td><td>Medium</td><td>Expected due to sharp edges</td></tr>
-</table>
+**Error Level Analysis (ELA)** is a forensic technique that exposes inconsistencies in JPEG compression by comparing an image to a re-compressed version. Because JPEG recompression introduces small artifacts uniformly across untouched areas, regions that have been pasted, cloned, or heavily edited will exhibit different error levels and “pop” when visualized.
 
 ---
 
-# Technical Details
+## Methodology (Overview)
 
-<table style="width:100%; border-collapse: separate; border-spacing: 0.5em;">
-  <tr><th align="left">Aspect</th><th align="left">Description</th></tr>
-  <tr>
-    <td><strong>Basis</strong></td>
-    <td>JPEG images lose data when saved; ELA re-compresses and compares differences</td>
-  </tr>
-  <tr>
-    <td><strong>Visualization</strong></td>
-    <td>Pixel-wise absolute difference is often color-coded (heatmap)</td>
-  </tr>
-  <tr>
-    <td><strong>Tools</strong></td>
-    <td>jpeg-ela, forensically.io, Python PIL-based scripts</td>
-  </tr>
-  <tr>
-    <td><strong>Limitations</strong></td>
-    <td>Ineffective on non-JPEG or heavily recompressed files</td>
-  </tr>
-  <tr>
-    <td><strong>File Type</strong></td>
-    <td>Works best with JPEG; may fail with PNG or WebP</td>
-  </tr>
-</table>
+1. **Recompress** the original JPEG at a known quality level (often between 90–95 %).  
+2. **Compare** each pixel of the recompressed image to the original, measuring the absolute difference.  
+3. **Visualize** those per-pixel differences as a heatmap—dark tones indicate low error (likely untouched), while bright tones indicate high error (possible edits).
 
 ---
 
-# Source
+## Example Interpretation
 
-- [Original ELA Concept – Dr. Neal Krawetz](https://www.hackerfactor.com/blog/index.php?/archives/529-Error-Level-Analysis.html)
-- [Forensically.io – Online ELA Tool](https://29a.ch/photo-forensics/#error-level-analysis)
-- [GitHub – JPEG-ELA Python](https://github.com/dalmia/ELA)
+| **Region**           | **ELA Response** | **Interpretation**             |
+|----------------------|------------------|--------------------------------|
+| Uniform Background   | Low (dark)       | No sign of tampering          |
+| Inserted Object      | High (bright)    | Likely manipulation           |
+| Sharp Text or Edges  | Medium (mid-tone)| Expected due to recompression |
+
+> In an unmodified JPEG, error levels remain consistent. Discrepant patches suggest regions saved or edited under different conditions.
 
 ---
 
-> ✅ *ELA is most effective on JPEG files and should be interpreted alongside other forensic tools.*
+## Common Tools
+
+- **Forensically.io** – Web-based suite with ELA, noise analysis, clone detection.  
+- **jpeg-ela** – Python scripts leveraging Pillow to automate recompression and diff.  
+- **ImageMagick** – Command-line `convert` and `compare` for batch ELA workflows.  
+- **OpenCV / MATLAB** – Custom implementations for advanced channel-wise analysis and batch processing.
+
+---
+
+## Strengths & Limitations
+
+| **Aspect**           | **Notes**                                                                          |
+|----------------------|------------------------------------------------------------------------------------|
+| Applicability        | Best applied to original or minimally processed JPEGs.                              |
+| False Positives      | Sharp edges, text overlays, heavy noise can mimic editing artifacts.                |
+| Unsupported Formats  | Lossless formats (PNG, TIFF) and heavily recompressed JPEGs yield unreliable results. |
+| Complementarity      | Should be paired with metadata checks and noise-pattern analysis for robust forensics. |
+
+---
+
+## Best Practices
+
+- **Choose Quality Carefully**: Match the recompression quality to the original to maximize contrast in edited regions.  
+- **Inspect Channels**: Examine individual R/G/B channels to reveal subtler discrepancies.  
+- **Batch Review**: Automate ELA across large image sets to flag anomalies for manual inspection.  
+- **Corroborate Findings**: Combine ELA with error-level clustering, PRNU (sensor noise) analysis, and metadata examination.
+
+---
+
+## References
+
+- **Neal Krawetz**, “Error Level Analysis,” *Hacker Factor* blog  
+  <https://www.hackerfactor.com/blog/index.php?/archives/529-Error-Level-Analysis.html>  
+- **Forensically.io** – ELA module overview  
+  <https://29a.ch/photo-forensics/#error-level-analysis>  
+- **Stamm & Liu**, “Image Forgery Detection via JPEG Ghosts,” *ICASSP* 2010  
+- **Li et al.**, “Digital Image Processing and Analysis for Image Forensics,” *IEEE Multimedia* 2016  
+
+---
+
+> ✅ *ELA is most effective on JPEG files and should be interpreted alongside other forensic methods.*  

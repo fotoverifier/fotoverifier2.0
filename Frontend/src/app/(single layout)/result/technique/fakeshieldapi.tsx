@@ -91,12 +91,11 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 <BiSolidCategory />
               </div>
               <div className="w-full flex justify-center">
-                <div className={`${styles.title}`}>AI Investigators</div>
+                <div className={`${styles.title}`}>{t('AI_Investigators')}</div>
               </div>
             </div>
             <div className={`${styles.description} flex items-center`}>
-              From the inputs, two AI Investigators will validate the images,
-              and share the final summary afterward.
+            {t('ai_investigators_summary_notice')}
             </div>
           </div>
 
@@ -104,8 +103,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
             <div className="w-full md:w-2/3 h-[100%] bg-white rounded-lg border-2 shadow-md overflow-hidden">
               <div className="h-full w-full flex">
                 <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
-                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
-                    Details
+                  <h2 className="text-lg w-fit font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
+                    {t('Image_Information')}
                   </h2>
 
                   {img ? (
@@ -159,7 +158,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
             <div className="w-full h-fit md:w-1/3 bg-white border-2 rounded-lg shadow-md p-4 mb-5">
               <h3 className="font-semibold text-teal-800 mb-3 flex items-center">
                 <FiNavigation2 className={`mr-2 text-blue-500`} size={18} />
-                AI Investigator
+                {t('AI_Investigators')}
               </h3>
               {/*
               <label className="font-semibold block my-3">
@@ -215,7 +214,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </div>*/}
-              <NotchedCard title="Model Suggestion">
+              <NotchedCard title={t('model_suggestion')}>
                 <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
@@ -241,7 +240,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </NotchedCard>
-              <NotchedCard title="Language Output">
+              <NotchedCard title={t('language_output')}>
                 <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
                     <input
@@ -291,8 +290,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </NotchedCard>
               <NotchedCard
-                title="Model Type"
-                rightNotch="Not Available"
+                title={t('model_type')}
+                rightNotch={t('not_available')}
                 disabled
               >
                 <div className="flex gap-6 font-normal">
@@ -388,7 +387,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 className={`mt-4 inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200`}
               >
                 <IoPaperPlaneOutline className="w-4 h-4" />
-                Send
+                {t('Upload')}
               </button>
             </div>
             <div className="mb-3"> </div>
@@ -446,6 +445,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                     />
                     <div>
                       <FeedbackSection
+                      title= {t('feedback')}
                         onSubmit={async (data) => {
                           const success = await submitRating(
                             data.rating,
@@ -492,16 +492,16 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
     </>
   );
 };
-type FeedbackSectionProps = {
+interface FeedbackSectionProps {
   title?: string;
   onSubmit: (data: { rating: number; imageAssessment: string }) => void;
-};
+}
 
-const FeedbackSection = ({
-  title = 'Feedback',
+const FeedbackSection: React.FC<FeedbackSectionProps> = ({
+  title,
   onSubmit,
-}: FeedbackSectionProps) => {
-  const t = useLanguage();
+}) => {
+  const {t} = useLanguage();
   const [rating, setRating] = useState<number>(0);
   const [imageAssessment, setImageAssessment] = useState<string>('');
 
@@ -521,10 +521,10 @@ const FeedbackSection = ({
       </div>
 
       <div className="p-4 overflow-y-auto flex flex-col flex-1 space-y-4 justify-center items-center">
-        <div className="w-full text-base text-black">Overall Assessment</div>
+        <div className="w-full text-base text-black">{t('overall_assessment')}</div>
         <CircleRating onSelect={setRating} />
 
-        <div className="w-full text-base text-black">Image Suggestion</div>
+        <div className="w-full text-base text-black">{t('image_suggestion')}</div>
 
         <div className="grid grid-cols-2 gap-2 w-full">
           {options.map((option) => (
@@ -545,21 +545,22 @@ const FeedbackSection = ({
         </div>
 
         <CollapsibleDefinitionBox
-          definitions={`TP (True Positive): Correctly identified as positive\nFP (False Positive): Incorrectly identified as positive\nTN (True Negative): Correctly identified as negative\nFN (False Negative): Incorrectly identified as negative`}
-        />
+        definitions={
+          `${t('tp')}\n${t('fp')}\n${t('tn')}\n${t('fn')}`
+        }        />
 
         <button
           onClick={handleSubmit}
-          disabled={rating === null || imageAssessment === null}
+          disabled={rating === null || imageAssessment === ''}
           className={`mt-4 w-full py-2 px-4 rounded-lg text-white font-medium transition
             ${
-              rating === null || imageAssessment === null
+              rating === null || imageAssessment === ''
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-green-600 hover:bg-green-700'
             }
           `}
         >
-          Send
+          {t('Upload')}
         </button>
       </div>
     </div>
@@ -629,25 +630,27 @@ interface SharedJudgmentCardProps {
   data: SharedJudgment;
 }
 
-const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => (
+const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => {
+  const { t } = useLanguage();
+  return (
   <div className="row-span-2 bg-white border-[2px] rounded-3xl  shadow-sm flex flex-col max-h-[820px]">
     <div className="p-4 border-b border-green-800">
-      <h2 className="text-lg font-bold text-green-700">🧩 Shared Judgment</h2>
+      <h2 className="text-lg font-bold text-green-700"> {t('shared_judgment')}</h2>
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">
-      <Section title="Consensus Summary" color="green" prefix={1}>
+      <Section title={t('consensus_summary')} color="green" prefix={1}>
         {data['Consensus Summary']}
       </Section>
-      <Section title="Political Relevancy (agreed)" color="green" prefix={2}>
+      <Section title={t('political_relevancy_agreed')} color="green" prefix={2}>
         {data['Political Relevancy (agreed)']}
       </Section>
       <ConfidenceLevel
         selected={data['Overall Confidence']}
-        label="Overall Confidence"
+        label={t('Overall_Confidence')}
       />
     </div>
   </div>
-);
+)};
 
 const Section = ({
   title,
@@ -729,7 +732,9 @@ interface InvestigatorCard_5Wh {
 const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
   title,
   data,
-}) => (
+}) => {
+  const {t} = useLanguage();
+  return (
   <div
     className={`col-span-1 bg-white border border-gray-400 rounded-3xl shadow-sm flex flex-col mb-4`}
   >
@@ -744,8 +749,9 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
           <div className="relative pl-4 ">
             <TimeLine
               prefix={<FaPerson />}
-              title="Who"
-              Subtitle=" Identify key individuals or groups."
+              title={t('who')}
+              Subtitle={t('who_description')
+              }
             >
               {' '}
               {data['Who']}
@@ -753,8 +759,8 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
 
             <TimeLine
               prefix={<FaTimeline />}
-              title="When"
-              Subtitle="Establish the accurate timeframe."
+              title={t('when')}
+              Subtitle={t('when_description')}
             >
               {' '}
               {data['When']}
@@ -762,16 +768,16 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
 
             <TimeLine
               prefix={<FaMapLocation />}
-              title="Where"
-              Subtitle="Determine the correct geographical context."
+              title={t('where')}
+              Subtitle={t('where_description')}
             >
               {data['Where']}
             </TimeLine>
 
             <TimeLine
               prefix={<FaQuestion />}
-              title="Why"
-              Subtitle="Provide a reasoned explanation of possible intent."
+              title={t('why')}
+              Subtitle={t('why_description')}
             >
               {data['Why']}
             </TimeLine>
@@ -780,7 +786,7 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
       </div>
     </div>
   </div>
-);
+)};
 
 const TimeLine = ({
   title,

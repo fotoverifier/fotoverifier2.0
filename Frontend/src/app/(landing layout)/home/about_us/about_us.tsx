@@ -70,11 +70,11 @@ const AboutUs = () => {
           <div className={styles.description}>{t('About Us Description')}</div>
           <div className="flex gap-4 p-4 bg-white rounded-lg mt-5">
       <IconButton icon={<IoMail className="h-5 w-5" />} href="mailto:">
-        Sample | antoanso@hcmus.edu.vn
+      compsec.club@fit.hcmus.edu.vn
       </IconButton>
 
       <IconButton icon={<FaUser className="h-5 w-5" />}>
-        Fanpage An toàn số
+        HCMUS
       </IconButton>
     </div>  
         </div>

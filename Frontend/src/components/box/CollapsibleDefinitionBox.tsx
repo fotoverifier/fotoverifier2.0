@@ -1,3 +1,4 @@
+import { useLanguage } from '@/context/LanguageContext';
 import { useState } from 'react';
 import { GoChevronDown, GoChevronUp } from 'react-icons/go';
 
@@ -8,6 +9,7 @@ type CollapsibleDefinitionBoxProps = {
 export const CollapsibleDefinitionBox = ({
   definitions,
 }: CollapsibleDefinitionBoxProps) => {
+  const {t} = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
   const toggle = () => setIsExpanded(!isExpanded);
 
@@ -19,7 +21,7 @@ export const CollapsibleDefinitionBox = ({
         className="flex items-center justify-between cursor-pointer"
         onClick={toggle}
       >
-        <span className="text-sm text-gray-600 font-medium">Definition</span>
+        <span className="text-sm text-gray-600 font-medium">{t('Techniques')}</span>
         <span className="text-gray-600 hover:text-teal-600">
           {isExpanded ? <GoChevronUp size={20} /> : <GoChevronDown size={20} />}
         </span>

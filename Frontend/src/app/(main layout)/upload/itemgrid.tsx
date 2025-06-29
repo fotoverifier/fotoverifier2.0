@@ -35,12 +35,14 @@ const Method_Box: React.FC<MethodBoxProps> = ({
   const scanTypes: Record<string, ScanType> = {
     normal: {
       list_of_algo: [
-        'JPEG Ghost',
-        'Error Level Analysis',
-        'Metadata',
-        'Image Tagging',
-        'Location Information',
-        'AI support with Forgery',
+        t('jpeg_ghost'),
+      t('error_level_analysis'),
+      t('metadata'),
+      t('image_tagging'),
+      t('location_info'),
+      t('ai_support_with_forgery'),
+      t('edge_detection_cfa'),
+      t('image_upscaling')
       ],
       description: t('upload_normal_description'),
     },
@@ -126,7 +128,7 @@ const Method_Box: React.FC<MethodBoxProps> = ({
                   <BiSolidBook size={20} />
                 </div>
                 <h2 className="text-lg font-bold text-white">
-                  List of Algorithms
+                    {t('list_of_algorithms')}
                 </h2>
                 <div
                   className="ml-auto text-white bg-opacity-20 hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-colors duration-200"

@@ -19,6 +19,7 @@ import {
   DenoiseMethod,
   EdgeMethod,
 } from '@/interface/interface';
+import { NotchedCard } from '@/components/card/notchedcard';
 const montserrat = Montserrat({ subsets: ['latin'] });
 interface ImageSuperResolutionProps {
   previewUrl: string | null;
@@ -68,6 +69,17 @@ const ImageSuperResolution_2 = ({
     'Computer Vision Algorithm' | 'AI Upscale'
   >('Computer Vision Algorithm');
 
+  
+
+  const handleClick = (model: string) => {
+    if (model !== 'ESRGAN') {
+      return;
+    }
+    setModelType(model);
+  };
+  
+
+
   return (
     <div className={`${styles.container} ${montserrat.className} font-bold`}>
       <div className="flex justify-between items-center mb-4 border-b border-gray-300">
@@ -97,13 +109,11 @@ const ImageSuperResolution_2 = ({
         <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-t-lg w-fit border-yellow-800 border-b-2 text-right">
           {activeTab === 'Computer Vision Algorithm' ? (
             <p>
-              Traditional computer vision methods provide consistent and
-              interpretable results.
+              {t('traditional_cv_methods_insight')}
             </p>
           ) : (
             <p>
-              AI upscaling leverages deep learning to intelligently restore and
-              enhance image details.
+              {t('ai_upscaling_processing_notice')}
             </p>
           )}
         </div>
@@ -194,9 +204,11 @@ const ImageSuperResolution_2 = ({
 
             <div className={styles.section_content}>
               <div className={styles.control_group_container}>
-                <div className={`${styles.control_group} flex`}>
-                  <label className={styles.control_label}>Upscale Factor</label>
-                  <div className={styles.button_group}>
+              <div className={`${styles.control_group} flex`}>
+
+              <NotchedCard title={t('upscale_factor')}>
+              <div className="flex gap-4 font-normal">
+              <div className={styles.button_group}>
                     {['2x', '4x', '8x'].map((factor) => (
                       <button
                         key={factor}
@@ -214,22 +226,36 @@ const ImageSuperResolution_2 = ({
                     </button>{' '}
                   </div>
                 </div>
+                </NotchedCard>
+
+                </div>
 
                 <div className="my-4 border-t border-gray-300 w-full" />
 
                 <div className={styles.control_group}>
-                  <label className={styles.control_label}>Model Type</label>
-                  <div className={styles.button_group}>
-                    {['ESRGAN', 'SRCNN', 'EDSR ', 'RealESRGAN'].map((model) => (
-                      <button
-                        key={model}
-                        className={`${styles.option_button} ${modelType === model ? styles.active : ''}`}
-                        onClick={() => handleModelTypeChange(model)}
-                      >
-                        {model}
-                      </button>
-                    ))}
-                  </div>
+
+                   <NotchedCard title={t('model_suggestion')}>
+                                  <div className="flex gap-4 font-normal">
+
+                                  <div className={styles.button_group}>
+  {['ESRGAN', 'SRCNN', 'EDSR', 'RealESRGAN'].map((model) => (
+    <button
+      key={model}
+      className={`
+        ${styles.option_button} 
+        ${modelType === model && model === 'ESRGAN' ? styles.active : ''} 
+        ${model !== 'ESRGAN' ? styles.unavailable : ''}
+      `}
+      onClick={() => handleClick(model)}
+    >
+      {model}
+    </button>
+  ))}
+</div>
+
+
+                                    </div>
+                                    </NotchedCard>  
                 </div>
 
                 <div className="my-4 border-t border-gray-300 w-full" />

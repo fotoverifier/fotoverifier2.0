@@ -122,7 +122,7 @@ export default function Sidebar_Alt() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={styles.languageButton}
+          className={`${styles.languageButton} ${styles.themeToggle} `}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

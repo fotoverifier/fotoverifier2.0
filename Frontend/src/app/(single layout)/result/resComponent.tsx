@@ -19,7 +19,7 @@ import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
 import { AnalysisResult } from '@/interface/interface';
-
+import TestData from '@/terminologies/test_AI.json'
 const inter = Inter({ subsets: ['latin'] });
 const merriweather = Merriweather({ subsets: ['latin'], weight: '700' });
 const Res = () => {
@@ -79,12 +79,12 @@ const Res = () => {
 
   const { t } = useLanguage();
 
-  const [loadingAI, setLoadingAI] = useState<boolean>(true);
-  const [AIsubmitted, setAISubmitted] = useState(false);
+  //const [loadingAI, setLoadingAI] = useState<boolean>(true);
+  //const [AIsubmitted, setAISubmitted] = useState(false);
 
   //In order to test the AI result
-  // const [loadingAI, setLoadingAI] = useState<boolean>(false);
-  // const [AIsubmitted, setAISubmitted] = useState(true);
+   const [loadingAI, setLoadingAI] = useState<boolean>(false);
+   const [AIsubmitted, setAISubmitted] = useState(true);
 
   useEffect(() => {
     if (!img || !taskId) return;
@@ -101,7 +101,7 @@ const Res = () => {
         if (data.status === 'done') {
           console.log('All tasks completed. Closing SSE...');
           eventSource.close();
-          //  setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
+          setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
           return;
         }
 

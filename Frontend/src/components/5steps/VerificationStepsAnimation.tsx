@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './VerificationStepsAnimation.module.css';
+import { useLanguage } from '@/context/LanguageContext';
 
 const stepIcons = [
   <svg
@@ -82,7 +83,7 @@ const stepIcons = [
   </svg>,
 ];
 
-const stepLabels = ['Upload', 'Analyze', 'Authenticate', 'Detect', 'Verify'];
+
 
 interface VerificationStepsAnimationProps {
   className?: string;
@@ -91,6 +92,8 @@ interface VerificationStepsAnimationProps {
 const VerificationStepsAnimation: React.FC<VerificationStepsAnimationProps> = ({
   className,
 }) => {
+  const {t} = useLanguage();
+  const stepLabels = ['Upload', 'Analyze', 'Authenticate', 'Detect', 'Verify'];
   const [activeStep, setActiveStep] = React.useState(0);
 
   useEffect(() => {

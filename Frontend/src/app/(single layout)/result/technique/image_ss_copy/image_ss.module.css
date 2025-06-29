@@ -184,6 +184,15 @@
   color: white;
   border-color: #03564a;
 }
+.unavailable {
+  background-color: #f3f3f3;
+  color: #999;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+.unavailable:hover {
+  background-color: #f3f3f3;
+}
 
 .select_container {
   position: relative;
@@ -335,15 +344,28 @@
   background-color: #e0e0e0;
 }
 .enhance_button {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
-  border-radius: 4px;
+  display: inline-block;
+  padding: 12px 24px;  
+  font-size: 1rem;                   
+  font-weight: 600;                  
+  color: #ffffff;                    
+  background: linear-gradient(90deg, hsl(170, 100%, 15%), #00796b); 
+  border: 1px solid #00251a;        
+  border-radius: 6px;                
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   margin-right: auto;
 }
-.enhance_button:hover {
-  background-color: #e0e0e0;
+
+.enhance_button:hover,
+.enhance_button:focus {
+  background: linear-gradient(90deg, #00251a, #00574b);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.enhance_button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }

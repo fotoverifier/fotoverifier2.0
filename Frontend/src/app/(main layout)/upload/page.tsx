@@ -205,7 +205,7 @@ const Upload = () => {
         theme: 'colored',
       });
     } finally {
-      setLoading(false); // ✅ Hide loading modal
+      setLoading(false); 
     }
   };
 
