@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { TbZoomInArea } from 'react-icons/tb';
 import { IoMedicalSharp } from 'react-icons/io5';
 import { CiLight } from 'react-icons/ci';
+import { ToastContainer } from 'react-toastify';
 
 export default function RootLayout({
   children,
@@ -67,6 +68,14 @@ export default function RootLayout({
       </Sidebar_Specialized>
       <div className="w-full h-full">
         <div className={`${styles.height_94}`}> {children}</div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop
+          closeButton
+          rtl={false}
+        />
       </div>
     </div>
   );
