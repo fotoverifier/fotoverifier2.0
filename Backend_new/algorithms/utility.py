@@ -9,6 +9,8 @@ import os
 from dotenv import load_dotenv
 import logging
 from threading import Lock
+from io import BytesIO
+from PIL import Image
 
 # Configure logging to ensure INFO and ERROR logs are captured
 logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
@@ -40,16 +42,58 @@ cloudinary.http_client = session
 # Create a lock for thread-safe uploads
 upload_lock = Lock()
 
+MAX_CLOUDINARY_SIZE = 10 * 1024 * 1024  # 10MB
+
+def ensure_jpeg_under_limit(image_bytes: bytes, target_size=MAX_CLOUDINARY_SIZE) -> bytes:
+    """
+    Returns the original bytes if already <= target_size.
+    Otherwise converts to JPEG and reduces quality until under target_size.
+    """
+    if len(image_bytes) <= target_size:
+        return image_bytes
+
+    # Needs compression
+    img = Image.open(BytesIO(image_bytes))
+
+    # Convert to RGB (JPEG doesn't support alpha)
+    if img.mode in ("RGBA", "LA"):
+        background = Image.new("RGB", img.size, (255, 255, 255))
+        background.paste(img, mask=img.split()[-1])
+        img = background
+    else:
+        img = img.convert("RGB")
+
+    # Start with high quality, reduce if needed
+    quality = 90
+    min_quality = 40
+
+    while quality >= min_quality:
+        buffer = BytesIO()
+        img.save(buffer, format="JPEG", quality=quality, optimize=True)
+        data = buffer.getvalue()
+
+        if len(data) <= target_size:
+            return data
+
+        quality -= 5  # Reduce quality step by step
+
+    # Last attempt at lowest quality
+    buffer = BytesIO()
+    img.save(buffer, format="JPEG", quality=min_quality, optimize=True)
+    return buffer.getvalue()
+
 def upload_to_cloudinary(image_bytes: bytes, filename="temp_image"):
     # Validate input
     if not image_bytes:
         logger.error("Empty image_bytes provided")
         return None
 
+    compressed_bytes = ensure_jpeg_under_limit(image_bytes, target_size=MAX_CLOUDINARY_SIZE)
+
     with upload_lock:
         try:
             response = cloudinary.uploader.upload(
-                image_bytes,
+                compressed_bytes,
                 public_id=filename,
                 resource_type="image",
                 overwrite=True,
