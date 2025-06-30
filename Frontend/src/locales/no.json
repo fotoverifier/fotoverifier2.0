@@ -180,7 +180,7 @@
   "generate_portable_report": "Generer en portabel rapport",
   "need_help": "Trenger du hjelp?",
   "ai_upscaling_processing_notice": "AI-bildeoppskalering kan ta opptil 30 sekunder å behandle på grunn av modellbegrensninger.",
-  "traditional_cv_methods_insight": "Tradisjonelle datavisjonsmetoder gir tekniske resultater; vurder å bruke biblioteksfunksjoner for ekstra innsikt.",
+"traditional_cv_methods_insight": "Tradisjonelle CV-metoder gir tekniske resultater; vurder biblioteker for dypere innsikt.",
   "upscale_factor": "Oppskaleringsfaktor",
   "model_suggestion": "Modellforslag",
   "language_output": "Språkutdata",

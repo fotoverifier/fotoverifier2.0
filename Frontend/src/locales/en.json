@@ -184,7 +184,7 @@
     "generate_portable_report": "Generate a portable report",
     "need_help": "Need Help?",
     "ai_upscaling_processing_notice": "AI Image Upscaling may take up to 30 seconds to process due to model constraints.",
-    "traditional_cv_methods_insight": "Traditional computer vision methods provide technical results, considering using library functions for extra insights.",
+  "traditional_cv_methods_insight": "Traditional CV methods offer technical results; consider libraries for deeper insight.",
     "upscale_factor": "Upscale Factor",
     "model_suggestion": "Model Suggestion",
     "language_output": "Language Output",
