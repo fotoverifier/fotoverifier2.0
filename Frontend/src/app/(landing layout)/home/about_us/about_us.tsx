@@ -85,7 +85,7 @@ const AboutUs = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/hcmus.compsec.club"
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.triangle} ${styles.left}`}
@@ -94,7 +94,7 @@ const AboutUs = () => {
           </a>
 
           <a
-            href="https://github.com"
+            href="https://github.com/fotoverifier"
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.triangle} ${styles.right}`}

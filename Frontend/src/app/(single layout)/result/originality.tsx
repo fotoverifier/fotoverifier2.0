@@ -22,14 +22,14 @@ const ExifImageDetails: React.FC<ExifImageDetailsProps> = ({
   const { t } = useLanguage();
 
   return (
-    <div className="w-full h-full flex flex-col md:flex-row gap-6 bg-yellow-50 p-6 rounded-xl">
+    <div className="w-full h-full max-h-fit flex flex-col md:flex-row gap-6 bg-yellow-50 p-6 rounded-xl">
       <div
         className="w-full md:w-1/3 h-full flex flex-col gap-4"
         id="CameraArea"
       >
-        <div className="bg-white rounded-xl shadow-sm p-4 flex-1">
+        <div className="bg-white rounded-xl shadow-sm p-4 flex-1 h-fit">
           <div className="flex items-center mb-3">
-            <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 h-10 shadow-sm">
+            <div className="flex items-center justify-center bg-yellow-400 text-teal-800 rounded-full w-10 min-h-10 h-fit  shadow-sm">
               <FaCamera size={18} />
             </div>
             <h3 className="font-bold text-lg ml-3 text-teal-800">

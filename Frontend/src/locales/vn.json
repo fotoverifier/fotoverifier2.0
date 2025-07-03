@@ -179,7 +179,7 @@
   "generate_portable_report": "Tạo báo cáo di động",
   "need_help": "Cần giúp đỡ?",
     "ai_upscaling_processing_notice": "Việc nâng cấp hình ảnh bằng AI có thể mất đến 30 giây để xử lý do giới hạn của mô hình.",
-  "traditional_cv_methods_insight": "Các phương pháp thị giác máy tính truyền thống cung cấp kết quả kỹ thuật; hãy cân nhắc sử dụng thư viện để hiểu thêm.",
+"traditional_cv_methods_insight": "Các phương pháp truyền thống cung cấp kết quả kỹ thuật; hãy cân nhắc dùng thư viện",
   "upscale_factor": "Hệ số nâng cấp",
   "model_suggestion": "Gợi ý mô hình",
   "language_output": "Đầu ra ngôn ngữ",

@@ -163,7 +163,7 @@
     "generate_portable_report": "ポータブルレポートを生成",
     "need_help": "お困りですか？",
      "ai_upscaling_processing_notice": "モデルの制約により、AI画像の高解像度化には最大30秒かかる場合があります。",
-  "traditional_cv_methods_insight": "従来のコンピュータビジョン手法は技術的な結果を提供しますが、さらなる洞察を得るにはライブラリ関数の使用を検討してください。",
+  "traditional_cv_methods_insight": "従来のCV手法は技術的な結果を提供します。ライブラリの活用でさらに深い洞察が得られるかもしれません。",
   "upscale_factor": "拡大倍率",
   "model_suggestion": "モデルの提案",
   "language_output": "言語出力",
