@@ -12,6 +12,8 @@ client = OpenAI(
 def analyze_images_from_base64_and_url(
     original_base64: str,
     ela_url: str,
+    edge_url:str,
+    cfa_url:str,
     question: str,
     suggestion: str,
     language: str
@@ -55,14 +57,30 @@ def analyze_images_from_base64_and_url(
                         }
                     },
                     {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": edge_url,
+                        }
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": cfa_url
+                        }
+                    },
+                    {
                         "type": "text",
                         "text": (
     f"{tone_instruction}\n"
     "You are simulating two digital forensic investigators.\n\n"
     "The first image is the original photograph.\n"
     "The second image is the Error Level Analysis (ELA) result.\n\n"
+    "The third image is the edge detection result using Canny.\n"
+    "The fourth image is the Color Filter Array (CFA) analysis result.\n\n"
     "Each investigator should independently assess whether the original image has been manipulated, using ELA to guide detection of abnormal compression, edge irregularities, lighting inconsistencies, and semantic anomalies.\n"
-    "Zoom in on suspicious regions and report any tampering signs.\n\n"
+    "Use the edge map to highlight similar regions as similar regions indicate splicing.\n\n"
+    "Use the CFA analysis to identify inconsistencies in sensor pattern noise or demosaicing artifacts. \n"
+    "Zoom in on suspicious regions and report any tampering signs. Provide suggested region (top, bottom, middle, left, right)\n\n"
     f"{'Below is a thumbnail the user provides with the image. Check if the thumbnail is consistent with the image' + question}\n"
     "Each investigator should also assess whether the content has political relevancy (i.e., may influence public opinion, contain symbols, figures, or scenarios with political meaning).\n\n"
     "Additionally, provide contextual intelligence based on the image to answer the following:\n"

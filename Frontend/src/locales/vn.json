@@ -221,6 +221,7 @@
   "desc_ImgTagging": "Phân loại ảnh và gắn thẻ metadata bằng AI",
   "Originality_Description": "Dùng siêu dữ liệu để xác minh nguồn gốc, nhưng thường bị xóa bởi các nền tảng hiện đại.",
     "explore_now": "Khám phá ngay!", 
-  "go_to_result_page": "Đi đến trang kết quả"
-
+  "go_to_result_page": "Đi đến trang kết quả",
+  "thumbnail_analysis": "Phân tích tiêu đề bài viết",
+  "relevance_to_question": "Mức độ liên quan đến câu hỏi"
 }

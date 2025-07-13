@@ -29,6 +29,7 @@
     "Overall Confidence": "Low"
   },
   "user_question_response": {
-    "Relevance": "Not relevant"
+    "Relevance": "Not relevant",
+    "Response": "Not relevant"
   }
 }

@@ -17,6 +17,7 @@ import {
   AnalysisResult,
   InvestigatorResult,
   SharedJudgment,
+  UserQuestionResponse,
 } from '@/interface/interface';
 import { CollapsibleDefinitionBox } from '@/components/box/CollapsibleDefinitionBox';
 import LoadingOverlay from '@/components/loading/loadinganimation';
@@ -30,6 +31,8 @@ const inter = Inter({ subsets: ['latin'] });
 interface AI_Validation {
   img: string | null;
   img2: string | null;
+  img3: string | null;
+  img4: string | null;
   submitted: boolean;
   analysisResult: AnalysisResult | null;
   loading: boolean | true;
@@ -43,6 +46,8 @@ interface AI_Validation {
 const ModelToggleComponent: React.FC<AI_Validation> = ({
   img,
   img2,
+  img3,
+  img4,
   submitted,
   analysisResult,
   handleSubmit,
@@ -76,19 +81,18 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, canvas.height);
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+        ctx.lineWidth = 3;
         ctx.stroke();
       }
 
-      // Draw horizontal lines
       for (let i = 1; i < 3; i++) {
         const y = (canvas.height / 3) * i;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 3;
         ctx.stroke();
       }
 
@@ -148,19 +152,81 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row h-[90%] max-h-fit gap-4 mt-5">
+          <div className="flex flex-col md:flex-row h-fit max-h-fit gap-4 mt-5">
             <div className="w-full md:w-2/3 h-[100%] max-h-fit bg-white rounded-lg border-2 shadow-md overflow-hidden">
               <div className="h-full w-full flex">
                 <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
-                  <h2 className="text-lg w-fit font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
+                  <h2 className="text-lg w-fit font-bold text-teal-800 mb-4 p-2 border-2  rounded-full border-black flex justify-center items-center">
                     {t('Image_Information')}
                   </h2>
 
 
                   {img ? (
+                    <>    
+                    <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+                   
+                  {processedImg && (
+                     <Image
+                      src={img}
+                      alt="Result"
+                      className="image-preview"
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      style={{
+                        width: 'auto',
+                        maxWidth: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        position: 'relative',
+                      }}
+                    ></Image>
+                  )}
+                    </>
+                  ) : (
+                    <NoImagePlaceholder />
+                  )}
+                </div>
+
+                <div className="w-1/2 h-full  bg-white p-4 flex flex-col justify-center">
+                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-4 p-2 border-2 rounded-full border-black flex justify-center items-center">
+                    ELA
+                  </h2>
+                  {img2 ? (
+                    <Image
+                      src={img2}
+                      alt="Result"
+                      className="image-preview"
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      loading="eager"
+                      style={{
+                        width: 'auto',
+                        maxWidth: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        position: 'relative',
+                      }}
+                    ></Image>
+                  ) : (
+                    <NoImagePlaceholder />
+                  )}
+                </div>
+              </div>
+
+              <div className="h-full w-full flex">
+                <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
+                  <h2 className="text-lg w-fit font-bold text-teal-800 mb-4 p-2 border-2  rounded-full border-black flex justify-center items-center">
+                    Edge
+                  </h2>
+
+
+                  {img3 ? (
                     <>     
                     <Image
-                      src={img}
+                      src={img3}
                       alt="Result"
                       className="image-preview"
                       width={0}
@@ -196,12 +262,12 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
 
                 <div className="w-1/2 h-full  bg-white p-4 flex flex-col justify-center">
-                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-auto p-2 border-2 rounded-full border-black flex justify-center items-center">
-                    ELA
+                  <h2 className="text-lg w-1/3 font-bold text-teal-800 mb-4 p-2 border-2 rounded-full border-black flex justify-center items-center">
+                    CFA
                   </h2>
-                  {img2 ? (
+                  {img4 ? (
                     <Image
-                      src={img2}
+                      src={img4}
                       alt="Result"
                       className="image-preview"
                       width={0}
@@ -555,6 +621,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 )}
 
                 {activeTab === 'Verified Evidence' && (
+                  <>
                   <div className="grid grid-cols-2 gap-4">
                     <InvestigatorCard_5Wh
                       title={t('investigator_a')}
@@ -567,6 +634,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       color="purple"
                     />
                   </div>
+                  <ThumbnailCard data={analysisResult.user_question_response}></ThumbnailCard>
+                  </>
                 )}
               </>
             )
@@ -732,6 +801,27 @@ const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => {
         selected={data['Overall Confidence']}
         label={t('Overall_Confidence')}
       />
+    </div>
+  </div>
+)};
+
+interface ThumbnailProps{
+  data: UserQuestionResponse;
+}
+const ThumbnailCard: React.FC<ThumbnailProps> = ({ data }) => {
+  const { t } = useLanguage();
+  return (
+  <div className="row-span-2 bg-white border-[2px] rounded-3xl  shadow-sm flex flex-col max-h-[820px]">
+    <div className="p-4 border-b border-green-800">
+      <h2 className="text-lg font-bold text-green-700"> {t('thumbnail_analysis')}</h2>
+    </div>
+    <div className="p-4 overflow-y-auto flex-1 space-y-2">
+      <Section title={t('thumbnail_analysis')} color="green" prefix={1}>
+        {data['Response']}
+      </Section>
+      <Section title={t('relevance_to_question')} color="green" prefix={2}>
+        {data['Relevance']}
+      </Section>
     </div>
   </div>
 )};

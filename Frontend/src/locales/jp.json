@@ -206,6 +206,7 @@
 
   "Originality_Description": "メタデータで出所を示しますが、多くの新しいプラットフォームでは削除されます。",
     "explore_now": "今すぐ探索！",
-      "go_to_result_page": "結果ページへ移動"
-
+      "go_to_result_page": "結果ページへ移動",
+  "thumbnail_analysis": "投稿タイトルの分析",
+  "relevance_to_question": "質問との関連性"
 }

@@ -222,6 +222,7 @@
   "desc_ImgTagging": "Bildekategorisering og metadata-tagger ved hjelp av AI",
   "Originality_Description": "Bruker metadata for opprinnelse, men fjernes ofte av moderne plattformer.",
     "explore_now": "Utforsk nå!",
-  "go_to_result_page": "Gå til resultatsiden"
-
+  "go_to_result_page": "Gå til resultatsiden",
+ "thumbnail_analysis": "Analyse av innleggets tittel",
+  "relevance_to_question": "Relevans til spørsmålet"
 }

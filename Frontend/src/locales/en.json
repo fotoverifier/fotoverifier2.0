@@ -229,6 +229,7 @@
   "desc_ImgTagging": "Image categorization and metadata tags using AI",
   "Originality_Description": "Uses metadata to show provenance, but often removed by modern platforms.",
     "explore_now": "Explore now!",
-  "go_to_result_page": "Go to result page"
-
+  "go_to_result_page": "Go to result page",
+  "thumbnail_analysis": "Thumbnail Analysis",
+  "relevance_to_question": "Relevance to the question"
 }

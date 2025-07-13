@@ -101,7 +101,7 @@ const Res = () => {
         if (data.status === 'done') {
           console.log('All tasks completed. Closing SSE...');
           eventSource.close();
-          // setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
+          //setAnalysisResult(TestData); //Comment this line if you don't want to test anymore
           return;
         }
 
@@ -248,7 +248,7 @@ const Res = () => {
     selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
   ) => {
     console.log(file);
-    if (!file || !elaResult || !selectedSuggestion || !selectedLanguage) {
+    if (!file || !elaResult || !selectedSuggestion || !selectedLanguage || !cvaResult || !cvaResult.Edge) {
       console.log(elaResult);
       console.error('Missing required input(s)');
       return;
@@ -256,11 +256,19 @@ const Res = () => {
     setAISubmitted(true);
     setLoadingAI(true);
     const formData = new FormData();
-    formData.append('original', file); // `img` should be a File object
-    formData.append('ela_url', elaResult); // `elaResult` should be a URL string
+    formData.append('original', file); 
+    formData.append('ela_url', elaResult); 
+    if (cvaResult?.Edge?.Canny) {
+        formData.append('edge_url', cvaResult.Edge.Canny); 
+      }
+
+      if (cvaResult?.CFA?.Malvar) {
+        formData.append('cfa_url', cvaResult.CFA.Malvar); 
+      }
+
     formData.append('question', insight);
-    formData.append('suggestion', selectedSuggestion || 'professional'); // fallback if null
-    formData.append('language', selectedLanguage || 'EN');
+    formData.append('suggestion', selectedSuggestion); 
+    formData.append('language', selectedLanguage);
 
     try {
       const res = await fetch(
@@ -322,6 +330,8 @@ const Res = () => {
           <FakeShieldApp
             img={img}
             img2={elaResult}
+            img3 = {cvaResult.Edge.Canny}
+            img4={cvaResult.CFA.Malvar}
             submitted={AIsubmitted}
             analysisResult={analysisResult}
             handleSubmit={handleAISubmit}

@@ -33,7 +33,6 @@ export default function Sidebar_Alt() {
   const categories = [
     { name: t('Home'), slug: '/dashboard', icon: <FaHome size={20} /> },
     { name: t('Upload'), slug: '/upload', icon: <FaUpload size={20} /> },
-    { name: 'Project', slug: '/projects', icon: <FaRocket size={20} /> },
     { name: t('Library'), slug: '/library_term', icon: <IoLibrary size={20} /> },
     { name: t('Tutorial'), slug: '/guidance', icon: <GiArchiveResearch size={20} /> },
 

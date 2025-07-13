@@ -66,7 +66,6 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   const [showDetails, setShowDetails] = useState(false);
   const handleUpdate = (job: string, status: string) => {
     console.log('Updating with:', { job, status });
-    // You could call an API or update global state here
   };
 
   const caseData = {
@@ -137,7 +136,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     {
       id: 'SS_Edge',
       description:
-      t('desc_SS_Denoise'),
+      t('desc_SS_Edge'),
       tab: 'Superesolution',
     },
     {
@@ -272,6 +271,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           <span className={styles.tooltip}>{t('need_help')}</span>
         </div>
 
+        {/*
         <div className={styles.tooltip_container}>
           <button
             className={styles.action_button}
@@ -280,8 +280,8 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
             <FiInfo size={20} />
           </button>
           <span className={styles.tooltip}>{t('Image_Information')}</span>
-        </div>
-        {showDetails && <CaseDetailsPanel data={caseData} onClose={() => setShowDetails(false)} />}
+        </div>*/}
+        {/*{showDetails && <CaseDetailsPanel data={caseData} onClose={() => setShowDetails(false)} />}*/}
 
         {helpBox && (
           <>
@@ -341,6 +341,8 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           </div>
         </div>
       </div> */}
+
+      {/*{
         <div className="flex items-end gap-4">
   <StatusDropdown
     label="Job Status"
@@ -361,6 +363,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     Update
   </button>
 </div>
+*/}
     </div>
   );
 };

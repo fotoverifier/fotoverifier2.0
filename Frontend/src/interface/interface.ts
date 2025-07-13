@@ -52,6 +52,8 @@ export interface Tagging {
 export interface AI_Validation {
   img: string | null;
   img2: string | null;
+  img3: string | null;
+  img4: string | null;
   submitted: boolean;
   setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -77,7 +79,7 @@ export interface SharedJudgment {
 
 export interface UserQuestionResponse {
   Relevance: string;
-  Response?: string;
+  Response: string;
 }
 
 export interface AnalysisResult {

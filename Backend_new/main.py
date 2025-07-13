@@ -142,6 +142,8 @@ async def ai_validation(
         result = parse_analysis_response(analyze_images_from_base64_and_url(
             original_base64=original_base64,
             ela_url=ela_url,
+            edge_url=edge_url,
+            cfa_url=cfa_rul,
             question=question,
             suggestion=suggestion,
             language=language
