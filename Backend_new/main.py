@@ -131,6 +131,8 @@ async def super_resolution_stream(task_id: str, scale: int = 4):
 async def ai_validation(
     original: UploadFile = File(...),
     ela_url: str = Form(...),
+    edge_url: str = Form(...),
+    cfa_url: str = Form(...),
     question: str = Form(...),
     suggestion: str = Form(...),
     language: str = Form(...)
@@ -143,7 +145,7 @@ async def ai_validation(
             original_base64=original_base64,
             ela_url=ela_url,
             edge_url=edge_url,
-            cfa_url=cfa_rul,
+            cfa_url=cfa_url,
             question=question,
             suggestion=suggestion,
             language=language
