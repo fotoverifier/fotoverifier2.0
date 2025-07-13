@@ -28,6 +28,7 @@ export const NotchedCard: FC<NotchedCardProps> = ({
         border border-blue-200 rounded-lg text-sm
         px-4 py-2 shadow-sm
         whitespace-nowrap
+        font-bold
       "
     >
       {title}

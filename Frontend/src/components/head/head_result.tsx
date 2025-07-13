@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
-import { FiHelpCircle } from 'react-icons/fi';
+import { FiHelpCircle, FiInfo } from 'react-icons/fi';
 import { FaTools, FaStar } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal_PReport from '../modal/PReport_modal';
@@ -12,9 +12,25 @@ import { useTabContext } from '@/context/tabContext';
 import { Montserrat } from 'next/font/google';
 import { GiArchiveResearch } from 'react-icons/gi';
 import { useLanguage } from '@/context/LanguageContext';
+import StatusDropdown from '../dropdown/status_dropdown';
+import CaseDetailsPanel from '../modal/feedback_modal/CaseDetailModal';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
+const jobStatusOptions = [
+  { value: 'completed', label: 'Completed' },
+  { value: 'in_process', label: 'Work in process' },
+  { value: 'on_hold', label: 'On hold' },
+  { value: 'for_control', label: 'For control' },
+  { value: 'not_priority', label: 'Not a priority' },
+];
+const caseStatusOptions = [
+  { value: 'verified', label: 'Verified' },
+  { value: 'not_verifiable', label: 'Not verifiable' },
+  { value: 'partial', label: 'Partially verified' },
+  { value: 'false', label: 'False' },
+  { value: 'misleading', label: 'Misleading' },
+];
 const methods = [
   {
     name: 'Basic Method',
@@ -26,7 +42,7 @@ const methods = [
   },
 ];
 interface HeaderReportProps {
-  jpegResult?: string[] | null;
+  jpegResult: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
   loadingJpegGhost: boolean;
@@ -44,9 +60,37 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
   loadingTagResult,
 }) => {
   const {t} = useLanguage();
-  const [selectedMethod, setSelectedMethod] = useState('Basic Method');
-  const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jobStatus, setJobStatus] = useState('');
+  const [caseStatus, setCaseStatus] = useState('');
+  const [showDetails, setShowDetails] = useState(false);
+  const handleUpdate = (job: string, status: string) => {
+    console.log('Updating with:', { job, status });
+    // You could call an API or update global state here
+  };
+
+  const caseData = {
+    id: 'CASE-2025-001',
+    eventDate: '2025-06-01',
+    publishedDate: '2025-06-02',
+    publishedToMediabankDate: '2025-06-05',
+    mediabankLink: 'https://mediabank.example.com/case001',
+    jobStatus: 'Work in process',
+    status: 'Partially verified',
+    verifiedBy: 'John Doe',
+    controlledBy: 'Jane Smith',
+    coordinates: '48.8566° N, 2.3522° E',
+    place: 'Paris, Île-de-France, France',
+    category: 'Damaged infrastructure',
+    violenceLevel: 'Moderate',
+    sender: 'Neutral',
+    description: 'An explosion occurred near a residential area.',
+    contentLink: 'https://twitter.com/someuser/status/123456789',
+    mediaLink: 'https://drive.google.com/file/d/abc123/view',
+    mapLink: 'https://drive.google.com/folders/folder123',
+    comments: 'Double-check metadata before publishing.',
+  };  
+
 
   const [currentStep, setCurrentStep] = useState(0);
   const [helpBox, setHelpBox] = useState<{
@@ -216,6 +260,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
 
           <span className={styles.tooltip}>{t('generate_portable_report')}</span>
         </div>
+        
 
         <div className={styles.tooltip_container}>
           <button
@@ -226,6 +271,17 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
           </button>
           <span className={styles.tooltip}>{t('need_help')}</span>
         </div>
+
+        <div className={styles.tooltip_container}>
+          <button
+            className={styles.action_button}
+            onClick={() => setShowDetails(true)}
+          >
+            <FiInfo size={20} />
+          </button>
+          <span className={styles.tooltip}>{t('Image_Information')}</span>
+        </div>
+        {showDetails && <CaseDetailsPanel data={caseData} onClose={() => setShowDetails(false)} />}
 
         {helpBox && (
           <>
@@ -279,12 +335,32 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
         <div className={styles.icon_text_container}>
           <div className={styles.icon_container}>
             <GiArchiveResearch size={20} />
-          </div>
+          </div>  
           <div className={`${styles.title_manual_text} text-base`}>
             Manual Guidance
           </div>
         </div>
       </div> */}
+        <div className="flex items-end gap-4">
+  <StatusDropdown
+    label="Job Status"
+    options={jobStatusOptions}
+    selected={jobStatus}
+    onChange={setJobStatus}
+  />
+  <StatusDropdown
+    label="Case Status"
+    options={caseStatusOptions}
+    selected={caseStatus}
+    onChange={setCaseStatus}
+  />
+  <button
+    onClick={() => handleUpdate(jobStatus, caseStatus)}
+    className="h-10 px-4 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 shadow"
+  >
+    Update
+  </button>
+</div>
     </div>
   );
 };

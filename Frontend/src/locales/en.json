@@ -227,6 +227,8 @@
   "desc_CameraArea": "Camera technical details from EXIF metadata",
   "desc_AuthorArea": "Photographer information and attribution",
   "desc_ImgTagging": "Image categorization and metadata tags using AI",
-  "Originality_Description": "Uses metadata to show provenance, but often removed by modern platforms."
+  "Originality_Description": "Uses metadata to show provenance, but often removed by modern platforms.",
+    "explore_now": "Explore now!",
+  "go_to_result_page": "Go to result page"
 
 }

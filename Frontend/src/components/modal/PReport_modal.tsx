@@ -9,7 +9,7 @@ import Image_Result from '@/app/(single layout)/result/technique/image';
 interface ModalPReportProps {
   isOpen: boolean;
   closeModal: () => void;
-  jpegResult?: string[] | null;
+  jpegResult: string[] | null;
   elaResult: string | null;
   tagResult: any | null;
   loadingJpegGhost: boolean;
@@ -91,10 +91,18 @@ const Modal_PReport: React.FC<ModalPReportProps> = ({
 
         
 
-              {}
+              
+               <div className="flex-1 border-r border-gray-200 text-base">
+                  <JpegGhostResult
+                images={jpegResult}
+                loading={loadingJpegGhost}
+                isJpegFormat={true}
+              />
+              </div>
+              
               <div className="flex-1 border-r border-gray-200 text-base">
                 <ElaResult
-                  img={`data:image/jpeg;base64,${elaResult}`}
+                  img={elaResult}
                   loading={loadingEla}
                 />
               </div>

@@ -14,6 +14,8 @@ import LoadingModal from '@/components/modal/loading_modal';
 import CompletionModal from '@/components/modal/complete_modal';
 import { toast } from 'react-toastify';
 import { Montserrat } from 'next/font/google';
+import ImageRepository from '@/components/button/image_repo_button/image_repo_button';
+import { useImageUpload } from '@/context/imageUploadContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const LandingPage2 = () => {
@@ -24,6 +26,8 @@ const LandingPage2 = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [url, setUrl] = useState('');
+    const { setFile } = useImageUpload();
+  
   const [selectedMethod, setSelectedMethod] = useState<string>('normal'); // default method
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -154,9 +158,27 @@ const LandingPage2 = () => {
     }
   };
 
+  const handleImageSelect = async (image: any) => {
+    try {
+      const response = await fetch(image.src);
+      console.log('Response:', response);
+
+      if (!response.ok) throw new Error('Image not found');
+
+      const blob = await response.blob();
+      const file = new File([blob], image.alt, { type: blob.type });
+      const preview = URL.createObjectURL(file);
+      setImageSrc(preview);
+      setImageFile(file);
+      setFile(file, preview);
+    } catch (err) {
+      console.error('Error converting image to file:', err);
+    }
+  };
+
   const removeImg = () => {
     setImageSrc(null);
-    setImageFile(null); // ✅ Reset file too when removing image
+    setImageFile(null); 
   };
 
   const [displayedText, setDisplayedText] = useState('');
@@ -208,7 +230,7 @@ const LandingPage2 = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6, duration: 0.4 }}
           >
-            <Link href={'/dashboard'}>{t('verify_now')}</Link>
+            <Link href={'/dashboard'}>{t('explore_now')}</Link>
           </motion.div>
           <VerificationStepsAnimation className={styles.verification} />
         </motion.div>
@@ -228,12 +250,13 @@ const LandingPage2 = () => {
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
                 <div>{t('image_reliability_question')}</div>
-                <div className={styles.subtext}>
+                 <ImageRepository onImageSelect={handleImageSelect} />
+                {/*<div className={styles.subtext}>
                   {t('image_verification_subtext')}
-                </div>
+                </div>*/}
               </motion.div>
 
-              {isEditing ? (
+              {/*{isEditing ? (
                 <textarea
                   className={styles.findbyurl_input}
                   placeholder={t('image_url_placeholder')}
@@ -252,8 +275,8 @@ const LandingPage2 = () => {
                   </div>
                   {t('find_by_url_button')}
                 </div>
-              )}
-
+              )}*/}
+           
               <div className={styles.input_image}>
                 {!imageSrc ? (
                   <div className={styles.viewer}>
@@ -275,7 +298,7 @@ const LandingPage2 = () => {
                     </label>
                   </div>
                 ) : (
-                  <>
+<div className='h-full w-full border-2 border-dashed border-black rounded-lg p-4'>
                     <div className={styles.image_control}>
                       <div className={styles.change_text}>
                         Change your image
@@ -292,7 +315,7 @@ const LandingPage2 = () => {
                         className={styles.image_preview}
                         width={0}
                         height={0}
-                        sizes="100vw"
+                        sizes="90vw"
                         style={{
                           width: 'auto',
                           maxWidth: '100%',
@@ -302,7 +325,8 @@ const LandingPage2 = () => {
                         }}
                       />
                     </div>
-                  </>
+               <hr className={styles.separator} />
+                  </div>
                 )}
               </div>
 
@@ -315,9 +339,9 @@ const LandingPage2 = () => {
                 <div className={styles.verify_button} onClick={handleSubmit}>
                   {t('verify_now')}
                 </div>
-                <div className={styles.agree_section}>
+                {/*<div className={styles.agree_section}>
                   {t('terms_agreement_text')}
-                </div>
+                </div>*/}
               </motion.div>
             </div>
           </div>

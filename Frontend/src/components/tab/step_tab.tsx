@@ -20,9 +20,9 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
   const tabs = [
     t('Tampering Detection'),
     t('Superesolution'),
-    t('AI_Investigators'),
     t('Originality'),
     t('Location'),
+    t('AI_Investigators'),
   ];
 
   return (

@@ -230,7 +230,7 @@ const ImageSuperResolution_2 = ({
 
                 </div>
 
-                <div className="my-4 border-t border-gray-300 w-full" />
+                <div className="border-t border-gray-300 w-full" />
 
                 <div className={styles.control_group}>
 
@@ -258,7 +258,7 @@ const ImageSuperResolution_2 = ({
                                     </NotchedCard>  
                 </div>
 
-                <div className="my-4 border-t border-gray-300 w-full" />
+                <div className="border-t border-gray-300 w-full" />
 
                 <div className="flex">
                   <button

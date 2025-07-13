@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FiShield,
   FiAlertTriangle,
@@ -50,7 +50,56 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
 }) => {
   const { t } = useLanguage();
 
-  const [insight, setInsight] = useState('');
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [processedImg, setProcessedImg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!img) return;
+
+    const image = new window.Image(); 
+    image.crossOrigin = 'anonymous';
+    image.src = img;
+
+    image.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      ctx.drawImage(image, 0, 0);
+
+      for (let i = 1; i < 3; i++) {
+        const x = (canvas.width / 3) * i;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Draw horizontal lines
+      for (let i = 1; i < 3; i++) {
+        const y = (canvas.height / 3) * i;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      const dataURL = canvas.toDataURL('image/png');
+      setProcessedImg(dataURL);
+    };
+  }, [img]);
+
+  
+
+  const [thumbnail, setThumbnail] = useState('');
 
   const [selectedSuggestion, setSelectedSuggestion] = useState<
     'professional' | 'casual' | null
@@ -84,7 +133,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   return (
     <>
       {!submitted ? (
-        <div className="w-full h-full p-[10px] rounded-xl mb-5">
+        <div className="w-full max-h-fit h-full p-[10px] rounded-xl mb-5">
           <div className={styles.header}>
             <div className={`${styles.circleWrapper} border-black`}>
               <div className="p-2 rounded-full border-2">
@@ -99,15 +148,17 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row h-[90%] gap-4 mt-5">
-            <div className="w-full md:w-2/3 h-[100%] bg-white rounded-lg border-2 shadow-md overflow-hidden">
+          <div className="flex flex-col md:flex-row h-[90%] max-h-fit gap-4 mt-5">
+            <div className="w-full md:w-2/3 h-[100%] max-h-fit bg-white rounded-lg border-2 shadow-md overflow-hidden">
               <div className="h-full w-full flex">
                 <div className="w-1/2 h-full bg-white p-4 flex flex-col justify-center">
                   <h2 className="text-lg w-fit font-bold text-teal-800 mb-auto p-2 border-2  rounded-full border-black flex justify-center items-center">
                     {t('Image_Information')}
                   </h2>
 
+
                   {img ? (
+                    <>     
                     <Image
                       src={img}
                       alt="Result"
@@ -123,6 +174,22 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                         position: 'relative',
                       }}
                     ></Image>
+                    <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+                  {/* 
+                  {processedImg && (
+                    <img
+                      src={processedImg}
+                      alt="With Grid"
+                      style={{
+                        width: 'auto',
+                        maxWidth: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                      }}
+                    />
+                  )}*/}
+                    </>
                   ) : (
                     <NoImagePlaceholder />
                   )}
@@ -157,10 +224,24 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
             </div>
 
             <div className="w-full h-fit md:w-1/3 bg-white border-2 rounded-lg shadow-md p-4 mb-5">
-              <h3 className="font-semibold text-teal-800 mb-3 flex items-center">
-                <FiNavigation2 className={`mr-2 text-blue-500`} size={18} />
-                {t('AI_Investigators')}
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+    <h3 className="font-semibold text-teal-800 flex items-center">
+      <FiNavigation2 className="mr-2 text-blue-500" size={18} />
+      {t('AI_Investigators')}
+    </h3>
+
+    <button
+      onClick={() =>
+        handleSubmit(thumbnail, selectedSuggestion, selectedLanguage)
+      }
+      type="button"
+      className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200"
+    >
+      <IoPaperPlaneOutline className="w-4 h-4" />
+      {t('Upload')}
+    </button>
+  </div>
+              
               {/*
               <label className="font-semibold block my-3">
                   Choose a question to explore
@@ -215,6 +296,21 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </div>*/}
+
+              <NotchedCard title={'Thumbnail Analysis'}>
+                <div className="flex flex-col gap-4 font-normal">
+        <textarea
+          id="thumbnail"
+          value={thumbnail}
+          onChange={(e) => setThumbnail(e.target.value)}
+          className="w-full rounded-lg border border-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows={4}
+          placeholder="Describe thumbnail artifacts, mismatches, or analysis results..."
+        />
+      </div>
+              </NotchedCard>
+
+              
               <NotchedCard title={t('model_suggestion')}>
                 <div className="flex gap-4 font-normal">
                   <label className="flex items-center gap-2">
@@ -320,7 +416,6 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </NotchedCard>
-              `{' '}
               {/*
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)
@@ -380,20 +475,8 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </div>
                 </div>
               </div>*/}
-              <button
-                onClick={() =>
-                  handleSubmit(insight, selectedSuggestion, selectedLanguage)
-                }
-                type="button"
-                className={`mt-4 inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200`}
-              >
-                <IoPaperPlaneOutline className="w-4 h-4" />
-                {t('Upload')}
-              </button>
             </div>
-            <div className="mb-3"> </div>
           </div>
-          <div className="h-2 bg-white"> </div>
         </div>
       ) : (
         <>

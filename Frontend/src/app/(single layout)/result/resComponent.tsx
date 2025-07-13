@@ -388,7 +388,7 @@ const Res = () => {
                   switch (selectedTab.title) {
                     case t('Originality'):
                       return (
-                        <div className="ml-auto flex">
+                        <div className="ml-auto flex cursor-pointer">
 
                           {' '}
                           <MetaDataPage
@@ -421,6 +421,7 @@ const Res = () => {
     <TabProvider>
       <div className={styles.res_container}>
         <HeaderReport
+          jpegResult={jpegGhostResult}
           elaResult={elaResult}
           tagResult={tagResult}
           loadingEla={loadingEla}

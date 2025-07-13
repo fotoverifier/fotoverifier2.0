@@ -63,7 +63,7 @@ def analyze_images_from_base64_and_url(
     "The second image is the Error Level Analysis (ELA) result.\n\n"
     "Each investigator should independently assess whether the original image has been manipulated, using ELA to guide detection of abnormal compression, edge irregularities, lighting inconsistencies, and semantic anomalies.\n"
     "Zoom in on suspicious regions and report any tampering signs.\n\n"
-    f"{'Below is an optional user-provided question. Put it into the output if it is relevant. If it is irrelevant to the forensic analysis, ignore it: ' + question}\n"
+    f"{'Below is a thumbnail the user provides with the image. Check if the thumbnail is consistent with the image' + question}\n"
     "Each investigator should also assess whether the content has political relevancy (i.e., may influence public opinion, contain symbols, figures, or scenarios with political meaning).\n\n"
     "Additionally, provide contextual intelligence based on the image to answer the following:\n"
     "- **Where? (Location):** Determine the correct geographical context.\n"
@@ -100,7 +100,7 @@ def analyze_images_from_base64_and_url(
     "- Overall Confidence: [High/Medium/Low]\n\n"
     "🗣️ User Question Response:\n"
     "- Relevance: [Relevant/Not relevant]\n"
-    "- Response: [Answer to the question if applicable, otherwise say 'Not relevant']"
+    "- Response: [Assess the thumbnail analysis, is it aligned with the image or with different intents]"
 )
                     }
                 ]

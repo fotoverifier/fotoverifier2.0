@@ -6,6 +6,7 @@ import { Be_Vietnam_Pro, Poppins } from 'next/font/google';
 import { motion } from 'framer-motion';
 import PlaceHolder from '@/assets/Group 12.svg';
 import { useLanguage } from '@/context/LanguageContext';
+import Link from 'next/link';
 const poppins = Poppins({
   subsets: ['latin-ext'],
   weight: ['400', '500', '600', '700'],
@@ -205,7 +206,7 @@ const Technique_Landing = () => {
           transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
           viewport={{ amount: 0.2 }}
         >
-          <div className={styles.ctaButton}> {t('View_all_features')}</div>
+          <Link className={styles.ctaButton} href={'/guidance'}> {t('View_all_features')}</Link>
         </motion.div>
       </div>
     </>
