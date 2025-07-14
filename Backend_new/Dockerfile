@@ -7,28 +7,18 @@ FROM python:3.10-slim AS builder
 
 WORKDIR /app
 
-# Install system dependencies for building
+# Install system build deps
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential \
-        git \
-        libgl1 \
-        libglib2.0-0 \
-        libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev && \
-    apt-get clean && \
+        build-essential gcc git && \
     rm -rf /var/lib/apt/lists/*
+
+# Install latest pip
+RUN pip install --upgrade pip
 
 # Copy only requirements first for better caching
 COPY requirements.txt .
-
-# Build wheels into /wheels
-RUN pip install --upgrade pip && \
-    pip wheel --wheel-dir=/wheels -r requirements.txt
+RUN pip wheel --wheel-dir=/wheels -r requirements.txt
 
 
 ########################
@@ -38,12 +28,10 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install only runtime libraries (no -dev)
+# Minimal runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        libgl1 \
-        libglib2.0-0 && \
-    apt-get clean && \
+        libglib2.0-0 libjpeg62-turbo && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONUNBUFFERED=1 \
@@ -55,5 +43,8 @@ RUN pip install --no-cache-dir /wheels/*
 
 # Copy your actual app
 COPY . .
+
+# Expose FastAPI port
+EXPOSE 9001
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9001"]
