@@ -298,7 +298,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
 
     <button
       onClick={() =>
-        handleSubmit(thumbnail, selectedSuggestion, selectedLanguage)
+        handleSubmit('Is this image tampered', selectedSuggestion, selectedLanguage)
       }
       type="button"
       className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200"
@@ -363,9 +363,10 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>*/}
 
-              <NotchedCard title={'Thumbnail Analysis'}>
+              <NotchedCard title={'Thumbnail Analysis'} disabled rightNotch={t('not_available')}>
                 <div className="flex flex-col gap-4 font-normal">
         <textarea
+        disabled
           id="thumbnail"
           value={thumbnail}
           onChange={(e) => setThumbnail(e.target.value)}
@@ -817,10 +818,10 @@ const ThumbnailCard: React.FC<ThumbnailProps> = ({ data }) => {
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">
       <Section title={t('thumbnail_analysis')} color="green" prefix={1}>
-        {data['**Response']}
+        {t('not_available')}
       </Section>
       <Section title={t('relevance_to_question')} color="green" prefix={2}>
-        {data['**Relevance']}
+        {t('not_available')}
       </Section>
     </div>
   </div>

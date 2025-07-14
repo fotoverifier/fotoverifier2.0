@@ -12,8 +12,6 @@ client = OpenAI(
 def analyze_images_from_base64_and_url(
     original_base64: str,
     ela_url: str,
-    edge_url:str,
-    cfa_url:str,
     question: str,
     suggestion: str,
     language: str
@@ -57,80 +55,52 @@ def analyze_images_from_base64_and_url(
                         }
                     },
                     {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": edge_url,
-                        }
-                    },
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": cfa_url
-                        }
-                    },
-                    {
                         "type": "text",
                         "text": (
     f"{tone_instruction}\n"
-    "You are simulating two independent digital forensic investigators.\n"
-"The investigation involves four provided images:\n"
-"1. The original photograph\n"
-"2. The Error Level Analysis (ELA) result\n"
-"3. The Canny edge detection result\n"
-"4. The Color Filter Array (CFA) analysis result\n\n"
-
-"Each investigator should independently assess whether the original image has been digitally manipulated.\n"
-"Use ELA to detect abnormal compression patterns.\n"
-"Use the edge map to locate similar or duplicated structures, which may indicate splicing.\n"
-"Use CFA analysis to identify inconsistencies in sensor noise patterns or demosaicing artifacts.\n"
-"Pay attention to lighting inconsistencies, unnatural edges, and semantic anomalies.\n"
-"Zoom in on any suspicious regions and specify their general location (top, bottom, center, left, right).\n\n"
-
-f"This is the user-provided title for the image. Evaluate whether the title is consistent with the visual content: {question}\n\n"
-
-"Each investigator must also assess the image for potential political relevancy:\n"
-"- Could the image influence public opinion?\n"
-"- Does it include political symbols, figures, or staged events?\n\n"
-
-"Additionally, provide contextual intelligence using visible elements in the image to address:\n"
-"- **Where? (Location):** Infer geographical or regional context\n"
-"- **When? (Time):** Estimate time period or event\n"
-"- **Who? (Entities Involved):** Identify notable individuals, organizations, or symbols\n"
-"- **Why? (Motivation or Intent):** Explain the possible purpose or narrative behind the image\n\n"
-
-f"{language_instruction}\n\n"
-
-"**Output format:**\n\n"
-"👤 Investigator A:\n"
-"- Summary: ...\n"
-"- Lighting inconsistencies: ...\n"
-"- Edge artifacts: ...\n"
-"- Semantic anomalies: ...\n"
-"- Political Relevancy: [High/Medium/Low]\n"
-"- Confidence level: [High/Medium/Low]\n"
-"- Where: ...\n"
-"- When: ...\n"
-"- Who: ...\n"
-"- Why: ...\n\n"
-"👤 Investigator B:\n"
-"- Summary: ...\n"
-"- Lighting inconsistencies: ...\n"
-"- Edge artifacts: ...\n"
-"- Semantic anomalies: ...\n"
-"- Political Relevancy: [High/Medium/Low]\n"
-"- Confidence level: [High/Medium/Low]\n"
-"- Where: ...\n"
-"- When: ...\n"
-"- Who: ...\n"
-"- Why: ...\n\n"
-"🧩 Shared Judgment:\n"
-"- Consensus Summary: [Agreed judgment or note of disagreement]\n"
-"- Political Relevancy (agreed): [High/Medium/Low]\n"
-"- Overall Confidence: [High/Medium/Low]\n\n"
-"User Question Response:\n"
-"- Relevance: [Relevant/Not relevant]\n"
-"- Response: [Assess whether the image supports or contradicts the provided title, and whether it signals alternative intent]"
-
+    "You are simulating two digital forensic investigators.\n\n"
+    "The first image is the original photograph.\n"
+    "The second image is the Error Level Analysis (ELA) result.\n\n"
+    "Each investigator should independently assess whether the original image has been manipulated, using ELA to guide detection of abnormal compression, edge irregularities, lighting inconsistencies, and semantic anomalies.\n"
+    "Zoom in on suspicious regions and report any tampering signs.\n\n"
+    f"{'Below is an optional user-provided question. Put it into the output if it is relevant. If it is irrelevant to the forensic analysis, ignore it: ' + question}\n"
+    "Each investigator should also assess whether the content has political relevancy (i.e., may influence public opinion, contain symbols, figures, or scenarios with political meaning).\n\n"
+    "Additionally, provide contextual intelligence based on the image to answer the following:\n"
+    "- **Where? (Location):** Determine the correct geographical context.\n"
+    "- **When? (Time):** Establish the accurate timeframe.\n"
+    "- **Who? (Entities Involved):** Identify key individuals or groups.\n"
+    "- **Why? (Motivation or Intent):** Provide a reasoned explanation of possible intent.\n\n"
+    f"{language_instruction}\n\n"
+    "**Output format:**\n\n"
+    "👤 Investigator A:\n"
+    "- Summary: ...\n"
+    "- Lighting inconsistencies: ...\n"
+    "- Edge artifacts: ...\n"
+    "- Semantic anomalies: ...\n"
+    "- Political Relevancy: [High/Medium/Low]\n"
+    "- Confidence level: [High/Medium/Low]\n"
+    "- Where: ...\n"
+    "- When: ...\n"
+    "- Who: ...\n"
+    "- Why: ...\n\n"
+    "👤 Investigator B:\n"
+    "- Summary: ...\n"
+    "- Lighting inconsistencies: ...\n"
+    "- Edge artifacts: ...\n"
+    "- Semantic anomalies: ...\n"
+    "- Political Relevancy: [High/Medium/Low]\n"
+    "- Confidence level: [High/Medium/Low]\n"
+    "- Where: ...\n"
+    "- When: ...\n"
+    "- Who: ...\n"
+    "- Why: ...\n\n"
+    "🧩 Shared Judgment:\n"
+    "- Consensus Summary: [Agreed judgment or note of disagreement]\n"
+    "- Political Relevancy (agreed): [High/Medium/Low]\n"
+    "- Overall Confidence: [High/Medium/Low]\n\n"
+    "User Question Response:\n"
+    "- Relevance: [Relevant/Not relevant]\n"
+    "- Response: [Answer to the question if applicable, otherwise say 'Not relevant']"
 )
                     }
                 ]

@@ -258,13 +258,13 @@ const Res = () => {
     const formData = new FormData();
     formData.append('original', file); 
     formData.append('ela_url', elaResult); 
-    if (cvaResult?.Edge['Canny']) {
+    {/*if (cvaResult?.Edge['Canny']) {
         formData.append('edge_url', cvaResult.Edge['Canny']); 
       }
 
       if (cvaResult?.CFA['Malvar']) {
         formData.append('cfa_url', cvaResult.CFA['Malvar']); 
-      }
+      }*/}
 
     formData.append('question', insight);
     formData.append('suggestion', selectedSuggestion); 
