@@ -747,30 +747,30 @@ const InvestigatorCard: React.FC<InvestigatorCardProps> = ({
         <div className="grid grid-cols-2 gap-4 items-stretch">
           <div className="space-y-2">
             <Section title={t('Summary')} color={color} prefix={1}>
-              {data['**Summary']}
+              {data['Summary']}
             </Section>
             <Section
               title={t('Lighting_Inconsistencies')}
               color={color}
               prefix={2}
             >
-              {data['**Lighting inconsistencies']}
+              {data['Lighting inconsistencies']}
             </Section>
             <Section title={t('Edge_Artifacts')} color={color} prefix={3}>
-              {data['**Edge artifacts']}
+              {data['Edge artifacts']}
             </Section>
           </div>
 
           <div className="space-y-2 self-stretch flex flex-col justify-between">
             <Section title={t('Semantic_Anomalies')} color={color} prefix={4}>
-              {data['**Semantic anomalies']}
+              {data['Semantic anomalies']}
             </Section>
             <Section title={t('Political_Relevancy')} color={color} prefix={5}>
-              {data['**Political Relevancy']}
+              {data['Political Relevancy']}
             </Section>
 
             <ConfidenceLevel
-              selected={data['**Confidence level']}
+              selected={data['Confidence level']}
               label={t('Overall_Confidence')}
             />
           </div>
@@ -793,13 +793,13 @@ const SharedJudgmentCard: React.FC<SharedJudgmentCardProps> = ({ data }) => {
     </div>
     <div className="p-4 overflow-y-auto flex-1 space-y-2">
       <Section title={t('consensus_summary')} color="green" prefix={1}>
-        {data['**Consensus Summary']}
+        {data['Consensus Summary']}
       </Section>
       <Section title={t('political_relevancy_agreed')} color="green" prefix={2}>
-        {data['**Political Relevancy (agreed)']}
+        {data['Political Relevancy (agreed)']}
       </Section>
       <ConfidenceLevel
-        selected={data['**Overall Confidence']}
+        selected={data['Overall Confidence']}
         label={t('Overall_Confidence')}
       />
     </div>
@@ -929,7 +929,7 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
               }
             >
               {' '}
-              {data['**Who']}
+              {data['Who']}
             </TimeLine>
 
             <TimeLine
@@ -938,7 +938,7 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
               Subtitle={t('when_description')}
             >
               {' '}
-              {data['**When']}
+              {data['When']}
             </TimeLine>
 
             <TimeLine
@@ -946,7 +946,7 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
               title={t('where')}
               Subtitle={t('where_description')}
             >
-              {data['**Where']}
+              {data['Where']}
             </TimeLine>
 
             <TimeLine
@@ -954,7 +954,7 @@ const InvestigatorCard_5Wh: React.FC<InvestigatorCard_5Wh> = ({
               title={t('why')}
               Subtitle={t('why_description')}
             >
-              {data['**Why']}
+              {data['Why']}
             </TimeLine>
           </div>
         </div>

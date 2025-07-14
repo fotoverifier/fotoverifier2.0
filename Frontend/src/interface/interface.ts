@@ -59,27 +59,27 @@ export interface AI_Validation {
 }
 
 export interface InvestigatorResult {
-  '**Summary': string;
-  '**Lighting inconsistencies': string;
-  '**Edge artifacts': string;
-  '**Semantic anomalies': string;
-  '**Political Relevancy': string;
-  '**Confidence level': string;
-  '**Where': string;
-  '**When': string;
-  '**Who': string;
-  '**Why': string;
+  'Summary': string;
+  'Lighting inconsistencies': string;
+  'Edge artifacts': string;
+  'Semantic anomalies': string;
+  'Political Relevancy': string;
+  'Confidence level': string;
+  'Where': string;
+  'When': string;
+  'Who': string;
+  'Why': string;
 }
 
 export interface SharedJudgment {
-  '**Consensus Summary': string;
-  '**Political Relevancy (agreed)': string;
-  '**Overall Confidence': string;
+  'Consensus Summary': string;
+  'Political Relevancy (agreed)': string;
+  'Overall Confidence': string;
 }
 
 export interface UserQuestionResponse {
-  '**Relevance': string;
-  '**Response': string;
+  'Relevance': string;
+  'Response': string;
 }
 
 export interface AnalysisResult {
