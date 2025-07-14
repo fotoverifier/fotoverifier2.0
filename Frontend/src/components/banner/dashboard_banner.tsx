@@ -34,7 +34,7 @@ const DashBoard_Banner = () => {
             <div className={styles.plan_button}> {t('development_plan')}</div>
             <div className={`flex ${styles.plan_button} items-center gap-3`}>
               {' '}
-              <Link href="./development"> {t('our_paper')} </Link>
+             {t('our_paper')}
               <LuPaperclip />
             </div>
             <div className={`flex ${styles.notice_button} items-center gap-3`}>
