@@ -17,7 +17,7 @@ def analyze_images_from_base64_and_url(
     language: str
 ) -> dict:
     tone_instruction = {
-        "professional": "Write in a detsailed and analytical tone suitable for a forensic professional.",
+        "professional": "Write in a detailed and analytical tone suitable for a forensic professional.",
         "casual": "Write in a simplified, accessible tone suitable for casual readers."
     }.get(suggestion, "")
 

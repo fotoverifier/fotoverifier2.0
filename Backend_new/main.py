@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 from pydantic import HttpUrl
 import httpx
+import re
 
 load_dotenv()
 
@@ -139,13 +140,13 @@ async def ai_validation(
         original_bytes = await original.read()
         original_base64 = base64.b64encode(original_bytes).decode("utf-8")
 
-        result = parse_analysis_response(analyze_images_from_base64_and_url(
+        result = parse_analysis_response(re.sub(r"\*\*", "", analyze_images_from_base64_and_url(
             original_base64=original_base64,
             ela_url=ela_url,
             question=question,
             suggestion=suggestion,
             language=language
-        ))
+        )))
         
         return {"analysis": result}
     except Exception as e:
