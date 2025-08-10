@@ -33,7 +33,6 @@ def analyze_images_from_base64_and_url(
 
     completion = client.chat.completions.create(
         model="gpt-5",
-        temperature=0.8,
         messages=[
             {
                 "role": "system",
