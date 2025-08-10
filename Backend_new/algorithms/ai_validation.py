@@ -32,7 +32,7 @@ def analyze_images_from_base64_and_url(
 }.get(language, "Respond fully in English.")
 
     completion = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5",
         temperature=0.8,
         messages=[
             {
