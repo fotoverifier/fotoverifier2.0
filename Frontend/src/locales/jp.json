@@ -208,5 +208,8 @@
     "explore_now": "今すぐ探索！",
       "go_to_result_page": "結果ページへ移動",
   "thumbnail_analysis": "投稿タイトルの分析",
-  "relevance_to_question": "質問との関連性"
+  "relevance_to_question": "質問との関連性",
+  "Image_Clarity": "画像を鮮明にする",
+  "Original_Source": "元の情報源"
+
 }

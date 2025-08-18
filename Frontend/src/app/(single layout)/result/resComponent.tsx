@@ -313,7 +313,7 @@ const Res = () => {
           </div>
         </div>
       ),
-      Superesolution: (
+      Image_Clarity: (
         <div className={`h-full w-full`}>
           <ImageSuperResolution_2
             previewUrl={previewUrl}
@@ -341,8 +341,8 @@ const Res = () => {
       ),
       OtherTabs: [
         {
-          key: 'Originality',
-          title: t('Originality'),
+          key: 'Original_Source',
+          title: t('Original_Source'),
           description: t('Originality_Description'),
           content: (
             <ExifImageDetails
@@ -370,8 +370,8 @@ const Res = () => {
         (tab) => tab.key === activeTab
       );
 
-      if (activeTab === 'Superesolution') {
-        return tabData.Superesolution;
+      if (activeTab === 'Image_Clarity') {
+        return tabData.Image_Clarity;
       }
 
       if (activeTab === 'AI_Investigators') {
@@ -396,7 +396,7 @@ const Res = () => {
                 {selectedTab.description}
                 {(() => {
                   switch (selectedTab.title) {
-                    case t('Originality'):
+                    case t('Original_Source'):
                       return (
                         <div className="ml-auto flex cursor-pointer">
 
