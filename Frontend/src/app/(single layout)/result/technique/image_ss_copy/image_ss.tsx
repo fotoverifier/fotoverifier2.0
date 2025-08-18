@@ -351,7 +351,7 @@ const ImageSuperResolution_2 = ({
               <div className="h-full w-full">
                 <div className={styles.preview_placeholder}>
                   <div className={styles.placeholder_text}>
-                    <LoadingOverlay message="Enhancing in progress" />
+                    <LoadingOverlay message={t("Enhancing in progress")} />
                   </div>
                 </div>
               </div>

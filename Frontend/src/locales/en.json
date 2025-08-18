@@ -231,5 +231,7 @@
     "explore_now": "Explore now!",
   "go_to_result_page": "Go to result page",
   "thumbnail_analysis": "Thumbnail Analysis",
-  "relevance_to_question": "Relevance to the question"
+  "relevance_to_question": "Relevance to the question",
+  "Enhancing in progress": "Enhancing in progress",
+  "Loading report data...": "Loading report data..."
 }

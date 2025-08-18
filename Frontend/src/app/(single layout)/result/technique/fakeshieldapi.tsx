@@ -548,7 +548,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
       ) : (
         <>
           {loading ? (
-            <LoadingOverlay message="Loading report data..." />
+            <LoadingOverlay message={t("Loading report data...")} />
           ) : (
             analysisResult && (
               <>

@@ -208,5 +208,7 @@
     "explore_now": "今すぐ探索！",
       "go_to_result_page": "結果ページへ移動",
   "thumbnail_analysis": "投稿タイトルの分析",
-  "relevance_to_question": "質問との関連性"
+  "relevance_to_question": "質問との関連性",
+  "Enhancing in progress": "強化中",
+  "Loading report data...": "レポートデータを読み込み中..."
 }

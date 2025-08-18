@@ -148,7 +148,7 @@
   "Verified_Evidence": "Xác minh với phương pháp 4 bước",
   "Forensic_Analysis": "Phân tích pháp y",
   "LLM_Disclaimer": "⚠️ Mô hình ngôn ngữ có thể sai lệch. Thông tin bên dưới có thể khác so với thực tế.",
-  "Confusion_Matrix_Explanation": "TP (Đúng dương tính): Nhận diện đúng là dương tính\nFP (Sai dương tính): Nhận diện sai là dương tính\nTN (Đúng âm tính): Nhận diện đúng là âm tính\nFN (Sai âm tính): Nhận diện sai là âm tính",
+  "Confusion_Matrix_Explanation": "TP (Phát hiện đúng chỉnh sửa): Nhận diện đúng là bị chỉnh sửa\nFP (Phát hiện sai chỉnh sửa): Nhận diện sai là bị chỉnh sửa\nTN (Phát hiện đúng chưa chỉnh sửa): Nhận diện đúng là chưa bị chỉnh sửa\nFN (Phát hiện sai chưa chỉnh sửa): Nhận diện sai là chưa bị chỉnh sửa",
   "Summary": "Tóm tắt",
   "Lighting_Inconsistencies": "Không nhất quán ánh sáng",
   "Edge_Artifacts": "Tạo tác cạnh",
@@ -223,5 +223,7 @@
     "explore_now": "Khám phá ngay!", 
   "go_to_result_page": "Đi đến trang kết quả",
   "thumbnail_analysis": "Phân tích tiêu đề bài viết",
-  "relevance_to_question": "Mức độ liên quan đến câu hỏi"
+  "relevance_to_question": "Mức độ liên quan đến câu hỏi",
+  "Enhancing in progress": "Đang nâng cao chất lượng",
+  "Loading report data...": "Đang tải dữ liệu báo cáo..."
 }
