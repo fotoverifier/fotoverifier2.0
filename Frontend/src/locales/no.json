@@ -228,6 +228,8 @@
   "Enhancing in progress": "Forbedrer i gang",
   "Loading report data...": "Laster rapportdata...",
   "Image_Clarity": "Gjør bildet klarere",
-  "Original_Source": "Opprinnelig kilde"
-
+  "Original_Source": "Opprinnelig kilde",
+  "Professional": "Profesjonell",
+  "Casual user": "Vanlig bruker",
+  "By uploading, you accept your image to be processed by a third-party application.": "Ved å laste opp godtar du at bildet ditt blir behandlet av en tredjepartsapplikasjon."
 }

@@ -353,7 +353,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                 </div>
               </div>*/}
 
-              <NotchedCard title={'Thumbnail Analysis'} disabled rightNotch={t('not_available')}>
+              <NotchedCard title={t('thumbnail_analysis')} disabled rightNotch={t('not_available')}>
                 <div className="flex flex-col gap-4 font-normal">
         <textarea
         disabled
@@ -379,7 +379,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedSuggestion === 'professional'}
                       className="accent-blue-500"
                     />
-                    Professional
+                    {t("Professional")}
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -390,7 +390,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedSuggestion === 'casual'}
                       className="accent-blue-500"
                     />
-                    Casual user
+                    {t("Casual user")}
                   </label>
                 </div>
               </NotchedCard>
@@ -482,7 +482,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
           className="mt-1"
         />
         <span>
-          By uploading, you accept your image to be processed by a third-party application.
+          {t("By uploading, you accept your image to be processed by a third-party application.")}
         </span>
       </label>
 
