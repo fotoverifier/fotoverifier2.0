@@ -19,8 +19,8 @@ const Tabs: React.FC<TabProps> = ({ renderContent }) => {
   const { activeTab, setActiveTab } = useTabContext();
   const tabs = [
     t('Tampering Detection'),
-    t('Superesolution'),
-    t('Originality'),
+    t('Image_Clarity'),
+    t('Original_Source'),
     t('Location'),
     t('AI_Investigators'),
   ];

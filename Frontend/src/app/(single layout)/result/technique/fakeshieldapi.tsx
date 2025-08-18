@@ -54,7 +54,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
   loading,
 }) => {
   const { t } = useLanguage();
-
+  const [accepted, setAccepted] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [processedImg, setProcessedImg] = useState<string | null>(null);
 
@@ -296,16 +296,6 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
       {t('AI_Investigators')}
     </h3>
 
-    <button
-      onClick={() =>
-        handleSubmit('Is this image tampered', selectedSuggestion, selectedLanguage)
-      }
-      type="button"
-      className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200"
-    >
-      <IoPaperPlaneOutline className="w-4 h-4" />
-      {t('Upload')}
-    </button>
   </div>
               
               {/*
@@ -415,7 +405,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'EN'}
                       className="accent-blue-500"
                     />
-                    English
+                    EN
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -426,7 +416,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'VN'}
                       className="accent-blue-500"
                     />
-                    T.Việt
+                    VN
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -437,7 +427,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'NO'}
                       className="accent-blue-500"
                     />
-                    Norsk
+                    NO
                   </label>
 
                   <label className="flex items-center gap-2">
@@ -449,7 +439,7 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                       checked={selectedLanguage === 'JP'}
                       className="accent-blue-500"
                     />
-                    日本語
+                    JP
                   </label>
                 </div>
               </NotchedCard>
@@ -483,6 +473,31 @@ const ModelToggleComponent: React.FC<AI_Validation> = ({
                   </label>
                 </div>
               </NotchedCard>
+
+              <label className="flex items-start gap-2 text-base text-gray-700  my-5">
+        <input
+          type="checkbox"
+          checked={accepted}
+          onChange={(e) => setAccepted(e.target.checked)}
+          className="mt-1"
+        />
+        <span>
+          By uploading, you accept your image to be processed by a third-party application.
+        </span>
+      </label>
+
+      <button
+        onClick={() =>
+          handleSubmit("Is this image tampered", selectedSuggestion, selectedLanguage)
+        }
+        type="button"
+        disabled={!accepted}
+        className={`inline-flex items-center gap-2 px-4 py-1.5 font-medium rounded-lg shadow-sm transition-colors duration-200 
+          ${accepted ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+      >
+        <IoPaperPlaneOutline className="w-4 h-4" />
+        {t("Upload")}
+      </button>
               {/*
               <div className="font-semibold block my-3">
                 Language Output (Run-time constraint)

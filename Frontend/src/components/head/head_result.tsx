@@ -120,41 +120,41 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
       t('desc_ela'),
       tab: 'Tampering Detection',
     },
-    //Superesolution
+    //Image_Clarity
     {
       id: 'SS_CFA',
       description:
         t('desc_SS_CFA'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     {
       id: 'SS_Denoise',
       description:
       t('desc_SS_Denoise'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     {
       id: 'SS_Edge',
       description:
       t('desc_SS_Edge'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     {
       id: 'SS_ChangeFactor',
       description: t('desc_SS_ChangeFactor'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     {
       id: 'SS_Original',
       description:
       t('desc_SS_Original'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     {
       id: 'SS_Enhance',
       description:
       t('desc_SS_Enhance'),
-      tab: 'Superesolution',
+      tab: 'Image_Clarity',
     },
     // AI Fakeshield
     
@@ -164,17 +164,17 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     {
       id: 'CameraArea',
       description: t('desc_CameraArea'),
-      tab: 'Originality',
+      tab: 'Original_Source',
     },
     {
       id: 'AuthorArea',
       description: t('desc_AuthorArea'),
-      tab: 'Originality',
+      tab: 'Original_Source',
     },
     {
       id: 'ImgTagging',
       description: t('desc_ImgTagging'),
-      tab: 'Originality',
+      tab: 'Original_Source',
     },
   ];
 

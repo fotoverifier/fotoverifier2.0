@@ -210,5 +210,8 @@
   "thumbnail_analysis": "投稿タイトルの分析",
   "relevance_to_question": "質問との関連性",
   "Enhancing in progress": "強化中",
-  "Loading report data...": "レポートデータを読み込み中..."
+  "Loading report data...": "レポートデータを読み込み中...",
+  "Image_Clarity": "画像を鮮明にする",
+  "Original_Source": "元の情報源"
+
 }

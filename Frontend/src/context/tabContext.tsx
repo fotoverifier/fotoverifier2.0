@@ -5,9 +5,9 @@ import { useLanguage } from './LanguageContext';
 
 type TabType =
   | 'Tampering Detection'
-  | 'Superesolution'
+  | 'Image_Clarity'
   | 'AI_Investigators'
-  | 'Originality'
+  | 'Original_Source'
   | 'Location';
 
 interface TabContextType {
@@ -26,9 +26,9 @@ export const TabProvider: React.FC<{ children: ReactNode }> = ({
   const setActiveTabSafe = (tab: string) => {
     const tabOptions: TabType[] = [
       'Tampering Detection',
-      'Superesolution',
+      'Image_Clarity',
       'AI_Investigators',
-      'Originality',
+      'Original_Source',
       'Location',
     ];
 

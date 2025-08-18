@@ -226,5 +226,8 @@
  "thumbnail_analysis": "Analyse av innleggets tittel",
   "relevance_to_question": "Relevans til spørsmålet",
   "Enhancing in progress": "Forbedrer i gang",
-  "Loading report data...": "Laster rapportdata..."
+  "Loading report data...": "Laster rapportdata...",
+  "Image_Clarity": "Gjør bildet klarere",
+  "Original_Source": "Opprinnelig kilde"
+
 }
