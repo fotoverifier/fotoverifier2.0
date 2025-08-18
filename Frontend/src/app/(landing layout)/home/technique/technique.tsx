@@ -158,10 +158,10 @@ const Technique_Landing = () => {
 
             <div className={styles.badgeContainer}>
               <span className={`${styles.badge} ${styles.developer}`}>
-                Professionals
+                {t('Professionals')}
               </span>
               <span className={`${styles.badge} ${styles.designer}`}>
-                Enthusiasts
+                {t('Enthusiasts')}
               </span>
             </div>
           </div>
