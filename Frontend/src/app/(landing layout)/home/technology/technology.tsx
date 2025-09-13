@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google';
 import styles from './technology.module.css';
 import Smaple from '@/assets/exif.png';
 import { useState } from 'react';
+import Image from 'next/image';
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 const Technology = () => {
@@ -86,7 +87,7 @@ const Technology = () => {
 
           {/* Right Image */}
           <div className="w-1/2 flex items-center justify-center">
-            <img
+            <Image
               src={content[selectedTab].image}
               alt="Preview"
               className="rounded-2xl w-full h-auto max-w-[90%] shadow-md"

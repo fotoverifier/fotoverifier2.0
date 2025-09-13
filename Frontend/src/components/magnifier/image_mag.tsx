@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ImageMagnifier({
@@ -27,7 +28,7 @@ export default function ImageMagnifier({
         width: width,
       }}
     >
-      <img
+      <Image
         src={src}
         style={{ height: height, width: width }}
         onMouseEnter={(e) => {

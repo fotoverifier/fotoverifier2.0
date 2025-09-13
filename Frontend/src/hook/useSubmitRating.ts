@@ -1,22 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
-import { toast } from 'react-toastify';
+export const submitRating = async (text_rating: number, image_rating: string) => {
+  const res = await fetch('/api/rating', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text_rating, image_rating }),
+  });
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-export const submitRating = async (
-  text_rating: number,
-  image_rating: string
-) => {
-  const { data, error } = await supabase
-    .from('rating')
-    .insert([{ text_rating, image_rating }]);
-
-  if (error) {
-    return false;
-  }
-
-  return true;
+  return res.ok;
 };

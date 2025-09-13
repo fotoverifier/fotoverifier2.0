@@ -4,6 +4,7 @@ import styles from './magnifier.module.css';
 import { BsZoomIn } from 'react-icons/bs';
 import { IoMedicalSharp } from 'react-icons/io5';
 import { Inter } from 'next/font/google';
+import Image from 'next/image';
 const inter = Inter({ subsets: ['latin'] });
 
 const getLensSize = (sizeString: string): number => {
@@ -182,7 +183,7 @@ const Magnifier = () => {
               onMouseLeave={handleMouseLeave}
               onMouseMove={handleMouseMove}
             >
-              <img
+              <Image
                 ref={imageRef}
                 src={imageUrl}
                 alt="Source for magnifier"

@@ -1,5 +1,6 @@
 import { useLanguage } from '@/context/LanguageContext';
 import { Montserrat } from 'next/font/google';
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaImage } from 'react-icons/fa';
 const montserrat = Montserrat({
@@ -114,7 +115,7 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
                   }`}
                   onClick={() => handleImageSelect(image)}
                 >
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-40 object-cover"

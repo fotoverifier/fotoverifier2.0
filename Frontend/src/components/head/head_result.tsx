@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
 import { FiHelpCircle, FiInfo } from 'react-icons/fi';
@@ -96,7 +96,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
 
   const { activeTab } = useTabContext();
 
-  const steps = [
+  const steps = useMemo(() => [
     {
       id: 'img',
       description:
@@ -172,7 +172,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
       description: t('desc_ImgTagging'),
       tab: 'Original_Source',
     },
-  ];
+  ], [t]);
 
 
   const highlightSection = (stepIndex: number) => {
@@ -203,7 +203,7 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
     setCurrentStep(stepIndex);
   };
 
-  const removeHighlight = () => {
+  const removeHighlight = useCallback(() => {
     const currentTabSteps = steps.filter((step) => step.tab === activeTab);
 
     currentTabSteps.forEach((step) => {
@@ -213,12 +213,12 @@ const HeaderReport: React.FC<HeaderReportProps> = ({
       }
     });
     setHelpBox(null);
-  };
+  }, [activeTab, steps]);
 
   useEffect(() => {
     removeHighlight();
     setCurrentStep(0);
-  }, [activeTab]);
+  }, [activeTab, removeHighlight]);
 
   return (
     <div className={`${styles.res_header_container} ${montserrat.className}`}>

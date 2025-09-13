@@ -64,7 +64,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
             rel="noopener noreferrer"
             className="flex items-center gap-3 bg-white hover:bg-blue-100 text-blue-700 px-4 py-3 rounded shadow transition-colors"
           >
-            <img
+            <Image
               src="https://www.google.com/favicon.ico"
               alt="Google"
               className="w-6 h-6"
@@ -91,7 +91,7 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
             rel="noopener noreferrer"
             className="flex items-center gap-3 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-3 rounded shadow transition-colors"
           >
-            <img
+            <Image
               src="https://yandex.com/favicon.ico"
               alt="Yandex"
               className="w-6 h-6"

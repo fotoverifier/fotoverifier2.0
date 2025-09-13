@@ -159,7 +159,7 @@ export default function Sidebar_Alt() {
                     : ''
                 }`}
               >
-                <img
+                <Image
                   src={lang.flag}
                   alt={lang.code}
                   className={styles.languageFlag}

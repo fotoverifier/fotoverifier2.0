@@ -19,7 +19,7 @@ import ImageSuperResolution_2 from './technique/image_ss_copy/image_ss';
 import { useImageUpload } from '@/context/imageUploadContext';
 import ExifImageDetails from './originality';
 import { AnalysisResult } from '@/interface/interface';
-import TestData from '@/terminologies/test_AI.json'
+import TestData from '@/terminologies/test_AI.json';
 const inter = Inter({ subsets: ['latin'] });
 const merriweather = Merriweather({ subsets: ['latin'], weight: '700' });
 const Res = () => {
@@ -90,7 +90,7 @@ const Res = () => {
     if (!img || !taskId) return;
 
     const eventSource = new EventSource(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan-stream/?task_id=${taskId}`
+      `/api/proxy/quick-scan-stream/?task_id=${taskId}`
     );
 
     eventSource.onmessage = (event) => {
@@ -166,7 +166,7 @@ const Res = () => {
                 Malvar: data.result.result.demosaic.malvar_url,
               },
             }));
-                        setLoadingCvaResult((prev) => ({
+            setLoadingCvaResult((prev) => ({
               ...prev,
               CFA: false,
             }));
@@ -192,7 +192,7 @@ const Res = () => {
     return () => {
       eventSource.close();
     };
-  }, []);
+  }, [img, taskId]);
 
   const handleEnhance = async (upscaleFactor: string) => {
     if (!file) return;
@@ -205,18 +205,15 @@ const Res = () => {
       formData.append('file', file);
 
       const scale = parseInt(upscaleFactor.replace('x', ''), 10);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution?scale=${scale}`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
+      const res = await fetch(`/api/proxy/super-resolution?scale=${scale}`, {
+        method: 'POST',
+        body: formData,
+      });
 
       const { task_id } = await res.json();
 
       const eventSource = new EventSource(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
+        `/api/proxy/super-resolution-stream/?task_id=${task_id}&scale=${scale}`
       );
 
       eventSource.onmessage = (event) => {
@@ -248,7 +245,14 @@ const Res = () => {
     selectedLanguage: 'EN' | 'VN' | 'NO' | 'JP' | null
   ) => {
     console.log(file);
-    if (!file || !elaResult || !selectedSuggestion || !selectedLanguage || !cvaResult || !cvaResult.Edge) {
+    if (
+      !file ||
+      !elaResult ||
+      !selectedSuggestion ||
+      !selectedLanguage ||
+      !cvaResult ||
+      !cvaResult.Edge
+    ) {
       console.log(elaResult);
       console.error('Missing required input(s)');
       return;
@@ -256,28 +260,27 @@ const Res = () => {
     setAISubmitted(true);
     setLoadingAI(true);
     const formData = new FormData();
-    formData.append('original', file); 
-    formData.append('ela_url', elaResult); 
-    {/*if (cvaResult?.Edge['Canny']) {
+    formData.append('original', file);
+    formData.append('ela_url', elaResult);
+    {
+      /*if (cvaResult?.Edge['Canny']) {
         formData.append('edge_url', cvaResult.Edge['Canny']); 
       }
 
       if (cvaResult?.CFA['Malvar']) {
         formData.append('cfa_url', cvaResult.CFA['Malvar']); 
-      }*/}
+      }*/
+    }
 
     formData.append('question', insight);
-    formData.append('suggestion', selectedSuggestion); 
+    formData.append('suggestion', selectedSuggestion);
     formData.append('language', selectedLanguage);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ai-validation`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
+      const res = await fetch(`/api/proxy/ai-validation`, {
+        method: 'POST',
+        body: formData,
+      });
       setLoadingAI(false);
       const result = await res.json();
 
@@ -330,7 +333,7 @@ const Res = () => {
           <FakeShieldApp
             img={img}
             img2={elaResult}
-            img3 = {cvaResult.Edge.Canny}
+            img3={cvaResult.Edge.Canny}
             img4={cvaResult.CFA.Malvar}
             submitted={AIsubmitted}
             analysisResult={analysisResult}
@@ -399,7 +402,6 @@ const Res = () => {
                     case t('Original_Source'):
                       return (
                         <div className="ml-auto flex cursor-pointer">
-
                           {' '}
                           <MetaDataPage
                             cameraInformation={exifResult?.camera_information}

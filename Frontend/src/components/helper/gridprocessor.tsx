@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface GridImageProcessorProps {
@@ -21,7 +22,7 @@ const GridImageProcessor: React.FC<GridImageProcessorProps> = ({
   useEffect(() => {
     if (!src) return;
 
-    const img = new Image();
+    const img = new window.Image();
     img.crossOrigin = 'anonymous';
     img.src = src;
 
@@ -68,7 +69,7 @@ const GridImageProcessor: React.FC<GridImageProcessorProps> = ({
     <>
       <canvas ref={canvasRef} style={{ display: 'none' }} />
       {processedSrc && (
-        <img
+        <Image
           src={processedSrc}
           alt="Processed with Grid"
           style={style}

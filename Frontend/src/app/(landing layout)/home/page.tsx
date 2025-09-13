@@ -44,20 +44,13 @@ const LandingPage2 = () => {
       try {
         const formData = new FormData();
         formData.append('file', imageFile);
-        // Single API call wrapped in a Promise
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan`,
-          {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          }
-        );
+        // Call the Next.js API route (runtime env resolved on server)
+        const response = await fetch('/api/proxy/quick-scan', {
+          method: 'POST',
+          body: formData,
+        });
 
-        // Handle response
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -65,7 +58,7 @@ const LandingPage2 = () => {
         const { task_id } = await response.json();
         setTaskId(task_id);
       } catch (error: any) {
-        console.error('Error fetching data:', error);
+        console.error('Error uploading:', error);
         alert(`Error: ${error.message}`);
       } finally {
         console.log('Upload complete');

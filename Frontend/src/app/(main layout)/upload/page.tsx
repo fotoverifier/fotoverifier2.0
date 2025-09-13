@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import styles from '@/app/(main layout)/upload/upload.module.css';
 import { TbExchange } from 'react-icons/tb';
 import Image from 'next/image';
-import { Montserrat, Inter, Poppins } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import Method_Box from './itemgrid';
 import { FaAngleDown } from 'react-icons/fa6';
 import CompletionModal from '@/components/modal/complete_modal';
 import Link from 'next/link';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useLanguage } from '@/context/LanguageContext';
 import LoadingModal from '@/components/modal/loading_modal';
 import ImageRepository from '@/components/button/image_repo_button/image_repo_button';
@@ -95,20 +95,13 @@ const Upload = () => {
       try {
         const formData = new FormData();
         formData.append('file', imageFile);
-        // Single API call wrapped in a Promise
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/quick-scan`,
-          {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          }
-        );
+        // Call the Next.js API route (runtime env resolved on server)
+        const response = await fetch('/api/proxy/quick-scan', {
+          method: 'POST',
+          body: formData,
+        });
 
-        // Handle response
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -116,7 +109,7 @@ const Upload = () => {
         const { task_id } = await response.json();
         setTaskId(task_id);
       } catch (error: any) {
-        console.error('Error fetching data:', error);
+        console.error('Error uploading:', error);
         alert(`Error: ${error.message}`);
       } finally {
         console.log('Upload complete');
@@ -205,7 +198,7 @@ const Upload = () => {
         theme: 'colored',
       });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
