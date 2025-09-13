@@ -120,6 +120,3 @@ media/*/*.jpg
 
 # Large models
 *.pth
-
-# Docker
-.dockerignore

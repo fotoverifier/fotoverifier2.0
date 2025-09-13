@@ -5,7 +5,7 @@ import io
 import os
 from dotenv import load_dotenv
 from duckduckgo_search import DDGS
-from serpapi import GoogleSearch
+import serpapi
 
 load_dotenv()
 
@@ -150,13 +150,11 @@ def image_search(model):
         return {"error": f"{ddg_error}. No SerpAPI key provided for fallback."}
     
     try:
-        params = {
-            "engine": "google_images_light",
-            "q": model,
-            "api_key": serpapi_secret_key,
-            "num": 1
-        }
-        search = GoogleSearch(params)
+        client = serpapi.Client(api_key=serpapi_secret_key)
+        results = client.search({
+            "engine": "google_images",
+            "q": f"{model}",
+        })
         results = search.get_dict()
         images = results.get("images_results")
         if images and len(images) > 0:

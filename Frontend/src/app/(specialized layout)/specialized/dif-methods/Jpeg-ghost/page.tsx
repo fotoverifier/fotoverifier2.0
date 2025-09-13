@@ -1,8 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, easeInOut } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { VscSymbolMethod } from 'react-icons/vsc';
 import JPEG_1 from '@/assets/jpg1.jpg';
@@ -39,7 +38,7 @@ const Specialized_dif_ghost = () => {
       y: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeInOut',
+        ease: easeInOut,
       },
     },
   };

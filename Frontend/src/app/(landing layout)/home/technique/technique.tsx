@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './technique.module.css';
 import { Be_Vietnam_Pro, Poppins } from 'next/font/google';
-import { motion } from 'framer-motion';
+import { easeOut, motion } from 'framer-motion';
 import PlaceHolder from '@/assets/Group 12.svg';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
@@ -27,7 +27,7 @@ const featureVariants = {
   visible: (index: any) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay: index * 0.2, ease: 'easeOut' },
+    transition: { duration: 0.8, delay: index * 0.2, ease: easeOut },
   }),
 };
 

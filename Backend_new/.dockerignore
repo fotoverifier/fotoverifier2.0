@@ -1,0 +1,82 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+
+# Git
+.git
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# Tests (optional)
+tests/
+
+# Docker itself
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Secrets
+.env
+*.env
+
+# Native binaries
+*.dll
+*.lib
+*.exe
+*.so
+*.dylib
+
+# Build / packaging
+*.egg-info/
+*.egg
+*.whl
+build/
+dist/
+.wheels/
+
+# User-generated / local data
+data/
+datasets/
+media/
+uploads/
+static/
+staticfiles/
+results/
+checkpoints/
+
+# Editor junk
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# Tests
+tests/
+test/
+spec/
+
+# Docs
+docs/
+README.md
+LICENSE

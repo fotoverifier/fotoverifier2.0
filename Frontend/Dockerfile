@@ -1,23 +1,29 @@
+# syntax=docker/dockerfile:1.4
+
 # === Stage 1: Install dependencies ===
 FROM node:18-alpine AS deps
 WORKDIR /app
 
-# Only copy package manifests for install
+# Install dependencies with clean reproducible installs
 COPY package*.json ./
-
-# Install *production* dependencies only
-RUN npm install --production
+RUN npm ci
 
 # === Stage 2: Build ===
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy *all* dependencies (including devDeps) for building
-COPY package*.json ./
-RUN npm install
-
-# Copy the rest of the app
+# Copy deps
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Accept env variable at build-time
+ARG NEXT_PUBLIC_BACKEND_URL
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV PORT=9002
 
 # Build Next.js app
 RUN npm run build
@@ -29,15 +35,13 @@ WORKDIR /app
 # Set NODE_ENV to production
 ENV NODE_ENV=production
 
-# Copy only what's needed for running
-COPY --from=builder /app/.next ./.next
+# Copy only the standalone build
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.mjs ./next.config.mjs
-COPY --from=builder /app/package.json ./package.json
-COPY --from=deps /app/node_modules ./node_modules
 
 # Expose production port
 EXPOSE 9002
 
 # Start the Next.js server
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]

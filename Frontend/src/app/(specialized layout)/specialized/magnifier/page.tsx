@@ -4,7 +4,6 @@ import styles from './magnifier.module.css';
 import { BsZoomIn } from 'react-icons/bs';
 import { IoMedicalSharp } from 'react-icons/io5';
 import { Inter } from 'next/font/google';
-import { style } from 'motion/react-client';
 const inter = Inter({ subsets: ['latin'] });
 
 const getLensSize = (sizeString: string): number => {

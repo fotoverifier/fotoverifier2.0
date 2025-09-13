@@ -8,7 +8,7 @@ import Card_Cate from '@/components/card/card_category';
 import Image_Aessment from '@/assets/Image_Asessment.svg';
 import Tutorial from '@/assets/Tutorial.svg';
 import { useLanguage } from '@/context/LanguageContext';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import VideoAssessment from '@/assets/video_assessment.svg';
 const inter = Inter({ subsets: ['latin'] });
 

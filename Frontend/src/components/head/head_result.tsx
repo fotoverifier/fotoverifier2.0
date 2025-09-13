@@ -3,17 +3,13 @@ import { TbReportSearch } from 'react-icons/tb';
 import { TiExport } from 'react-icons/ti';
 import { FiHelpCircle, FiInfo } from 'react-icons/fi';
 import { FaTools, FaStar } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
 import Modal_PReport from '../modal/PReport_modal';
 import styles from '@/styles/head/head_result.module.css';
 
 import '@/components/head/test.css';
 import { useTabContext } from '@/context/tabContext';
 import { Montserrat } from 'next/font/google';
-import { GiArchiveResearch } from 'react-icons/gi';
 import { useLanguage } from '@/context/LanguageContext';
-import StatusDropdown from '../dropdown/status_dropdown';
-import CaseDetailsPanel from '../modal/feedback_modal/CaseDetailModal';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
