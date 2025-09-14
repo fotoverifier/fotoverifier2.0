@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import '@/app/(single layout)/result/technique/result.css';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
-import { Inter, Montserrat } from 'next/font/google';
-import InfoButton from '@/components/button/info_button/info_button';
-import { Flex, Spin } from 'antd';
+import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useLanguage } from '@/context/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'] });
-const monstserrat = Montserrat({ subsets: ['latin'] });
 interface CameraInformation {
   make: string | undefined;
   model: string | undefined;

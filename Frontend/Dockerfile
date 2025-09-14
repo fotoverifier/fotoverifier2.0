@@ -1,13 +1,10 @@
-# === Stage 1: Install dependencies ===
+# === Base image ===
 FROM node:22-alpine AS base
-
-# Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat curl bind-tools
 WORKDIR /app
 
-# Install dependencies with clean reproducible installs
+# === Stage 1: Install dependencies ===
+FROM base AS deps
 COPY package*.json ./
 RUN npm ci
 
@@ -18,6 +15,10 @@ WORKDIR /app
 # Copy deps
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Debug: test connectivity to Google Fonts before build
+RUN curl -I https://fonts.googleapis.com/css2?family=Montserrat && \
+    curl -I https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxP.ttf
 
 # Build Next.js app
 RUN npm run build

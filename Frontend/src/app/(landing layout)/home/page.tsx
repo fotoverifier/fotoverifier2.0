@@ -24,10 +24,8 @@ const LandingPage2 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadComplete, setUploadComplete] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [url, setUrl] = useState('');
-    const { setFile } = useImageUpload();
-  
+  const { setFile } = useImageUpload();
+
   const [selectedMethod, setSelectedMethod] = useState<string>('normal'); // default method
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -171,7 +169,7 @@ const LandingPage2 = () => {
 
   const removeImg = () => {
     setImageSrc(null);
-    setImageFile(null); 
+    setImageFile(null);
   };
 
   const [displayedText, setDisplayedText] = useState('');
@@ -243,7 +241,7 @@ const LandingPage2 = () => {
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
                 <div>{t('image_reliability_question')}</div>
-                 <ImageRepository onImageSelect={handleImageSelect} />
+                <ImageRepository onImageSelect={handleImageSelect} />
                 {/*<div className={styles.subtext}>
                   {t('image_verification_subtext')}
                 </div>*/}
@@ -269,7 +267,7 @@ const LandingPage2 = () => {
                   {t('find_by_url_button')}
                 </div>
               )}*/}
-           
+
               <div className={styles.input_image}>
                 {!imageSrc ? (
                   <div className={styles.viewer}>
@@ -291,7 +289,7 @@ const LandingPage2 = () => {
                     </label>
                   </div>
                 ) : (
-<div className='h-full w-full border-2 border-dashed border-black rounded-lg p-4'>
+                  <div className="h-full w-full border-2 border-dashed border-black rounded-lg p-4">
                     <div className={styles.image_control}>
                       <div className={styles.change_text}>
                         Change your image
@@ -318,7 +316,7 @@ const LandingPage2 = () => {
                         }}
                       />
                     </div>
-               <hr className={styles.separator} />
+                    <hr className={styles.separator} />
                   </div>
                 )}
               </div>
