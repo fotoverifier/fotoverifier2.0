@@ -36,7 +36,6 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
     //{ id: 10, src: '/sample_img_repo/fog_2.png', alt: 'Sample 10' },
     //{ id: 11, src: '/sample_img_repo/fog_3.png', alt: 'Sample 11' },
     //{ id: 12, src: '/sample_img_repo/fog_4.png', alt: 'Sample 12' },
-
   ];
 
   const openModal = () => setIsModalOpen(true);
@@ -119,6 +118,8 @@ const ImageRepository: React.FC<Props> = ({ onImageSelect }) => {
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-40 object-cover"
+                    width={100}
+                    height={100}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity">

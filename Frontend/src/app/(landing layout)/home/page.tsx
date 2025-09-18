@@ -92,42 +92,6 @@ const LandingPage2 = () => {
     } else if (selectedMethod === 'specialized') {
       alert('This method is currently in development.');
       setLoading(false);
-
-      /*router.push(
-        `/specialized/information?image=${encodeURIComponent(imageSrc)}`
-      );
-      try {
-        const formData = new FormData();
-        formData.append('image', imageFile);
-        const urls = [
-          'http://localhost:8000/api/exif-check/',
-          'http://localhost:8000/api/recognize-objects/',
-        ];
-
-        const fetchPromises = urls.map((url) =>
-          fetch(url, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          })
-        );
-
-        const responses = await Promise.all(fetchPromises);
-
-        const results = await Promise.all(
-          responses.map((response) => response.json())
-        );
-
-        console.log('Results:', results);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        console.log('Upload complete');
-        setUploadComplete(true);
-        setLoading(false);
-      }*/
     }
   };
 

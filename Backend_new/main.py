@@ -98,7 +98,7 @@ async def get_super_resolution(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error submitting task: {str(e)}")
 
-@app.get("/super-resolution-stream/")
+@app.get("/super-resolution-stream")
 async def super_resolution_stream(task_id: str, scale: int = 4):
     async def event_stream():
         seen = False
@@ -174,7 +174,7 @@ async def quick_scan(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
     
-@app.get("/quick-scan-stream/")
+@app.get("/quick-scan-stream")
 async def quick_scan_stream(task_id: str):
     async def event_stream():
         seen_tasks = set()  # To avoid duplicate streaming

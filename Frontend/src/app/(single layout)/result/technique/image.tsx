@@ -68,6 +68,8 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
               src="https://www.google.com/favicon.ico"
               alt="Google"
               className="w-6 h-6"
+              width={0}
+              height={0}
             />
           </a>
         </div>
@@ -95,6 +97,8 @@ const Image_Result: React.FC<ImageResultProps> = ({ img }) => {
               src="https://yandex.com/favicon.ico"
               alt="Yandex"
               className="w-6 h-6"
+              width={0}
+              height={0}
             />
           </a>
         </div>
