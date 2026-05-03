@@ -11,7 +11,7 @@ import { IoPaperPlaneOutline } from 'react-icons/io5';
 import styles from '@/app/(single layout)/result/res.module.css';
 import { BiSolidCategory } from 'react-icons/bi';
 import styles_feedback from '@/components/modal/feedback_modal/feedback_modal.module.css';
-import CircleRating from '@/components/rating/rating_circle';
+import CircleRating from '@/components/Rating/rating_circle';
 import NoImagePlaceholder from '@/components/exception_component/NoImagePlaceholder';
 import {
   AnalysisResult,
